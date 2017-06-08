@@ -69,7 +69,7 @@ Also, If you plan on downloading non-SSL urls please be sure to enable `App Tran
 
 ### Configure your APNS payload
 
-Then, when sending notifications via [APNS](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html):
+Then, when sending notifications via [APNS](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html):
 - include the mutable-content flag in your payload aps entry (this key must be present in the aps payload or the system will not call your app extension) 
 - for the Image Slideshow view, add the `ct_ContentSlider` key with a json object value, see example below, to the payload, outside of the aps entry.
 
