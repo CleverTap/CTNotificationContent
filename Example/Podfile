@@ -10,3 +10,7 @@ end
 target 'NotificationContent' do
   pod "CTNotificationContent"
 end
+
+target 'NotificationService' do
+  pod "CTNotificationService"
+end
