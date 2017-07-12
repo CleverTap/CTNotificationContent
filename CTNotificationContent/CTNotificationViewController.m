@@ -42,10 +42,8 @@
 
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
-    BOOL handled = [self.contentViewController handleAction:response.actionIdentifier];
-    if (!handled) {
-        completion(UNNotificationContentExtensionResponseOptionDismissAndForwardAction);
-    }
+    UNNotificationContentExtensionResponseOption actionResponseOption = [self.contentViewController handleAction:response.actionIdentifier];
+    completion(actionResponseOption);
 }
 
 - (void)displayContentController: (BaseCTNotificationContentViewController *) contentController {

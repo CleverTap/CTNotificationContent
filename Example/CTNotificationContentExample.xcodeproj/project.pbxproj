@@ -685,6 +685,7 @@
 				CODE_SIGN_ENTITLEMENTS = CTNotificationContentExample/CTNotificationContentExample.entitlements;
 				DEVELOPMENT_TEAM = A5J34NR598;
 				INFOPLIST_FILE = CTNotificationContentExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clevertap.CTNotificationContentExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -700,6 +701,7 @@
 				CODE_SIGN_ENTITLEMENTS = CTNotificationContentExample/CTNotificationContentExample.entitlements;
 				DEVELOPMENT_TEAM = A5J34NR598;
 				INFOPLIST_FILE = CTNotificationContentExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clevertap.CTNotificationContentExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,16 +7,18 @@ static NSString * const kOrientationKey = @"orientation";
 static NSString * const kOrientationLandscape = @"landscape";
 static NSString * const kShowsPagingKey = @"showsPaging";
 static NSString * const kAutoPlayKey = @"autoPlay";
+static NSString * const kAutoDismissKey = @"autoDismiss";
 static NSString * const kItemsKey = @"items";
 static NSString * const kCaptionKey = @"caption";
 static NSString * const kSubCaptionKey = @"subcaption";
 static NSString * const kImageUrlKey = @"imageUrl";
 static NSString * const kActionUrlKey = @"actionUrl";
-static NSString * const kAction1 = @"action_1";
-static NSString * const kAction2 = @"action_2";
+static NSString * const kAction1 = @"action_1"; // Maps to Show Previous
+static NSString * const kAction2 = @"action_2"; // Maps to Show Next
+static NSString * const kAction3 = @"action_3"; // Maps to open the attached deeplink
 static NSString * const kOpenedContentUrlAction = @"CTOpenedContentUrl";
 static NSString * const kViewContentItemAction = @"CTViewedContentItem";
-static const int kAutoPlayInterval = 2.0;
+static const int kAutoPlayInterval = 3.0;
 static const float kLandscapeMultiplier = 0.5625; // 16:9 in landscape
 static const float kPageControlViewHeight = 20.f;
 
@@ -31,11 +33,12 @@ static const float kPageControlViewHeight = 20.f;
 @property (nonatomic, strong) NSArray<NSDictionary*> *items;
 @property (nonatomic, strong) NSMutableArray<CTCaptionedImageView*> *itemViews;
 @property (nonatomic, strong) CTCaptionedImageView *currentItemView;
-@property (nonatomic, assign) int currentItemIndex;
+@property (nonatomic, assign) long currentItemIndex;
 
 @property (nonatomic, assign) BOOL transitioning;
 @property (nonatomic, assign) BOOL showsPaging;
 @property (nonatomic, assign) BOOL autoPlays;
+@property (nonatomic, assign) BOOL autoDismiss;
 
 @end
 
@@ -54,6 +57,7 @@ static const float kPageControlViewHeight = 20.f;
     {"orientation":"landscape",
     "showsPaging":1,
     "autoPlay":1,
+    "autoDismiss":1,
     "items":[
         {"caption":"caption one",
         "subcaption":"subcaption one",
@@ -143,7 +147,7 @@ static const float kPageControlViewHeight = 20.f;
     
     
     self.autoPlays = [config[kAutoPlayKey] boolValue];
-    
+    self.autoDismiss = [config[kAutoDismissKey] boolValue];
     self.showsPaging = [config[kShowsPagingKey] boolValue];
     
     if (self.showsPaging) {
@@ -169,33 +173,48 @@ static const float kPageControlViewHeight = 20.f;
     }
 }
 
-- (BOOL)handleAction:(NSString *)action {
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action {
+    // maps to go back 1
     if ([action isEqualToString:kAction1]) {
-        [self showNext];
         [self stopAutoPlay];
+        [self showPrevious];
+        
     }
-    
+    // maps to go forward 1
     else if ([action isEqualToString:kAction2]) {
+        [self stopAutoPlay];
+        [self showNext];
+    }
+    // maps to run the relevant deeplink
+    else if ([action isEqualToString:kAction3]) {
         if ([self.itemViews count] > 0) {
             NSString *urlString = self.itemViews[self.currentItemIndex].actionUrl;
             if (urlString) {
                 [[self getParentViewController] userDidPerformAction:kOpenedContentUrlAction withProperties:self.items[self.currentItemIndex]];
                 NSURL *url = [NSURL URLWithString:urlString];
                 [[self getParentViewController] openUrl:url];
-               
-            } else {
-                return NO; // no deeplink so bail
+                return self.autoDismiss ?  UNNotificationContentExtensionResponseOptionDismiss : UNNotificationContentExtensionResponseOptionDoNotDismiss;
             }
-        } else {
-            return NO;  // bail
         }
+        //no deep link, so bail: forward action and dismiss
+        return UNNotificationContentExtensionResponseOptionDismissAndForwardAction;
     }
     
-    return YES;
+    return UNNotificationContentExtensionResponseOptionDoNotDismiss;
 }
 
 - (void)showNext {
-    if (self.transitioning || [self.itemViews count] <= 0) return;
+    [self _moveSlider:1];
+}
+
+- (void)showPrevious {
+    [self _moveSlider:-1];
+}
+
+- (void)_moveSlider:(int)direction {
+    long numItems = [self.itemViews count];
+    
+    if (self.transitioning || numItems <= 0) return;
     
     self.transitioning = YES;
     
@@ -204,9 +223,11 @@ static const float kPageControlViewHeight = 20.f;
     if (oldView == nil) {
         self.currentItemIndex = 0;
     } else {
-        self.currentItemIndex += 1;
-        if (self.currentItemIndex >= [self.itemViews count]) {
+        self.currentItemIndex += direction;
+        if (self.currentItemIndex >= numItems) {
             self.currentItemIndex = 0;
+        } else if (self.currentItemIndex < 0) {
+            self.currentItemIndex = (numItems-1);
         }
     }
     

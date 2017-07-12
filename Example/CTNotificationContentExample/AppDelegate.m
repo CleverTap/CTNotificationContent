@@ -23,9 +23,10 @@
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
-    UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Show Next" options:UNNotificationActionOptionNone];
-    UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"View In App" options:UNNotificationActionOptionNone];
-    UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+    UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Back" options:UNNotificationActionOptionNone];
+    UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"Next" options:UNNotificationActionOptionNone];
+    UNNotificationAction *action3 = [UNNotificationAction actionWithIdentifier:@"action_3" title:@"View In App" options:UNNotificationActionOptionNone];
+    UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2, action3] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
     
     [center setNotificationCategories:[NSSet setWithObjects:cat, nil]];
     

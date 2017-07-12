@@ -14,7 +14,7 @@
                                  userInfo:nil];
 }
 
-- (BOOL)handleAction:(NSString *)action {
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];

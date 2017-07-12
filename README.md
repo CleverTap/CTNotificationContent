@@ -47,17 +47,19 @@ In your AppDelegate, register the Notification category and actions:
 Swift:
 ```Swift
     // register category with actions
-    let action1 = UNNotificationAction(identifier: "action_1", title: "Show Next", options: [])
-    let action2 = UNNotificationAction(identifier: "action_2", title: "View In App", options: [])
-    let category = UNNotificationCategory(identifier: "CTNotification", actions: [action1, action2], intentIdentifiers: [], options: [])
+    let action1 = UNNotificationAction(identifier: "action_1", title: "Back", options: [])
+    let action2 = UNNotificationAction(identifier: "action_2", title: "Next", options: [])
+    let action3 = UNNotificationAction(identifier: "action_3", title: "View In App", options: [])
+    let category = UNNotificationCategory(identifier: "CTNotification", actions: [action1, action2, action3], intentIdentifiers: [], options: [])
     UNUserNotificationCenter.current().setNotificationCategories([category])
 ```
 Objective-C:
 ```Objc
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Show Next" options:UNNotificationActionOptionNone];
-    UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"View In App" options:UNNotificationActionOptionNone];
-    UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+    UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Back" options:UNNotificationActionOptionNone];
+    UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"Next" options:UNNotificationActionOptionNone];
+    UNNotificationAction *action3 = [UNNotificationAction actionWithIdentifier:@"action_3" title:@"View In App" options:UNNotificationActionOptionNone];
+    UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2, action3] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
     [center setNotificationCategories:[NSSet setWithObjects:cat, nil]];
 ```
 
@@ -88,6 +90,7 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
         "orientation":"landscape", // landscape assumes 16:9 images, remove to display default square/portrait images
         "showsPaging":1, // optional to display UIPageControl
         "autoPlay":1, // optional to auto play the slideshow
+        "autoDismiss":1, // optional to auto dismiss the notification on item actionUrl launch
         "items":[
             {"caption":"caption one",
                 "subcaption":"subcaption one",
