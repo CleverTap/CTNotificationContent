@@ -76,7 +76,7 @@ static float captionHeight = 0.f;
     self.subcaptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, imageViewSize.height + kCaptionHeight + kSubCaptionTopPadding, viewWidth - kCaptionLeftPadding * 2, kSubCaptionHeight)];
     self.subcaptionLabel.textAlignment = NSTextAlignmentLeft;
     self.subcaptionLabel.adjustsFontSizeToFitWidth = NO;
-    self.subcaptionLabel.font = [UIFont boldSystemFontOfSize:12.f];
+    self.subcaptionLabel.font = [UIFont systemFontOfSize:12.f];
     self.subcaptionLabel.textColor = [UIColor lightGrayColor];
     self.subcaptionLabel.text = self.subcaption;
     [self addSubview:self.subcaptionLabel];
