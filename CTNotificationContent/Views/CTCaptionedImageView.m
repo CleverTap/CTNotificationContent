@@ -2,9 +2,13 @@
 #import "CTCaptionedImageView.h"
 #import "UIImage+CTImage.h"
 
-static const float kCaptionHeight = 25.f;
+static const float kCaptionHeight = 18.f;
 static const float kSubCaptionHeight = 20.f;
-static const float kBottomPadding = 5.f;
+static const float kSubCaptionTopPadding = 8.f;
+static const float kBottomPadding = 18.f;
+static const float kCaptionLeftPadding = 10.f;
+static const float kCaptionTopPadding = 8.f;
+static const float kImageBorderWidth = 1.f;
 static float captionHeight = 0.f;
 
 @interface CTCaptionedImageView ()
@@ -31,7 +35,7 @@ static float captionHeight = 0.f;
 
 - (instancetype _Nonnull)initWithFrame:(CGRect)frame
                                caption:(NSString * _Nullable)caption
-                               subcaption:(NSString * _Nullable)subcaption
+                            subcaption:(NSString * _Nullable)subcaption
                               imageUrl:(NSString * _Nonnull)imageUrl
                              actionUrl:(NSString * _Nullable)actionUrl {
     
@@ -50,14 +54,18 @@ static float captionHeight = 0.f;
     CGFloat viewWidth = self.frame.size.width;
     CGFloat viewHeight = self.frame.size.height;
     CGSize imageViewSize = CGSizeMake(viewWidth, viewHeight-([[self class] captionHeight]));
-   
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, imageViewSize.width, imageViewSize.height)];
+    
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f - kImageBorderWidth, 0.f - kImageBorderWidth, imageViewSize.width + kImageBorderWidth * 2, imageViewSize.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     [self addSubview:self.imageView];
     [self loadImage];
     
-    self.captionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageViewSize.height,viewWidth, kCaptionHeight)];
+    self.imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.imageView.layer.borderWidth = 0.4f; // don't change to kImageBorderWidth
+    self.imageView.layer.masksToBounds = YES;
+    
+    self.captionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, kCaptionTopPadding + imageViewSize.height, viewWidth - kCaptionLeftPadding * 2, kCaptionHeight)];
     self.captionLabel.textAlignment = NSTextAlignmentLeft;
     self.captionLabel.adjustsFontSizeToFitWidth = NO;
     self.captionLabel.font = [UIFont boldSystemFontOfSize:16.f];
@@ -65,7 +73,7 @@ static float captionHeight = 0.f;
     self.captionLabel.text = self.caption;
     [self addSubview:self.captionLabel];
     
-    self.subcaptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageViewSize.height+kCaptionHeight, viewWidth, kSubCaptionHeight)];
+    self.subcaptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, imageViewSize.height + kCaptionHeight + kSubCaptionTopPadding, viewWidth - kCaptionLeftPadding * 2, kSubCaptionHeight)];
     self.subcaptionLabel.textAlignment = NSTextAlignmentLeft;
     self.subcaptionLabel.adjustsFontSizeToFitWidth = NO;
     self.subcaptionLabel.font = [UIFont boldSystemFontOfSize:12.f];
@@ -98,9 +106,9 @@ static float captionHeight = 0.f;
                         NSError *imageError;
                         
                         NSData *imageData = [NSData dataWithContentsOfURL:temporaryFileLocation
-                                                                       options:kNilOptions
-                                                                         error:&imageError];
-                    
+                                                                  options:kNilOptions
+                                                                    error:&imageError];
+                        
                         UIImage *image = [UIImage imageWithData:imageData];
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -118,7 +126,7 @@ static float captionHeight = 0.f;
 #endif
                     }
                 }] resume];
-
+    
 }
 
 @end
