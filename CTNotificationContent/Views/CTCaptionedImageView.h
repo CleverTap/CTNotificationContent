@@ -11,7 +11,6 @@
                                caption:(NSString * _Nullable)caption
                             subcaption:(NSString * _Nullable)subcaption
                               imageUrl:(NSString * _Nonnull)imageUrl
-                                  zoom:(BOOL) zoom
                              actionUrl:(NSString * _Nullable)actionUrl;
 
 @end

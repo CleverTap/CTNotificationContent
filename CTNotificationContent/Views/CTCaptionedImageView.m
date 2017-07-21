@@ -22,8 +22,6 @@ static float captionHeight = 0.f;
 @property (nonatomic, strong) UILabel *captionLabel;
 @property (nonatomic, strong) UILabel *subcaptionLabel;
 
-@property BOOL zoom;
-
 @end
 
 @implementation CTCaptionedImageView
@@ -39,7 +37,6 @@ static float captionHeight = 0.f;
                                caption:(NSString * _Nullable)caption
                             subcaption:(NSString * _Nullable)subcaption
                               imageUrl:(NSString * _Nonnull)imageUrl
-                                  zoom:(BOOL) zoom
                              actionUrl:(NSString * _Nullable)actionUrl {
     
     self = [super initWithFrame:frame];
@@ -48,7 +45,6 @@ static float captionHeight = 0.f;
         self.caption = caption;
         self.subcaption = subcaption;
         self.actionUrl = actionUrl;
-        self.zoom = zoom;
         [self setup];
     }
     return self;
@@ -60,13 +56,7 @@ static float captionHeight = 0.f;
     CGSize imageViewSize = CGSizeMake(viewWidth, viewHeight-([[self class] captionHeight]));
     
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f - kImageBorderWidth, 0.f - kImageBorderWidth, imageViewSize.width + kImageBorderWidth * 2, imageViewSize.height)];
-    
-    if (self.zoom) {
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    } else {
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     [self addSubview:self.imageView];
     [self loadImage];
