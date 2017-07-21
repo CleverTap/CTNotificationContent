@@ -57,17 +57,17 @@ static float captionHeight = 0.f;
     [self loadImage];
     
     self.captionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageViewSize.height,viewWidth, kCaptionHeight)];
-    self.captionLabel.textAlignment = NSTextAlignmentCenter;
-    self.captionLabel.adjustsFontSizeToFitWidth = YES;
-    self.captionLabel.font = [UIFont boldSystemFontOfSize:20.f];
+    self.captionLabel.textAlignment = NSTextAlignmentLeft;
+    self.captionLabel.adjustsFontSizeToFitWidth = NO;
+    self.captionLabel.font = [UIFont boldSystemFontOfSize:16.f];
     self.captionLabel.textColor = [UIColor blackColor];
     self.captionLabel.text = self.caption;
     [self addSubview:self.captionLabel];
     
     self.subcaptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, imageViewSize.height+kCaptionHeight, viewWidth, kSubCaptionHeight)];
-    self.subcaptionLabel.textAlignment = NSTextAlignmentCenter;
-    self.subcaptionLabel.adjustsFontSizeToFitWidth = YES;
-    self.subcaptionLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    self.subcaptionLabel.textAlignment = NSTextAlignmentLeft;
+    self.subcaptionLabel.adjustsFontSizeToFitWidth = NO;
+    self.subcaptionLabel.font = [UIFont boldSystemFontOfSize:12.f];
     self.subcaptionLabel.textColor = [UIColor lightGrayColor];
     self.subcaptionLabel.text = self.subcaption;
     [self addSubview:self.subcaptionLabel];
