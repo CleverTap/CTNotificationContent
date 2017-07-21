@@ -110,11 +110,7 @@ static const float kPageControlViewHeight = 20.f;
     NSString *orientation = config[kOrientationKey];
     // assume square image orientation
     CGFloat viewWidth = self.view.frame.size.width;
-    CGFloat viewHeight = viewWidth + captionHeight;
-    
-    if ([orientation isEqualToString:kOrientationLandscape]) {
-        viewHeight = (viewWidth*kLandscapeMultiplier) + captionHeight;
-    }
+    CGFloat viewHeight = (viewWidth * kLandscapeMultiplier) + captionHeight;
     
     CGRect frame = CGRectMake(0, 0, viewWidth, viewHeight);
     self.view.frame = frame;
@@ -141,6 +137,7 @@ static const float kPageControlViewHeight = 20.f;
                                                                              caption:caption
                                                                           subcaption:subcaption
                                                                             imageUrl:imageUrl
+                                                                                zoom: [orientation isEqualToString:kOrientationLandscape]
                                                                            actionUrl:actionUrl];
         [self.itemViews addObject:itemView];
     }
