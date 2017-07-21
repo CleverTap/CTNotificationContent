@@ -52,7 +52,8 @@ static float captionHeight = 0.f;
     CGSize imageViewSize = CGSizeMake(viewWidth, viewHeight-([[self class] captionHeight]));
    
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, imageViewSize.width, imageViewSize.height)];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     [self addSubview:self.imageView];
     [self loadImage];
     
