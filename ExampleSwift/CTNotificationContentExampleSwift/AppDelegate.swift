@@ -1,6 +1,7 @@
 
 import UIKit
 import UserNotifications
+import CleverTapSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,30 +11,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         CleverTap.autoIntegrate()
-        
         // register for push notifications
-        DispatchQueue.main.async {
-            self.registerPush()
-        }
-        
+        self.registerPush()
         return true
     }
     
     private func registerPush() {
         
         // register category with actions
-        let action1 = UNNotificationAction(identifier: "action_1", title: "Show Next", options: [])
-        let action2 = UNNotificationAction(identifier: "action_2", title: "View In App", options: [])
-        let category = UNNotificationCategory(identifier: "CTNotification", actions: [action1, action2], intentIdentifiers: [], options: [])
+        let action1 = UNNotificationAction(identifier: "action_1", title: "Back", options: [])
+        let action2 = UNNotificationAction(identifier: "action_2", title: "Next", options: [])
+        let action3 = UNNotificationAction(identifier: "action_3", title: "View In App", options: [])
+        let category = UNNotificationCategory(identifier: "CTNotification", actions: [action1, action2, action3], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
         
         // request permissions
         UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .alert, .badge]) {
             (granted, error) in
             if (granted) {
-                UIApplication.shared.registerForRemoteNotifications()
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             }
         }
     }
