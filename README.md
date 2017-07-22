@@ -94,11 +94,11 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
         "items":[
             {"caption":"caption one",
                 "subcaption":"subcaption one",
-                "imageUrl":"https://9to5mac.files.wordpress.com/2015/10/apple-tv-screensaver.jpg?quality=82&w=1600&h=900",
+                "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-1.jpg"
                 "actionUrl":"com.clevertap.ctcontent.example://item/one"}, // optional deeplink into the app
             {"caption":"caption two", 
                 "subcaption":"subcaption two", 
-                "imageUrl":"https://i.ytimg.com/vi/0VFI90Bf3z8/maxresdefault.jpg",
+                "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-2.jpg",
                 "actionUrl":"com.clevertap.ctcontent.example://item/two"}
             ]
      }
