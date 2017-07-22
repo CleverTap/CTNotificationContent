@@ -239,7 +239,7 @@ static const float kPageControlViewHeight = 20.f;
         self.pageControl.currentPage = self.currentItemIndex;
     }
     
-    if (oldView) {
+    if (oldView && numItems > 1) {
         [UIView transitionFromView:oldView toView:self.currentItemView duration:0.4
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         completion:^(BOOL finished) {
