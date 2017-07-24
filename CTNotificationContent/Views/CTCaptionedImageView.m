@@ -9,6 +9,7 @@ static const float kBottomPadding = 18.f;
 static const float kCaptionLeftPadding = 10.f;
 static const float kCaptionTopPadding = 8.f;
 static const float kImageBorderWidth = 1.f;
+static const float kImageLayerBorderWidth = 0.4f;
 static float captionHeight = 0.f;
 
 @interface CTCaptionedImageView ()
@@ -55,15 +56,15 @@ static float captionHeight = 0.f;
     CGFloat viewHeight = self.frame.size.height;
     CGSize imageViewSize = CGSizeMake(viewWidth, viewHeight-([[self class] captionHeight]));
     
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f - kImageBorderWidth, 0.f - kImageBorderWidth, imageViewSize.width + kImageBorderWidth * 2, imageViewSize.height)];
+    // gyrations to draw a corresponding gray border below the image
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f-kImageBorderWidth, 0.f-kImageBorderWidth, imageViewSize.width + (kImageBorderWidth*2), imageViewSize.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    self.imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.imageView.layer.borderWidth = kImageLayerBorderWidth;
+    self.imageView.layer.masksToBounds = YES;
     [self addSubview:self.imageView];
     [self loadImage];
-    
-    self.imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.imageView.layer.borderWidth = 0.4f; // don't change to kImageBorderWidth
-    self.imageView.layer.masksToBounds = YES;
     
     self.captionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, kCaptionTopPadding + imageViewSize.height, viewWidth - kCaptionLeftPadding * 2, kCaptionHeight)];
     self.captionLabel.textAlignment = NSTextAlignmentLeft;
