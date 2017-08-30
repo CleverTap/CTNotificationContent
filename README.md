@@ -84,8 +84,8 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
       		"body": "test message",
       		"title": "test title",
    	  	},
+        "category" : "CTNotification",
 		"mutable-content": 1,
-        "category" : "CTNotification"
    	},
     "ct_ContentSlider: {
         "orientation":"landscape", // landscape assumes 16:9 images, remove to display default square/portrait images
