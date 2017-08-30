@@ -79,7 +79,8 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 
 ```
 {
-	"aps": {
+
+    "aps": {
         "alert": {
       		"body": "test message",
       		"title": "test title",
