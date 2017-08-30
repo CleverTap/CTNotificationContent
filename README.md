@@ -95,7 +95,7 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
             {"caption":"caption one",
                 "subcaption":"subcaption one",
                 "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-1.jpg"
-                "actionUrl":"com.clevertap.ctcontent.example://item/one"}, // optional deeplink into the app
+                "actionUrl":"com.clevertap.ctcontent.example://item/one"}, 
             {"caption":"caption two", 
                 "subcaption":"subcaption two", 
                 "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-2.jpg",
