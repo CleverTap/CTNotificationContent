@@ -84,7 +84,7 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
       		"body": "test message",
       		"title": "test title",
    	  	},
-        "category" : "CTNotification",
+        "category": "CTNotification",
 		"mutable-content": 1,
    	},
     "ct_ContentSlider: {
