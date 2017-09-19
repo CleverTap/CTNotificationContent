@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 0.1.2 *(19 September, 2017)*
+-------------------------------------------
+
+update podspec to weak link UserNotifications framework to allow safe linking to < iOS 10 targets
+
+
 Version 0.1.1 *(23 July, 2017)*
 -------------------------------------------
 - add support for Back button in slideshow
