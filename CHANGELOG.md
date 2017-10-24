@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 0.1.3 *(24 October, 2017)*
+-------------------------------------------
+
+update podspec to weak link UIkit framework to allow safe linking to < iOS 10 targets
+
+
 Version 0.1.2 *(19 September, 2017)*
 -------------------------------------------
 
