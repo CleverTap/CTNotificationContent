@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		078CB637215361EC0098CC7F /* SwipeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 078CB635215361EC0098CC7F /* SwipeView.h */; };
+		078CB638215361EC0098CC7F /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 078CB636215361EC0098CC7F /* SwipeView.m */; };
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		078CB635215361EC0098CC7F /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		078CB636215361EC0098CC7F /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		525715E91E67B8C0000E455B /* CTNotificationContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTNotificationContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715ED1E67B8C0000E455B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 			children = (
 				52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */,
 				52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */,
+				078CB635215361EC0098CC7F /* SwipeView.h */,
+				078CB636215361EC0098CC7F /* SwipeView.m */,
 			);
 			path = ContentSlider;
 			sourceTree = "<group>";
@@ -134,6 +140,7 @@
 				525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */,
 				52A8B7051E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h in Headers */,
 				52A8B70E1E6F4E3C00F8FF0E /* UIImage+CTImage.h in Headers */,
+				078CB637215361EC0098CC7F /* SwipeView.h in Headers */,
 				525715FB1E67BA1A000E455B /* CTNotificationViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +217,7 @@
 				52A8B7141E6F53EA00F8FF0E /* CTContentSliderController.m in Sources */,
 				52A8B7061E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m in Sources */,
 				52A8B7021E6F4BA700F8FF0E /* CTCaptionedImageView.m in Sources */,
+				078CB638215361EC0098CC7F /* SwipeView.m in Sources */,
 				52A8B70F1E6F4E3C00F8FF0E /* UIImage+CTImage.m in Sources */,
 				525715FC1E67BA1A000E455B /* CTNotificationViewController.m in Sources */,
 			);

@@ -23,13 +23,19 @@
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
-    UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Back" options:UNNotificationActionOptionNone];
-    UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"Next" options:UNNotificationActionOptionNone];
-    UNNotificationAction *action3 = [UNNotificationAction actionWithIdentifier:@"action_3" title:@"View In App" options:UNNotificationActionOptionNone];
-    UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2, action3] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-    
-    [center setNotificationCategories:[NSSet setWithObjects:cat, nil]];
-    
+//    if (@available(iOS 12, *)) {
+//        // iOS 12 (or newer) ObjC code
+//    } else {
+        // iOS 11 or older code
+        
+        UNNotificationAction *action1 = [UNNotificationAction actionWithIdentifier:@"action_1" title:@"Back" options:UNNotificationActionOptionNone];
+        UNNotificationAction *action2 = [UNNotificationAction actionWithIdentifier:@"action_2" title:@"Next" options:UNNotificationActionOptionNone];
+        UNNotificationAction *action3 = [UNNotificationAction actionWithIdentifier:@"action_3" title:@"View In App" options:UNNotificationActionOptionNone];
+        UNNotificationCategory *cat = [UNNotificationCategory categoryWithIdentifier:@"CTNotification" actions:@[action1, action2, action3] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+
+        [center setNotificationCategories:[NSSet setWithObjects:cat, nil]];
+//    }
+
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
         if( !error ){
             dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -42,7 +48,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     NSLog(@"APPDELEGATE: didReceiveRemoteNotification %@", userInfo);
 }
-
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url

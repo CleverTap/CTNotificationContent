@@ -1,6 +1,7 @@
 
 #import "CTContentSliderController.h"
 #import "CTCaptionedImageView.h"
+#import "SwipeView.h"
 
 static NSString * const kConfigKey = @"ct_ContentSlider";
 static NSString * const kOrientationKey = @"orientation";
@@ -22,23 +23,23 @@ static const int kAutoPlayInterval = 3.0;
 static const float kLandscapeMultiplier = 0.5625; // 16:9 in landscape
 static const float kPageControlViewHeight = 20.f;
 
-@interface CTContentSliderController () {
+@interface CTContentSliderController ()<SwipeViewDataSource, SwipeViewDelegate> {
     CGFloat captionHeight;
 }
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) SwipeView *swipeView;
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSArray<NSDictionary*> *items;
 @property (nonatomic, strong) NSMutableArray<CTCaptionedImageView*> *itemViews;
-@property (nonatomic, strong) CTCaptionedImageView *currentItemView;
 @property (nonatomic, assign) long currentItemIndex;
 
-@property (nonatomic, assign) BOOL transitioning;
 @property (nonatomic, assign) BOOL showsPaging;
 @property (nonatomic, assign) BOOL autoPlays;
 @property (nonatomic, assign) BOOL autoDismiss;
+
 
 @end
 
@@ -121,6 +122,12 @@ static const float kPageControlViewHeight = 20.f;
     self.contentView.frame = frame;
     self.preferredContentSize = CGSizeMake(viewWidth, viewHeight);
     
+    self.swipeView = [[SwipeView alloc] init];
+    self.swipeView.frame = frame;
+    self.swipeView.delegate = self;
+    self.swipeView.dataSource = self;
+    [self.contentView addSubview:self.swipeView];
+
     for (UIView *view in _itemViews) {
         [view.superview removeFromSuperview];
     }
@@ -142,9 +149,13 @@ static const float kPageControlViewHeight = 20.f;
                                                                           subcaption:subcaption
                                                                             imageUrl:imageUrl
                                                                            actionUrl:actionUrl];
+        
+        UITapGestureRecognizer *itemViewTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleItemViewTapGesture:)];
+        itemView.userInteractionEnabled = YES;
+        [itemView addGestureRecognizer:itemViewTapGesture];
+        
         [self.itemViews addObject:itemView];
     }
-    
     
     self.autoPlays = [config[kAutoPlayKey] boolValue];
     self.autoDismiss = [config[kAutoDismissKey] boolValue];
@@ -153,6 +164,7 @@ static const float kPageControlViewHeight = 20.f;
     if (self.showsPaging) {
         if (self.pageControl == nil) {
             self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, viewHeight-(captionHeight+kPageControlViewHeight), viewWidth, kPageControlViewHeight)];
+            [self.pageControl addTarget:self action:@selector(pageControlTapped:) forControlEvents:UIControlEventValueChanged];
             self.pageControl.numberOfPages = [self.itemViews count];
             self.pageControl.hidesForSinglePage = YES;
             [self.view addSubview:self.pageControl];
@@ -164,7 +176,7 @@ static const float kPageControlViewHeight = 20.f;
         }
     }
     
-    [self showNext];
+    [self.swipeView reloadData];
     
     if (self.autoPlays) {
         [self startAutoPlay];
@@ -214,43 +226,16 @@ static const float kPageControlViewHeight = 20.f;
 - (void)_moveSlider:(int)direction {
     long numItems = [self.itemViews count];
     
-    if (self.transitioning || numItems <= 0) return;
+    if (numItems <= 0) return;
     
-    self.transitioning = YES;
-    
-    UIView *oldView = self.currentItemView;
-    
-    if (oldView == nil) {
+    self.currentItemIndex += direction;
+    if (self.currentItemIndex >= numItems) {
         self.currentItemIndex = 0;
-    } else {
-        self.currentItemIndex += direction;
-        if (self.currentItemIndex >= numItems) {
-            self.currentItemIndex = 0;
-        } else if (self.currentItemIndex < 0) {
-            self.currentItemIndex = (numItems-1);
-        }
+    } else if (self.currentItemIndex < 0) {
+        self.currentItemIndex = (numItems-1);
     }
     
-    self.currentItemView = self.itemViews[self.currentItemIndex];
-    
-    if (!self.currentItemView) return;
-    
-    if (self.pageControl) {
-        self.pageControl.currentPage = self.currentItemIndex;
-    }
-    
-    if (oldView && numItems > 1) {
-        [UIView transitionFromView:oldView toView:self.currentItemView duration:0.4
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        completion:^(BOOL finished) {
-                            self.transitioning = NO;
-                        }];
-        
-    } else {
-        [self.contentView addSubview:self.currentItemView];
-        self.transitioning = NO;
-    }
-    
+    [self.swipeView scrollToItemAtIndex:self.currentItemIndex duration:0.5];
     [[self getParentViewController] userDidPerformAction:kViewContentItemAction withProperties:self.items[self.currentItemIndex]];
 }
 
@@ -267,6 +252,40 @@ static const float kPageControlViewHeight = 20.f;
 - (void)stopAutoPlay {
     [self.timer invalidate];
     self.timer = nil;
+}
+
+#pragma mark - Swipe View
+
+- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView{
+    
+    return [self.itemViews count];
+}
+- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
+   
+    self.pageControl.currentPage = index;
+    self.currentItemIndex = index;
+    return self.itemViews[index];
+}
+- (CGSize)swipeViewItemSize:(SwipeView *)swipeView{
+   
+    return self.swipeView.bounds.size;
+}
+
+#pragma mark - Actions
+
+-(void)handleItemViewTapGesture:(UITapGestureRecognizer *)sender{
+    
+    CTCaptionedImageView *itemView = (CTCaptionedImageView*)sender.view;
+    NSString *urlString = itemView.actionUrl;
+    if (urlString) {
+        [[self getParentViewController] userDidPerformAction:kOpenedContentUrlAction withProperties:self.items[self.currentItemIndex]];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [[self getParentViewController] openUrl:url];
+    }
+}
+
+-(void)pageControlTapped:(UIPageControl*)sender{
+    [self showNext];
 }
 
 @end
