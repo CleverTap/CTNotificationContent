@@ -4,7 +4,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <CleverTapSDK/CleverTap.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -22,6 +22,7 @@
 - (void)registerPush {
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     
 //    if (@available(iOS 12, *)) {
 //        // iOS 12 (or newer) ObjC code
@@ -45,8 +46,12 @@
     }];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"APPDELEGATE: didReceiveRemoteNotification %@", userInfo);
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    
+    NSLog(@"APPDELEGATE: userNotificationCenter %@", response.notification.request.content.userInfo);
+    if (completionHandler) {
+        completionHandler();
+    }
 }
 
 - (BOOL)application:(UIApplication *)app

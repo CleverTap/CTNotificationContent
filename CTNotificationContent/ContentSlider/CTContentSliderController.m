@@ -153,7 +153,6 @@ static const float kPageControlViewHeight = 20.f;
         UITapGestureRecognizer *itemViewTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleItemViewTapGesture:)];
         itemView.userInteractionEnabled = YES;
         [itemView addGestureRecognizer:itemViewTapGesture];
-        
         [self.itemViews addObject:itemView];
     }
     
@@ -281,10 +280,14 @@ static const float kPageControlViewHeight = 20.f;
         [[self getParentViewController] userDidPerformAction:kOpenedContentUrlAction withProperties:self.items[self.currentItemIndex]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[self getParentViewController] openUrl:url];
+        [[self getParentViewController] userDismissNotificationContentExtension];
+
+    } else {
+        [[self getParentViewController] userDismissNotificationContentExtension];
     }
 }
 
--(void)pageControlTapped:(UIPageControl*)sender{
+-(void)pageControlTapped:(UIPageControl *)sender{
     [self showNext];
 }
 

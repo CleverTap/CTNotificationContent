@@ -68,4 +68,12 @@
     [self.extensionContext openURL:url completionHandler:nil];
 }
 
+- (void)userDismissNotificationContentExtension {
+    if (@available(iOS 12.0, *)) {
+        [self.extensionContext performNotificationDefaultAction];
+    } else {
+        // Fallback on earlier versions
+    }
+}
+
 @end
