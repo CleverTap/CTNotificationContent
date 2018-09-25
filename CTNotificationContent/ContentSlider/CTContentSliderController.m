@@ -261,10 +261,14 @@ static const float kPageControlViewHeight = 20.f;
 }
 - (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view{
    
-    self.pageControl.currentPage = index;
-    self.currentItemIndex = index;
     return self.itemViews[index];
 }
+- (void)swipeViewDidScroll:(SwipeView *)swipeView {
+    
+    self.pageControl.currentPage = (int)swipeView.currentItemIndex;
+    self.currentItemIndex = (int)swipeView.currentItemIndex;
+}
+
 - (CGSize)swipeViewItemSize:(SwipeView *)swipeView{
    
     return self.swipeView.bounds.size;
@@ -276,12 +280,10 @@ static const float kPageControlViewHeight = 20.f;
     
     CTCaptionedImageView *itemView = (CTCaptionedImageView*)sender.view;
     NSString *urlString = itemView.actionUrl;
-    if (urlString) {
+    if (urlString && ![urlString isEqual: @""]) {
         [[self getParentViewController] userDidPerformAction:kOpenedContentUrlAction withProperties:self.items[self.currentItemIndex]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[self getParentViewController] openUrl:url];
-        [[self getParentViewController] userDismissNotificationContentExtension];
-
     } else {
         [[self getParentViewController] userDismissNotificationContentExtension];
     }
