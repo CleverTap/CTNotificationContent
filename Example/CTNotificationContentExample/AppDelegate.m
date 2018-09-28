@@ -15,7 +15,6 @@
     
     [CleverTap autoIntegrate];
     [self registerPush];
-    
     return YES;
 }
 
@@ -52,6 +51,11 @@
     if (completionHandler) {
         completionHandler();
     }
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+
+    completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
 }
 
 - (BOOL)application:(UIApplication *)app
