@@ -10,7 +10,7 @@ class NotificationViewController: CTNotificationViewController {
     
     // optional:  implement to get user event data
     override func userDidPerformAction(_ action: String, withProperties properties: [AnyHashable : Any]!) {
-        print("userDidPerformAction \(action) with props \(properties)")
+        print("userDidPerformAction \(action) with props \(String(describing: properties))")
     }
     
 }
