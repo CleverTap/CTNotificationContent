@@ -86,24 +86,28 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
       		"title": "test title",
    	  	},
         "category": "CTNotification",
-        "mutable-content": 1,
+        "mutable-content": true,
       },
-    "ct_ContentSlider: {
-        "orientation":"landscape", // landscape assumes 16:9 images, remove to display default square/portrait images
-        "showsPaging":1, // optional to display UIPageControl
-        "autoPlay":1, // optional to auto play the slideshow
-        "autoDismiss":1, // optional to auto dismiss the notification on item actionUrl launch
+    "ct_ContentSlider": {
+        "orientation": "landscape", // landscape assumes 16:9 images, remove to display default square/portrait images
+        "showsPaging": true, // optional to display UIPageControl
+        "autoPlay": true, // optional to auto play the slideshow
+        "autoDismiss": true, // optional to auto dismiss the notification on item actionUrl launch
         "items":[
-            {"caption":"caption one",
-                "subcaption":"subcaption one",
-                "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-1.jpg"
-                "actionUrl":"com.clevertap.ctcontent.example://item/one"}, 
-            {"caption":"caption two", 
-                "subcaption":"subcaption two", 
-                "imageUrl":"https://s3.amazonaws.com/ct-demo-images/landscape-2.jpg",
-                "actionUrl":"com.clevertap.ctcontent.example://item/two"}
-            ]
-     }
+            {
+                "caption": "caption one",
+                "subcaption": "subcaption one",
+                "imageUrl": "https://s3.amazonaws.com/ct-demo-images/landscape-1.jpg",
+                "actionUrl": "com.clevertap.ctcontent.example://item/one"
+            }, 
+            {
+                "caption": "caption two", 
+                "subcaption": "subcaption two", 
+                "imageUrl": "https://s3.amazonaws.com/ct-demo-images/landscape-2.jpg",
+                "actionUrl": "com.clevertap.ctcontent.example://item/two"
+            }
+       ]
+   }
 }
 ```
 
