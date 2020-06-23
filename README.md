@@ -10,6 +10,8 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 
 [Custom push notification content interfaces](https://developer.apple.com/videos/play/wwdc2016/708/) are enabled in iOS 10 via a [Notification Content Extension](https://developer.apple.com/reference/usernotificationsui/unnotificationcontentextension), a separate and distinct binary embedded in your app bundle.
 
+## Installation and Setup #
+
 ### Configure your app for Push and add a Notification Content Extension target
 
 Enable [push notifications](https://developer.apple.com/notifications/) in your main app.
@@ -17,7 +19,6 @@ Enable [push notifications](https://developer.apple.com/notifications/) in your 
 Create a Notification Content Extension in your project. To do that in your Xcode project, select File -> New -> Target and choose the Notification Content Extension template.
 
 ![notification content extension](https://github.com/CleverTap/CTNotificationContent/blob/master/images/content_extension.png)
-
 
 ### Install CTNotificationContent in your Notification Content Extension target via [CocoaPods](http://cocoapods.org)
 
