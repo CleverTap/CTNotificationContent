@@ -4,13 +4,13 @@ Change Log
 Version 0.1.3 *(24 October, 2017)*
 -------------------------------------------
 
-update podspec to weak link UIkit framework to allow safe linking to < iOS 10 targets
+- Update podspec to weak link UIkit framework to allow safe linking to < iOS 10 targets
 
 
 Version 0.1.2 *(19 September, 2017)*
 -------------------------------------------
 
-update podspec to weak link UserNotifications framework to allow safe linking to < iOS 10 targets
+- Update podspec to weak link UserNotifications framework to allow safe linking to < iOS 10 targets
 
 
 Version 0.1.1 *(23 July, 2017)*
@@ -22,4 +22,4 @@ Version 0.1.1 *(23 July, 2017)*
 Version 0.1.0 *(8 March, 2017)*
 -------------------------------------------
 
-Initial release.
+- Initial release.
