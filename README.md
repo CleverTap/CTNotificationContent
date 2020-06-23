@@ -111,7 +111,16 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 }
 ```
 
+## Example Usage #
+
 See [an example Swift project here](https://github.com/CleverTap/CTNotificationContent/tree/master/ExampleSwift).
 
-
 See [an example Objective-C project here](https://github.com/CleverTap/CTNotificationContent/tree/master/Example).
+
+## Changelog #
+
+Check out the [Change Log](https://github.com/CleverTap/CTNotificationContent/blob/master/CHANGELOG.md).
+
+## Questions? #
+
+ If you have questions or concerns, you can reach out to the CleverTap support team at [support@clevertap.com](mailto:support@clevertap.com).
