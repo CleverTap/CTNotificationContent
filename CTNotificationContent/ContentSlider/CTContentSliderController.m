@@ -1,4 +1,3 @@
-
 #import "CTContentSliderController.h"
 #import "CTCaptionedImageView.h"
 
@@ -54,24 +53,24 @@ static const float kPageControlViewHeight = 20.f;
 /**
  example userInfo looks like this
  {"ct_ContentSlider":
-    {"orientation":"landscape",
-    "showsPaging":1,
-    "autoPlay":1,
-    "autoDismiss":1,
-    "items":[
-        {"caption":"caption one",
-        "subcaption":"subcaption one",
-        "imageUrl":"https://9to5mac.files.wordpress.com/2015/10/apple-tv-screensaver.jpg?quality=82&w=1600&h=900",
-        "actionUrl":"com.clevertap.ctcontent.example://item/one"},
-        {"caption":"caption two",
-        "subcaption":"subcaption two",
-        "imageUrl":"https://i.ytimg.com/vi/0VFI90Bf3z8/maxresdefault.jpg",
-        "actionUrl":"com.clevertap.ctcontent.example://item/two"}
-        ]
-    }
+ {"orientation":"landscape",
+ "showsPaging":1,
+ "autoPlay":1,
+ "autoDismiss":1,
+ "items":[
+ {"caption":"caption one",
+ "subcaption":"subcaption one",
+ "imageUrl":"https://9to5mac.files.wordpress.com/2015/10/apple-tv-screensaver.jpg?quality=82&w=1600&h=900",
+ "actionUrl":"com.clevertap.ctcontent.example://item/one"},
+ {"caption":"caption two",
+ "subcaption":"subcaption two",
+ "imageUrl":"https://i.ytimg.com/vi/0VFI90Bf3z8/maxresdefault.jpg",
+ "actionUrl":"com.clevertap.ctcontent.example://item/two"}
+ ]
+ }
  }
  
-*/
+ */
 
 - (void)configureViewForContent:(UNNotificationContent *)content {
     NSDictionary *config = content.userInfo[kConfigKey];
@@ -243,8 +242,8 @@ static const float kPageControlViewHeight = 20.f;
         [UIView transitionFromView:oldView toView:self.currentItemView duration:0.4
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         completion:^(BOOL finished) {
-                            self.transitioning = NO;
-                        }];
+            self.transitioning = NO;
+        }];
         
     } else {
         [self.contentView addSubview:self.currentItemView];

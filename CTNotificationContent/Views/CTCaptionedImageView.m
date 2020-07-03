@@ -1,4 +1,3 @@
-
 #import "CTCaptionedImageView.h"
 #import "UIImage+CTImage.h"
 
@@ -95,38 +94,38 @@ static float captionHeight = 0.f;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     [[session downloadTaskWithURL:attachmentURL
                 completionHandler:^(NSURL *temporaryFileLocation, NSURLResponse *response, NSError *error) {
-                    if (error != nil) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self showPlaceholderImage];
-                        });
+        if (error != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showPlaceholderImage];
+            });
 #ifdef DEBUG
-                        NSLog(@"unable to download image: %@", error.localizedDescription);
+            NSLog(@"unable to download image: %@", error.localizedDescription);
 #endif
-                        
-                    } else {
-                        NSError *imageError;
-                        
-                        NSData *imageData = [NSData dataWithContentsOfURL:temporaryFileLocation
-                                                                  options:kNilOptions
-                                                                    error:&imageError];
-                        
-                        UIImage *image = [UIImage imageWithData:imageData];
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (image) {
-                                self.imageView.image = image;
-                            } else {
-                                [self showPlaceholderImage];
-                            }
-                            
-                        });
+            
+        } else {
+            NSError *imageError;
+            
+            NSData *imageData = [NSData dataWithContentsOfURL:temporaryFileLocation
+                                                      options:kNilOptions
+                                                        error:&imageError];
+            
+            UIImage *image = [UIImage imageWithData:imageData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (image) {
+                    self.imageView.image = image;
+                } else {
+                    [self showPlaceholderImage];
+                }
+                
+            });
 #ifdef DEBUG
-                        if (error != nil) {
-                            NSLog(@"unable to download image: %@", error.localizedDescription);
-                        }
+            if (error != nil) {
+                NSLog(@"unable to download image: %@", error.localizedDescription);
+            }
 #endif
-                    }
-                }] resume];
+        }
+    }] resume];
     
 }
 
