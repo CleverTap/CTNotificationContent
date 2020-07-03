@@ -10,7 +10,6 @@
 
 @end
 
-
 @implementation CTNotificationViewController
 
 - (void)viewDidLoad {

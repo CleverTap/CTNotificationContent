@@ -11,5 +11,4 @@
 
 - (CTNotificationViewController *)getParentViewController;
 
-
 @end
