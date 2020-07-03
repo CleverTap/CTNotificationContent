@@ -12,4 +12,6 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
 
 - (void)openUrl:(NSURL * _Nonnull)url; // convenience method
 
+- (void)userDidReceiveNotification:(UNNotification *_Nullable)notification;
+
 @end

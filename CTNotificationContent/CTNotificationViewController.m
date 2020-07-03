@@ -35,6 +35,7 @@
 
 - (void)didReceiveNotification:(UNNotification *)notification {
     [self.contentViewController configureViewForContent:notification.request.content];
+    [self userDidReceiveNotification:notification];
     self.view.frame = self.contentViewController.view.frame;
     self.preferredContentSize = self.contentViewController.preferredContentSize;
 }
@@ -60,6 +61,11 @@
 - (void)userDidPerformAction:(NSString *)action withProperties:(NSDictionary *)properties {
     // no-op here
     // implement in your subclass to get user event type data
+}
+
+- (void)userDidReceiveNotification:(UNNotification *)notification {
+    // no-op here
+    // implement in your subclass to get notification payload
 }
 
 // convenience 
