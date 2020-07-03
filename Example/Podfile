@@ -3,12 +3,15 @@ platform :ios, '10.0'
 
 use_frameworks!
 
+pod "CleverTap-iOS-SDK"
+
+
 target 'CTNotificationContentExample' do
-  pod "CleverTap-iOS-SDK"
+  
 end
 
 target 'NotificationContent' do
-  pod "CTNotificationContent"
+  pod "CTNotificationContent", :path =>'../'
 end
 
 target 'NotificationService' do

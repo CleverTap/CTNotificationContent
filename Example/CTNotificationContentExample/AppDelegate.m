@@ -1,6 +1,4 @@
-
 #import "AppDelegate.h"
-
 #import <UserNotifications/UserNotifications.h>
 #import <CleverTapSDK/CleverTap.h>
 
@@ -9,7 +7,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     

@@ -1,4 +1,3 @@
-
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -17,6 +16,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
