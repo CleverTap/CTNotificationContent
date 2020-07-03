@@ -56,7 +56,6 @@
     self.contentViewController = contentController;
 }
 
-
 - (void)userDidPerformAction:(NSString *)action withProperties:(NSDictionary *)properties {
     // no-op here
     // implement in your subclass to get user event type data

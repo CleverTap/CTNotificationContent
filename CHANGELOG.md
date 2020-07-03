@@ -1,9 +1,9 @@
 Change Log
 ==========
 
-Version 0.1.4 *(3 July, 2020)*
+Version 0.1.4 *(6 July, 2020)*
 -------------------------------------------
-- Add a callback to return Push Notifications payload
+- Add a method to return Push Notification response
 
 Version 0.1.3 *(24 October, 2017)*
 -------------------------------------------
