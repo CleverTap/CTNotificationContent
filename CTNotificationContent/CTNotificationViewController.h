@@ -12,6 +12,6 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
 
 - (void)openUrl:(NSURL * _Nonnull)url; // convenience method
 
-- (void)userDidReceiveNotification:(UNNotification *_Nullable)notification; // implement in your subclass to get notification payload
+- (void)userDidReceiveNotificationResponse:(UNNotificationResponse *_Nullable)response; // implement in your subclass to get notification response
 
 @end

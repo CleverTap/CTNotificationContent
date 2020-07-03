@@ -34,7 +34,6 @@
 
 - (void)didReceiveNotification:(UNNotification *)notification {
     [self.contentViewController configureViewForContent:notification.request.content];
-    [self userDidReceiveNotification:notification];
     self.view.frame = self.contentViewController.view.frame;
     self.preferredContentSize = self.contentViewController.preferredContentSize;
 }
@@ -42,6 +41,7 @@
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
     UNNotificationContentExtensionResponseOption actionResponseOption = [self.contentViewController handleAction:response.actionIdentifier];
+    [self userDidReceiveNotificationResponse:response];
     completion(actionResponseOption);
 }
 
@@ -62,9 +62,9 @@
     // implement in your subclass to get user event type data
 }
 
-- (void)userDidReceiveNotification:(UNNotification *)notification {
+- (void)userDidReceiveNotificationResponse:(UNNotificationResponse *)response {
     // no-op here
-    // implement in your subclass to get notification payload
+    // implement in your subclass to get notification response
 }
 
 // convenience 

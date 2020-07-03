@@ -1,4 +1,3 @@
-
 import CTNotificationContent
 
 class NotificationViewController: CTNotificationViewController {

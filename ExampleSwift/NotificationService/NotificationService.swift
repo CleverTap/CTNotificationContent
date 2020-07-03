@@ -1,5 +1,3 @@
-
-
 import CTNotificationService
 
 class NotificationService: CTNotificationServiceExtension {
