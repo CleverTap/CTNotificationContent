@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 0.1.4 *(3 July October, 2020)*
+Version 0.1.4 *(3 July, 2020)*
 -------------------------------------------
 - Add a callback to return push notification payloads
 
