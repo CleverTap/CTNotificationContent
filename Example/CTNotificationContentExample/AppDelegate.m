@@ -36,10 +36,10 @@
     }];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"APPDELEGATE: didReceiveRemoteNotification %@", userInfo);
 }
-
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url

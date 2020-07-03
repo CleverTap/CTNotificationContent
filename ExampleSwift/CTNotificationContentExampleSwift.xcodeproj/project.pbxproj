@@ -301,10 +301,9 @@
 			};
 			buildConfigurationList = 52F4CB9A1E67695700CCC4A2 /* Build configuration list for PBXProject "CTNotificationContentExampleSwift" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
