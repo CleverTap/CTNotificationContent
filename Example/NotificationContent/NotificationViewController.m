@@ -1,6 +1,4 @@
 #import "NotificationViewController.h"
-#import <UserNotifications/UserNotifications.h>
-#import <CleverTapSDK/CleverTap.h>
 
 @implementation NotificationViewController
 
@@ -16,10 +14,7 @@
 
 // optional: implement to get notification response
 - (void)userDidReceiveNotificationResponse:(UNNotificationResponse *)response {
-    id notificationPayload = response.notification.request.content.userInfo;
-    if ([response.actionIdentifier  isEqual: @"action_@"]) {
-        [[CleverTap sharedInstance] recordNotificationClickedEventWithData:notificationPayload];
-    }
+    NSLog(@"user did receive notification response: %@:", response);
 }
 
 @end
