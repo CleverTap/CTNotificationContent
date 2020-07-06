@@ -14,7 +14,7 @@
     NSLog(@"user did perform action: %@ with props: %@", action , properties);
 }
 
-// optional: implement to notification response
+// optional: implement to get notification response
 - (void)userDidReceiveNotificationResponse:(UNNotificationResponse *)response {
     id notificationPayload = response.notification.request.content.userInfo;
     if ([response.actionIdentifier  isEqual: @"action_@"]) {

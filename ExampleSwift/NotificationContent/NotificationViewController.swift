@@ -13,7 +13,7 @@ class NotificationViewController: CTNotificationViewController {
         print("userDidPerformAction \(action) with props \(String(describing: properties))")
     }
     
-    // optional: implement to notification response
+    // optional: implement to get notification response
     override func userDidReceive(_ response: UNNotificationResponse?) {
         print("Push Notification Payload \(String(describing: response?.notification.request.content.userInfo))")
         let notificationPayload = response?.notification.request.content.userInfo
