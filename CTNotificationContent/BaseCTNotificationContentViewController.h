@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
@@ -11,6 +10,5 @@
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action;  // must override in subclass
 
 - (CTNotificationViewController *)getParentViewController;
-
 
 @end

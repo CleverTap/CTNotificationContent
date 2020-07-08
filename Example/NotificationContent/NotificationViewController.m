@@ -1,6 +1,4 @@
-
 #import "NotificationViewController.h"
-
 
 @implementation NotificationViewController
 
@@ -14,6 +12,9 @@
     NSLog(@"user did perform action: %@ with props: %@", action , properties);
 }
 
-
+// optional: implement to get notification response
+- (void)userDidReceiveNotificationResponse:(UNNotificationResponse *)response {
+    NSLog(@"user did receive notification response: %@:", response);
+}
 
 @end

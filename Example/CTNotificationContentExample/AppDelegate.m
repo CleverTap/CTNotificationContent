@@ -1,6 +1,4 @@
-
 #import "AppDelegate.h"
-
 #import <UserNotifications/UserNotifications.h>
 #import <CleverTapSDK/CleverTap.h>
 
@@ -9,7 +7,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -39,10 +36,10 @@
     }];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"APPDELEGATE: didReceiveRemoteNotification %@", userInfo);
 }
-
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url

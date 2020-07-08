@@ -1,4 +1,3 @@
-
 #import "UIImage+CTImage.h"
 
 static const CGFloat kFontResizeFactor = 0.42f;
@@ -35,9 +34,9 @@ static const CGFloat kFontResizeFactor = 0.42f;
     CGFloat fontSize = size.width * kFontResizeFactor;
     UIFont *font = [UIFont systemFontOfSize:fontSize];
     NSDictionary *textAttributes = @{
-                                     NSFontAttributeName: font,
-                                     NSForegroundColorAttributeName: [UIColor whiteColor]
-                                     };
+        NSFontAttributeName: font,
+        NSForegroundColorAttributeName: [UIColor whiteColor]
+    };
     
     NSString *displayText = [self _generateDisplayText:str];
     

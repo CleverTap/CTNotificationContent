@@ -40,5 +40,9 @@
 	<dict/>
 	<key>Allow Arbitrary Loads</key>
 	<true/>
+	<key>CleverTapAccountID</key>
+	<string></string>
+	<key>CleverTapToken</key>
+	<string></string>
 </dict>
 </plist>

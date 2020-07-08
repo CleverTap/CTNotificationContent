@@ -1,4 +1,3 @@
-
 #import "CTNotificationViewController.h"
 #import "BaseCTNotificationContentViewController.h"
 #import <UserNotifications/UserNotifications.h>
@@ -10,7 +9,6 @@
 @property(nonatomic, strong, readwrite) BaseCTNotificationContentViewController *contentViewController;
 
 @end
-
 
 @implementation CTNotificationViewController
 
@@ -43,6 +41,7 @@
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
     UNNotificationContentExtensionResponseOption actionResponseOption = [self.contentViewController handleAction:response.actionIdentifier];
+    [self userDidReceiveNotificationResponse:response];
     completion(actionResponseOption);
 }
 
@@ -57,10 +56,14 @@
     self.contentViewController = contentController;
 }
 
-
 - (void)userDidPerformAction:(NSString *)action withProperties:(NSDictionary *)properties {
     // no-op here
     // implement in your subclass to get user event type data
+}
+
+- (void)userDidReceiveNotificationResponse:(UNNotificationResponse *)response {
+    // no-op here
+    // implement in your subclass to get notification response
 }
 
 // convenience 
