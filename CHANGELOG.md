@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 0.1.4 *(6 July, 2020)*
+Version 0.1.4 *(8 July, 2020)*
 -------------------------------------------
 - Add a method to return Push Notification response
 
