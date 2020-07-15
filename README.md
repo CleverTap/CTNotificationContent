@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/clevertap-logo.png" width="300"/>
+</p>
+
+
 # CTNotificationContent
 
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
