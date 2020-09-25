@@ -1,3 +1,4 @@
+
 #import "CTNotificationViewController.h"
 #import "BaseCTNotificationContentViewController.h"
 #import <UserNotifications/UserNotifications.h>
@@ -70,5 +71,6 @@
 - (void)openUrl:(NSURL *)url {
     [self.extensionContext openURL:url completionHandler:nil];
 }
+
 
 @end

@@ -1,3 +1,4 @@
+
 #import "CTContentSliderController.h"
 #import "CTCaptionedImageView.h"
 
@@ -267,5 +268,6 @@ static const float kPageControlViewHeight = 20.f;
     [self.timer invalidate];
     self.timer = nil;
 }
+
 
 @end
