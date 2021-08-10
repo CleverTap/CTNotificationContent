@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CTNotificationContent",
+        "repositoryURL": "https://github.com/CleverTap/CTNotificationContent",
+        "state": {
+          "branch": "support-spm",
+          "revision": "8354a86765cb93741fc7581c6cca46997f6d17d8",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
