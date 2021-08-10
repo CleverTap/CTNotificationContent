@@ -1,5 +1,6 @@
+
 <p align="center">
-  <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/clevertap-logo.png" width="300"/>
+  <img src="https://github.com/CleverTap/clevertap-ios-sdk/blob/master/docs/images/clevertap-logo.png" width = "50%"/>
 </p>
 
 
