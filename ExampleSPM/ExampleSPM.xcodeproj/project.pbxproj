@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		49A41ED026C2408F00E4F88A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A41ECF26C2408F00E4F88A /* AppDelegate.swift */; };
-		49A41ED226C2408F00E4F88A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A41ED126C2408F00E4F88A /* SceneDelegate.swift */; };
 		49A41ED426C2408F00E4F88A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A41ED326C2408F00E4F88A /* ViewController.swift */; };
 		49A41ED726C2408F00E4F88A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A41ED526C2408F00E4F88A /* Main.storyboard */; };
 		49A41ED926C2409000E4F88A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A41ED826C2409000E4F88A /* Assets.xcassets */; };
@@ -19,12 +18,12 @@
 /* Begin PBXFileReference section */
 		49A41ECC26C2408F00E4F88A /* ExampleSPM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleSPM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A41ECF26C2408F00E4F88A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		49A41ED126C2408F00E4F88A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		49A41ED326C2408F00E4F88A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		49A41ED626C2408F00E4F88A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49A41ED826C2409000E4F88A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49A41EDB26C2409000E4F88A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49A41EDD26C2409000E4F88A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A41EE626C2464B00E4F88A /* ExampleSPM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExampleSPM.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +57,8 @@
 		49A41ECE26C2408F00E4F88A /* ExampleSPM */ = {
 			isa = PBXGroup;
 			children = (
+				49A41EE626C2464B00E4F88A /* ExampleSPM.entitlements */,
 				49A41ECF26C2408F00E4F88A /* AppDelegate.swift */,
-				49A41ED126C2408F00E4F88A /* SceneDelegate.swift */,
 				49A41ED326C2408F00E4F88A /* ViewController.swift */,
 				49A41ED526C2408F00E4F88A /* Main.storyboard */,
 				49A41ED826C2409000E4F88A /* Assets.xcassets */,
@@ -147,7 +146,6 @@
 			files = (
 				49A41ED426C2408F00E4F88A /* ViewController.swift in Sources */,
 				49A41ED026C2408F00E4F88A /* AppDelegate.swift in Sources */,
-				49A41ED226C2408F00E4F88A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,8 +292,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ExampleSPM/ExampleSPM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ExampleSPM/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,8 +312,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ExampleSPM/ExampleSPM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ExampleSPM/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
