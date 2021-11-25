@@ -18,7 +18,6 @@ static float captionHeight = 0.f;
 @property (nonatomic, strong) NSString *subcaption;
 @property (nonatomic, strong) NSString *imageUrl;
 
-@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *captionLabel;
 @property (nonatomic, strong) UILabel *subcaptionLabel;
 
@@ -41,6 +40,7 @@ static float captionHeight = 0.f;
     
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = UIColor.blueColor;
         self.imageUrl = imageUrl;
         self.caption = caption;
         self.subcaption = subcaption;
@@ -50,7 +50,16 @@ static float captionHeight = 0.f;
     return self;
 }
 
+- (void)setupButtons {
+    CGSize imageViewSize = self.imageView.frame.size;
+    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, imageViewSize.height / 2, 50, 50)];
+    self.nextButton.backgroundColor = UIColor.redColor;
+    [self.imageView addSubview:self.nextButton];
+}
+
 - (void)setup {
+    [self.imageView setUserInteractionEnabled:YES];
+    
     CGFloat viewWidth = self.frame.size.width;
     CGFloat viewHeight = self.frame.size.height;
     CGSize imageViewSize = CGSizeMake(viewWidth, viewHeight-([[self class] captionHeight]));
@@ -58,17 +67,20 @@ static float captionHeight = 0.f;
     // gyrations to draw a corresponding gray border below the image
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f-kImageBorderWidth, 0.f-kImageBorderWidth, imageViewSize.width + (kImageBorderWidth*2), imageViewSize.height)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.imageView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    self.imageView.backgroundColor = UIColor.greenColor;//[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     self.imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.imageView.layer.borderWidth = kImageLayerBorderWidth;
     self.imageView.layer.masksToBounds = YES;
     [self addSubview:self.imageView];
+    
+    [self setupButtons];
+    
     [self loadImage];
     
     self.captionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, kCaptionTopPadding + imageViewSize.height, viewWidth - kCaptionLeftPadding * 2, kCaptionHeight)];
     self.captionLabel.textAlignment = NSTextAlignmentLeft;
     self.captionLabel.adjustsFontSizeToFitWidth = NO;
-    self.captionLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    self.captionLabel.font = [UIFont boldSystemFontOfSize:30.f];
     self.captionLabel.textColor = [UIColor blackColor];
     self.captionLabel.text = self.caption;
     [self addSubview:self.captionLabel];
@@ -76,9 +88,13 @@ static float captionHeight = 0.f;
     self.subcaptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kCaptionLeftPadding, imageViewSize.height + kCaptionHeight + kSubCaptionTopPadding, viewWidth - kCaptionLeftPadding * 2, kSubCaptionHeight)];
     self.subcaptionLabel.textAlignment = NSTextAlignmentLeft;
     self.subcaptionLabel.adjustsFontSizeToFitWidth = NO;
-    self.subcaptionLabel.font = [UIFont systemFontOfSize:12.f];
+    self.subcaptionLabel.font = [UIFont fontWithName:@"Zapfino" size:12];
     self.subcaptionLabel.textColor = [UIColor lightGrayColor];
-    self.subcaptionLabel.text = self.subcaption;
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.subcaption];
+    [attributeString addAttribute:NSStrikethroughStyleAttributeName
+                            value:@2
+                            range:NSMakeRange(0, [attributeString length])];//    self.subcaptionLabel.
+    self.subcaptionLabel.attributedText = attributeString;
     [self addSubview:self.subcaptionLabel];
 }
 

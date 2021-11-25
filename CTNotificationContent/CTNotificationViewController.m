@@ -23,6 +23,8 @@
         case CTNotificationContentTypeContentSlider:
             contentController = [[CTContentSliderController alloc] init];
             break;
+        case CTNotificationContentTypeContentSimple:
+            
         default:
             break;
     }
@@ -51,6 +53,7 @@
     }
     [self addChildViewController:contentController];
     contentController.view.frame = self.view.frame;
+    contentController.view.backgroundColor = UIColor.redColor;
     [self.view addSubview:contentController.view];
     [contentController didMoveToParentViewController:self];
     self.contentViewController = contentController;

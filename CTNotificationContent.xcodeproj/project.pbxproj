@@ -20,6 +20,8 @@
 		52A8B70F1E6F4E3C00F8FF0E /* UIImage+CTImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B70D1E6F4E3C00F8FF0E /* UIImage+CTImage.m */; };
 		52A8B7131E6F53EA00F8FF0E /* CTContentSliderController.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */; };
 		52A8B7141E6F53EA00F8FF0E /* CTContentSliderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */; };
+		5753569E275013E80007C5E5 /* CTContentSimpleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5753569B275013E80007C5E5 /* CTContentSimpleViewController.h */; };
+		5753569F275013E80007C5E5 /* CTContentSimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5753569C275013E80007C5E5 /* CTContentSimpleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		52A8B70D1E6F4E3C00F8FF0E /* UIImage+CTImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CTImage.m"; sourceTree = "<group>"; };
 		52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTContentSliderController.h; sourceTree = "<group>"; };
 		52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTContentSliderController.m; sourceTree = "<group>"; };
+		5753569B275013E80007C5E5 /* CTContentSimpleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTContentSimpleViewController.h; sourceTree = "<group>"; };
+		5753569C275013E80007C5E5 /* CTContentSimpleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTContentSimpleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,7 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				5753569A275013B50007C5E5 /* CTContentSimple */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				525715F91E67BA1A000E455B /* CTNotificationViewController.h */,
 				525715FA1E67BA1A000E455B /* CTNotificationViewController.m */,
@@ -122,6 +127,15 @@
 			path = ContentSlider;
 			sourceTree = "<group>";
 		};
+		5753569A275013B50007C5E5 /* CTContentSimple */ = {
+			isa = PBXGroup;
+			children = (
+				5753569B275013E80007C5E5 /* CTContentSimpleViewController.h */,
+				5753569C275013E80007C5E5 /* CTContentSimpleViewController.m */,
+			);
+			path = CTContentSimple;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -133,6 +147,7 @@
 				52A8B7011E6F4BA700F8FF0E /* CTCaptionedImageView.h in Headers */,
 				525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */,
 				52A8B7051E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h in Headers */,
+				5753569E275013E80007C5E5 /* CTContentSimpleViewController.h in Headers */,
 				52A8B70E1E6F4E3C00F8FF0E /* UIImage+CTImage.h in Headers */,
 				525715FB1E67BA1A000E455B /* CTNotificationViewController.h in Headers */,
 			);
@@ -209,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52A8B7141E6F53EA00F8FF0E /* CTContentSliderController.m in Sources */,
+				5753569F275013E80007C5E5 /* CTContentSimpleViewController.m in Sources */,
 				52A8B7061E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m in Sources */,
 				52A8B7021E6F4BA700F8FF0E /* CTCaptionedImageView.m in Sources */,
 				52A8B70F1E6F4E3C00F8FF0E /* UIImage+CTImage.m in Sources */,

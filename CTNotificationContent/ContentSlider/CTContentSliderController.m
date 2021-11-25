@@ -38,16 +38,24 @@ static const float kPageControlViewHeight = 20.f;
 @property (nonatomic, assign) BOOL showsPaging;
 @property (nonatomic, assign) BOOL autoPlays;
 @property (nonatomic, assign) BOOL autoDismiss;
-
 @end
 
 @implementation CTContentSliderController
+UISwipeGestureRecognizer *gestureRecognizerRight;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //add swipe gesture recognizer
+    gestureRecognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandlerRight:)];
+    [gestureRecognizerRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
     self.contentView = [[UIView alloc] initWithFrame:self.view.frame];
     captionHeight = [CTCaptionedImageView captionHeight]; // the height of the caption view below the image
     [self.view addSubview:self.contentView];
+}
+
+-(void) swipeHandlerRight:(id)sender {
+    [self showNext];
 }
 
 /**
@@ -118,6 +126,7 @@ static const float kPageControlViewHeight = 20.f;
     CGRect frame = CGRectMake(0, 0, viewWidth, viewHeight);
     self.view.frame = frame;
     self.contentView.frame = frame;
+    self.contentView.backgroundColor = UIColor.yellowColor;
     self.preferredContentSize = CGSizeMake(viewWidth, viewHeight);
     
     for (UIView *view in _itemViews) {
@@ -143,9 +152,11 @@ static const float kPageControlViewHeight = 20.f;
                                                                            actionUrl:actionUrl];
         [self.itemViews addObject:itemView];
     }
+    [self.currentItemView.imageView setUserInteractionEnabled:YES];
+    [self.currentItemView.imageView addGestureRecognizer:gestureRecognizerRight];
+
     
-    
-    self.autoPlays = [config[kAutoPlayKey] boolValue];
+    self.autoPlays = false;//[config[kAutoPlayKey] boolValue];
     self.autoDismiss = [config[kAutoDismissKey] boolValue];
     self.showsPaging = [config[kShowsPagingKey] boolValue];
     
@@ -201,6 +212,7 @@ static const float kPageControlViewHeight = 20.f;
     
     return UNNotificationContentExtensionResponseOptionDoNotDismiss;
 }
+
 
 - (void)showNext {
     [self _moveSlider:1];

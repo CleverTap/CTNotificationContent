@@ -3,6 +3,9 @@
 @interface CTCaptionedImageView : UIView
 
 @property(nonatomic, strong, nullable, readonly) NSString *actionUrl;
+@property (nonatomic, strong, nullable) UIImageView *imageView;
+@property (nonatomic, strong, nullable) UIButton *nextButton;
+@property (nonatomic, strong, nullable) UIButton *previousButton;
 
 + (CGFloat)captionHeight;
 

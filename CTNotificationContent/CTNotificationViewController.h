@@ -2,6 +2,7 @@
 
 typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeContentSlider = 0,
+    CTNotificationContentTypeContentSimple = 1,
 };
 
 @interface CTNotificationViewController : UIViewController
