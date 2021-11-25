@@ -54,7 +54,11 @@
     }
     [self addChildViewController:contentController];
     contentController.view.frame = self.view.frame;
-    contentController.view.backgroundColor = UIColor.redColor;
+    if (self.contentType == CTNotificationContentTypeContentSimple) {
+        contentController.view.backgroundColor = UIColor.redColor;
+    } else {
+        contentController.view.backgroundColor = UIColor.yellowColor;
+    }
     [self.view addSubview:contentController.view];
     [contentController didMoveToParentViewController:self];
     self.contentViewController = contentController;
