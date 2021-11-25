@@ -3,6 +3,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
 #import "CTContentSliderController.h"
+#import "CTContentSimpleViewController.h"
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -24,7 +25,7 @@
             contentController = [[CTContentSliderController alloc] init];
             break;
         case CTNotificationContentTypeContentSimple:
-            
+            contentController = [[CTContentSimpleViewController alloc] init];
         default:
             break;
     }
