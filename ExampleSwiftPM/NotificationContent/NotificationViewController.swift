@@ -1,26 +1,15 @@
-//
-//  NotificationViewController.swift
-//  NotificationContent
-//
-//  Created by Aditi Agrawal on 02/12/21.
-//  Copyright © 2021 CleverTap. All rights reserved.
-//
+import CTNotificationContent
 
-import UIKit
-import UserNotifications
-import UserNotificationsUI
-
-class NotificationViewController: UIViewController, UNNotificationContentExtension {
-
-    @IBOutlet var label: UILabel?
+class NotificationViewController: CTNotificationViewController {
     
     override func viewDidLoad() {
+        self.contentType = .contentSlider // default is .contentSlider, just here for illustration
         super.viewDidLoad()
-        // Do any required interface initialization here.
     }
     
-    func didReceive(_ notification: UNNotification) {
-        self.label?.text = notification.request.content.body
+    // optional: implement to get user event data
+    override func userDidPerformAction(_ action: String, withProperties properties: [AnyHashable : Any]!) {
+        print("userDidPerformAction \(action) with props \(String(describing: properties))")
     }
-
+    
 }
