@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  ExampleSPM
+//  CTNotificationServiceExampleSPM
 //
-//  Created by Aditi Agrawal on 10/08/21.
+//  Created by Aditi Agrawal on 18/09/21.
 //
 
 import UIKit
