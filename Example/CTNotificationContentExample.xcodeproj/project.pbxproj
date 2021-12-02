@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		52F4CB501E67610B00CCC4A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB4E1E67610B00CCC4A2 /* Main.storyboard */; };
 		52F4CB521E67610B00CCC4A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB511E67610B00CCC4A2 /* Assets.xcassets */; };
 		52F4CB551E67610B00CCC4A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB531E67610B00CCC4A2 /* LaunchScreen.storyboard */; };
-		52F4CB5E1E6762F300CCC4A2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB5D1E6762F300CCC4A2 /* logo.png */; };
 		52F4CB661E6766B800CCC4A2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F4CB651E6766B800CCC4A2 /* UserNotifications.framework */; };
 		52F4CB681E6766B800CCC4A2 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F4CB671E6766B800CCC4A2 /* UserNotificationsUI.framework */; };
 		52F4CB6C1E6766B800CCC4A2 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CB6B1E6766B800CCC4A2 /* NotificationViewController.m */; };
@@ -75,7 +74,6 @@
 		52F4CB511E67610B00CCC4A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F4CB541E67610B00CCC4A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52F4CB561E67610B00CCC4A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52F4CB5D1E6762F300CCC4A2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		52F4CB5F1E6764AB00CCC4A2 /* CTNotificationContentExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CTNotificationContentExample.entitlements; sourceTree = "<group>"; };
 		52F4CB641E6766B800CCC4A2 /* NotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F4CB651E6766B800CCC4A2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				52F4CB5F1E6764AB00CCC4A2 /* CTNotificationContentExample.entitlements */,
-				52F4CB5C1E6762F300CCC4A2 /* images */,
 				52F4CB481E67610A00CCC4A2 /* AppDelegate.h */,
 				52F4CB491E67610A00CCC4A2 /* AppDelegate.m */,
 				52F4CB4B1E67610B00CCC4A2 /* ViewController.h */,
@@ -192,14 +189,6 @@
 				52F4CB461E67610A00CCC4A2 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		52F4CB5C1E6762F300CCC4A2 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				52F4CB5D1E6762F300CCC4A2 /* logo.png */,
-			);
-			path = images;
 			sourceTree = "<group>";
 		};
 		52F4CB691E6766B800CCC4A2 /* NotificationContent */ = {
@@ -350,7 +339,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52F4CB5E1E6762F300CCC4A2 /* logo.png in Resources */,
 				52F4CB551E67610B00CCC4A2 /* LaunchScreen.storyboard in Resources */,
 				52F4CB521E67610B00CCC4A2 /* Assets.xcassets in Resources */,
 				52F4CB501E67610B00CCC4A2 /* Main.storyboard in Resources */,

@@ -14,7 +14,6 @@
 		52F4CBA81E67695700CCC4A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CBA61E67695700CCC4A2 /* Main.storyboard */; };
 		52F4CBAA1E67695700CCC4A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CBA91E67695700CCC4A2 /* Assets.xcassets */; };
 		52F4CBAD1E67695700CCC4A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CBAB1E67695700CCC4A2 /* LaunchScreen.storyboard */; };
-		52F4CBB61E6769F500CCC4A2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CBB51E6769F500CCC4A2 /* logo.png */; };
 		52F4CBC01E676C8300CCC4A2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F4CBBF1E676C8300CCC4A2 /* UserNotifications.framework */; };
 		52F4CBC21E676C8300CCC4A2 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F4CBC11E676C8300CCC4A2 /* UserNotificationsUI.framework */; };
 		52F4CBC51E676C8300CCC4A2 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CBC41E676C8300CCC4A2 /* NotificationViewController.swift */; };
@@ -68,7 +67,6 @@
 		52F4CBA91E67695700CCC4A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F4CBAC1E67695700CCC4A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52F4CBAE1E67695700CCC4A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52F4CBB51E6769F500CCC4A2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		52F4CBB91E676C0200CCC4A2 /* CTNotificationContentExampleSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CTNotificationContentExampleSwift.entitlements; sourceTree = "<group>"; };
 		52F4CBBE1E676C8300CCC4A2 /* NotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F4CBBF1E676C8300CCC4A2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -143,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				52F4CBB91E676C0200CCC4A2 /* CTNotificationContentExampleSwift.entitlements */,
-				52F4CBB41E6769F500CCC4A2 /* images */,
 				52F4CBA21E67695700CCC4A2 /* AppDelegate.swift */,
 				52F4CBA41E67695700CCC4A2 /* ViewController.swift */,
 				52F4CBA61E67695700CCC4A2 /* Main.storyboard */,
@@ -152,14 +149,6 @@
 				52F4CBAE1E67695700CCC4A2 /* Info.plist */,
 			);
 			path = CTNotificationContentExampleSwift;
-			sourceTree = "<group>";
-		};
-		52F4CBB41E6769F500CCC4A2 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				52F4CBB51E6769F500CCC4A2 /* logo.png */,
-			);
-			path = images;
 			sourceTree = "<group>";
 		};
 		52F4CBC31E676C8300CCC4A2 /* NotificationContent */ = {
@@ -194,7 +183,6 @@
 				C7CECFA7F42D6C5B824AB35E /* Pods-NotificationService.debug.xcconfig */,
 				3EB5EB7877EE43B2D4839C3C /* Pods-NotificationService.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -301,7 +289,7 @@
 				};
 			};
 			buildConfigurationList = 52F4CB9A1E67695700CCC4A2 /* Build configuration list for PBXProject "CTNotificationContentExampleSwift" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -325,7 +313,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52F4CBB61E6769F500CCC4A2 /* logo.png in Resources */,
 				52F4CBAD1E67695700CCC4A2 /* LaunchScreen.storyboard in Resources */,
 				52F4CBAA1E67695700CCC4A2 /* Assets.xcassets in Resources */,
 				52F4CBA81E67695700CCC4A2 /* Main.storyboard in Resources */,
