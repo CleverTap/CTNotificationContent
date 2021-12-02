@@ -9,6 +9,8 @@
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 [![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 [![Platform](https://img.shields.io/cocoapods/p/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
+![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+
 
 ### A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications
 
@@ -133,16 +135,13 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 
 ## Example Usage #
 
-- See [an example Swift project here](/ExampleSwift).
+- See [an example Swift project here](./ExampleSwift).
 
-- See [an example Objective-C project here](/Example).
+- See [an example Objective-C project here](./Example).
 
-- See [an example SwiftPM project here](/ExampleSPM).
+- See [an example SwiftPM project here](./ExampleSwiftPM).
 
 ## Changelog #
 
-Check out the [Change Log](/CHANGELOG.md).
+Refer to the [Change Log](./CHANGELOG.md).
 
-## Questions? #
-
- If you have questions or concerns, you can reach out to the CleverTap support team at [support@clevertap.com](mailto:support@clevertap.com).
