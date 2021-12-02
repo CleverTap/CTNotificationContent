@@ -31,3 +31,6 @@ ExampleSwift/Podfile.lock
 ExampleSwift/Pods/
 
 push.txt
+
+# Swift Package Manager
+Package.resolved
