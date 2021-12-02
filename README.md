@@ -7,9 +7,10 @@
 # CTNotificationContent
 
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
-[![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
+[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Platform](https://img.shields.io/cocoapods/p/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 ![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+[![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 
 
 ### A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications
