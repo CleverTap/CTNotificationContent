@@ -2,14 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Allow Arbitrary Loads</key>
+	<true/>
+	<key>Application Application App Transport Security Settings</key>
+	<dict/>
+	<key>CleverTapAccountID</key>
+	<string></string>
+	<key>CleverTapToken</key>
+	<string></string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>UNNotificationExtensionCategory</key>
-			<string>myNotificationCategory</string>
+			<string>CTNotification</string>
+			<key>UNNotificationExtensionDefaultContentHidden</key>
+			<true/>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>1</real>
+			<real>0.10000000000000001</real>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
