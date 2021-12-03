@@ -1,9 +1,8 @@
-source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 
 use_frameworks!
 
-pod "CleverTap-iOS-SDK", '3.8.1'
+pod "CleverTap-iOS-SDK"
 
 target 'CTNotificationContentExampleSwift' do
 #  pod "CleverTap-iOS-SDK"

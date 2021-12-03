@@ -7,8 +7,11 @@
 # CTNotificationContent
 
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
-[![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
+[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Platform](https://img.shields.io/cocoapods/p/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
+![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+[![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
+
 
 ### A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications
 
@@ -16,17 +19,9 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 
 [Custom push notification content interfaces](https://developer.apple.com/videos/play/wwdc2016/708/) are enabled in iOS 10 via a [Notification Content Extension](https://developer.apple.com/reference/usernotificationsui/unnotificationcontentextension), a separate and distinct binary embedded in your app bundle.
 
-## Installation and Setup #
+## 🎉 Installation #
 
-### Configure your app for Push and add a Notification Content Extension target
-
-Enable [push notifications](https://developer.apple.com/notifications/) in your main app.
-
-Create a Notification Content Extension in your project. To do that in your Xcode project, select File -> New -> Target and choose the Notification Content Extension template.
-
-![notification content extension](https://github.com/CleverTap/CTNotificationContent/blob/master/images/content_extension.png)
-
-### Install CTNotificationContent in your Notification Content Extension target via [CocoaPods](http://cocoapods.org)
+### [CocoaPods](http://cocoapods.org)
 
 Your Podfile should look something like this:
 
@@ -39,9 +34,30 @@ Your Podfile should look something like this:
         pod 'CTNotificationContent'  
     end     
 
-Then run `pod install`.
+Then run `pod install`
 
 [See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
+
+### Swift Package Manager
+
+Swift Package Manager is an Xcode tool that installs project dependencies. To use it to install CTNotificationContent SDK, follow these steps:
+
+- In Xcode, navigate to **File -> Swift Package Manager -> Add Package Dependency.**
+- Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
+- On the next screen, Select an SDK version (by default, Xcode selects the latest stable version). Click **Next.**
+- Click **Finish** and ensure that the **CTNotificationContent** has been added to the appropriate target.
+
+## 🚀 Setup #
+
+### Configure your app for Push and add a Notification Content Extension target
+
+Enable [push notifications](https://developer.apple.com/notifications/) in your main app.
+
+Create a Notification Content Extension in your project. To do that in your Xcode project, select File -> New -> Target and choose the Notification Content Extension template.
+
+![notification content extension](https://github.com/CleverTap/CTNotificationContent/blob/master/images/content_extension.png)
+
+
 
 ### Configure your Notification Content Extension to use the CTNotificationViewController class
 
@@ -120,14 +136,13 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 
 ## Example Usage #
 
-See [an example Swift project here](https://github.com/CleverTap/CTNotificationContent/tree/master/ExampleSwift).
+- See [an example Swift project here](./ExampleSwift).
 
-See [an example Objective-C project here](https://github.com/CleverTap/CTNotificationContent/tree/master/Example).
+- See [an example Objective-C project here](./Example).
+
+- See [an example SwiftPM project here](./ExampleSwiftPM).
 
 ## Changelog #
 
-Check out the [Change Log](https://github.com/CleverTap/CTNotificationContent/blob/master/CHANGELOG.md).
+Refer to the [Change Log](./CHANGELOG.md).
 
-## Questions? #
-
- If you have questions or concerns, you can reach out to the CleverTap support team at [support@clevertap.com](mailto:support@clevertap.com).
