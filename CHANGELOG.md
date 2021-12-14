@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 0.1.5 *(3 December, 2021)*
+-----------------------------------------------
+- Adds support for installation via Swift Package Manager
+- Update Starter Applications
+
 Version 0.1.4 *(8 July, 2020)*
 -------------------------------------------
 - Add a method to return Push Notification response
