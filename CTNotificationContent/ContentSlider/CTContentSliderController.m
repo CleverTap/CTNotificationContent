@@ -184,6 +184,17 @@ UISwipeGestureRecognizer *gestureRecognizerRight;
 }
 
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action {
+    NSDictionary *headerAF = [[NSDictionary alloc] initWithObjectsAndKeys:@"Make",@"Apple",@"SDK Version", @"30905",@"OS", @"iOS", @"OS Version", @"15.0", @"Version", @"1.0", @"Build", @"1", @"Model",  @"x86_64", nil];
+    
+    NSDictionary *pushData = [[NSDictionary alloc] initWithObjectsAndKeys:@"WR_SDK_REVISION",@"30905",@"accountId", @"W9R-486-4W5Z",@"accountToken", @"6b4-2c0", @"api", @"https://wzrkt.com/a1?os=iOS&z=W9R-486-4W5Z", @"os", @"iOS", nil];
+    
+    NSDictionary *headerData1 = [[NSDictionary alloc] initWithObjectsAndKeys: @"id", @"W9R-486-4W5Z",@"tk", @"6b4-2c0", @"af", headerAF, @"g", @"-vbf691e3809eb4966bfa419d0aa81117f", @"type", @"meta", nil];
+    
+    NSDictionary *headerData2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"evtData",@{} ,@"evtName", @"Content Started",@"type", @"event", nil];
+    
+    NSArray *arrHeader = [[NSArray alloc] initWithObjects:headerData1, headerData2, nil];
+    
+    [[self getParentViewController] recordEventAPIWithData:pushData withHeader: arrHeader] ;
     // maps to go back 1
     if ([action isEqualToString:kAction1]) {
         [self stopAutoPlay];
