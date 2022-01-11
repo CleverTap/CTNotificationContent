@@ -7,37 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1898FE278D99B3000A0169 /* CTNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */; };
+		0B189903278D99F0000A0169 /* CTCaptionImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B189900278D99EF000A0169 /* CTCaptionImageView.xib */; };
+		0B189904278D99F0000A0169 /* CTCaptionImageViewproperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */; };
+		0B189905278D99F0000A0169 /* CTCaptionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189902278D99EF000A0169 /* CTCaptionImageView.swift */; };
+		0B18990C278D9A14000A0169 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189907278D9A14000A0169 /* Carousel.swift */; };
+		0B18990D278D9A14000A0169 /* CarouselTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189908278D9A14000A0169 /* CarouselTemplate.swift */; };
+		0B18990E278D9A14000A0169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B189909278D9A14000A0169 /* Assets.xcassets */; };
+		0B18990F278D9A14000A0169 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B18990A278D9A14000A0169 /* CarouselLayout.swift */; };
+		0B189910278D9A14000A0169 /* Contentsliderproperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */; };
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
-		525715FB1E67BA1A000E455B /* CTNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715F91E67BA1A000E455B /* CTNotificationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		525715FC1E67BA1A000E455B /* CTNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525715FA1E67BA1A000E455B /* CTNotificationViewController.m */; };
-		52A8B7011E6F4BA700F8FF0E /* CTCaptionedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A8B6FA1E6F4BA700F8FF0E /* CTCaptionedImageView.h */; };
-		52A8B7021E6F4BA700F8FF0E /* CTCaptionedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6FB1E6F4BA700F8FF0E /* CTCaptionedImageView.m */; };
-		52A8B7051E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A8B7031E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h */; };
-		52A8B7061E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B7041E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m */; };
-		52A8B70E1E6F4E3C00F8FF0E /* UIImage+CTImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A8B70C1E6F4E3C00F8FF0E /* UIImage+CTImage.h */; };
-		52A8B70F1E6F4E3C00F8FF0E /* UIImage+CTImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B70D1E6F4E3C00F8FF0E /* UIImage+CTImage.m */; };
-		52A8B7131E6F53EA00F8FF0E /* CTContentSliderController.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */; };
-		52A8B7141E6F53EA00F8FF0E /* CTContentSliderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTNotificationViewController.swift; sourceTree = "<group>"; };
+		0B189900278D99EF000A0169 /* CTCaptionImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTCaptionImageView.xib; sourceTree = "<group>"; };
+		0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCaptionImageViewproperties.swift; sourceTree = "<group>"; };
+		0B189902278D99EF000A0169 /* CTCaptionImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCaptionImageView.swift; sourceTree = "<group>"; };
+		0B189907278D9A14000A0169 /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
+		0B189908278D9A14000A0169 /* CarouselTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselTemplate.swift; sourceTree = "<group>"; };
+		0B189909278D9A14000A0169 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0B18990A278D9A14000A0169 /* CarouselLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
+		0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contentsliderproperties.swift; sourceTree = "<group>"; };
 		525715E91E67B8C0000E455B /* CTNotificationContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTNotificationContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
-		525715ED1E67B8C0000E455B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		525715F61E67B990000E455B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
-		525715F91E67BA1A000E455B /* CTNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTNotificationViewController.h; sourceTree = "<group>"; };
-		525715FA1E67BA1A000E455B /* CTNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTNotificationViewController.m; sourceTree = "<group>"; };
-		52A8B6FA1E6F4BA700F8FF0E /* CTCaptionedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCaptionedImageView.h; sourceTree = "<group>"; };
-		52A8B6FB1E6F4BA700F8FF0E /* CTCaptionedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCaptionedImageView.m; sourceTree = "<group>"; };
-		52A8B7031E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCTNotificationContentViewController.h; sourceTree = "<group>"; };
-		52A8B7041E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCTNotificationContentViewController.m; sourceTree = "<group>"; };
-		52A8B70C1E6F4E3C00F8FF0E /* UIImage+CTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CTImage.h"; sourceTree = "<group>"; };
-		52A8B70D1E6F4E3C00F8FF0E /* UIImage+CTImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CTImage.m"; sourceTree = "<group>"; };
-		52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTContentSliderController.h; sourceTree = "<group>"; };
-		52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTContentSliderController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +50,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1898FF278D99EF000A0169 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B189900278D99EF000A0169 /* CTCaptionImageView.xib */,
+				0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */,
+				0B189902278D99EF000A0169 /* CTCaptionImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0B189906278D9A14000A0169 /* ContentSlider */ = {
+			isa = PBXGroup;
+			children = (
+				0B189907278D9A14000A0169 /* Carousel.swift */,
+				0B189908278D9A14000A0169 /* CarouselTemplate.swift */,
+				0B189909278D9A14000A0169 /* Assets.xcassets */,
+				0B18990A278D9A14000A0169 /* CarouselLayout.swift */,
+				0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */,
+			);
+			path = ContentSlider;
+			sourceTree = "<group>";
+		};
 		525715DF1E67B8C0000E455B = {
 			isa = PBXGroup;
 			children = (
@@ -74,14 +93,9 @@
 			isa = PBXGroup;
 			children = (
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
-				525715F91E67BA1A000E455B /* CTNotificationViewController.h */,
-				525715FA1E67BA1A000E455B /* CTNotificationViewController.m */,
-				52A8B7031E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h */,
-				52A8B7041E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m */,
-				525715ED1E67B8C0000E455B /* Info.plist */,
-				52A8B7101E6F53EA00F8FF0E /* ContentSlider */,
-				52A8B70B1E6F4E3C00F8FF0E /* Categories */,
-				52A8B6F91E6F4BA700F8FF0E /* Views */,
+				0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */,
+				0B189906278D9A14000A0169 /* ContentSlider */,
+				0B1898FF278D99EF000A0169 /* Views */,
 			);
 			path = CTNotificationContent;
 			sourceTree = "<group>";
@@ -95,33 +109,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		52A8B6F91E6F4BA700F8FF0E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				52A8B6FA1E6F4BA700F8FF0E /* CTCaptionedImageView.h */,
-				52A8B6FB1E6F4BA700F8FF0E /* CTCaptionedImageView.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		52A8B70B1E6F4E3C00F8FF0E /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				52A8B70C1E6F4E3C00F8FF0E /* UIImage+CTImage.h */,
-				52A8B70D1E6F4E3C00F8FF0E /* UIImage+CTImage.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		52A8B7101E6F53EA00F8FF0E /* ContentSlider */ = {
-			isa = PBXGroup;
-			children = (
-				52A8B7111E6F53EA00F8FF0E /* CTContentSliderController.h */,
-				52A8B7121E6F53EA00F8FF0E /* CTContentSliderController.m */,
-			);
-			path = ContentSlider;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -129,12 +116,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A8B7131E6F53EA00F8FF0E /* CTContentSliderController.h in Headers */,
-				52A8B7011E6F4BA700F8FF0E /* CTCaptionedImageView.h in Headers */,
 				525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */,
-				52A8B7051E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.h in Headers */,
-				52A8B70E1E6F4E3C00F8FF0E /* UIImage+CTImage.h in Headers */,
-				525715FB1E67BA1A000E455B /* CTNotificationViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +153,7 @@
 					525715E81E67B8C0000E455B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A5J34NR598;
+						LastSwiftMigration = 1310;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -198,6 +181,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B18990E278D9A14000A0169 /* Assets.xcassets in Resources */,
+				0B189903278D99F0000A0169 /* CTCaptionImageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,11 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A8B7141E6F53EA00F8FF0E /* CTContentSliderController.m in Sources */,
-				52A8B7061E6F4BC700F8FF0E /* BaseCTNotificationContentViewController.m in Sources */,
-				52A8B7021E6F4BA700F8FF0E /* CTCaptionedImageView.m in Sources */,
-				52A8B70F1E6F4E3C00F8FF0E /* UIImage+CTImage.m in Sources */,
-				525715FC1E67BA1A000E455B /* CTNotificationViewController.m in Sources */,
+				0B189905278D99F0000A0169 /* CTCaptionImageView.swift in Sources */,
+				0B18990F278D9A14000A0169 /* CarouselLayout.swift in Sources */,
+				0B189910278D9A14000A0169 /* Contentsliderproperties.swift in Sources */,
+				0B1898FE278D99B3000A0169 /* CTNotificationViewController.swift in Sources */,
+				0B189904278D99F0000A0169 /* CTCaptionImageViewproperties.swift in Sources */,
+				0B18990D278D9A14000A0169 /* CarouselTemplate.swift in Sources */,
+				0B18990C278D9A14000A0169 /* Carousel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = A5J34NR598;
@@ -354,6 +342,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.clevertap.CTNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -361,6 +351,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = A5J34NR598;
@@ -378,6 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.clevertap.CTNotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
