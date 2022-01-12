@@ -3,6 +3,8 @@ import UserNotifications
 import UserNotificationsUI
 
 open class CTNotificationViewController: UIViewController, UNNotificationContentExtension {
+    
+    open var contentType: CTNotificationContentType = .basicTemplate
     var label:UILabel!
     var orientation: String = ""
 

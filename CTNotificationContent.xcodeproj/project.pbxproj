@@ -19,6 +19,7 @@
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
+		575254F1278EC3E4009D5B9F /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575254F0278EC3E4009D5B9F /* ConstantKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		525715F61E67B990000E455B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		575254F0278EC3E4009D5B9F /* ConstantKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				575254F0278EC3E4009D5B9F /* ConstantKeys.swift */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */,
 				0B189906278D9A14000A0169 /* ContentSlider */,
@@ -196,6 +199,7 @@
 				0B189905278D99F0000A0169 /* CTCaptionImageView.swift in Sources */,
 				0B18990F278D9A14000A0169 /* CarouselLayout.swift in Sources */,
 				0B189910278D9A14000A0169 /* Contentsliderproperties.swift in Sources */,
+				575254F1278EC3E4009D5B9F /* ConstantKeys.swift in Sources */,
 				0B1898FE278D99B3000A0169 /* CTNotificationViewController.swift in Sources */,
 				0B189904278D99F0000A0169 /* CTCaptionImageViewproperties.swift in Sources */,
 				0B18990D278D9A14000A0169 /* CarouselTemplate.swift in Sources */,

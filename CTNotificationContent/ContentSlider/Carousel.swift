@@ -13,6 +13,10 @@ class Carousel: UIView {
     var subcaptions: [String] = []
     var selectedIndex: Int = 0
     var currentText: String = ""
+    var pageControl: UIPageControl?
+    var captionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: GenericConstants.Size.captionHeight))
+    var subcaptionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: GenericConstants.Size.subCaptionHeight))
+
     private var timer: Timer?
     
     public init(frame: CGRect, urls: [URL], captions: [String], subcaptions: [String]) {
@@ -49,15 +53,23 @@ class Carousel: UIView {
         addSubview(collectionView)
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        let label = UILabel(frame: CGRect(x: x, y: y, width: UIScreen.main.bounds.width, height: height))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = captions[selectedIndex]
-        label.textAlignment = .center
-        addSubview(label)
-        let subcaptionLabel = UILabel(frame: CGRect(x: x, y: y, width: UIScreen.main.bounds.width, height: subcaptionheight))
+        
+        let leftPadding = GenericConstants.Size.captionLeftPadding
+        let bottomPadding = GenericConstants.Size.subCaptionBottomPadding
+        
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
+        captionLabel.text = captions[selectedIndex]
+        captionLabel.textAlignment = .left
+        addSubview(captionLabel)
+        
         subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         subcaptionLabel.text = subcaptions[selectedIndex]
+        subcaptionLabel.textAlignment = .left
         addSubview(subcaptionLabel)
+        
+        showPagingControl()
+
+        
         NSLayoutConstraint.activate([
             
             collectionView.topAnchor.constraint(equalTo: topAnchor),
@@ -75,7 +87,35 @@ class Carousel: UIView {
                 
         ])
         
+        if let pageControl = pageControl {
+            let centerHorizontally = NSLayoutConstraint(item: pageControl,
+                                               attribute: .centerX,
+                                               relatedBy: .equal,
+                                                  toItem: collectionView,
+                                               attribute: .centerX,
+                                              multiplier: 1.0,
+                                                constant: 0.0)
+            
+            NSLayoutConstraint.activate([centerHorizontally])
+        }
+        
+        
+        
         scheduleTimerIfNeeded()
+    }
+    
+    private func showPagingControl() {
+        if let _ = pageControl {
+            return
+        }
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: GenericConstants.Size.pageControlViewHeight))
+        pageControl?.numberOfPages = captions.count
+        pageControl?.hidesForSinglePage = true
+        pageControl?.translatesAutoresizingMaskIntoConstraints = false
+        
+        if let pageControl = pageControl {
+            addSubview(pageControl)
+        }
     }
     
     deinit {
@@ -103,6 +143,11 @@ class Carousel: UIView {
         guard selectedIndex != index else { return }
         selectedIndex = index
         collectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .centeredHorizontally, animated: false)
+        
+        //Update UI
+        pageControl?.currentPage = selectedIndex
+        captionLabel.text = captions[selectedIndex]
+        subcaptionLabel.text = subcaptions[selectedIndex]
     }
 }
 
