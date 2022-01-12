@@ -73,34 +73,30 @@ class Carousel: UIView {
         NSLayoutConstraint.activate([
             
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: label.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: subcaptionLabel.topAnchor),
-            subcaptionLabel.topAnchor.constraint(equalTo: label.bottomAnchor),
-            subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
-                
+            captionLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: GenericConstants.Size.captionTopPadding),
+            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leftPadding),
+            captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -leftPadding),
+            
+            subcaptionLabel.topAnchor.constraint(equalTo: captionLabel.bottomAnchor, constant: GenericConstants.Size.subCaptionTopPadding),
+            subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leftPadding),
+            subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -leftPadding),
+            subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding)
         ])
         
         if let pageControl = pageControl {
             let centerHorizontally = NSLayoutConstraint(item: pageControl,
-                                               attribute: .centerX,
-                                               relatedBy: .equal,
-                                                  toItem: collectionView,
-                                               attribute: .centerX,
-                                              multiplier: 1.0,
-                                                constant: 0.0)
+                                                        attribute: .centerX,
+                                                        relatedBy: .equal,
+                                                        toItem: collectionView,
+                                                        attribute: .centerX,
+                                                        multiplier: 1.0,
+                                                        constant: 0.0)
             
-            NSLayoutConstraint.activate([centerHorizontally])
+            NSLayoutConstraint.activate([centerHorizontally,
+                                         pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -GenericConstants.Size.pageControlBottomPadding)])
         }
-        
-        
-        
         scheduleTimerIfNeeded()
     }
     
