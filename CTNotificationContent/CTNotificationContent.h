@@ -6,6 +6,5 @@ FOUNDATION_EXPORT double CTNotificationContentVersionNumber;
 //! Project version string for CTNotificationContent.
 FOUNDATION_EXPORT const unsigned char CTNotificationContentVersionString[];
 
-#import "CTNotificationViewController.h"
 
 

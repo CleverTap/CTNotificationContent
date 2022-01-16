@@ -94,9 +94,9 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
-				575254F0278EC3E4009D5B9F /* ConstantKeys.swift */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */,
+				575254F0278EC3E4009D5B9F /* ConstantKeys.swift */,
 				0B189906278D9A14000A0169 /* ContentSlider */,
 				0B1898FF278D99EF000A0169 /* Views */,
 			);
