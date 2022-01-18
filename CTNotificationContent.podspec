@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.platform = :ios, '10.0'
   s.weak_frameworks = 'UserNotifications', 'UIKit'
   s.dependency 'SDWebImage'
-  s.source_files = 'CTNotificationContent/**/*.{swift}'
+  s.source_files = 'CTNotificationContent/**/*.{swift,xib}'
 end
