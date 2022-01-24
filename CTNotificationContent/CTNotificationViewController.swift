@@ -8,6 +8,8 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
     var label:UILabel!
     var orientation: String = ""
     var data: String = ""
+    
+    var selectedTemplate: UIViewController?
 
     open override func viewDidLoad() {
         self.preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width, height: 300)
@@ -18,10 +20,11 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
         switch contentType {
         case .contentSlider:
             let secondVC = CarouselTemplate()
-            secondVC.myData = self.data
+            secondVC.myData = template
             addChild(secondVC)
             self.view.addSubview(secondVC.view)
             secondVC.view.frame = self.view.bounds
+            selectedTemplate = secondVC
         case .basicTemplate:
             let secondVC = CTCaptionImageView()
             secondVC.myData = self.data
@@ -38,8 +41,8 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
     }
     public func didReceive(_ notification: UNNotification) {
         let content = notification.request.content.userInfo as? [String:Any]
-        self.data = content?["ct_data"] as! String
-        template_view(template: content?["ct_template"] as! String)
+        self.data = content?["ct_data"] as? String ?? "Default text"
+        template_view(template: content?["ct_template"] as? String ?? "Default text")
     }
     
     open func userDidPerformAction(_ action: String, withProperties properties: [AnyHashable : Any]!) {
@@ -52,9 +55,13 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
     
     public func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         // Handle various actions.
-        if response.actionIdentifier == "action_2" {
-            let myfunc = Carousel()
-            myfunc.selectNext()
+        if response.actionIdentifier == "action_1" {
+//            let myfunc = Carousel()
+//            myfunc.selectNext()
+            if let temp = selectedTemplate as? CarouselTemplate {
+                temp.carousel.selectNext()
+            }
+            
         } else if response.actionIdentifier == "action2" {
             
         }
