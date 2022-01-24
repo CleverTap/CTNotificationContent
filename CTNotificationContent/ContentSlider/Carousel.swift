@@ -130,7 +130,7 @@ class Carousel: UIView {
         )
     }
     
-    private func selectNext() {
+    public func selectNext() {
         selectItem(at: selectedIndex + 1)
     }
     
