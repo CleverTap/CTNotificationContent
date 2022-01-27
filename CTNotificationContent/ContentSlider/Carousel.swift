@@ -16,14 +16,16 @@ class Carousel: UIView {
     var pageControl: UIPageControl?
     var captionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: GenericConstants.Size.captionHeight))
     var subcaptionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: GenericConstants.Size.subCaptionHeight))
-    var autoscroll = true //update it when user uses action and update or invalidate timer if autoscroll is false
-
+    var autoscroll = Int()
+    var paging = Int()
     private var timer: Timer?
     
-    public init(frame: CGRect, urls: [URL], captions: [String], subcaptions: [String]) {
+    public init(frame: CGRect, urls: [URL], captions: [String], subcaptions: [String], autoscroll: Int, paging: Int) {
         self.urls = urls
         self.captions = captions
         self.subcaptions = subcaptions
+        self.autoscroll = autoscroll
+        self.paging = paging
         super.init(frame: frame)
         setupView()
     }
@@ -59,17 +61,17 @@ class Carousel: UIView {
         let bottomPadding = GenericConstants.Size.subCaptionBottomPadding
         
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        captionLabel.text = captions.count > selectedIndex ? captions[selectedIndex] : "Default text"
+        captionLabel.text = captions.count > selectedIndex ? captions[selectedIndex] : "Default Text"
         captionLabel.textAlignment = .left
         addSubview(captionLabel)
         
         subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        subcaptionLabel.text = subcaptions.count > selectedIndex ? subcaptions[selectedIndex] : "Default text"
+        subcaptionLabel.text = captions.count > selectedIndex ? subcaptions[selectedIndex] : "Default Text"
         subcaptionLabel.textAlignment = .left
         addSubview(subcaptionLabel)
-        
+        if ((paging) != 0) {
         showPagingControl()
-
+        }
         
         NSLayoutConstraint.activate([
             
@@ -118,12 +120,24 @@ class Carousel: UIView {
     deinit {
         timer?.invalidate()
     }
+    public func changeItem(selectedKey: String){
+        timer?.invalidate()
+        if selectedKey == "next" {
+            selectNext()
+        }
+        else if selectedKey == "previous" {
+            selectPrevious()
+        }
+        if ((autoscroll) != 0) {
+        scheduleTimerIfNeeded()
+        }
+    }
     
     private func scheduleTimerIfNeeded() {
         guard urls.count > 1 else { return }
         timer?.invalidate()
         timer = Timer.scheduledTimer(
-            withTimeInterval: 1.5,
+            withTimeInterval: 3,
             repeats: true,
             block: { [weak self] _ in
                 self?.selectNext()
@@ -131,10 +145,17 @@ class Carousel: UIView {
         )
     }
     
-    public func selectNext() {
+    private func selectNext() {
         selectItem(at: selectedIndex + 1)
-        //Update timer when autoscroll : added for testing purpose
-        timer?.invalidate()
+       
+    }
+    private func selectPrevious() {
+        if selectedIndex == 0 {
+            selectItem(at: urls.count - 1)
+        }
+        else {
+            selectItem(at: selectedIndex - 1)
+        }
     }
     
     private func selectItem(at index: Int) {

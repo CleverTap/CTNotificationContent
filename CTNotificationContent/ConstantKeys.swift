@@ -1,10 +1,3 @@
-//
-//  ConstantKeys.swift
-//  myFramework
-//
-//  Created by Sonal Kachare on 05/01/22.
-//
-
 import Foundation
 import UIKit
 
@@ -14,9 +7,9 @@ public enum CTNotificationContentType: Int {
     case timerTemplate
     //Add rest of the cases
 }
-
-
-
+protocol BaseCTNotificationViewController {
+    var selectedTemplate: UIViewController { get }
+}
 struct GenericConstants {
     
     struct Keys {

@@ -5,12 +5,15 @@ class CarouselTemplate: UIViewController {
     var myurls = [URL]()
     var captionarray = [String]()
     var subcaptionarray = [String]()
-    lazy var carousel = Carousel(frame: .zero, urls: myurls, captions: captionarray, subcaptions: subcaptionarray)
+    var autoscroll = Int()
+    var paging = Int()
+    lazy var carousel = Carousel(frame: .zero, urls: myurls, captions: captionarray, subcaptions: subcaptionarray, autoscroll: autoscroll, paging: paging)
     public func get_records(myData:String){
       let data = myData.data(using: .utf8)
-        
         do{
         let contentslider = try JSONDecoder().decode(ContentSlider.self,from: data!)
+            paging = contentslider.showsPaging
+            autoscroll = contentslider.autoPlay
             for slides in contentslider.items{
                 myurls.append(URL(string: slides.imageUrl)!)
                 captionarray.append(slides.caption)
