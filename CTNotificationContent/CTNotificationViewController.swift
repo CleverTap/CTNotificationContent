@@ -12,7 +12,7 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
         super.viewDidLoad()
     }
     
-    private func template_view(template:String) {
+    private func template_view() {
         switch contentType {
         case .contentSlider:
             let secondVC = CarouselTemplate()
@@ -40,8 +40,9 @@ open class CTNotificationViewController: UIViewController, UNNotificationContent
     
     public func didReceive(_ notification: UNNotification) {
         let content = notification.request.content.userInfo as? [String:Any]
-        self.data = content?["ct_data"] as? String ?? "Default Text"
-        template_view(template: content?["ct_template"] as! String)
+        self.data = content?["ct_ContentSlider"] as? String ?? "Default Text"
+//        template_view(template: content?["ct_template"] as! String)
+        template_view()
     }
     
     open func userDidPerformAction(_ action: String, withProperties properties: [AnyHashable : Any]!) {
