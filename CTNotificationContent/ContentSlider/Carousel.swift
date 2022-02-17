@@ -64,13 +64,14 @@ class Carousel: UIView {
         captionLabel.text = captions.count > selectedIndex ? captions[selectedIndex] : "Default Text"
         captionLabel.textAlignment = .left
         captionLabel.textColor = .black
-        captionLabel.font = UIFont.systemFont(ofSize: 30)
+        captionLabel.font = UIFont.systemFont(ofSize: 16)
         addSubview(captionLabel)
         
         subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         subcaptionLabel.text = captions.count > selectedIndex ? subcaptions[selectedIndex] : "Default Text"
         subcaptionLabel.textAlignment = .left
-        subcaptionLabel.textColor = .black
+        subcaptionLabel.textColor = .lightGray
+        subcaptionLabel.font = UIFont.systemFont(ofSize: 12)
         addSubview(subcaptionLabel)
         if ((paging) != 0) {
         showPagingControl()
@@ -184,6 +185,8 @@ extension Carousel: UICollectionViewDataSource {
         let imageView: UIImageView = UIImageView(frame: .zero )
         imageView.translatesAutoresizingMaskIntoConstraints = false
 //        imageView.contentMode = .center
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.borderWidth = GenericConstants.Size.imageLayerBorderWidth
         imageView.contentMode = .scaleAspectFit
         imageView.sd_setImage(with: urls[indexPath.row], placeholderImage: UIImage(named: "placeholder"))
         cell.contentView.addSubview(imageView)
