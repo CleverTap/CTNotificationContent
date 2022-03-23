@@ -1,15 +1,14 @@
 import Foundation
 import UIKit
 
-public enum CTNotificationContentType: Int {
-    case contentSlider = 0
-    case basicTemplate
-    case timerTemplate
-    //Add rest of the cases
-}
-protocol BaseCTNotificationViewController {
-    var selectedTemplate: UIViewController { get }
-}
+//public enum CTNotificationContentType: Int {
+//    case contentSlider = 0
+////    case basicTemplate
+////    case timerTemplate
+//}
+//protocol BaseCTNotificationViewController {
+//    var selectedTemplate: UIViewController { get }
+//}
 struct GenericConstants {
     
     struct Keys {
