@@ -25,6 +25,20 @@ class ViewController: UIViewController {
         CleverTap.sharedInstance()?.recordEvent("TimerTemplate_NotificationSent")
     }
     
+    @IBAction func sendCutomBasicTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("CutomBasicTemplate_NotificationSent")
+    }
     
+    @IBAction func sendCustomAutoCarouselTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("CustomAutoCarouselTemplate_NotificationSent")
+    }
+    
+    @IBAction func sendCustomManualCarouselTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("CustomManualCarouselTemplate_NotificationSent")
+    }
+    
+    @IBAction func sendVideoMediaTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("VideoMediaTemplate_NotificationSent")
+    }
 }
 
