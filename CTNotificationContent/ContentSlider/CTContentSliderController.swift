@@ -22,19 +22,9 @@ fileprivate enum Constants {
     static let kSubcaption: String = "subcaption"
     static let kImageUrl: String = "imageUrl"
     static let kActionUrl: String = "actionUrl"
-    static let kOrientationLandscape: String = "landscape"
-    static let kAction1: String = "action_1" // Maps to Show Previous
-    static let kAction2: String = "action_2" // Maps to Show Next
-    static let kAction3: String = "action_3" // Maps to open the attached deeplink
-    static let kOpenedContentUrlAction: String = "CTOpenedContentUrl"
-    static let kViewContentItemAction: String = "CTViewedContentItem"
-    static let kAutoPlayInterval: Int = 3
-    static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
-    static let kPageControlViewHeight: CGFloat = 20.0
 }
 
 class CTContentSliderController: BaseCTNotificationContentViewController {
-    private var captionHeight: CGFloat = 0.0
     var contentView: UIView = UIView(frame: .zero)
     var pageControl: UIPageControl = UIPageControl(frame: .zero)
     var currentItemView: CTCaptionedImageView = CTCaptionedImageView(frame: .zero)
@@ -50,7 +40,6 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
-        captionHeight = CTCaptionedImageView.getCaptionHeight()
         view.addSubview(contentView)
         createView()
     }
@@ -68,10 +57,10 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
             return
         }
         let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + captionHeight
+        var viewHeight = viewWidth + getCaptionHeight()
 
-        if jsonContent.orientation == Constants.kOrientationLandscape  {
-            viewHeight = (viewWidth * (Constants.kLandscapeMultiplier)) + captionHeight
+        if jsonContent.orientation == ConstantKeys.kOrientationLandscape  {
+            viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
         }
 
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
@@ -81,7 +70,8 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
 
         autoDismiss = jsonContent.autoDismiss
         for item in jsonContent.items {
-            let itemView = CTCaptionedImageView(caption: item.caption, subcaption: item.subcaption, imageUrl: item.imageUrl, actionUrl: item.actionUrl)
+            let itemComponents = CaptionedImageViewComponents(caption: item.caption, subcaption: item.subcaption, imageUrl: item.imageUrl, actionUrl: item.actionUrl, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+            let itemView = CTCaptionedImageView(components: itemComponents)
             itemViews.append(itemView)
             
             let keyItem = [Constants.kCaption : item.caption, Constants.kSubcaption : item.subcaption, Constants.kImageUrl : item.imageUrl, Constants.kActionUrl : item.actionUrl]
@@ -107,10 +97,10 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
             view.addSubview(pageControl)
             pageControl.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(captionHeight + Constants.kPageControlViewHeight)),
+                pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(getCaptionHeight() + Constraints.kPageControlViewHeight)),
                 pageControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                 pageControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                pageControl.heightAnchor.constraint(equalToConstant: Constants.kPageControlViewHeight)
+                pageControl.heightAnchor.constraint(equalToConstant: Constraints.kPageControlViewHeight)
             ])
         }
         if (jsonContent.autoPlay != 0) {
@@ -122,19 +112,19 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     
     
     override func handleAction(action: String) -> UNNotificationContentExtensionResponseOption {
-        if action == Constants.kAction1 {
+        if action == ConstantKeys.kAction1 {
             // Maps to show previous
             stopAutoPlay()
             showPrevious()
-        } else if action == Constants.kAction2 {
+        } else if action == ConstantKeys.kAction2 {
             // Maps to show next
             stopAutoPlay()
             showNext()
-        } else if action == Constants.kAction3 {
+        } else if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if itemViews.count > 0 {
-                let urlString = itemViews[currentItemIndex].actionUrl
-                getParentViewController().userDidPerformAction(Constants.kOpenedContentUrlAction, withProperties: items[currentItemIndex])
+                let urlString = itemViews[currentItemIndex].components.actionUrl
+                getParentViewController().userDidPerformAction(ConstantKeys.kOpenedContentUrlAction, withProperties: items[currentItemIndex])
                 let url = URL(string: urlString)!
                 getParentViewController().openUrl(url: url)
                 return (autoDismiss == 1) ? .dismiss : .doNotDismiss
@@ -173,12 +163,12 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
         ])
         pageControl.currentPage = currentItemIndex
 
-        getParentViewController().userDidPerformAction(Constants.kViewContentItemAction, withProperties: items[currentItemIndex])
+        getParentViewController().userDidPerformAction(ConstantKeys.kViewContentItemAction, withProperties: items[currentItemIndex])
     }
     
     func startAutoPlay() {
         if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: TimeInterval(Constants.kAutoPlayInterval), target: self, selector: #selector(showNext), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(showNext), userInfo: nil, repeats: true)
         }
     }
     
@@ -187,4 +177,7 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
         timer = nil
     }
     
+    func getCaptionHeight() -> CGFloat {
+        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
+    }
 }

@@ -1,30 +1,24 @@
 import UIKit
 
-fileprivate enum Constants {
-    static let kCaptionHeight: CGFloat = 18.0
-    static let kSubCaptionHeight: CGFloat = 20.0
-    static let kSubCaptionTopPadding: CGFloat = 8.0
-    static let kBottomPadding: CGFloat = 18.0
-    static let kCaptionLeftPadding: CGFloat = 10.0
-    static let kCaptionTopPadding: CGFloat = 8.0
-    static let kImageBorderWidth: CGFloat = 1.0
-    static let kImageLayerBorderWidth: CGFloat = 0.4
+struct CaptionedImageViewComponents {
+    var caption: String = ""
+    var subcaption: String = ""
+    var imageUrl: String = ""
+    var actionUrl: String = ""
+    var bgColor: String = ""
+    var captionColor: String = ""
+    var subcaptionColor: String = ""
 }
 
 class CTCaptionedImageView : UIView {
-    static var captionHeight: CGFloat = 0.0
-
-    var actionUrl: String = ""
-    private var caption: String = ""
-    private var subcaption: String = ""
-    private var imageUrl: String = ""
+    var components = CaptionedImageViewComponents()
 
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.borderWidth = Constants.kImageLayerBorderWidth
+        imageView.layer.borderWidth = Constraints.kImageLayerBorderWidth
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -33,7 +27,6 @@ class CTCaptionedImageView : UIView {
         captionLabel.textAlignment = .left
         captionLabel.adjustsFontSizeToFitWidth = false
         captionLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        captionLabel.textColor = UIColor.black
         return captionLabel
     }()
     private var subcaptionLabel: UILabel = {
@@ -41,17 +34,13 @@ class CTCaptionedImageView : UIView {
         subcaptionLabel.textAlignment = .left
         subcaptionLabel.adjustsFontSizeToFitWidth = false
         subcaptionLabel.font = UIFont.systemFont(ofSize: 12.0)
-        subcaptionLabel.textColor = UIColor.lightGray
         return subcaptionLabel
     }()
 
-    init(caption: String, subcaption: String, imageUrl: String, actionUrl: String) {
+    init(components: CaptionedImageViewComponents) {
         super.init(frame: .zero)
-        
-        self.caption = caption
-        self.subcaption = subcaption
-        self.imageUrl = imageUrl
-        self.actionUrl = actionUrl
+
+        self.components = components
         setUpViews()
         setupConstraints()
     }
@@ -64,60 +53,92 @@ class CTCaptionedImageView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    class func getCaptionHeight() -> CGFloat {
-        if captionHeight <= 0 {
-            captionHeight = Constants.kCaptionHeight + Constants.kSubCaptionHeight + Constants.kBottomPadding
-        }
-        return captionHeight
+    func getCaptionHeight() -> CGFloat {
+        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
     
     func setUpViews() {
+        backgroundColor = UIColor(hex: components.bgColor)
+
         addSubview(imageView)
         addSubview(captionLabel)
         addSubview(subcaptionLabel)
 
         loadImage()
-        captionLabel.text = caption
-        subcaptionLabel.text = subcaption
+        captionLabel.text = components.caption
+        subcaptionLabel.text = components.subcaption
+        captionLabel.textColor = UIColor(hex: components.captionColor)
+        subcaptionLabel.textColor = UIColor(hex: components.subcaptionColor)
     }
     
     func setupConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
         subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let imageHeight = frame.size.height - CTCaptionedImageView.getCaptionHeight()
+        let imageHeight = frame.size.height - getCaptionHeight()
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constants.kImageBorderWidth),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constants.kImageBorderWidth),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.kImageBorderWidth),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constraints.kImageBorderWidth),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constraints.kImageBorderWidth),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constraints.kImageBorderWidth),
             imageView.heightAnchor.constraint(equalToConstant: imageHeight),
             
-            captionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constants.kCaptionTopPadding),
-            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.kCaptionLeftPadding),
-            captionLabel.heightAnchor.constraint(equalToConstant: Constants.kCaptionHeight),
+            captionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionTopPadding),
+            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+            captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+            captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
             
-            subcaptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constants.kCaptionHeight + Constants.kSubCaptionTopPadding),
-            subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.kCaptionLeftPadding),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.kSubCaptionTopPadding),
-            subcaptionLabel.heightAnchor.constraint(equalToConstant: Constants.kSubCaptionHeight)
+            subcaptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionHeight + Constraints.kSubCaptionTopPadding),
+            subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+            subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+            subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
+            subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)
         ])
     }
     
     func loadImage() {
-        if imageUrl == "" {
+        // When imageUrl is empty or invalid display no image preview.
+        let noImage = UIImage(named: "ct_no_image", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        if components.imageUrl == "" {
+            self.imageView.image = noImage
             return
         }
         
-        let url = URL(string: imageUrl)!
+        let url = URL(string: components.imageUrl)!
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, _, _) in
             if let data = data {
                 DispatchQueue.main.async {
                     self?.imageView.image = UIImage(data: data)
                 }
+            } else {
+                self?.imageView.image = noImage
             }
         }
         dataTask.resume()
+    }
+}
+
+extension UIColor {
+    public convenience init?(hex: String) {
+        let red, green, blue: CGFloat
+
+        if hex.hasPrefix("#") {
+            let start = hex.index(hex.startIndex, offsetBy: 1)
+            let hexColor = String(hex[start...])
+            if hexColor.count == 6 {
+                let scanner = Scanner(string: hexColor)
+                var hexNumber: UInt64 = 0
+
+                if scanner.scanHexInt64(&hexNumber) {
+                    red = CGFloat((hexNumber & 0xff0000) >> 16) / 255
+                    green = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
+                    blue = CGFloat((hexNumber & 0x0000ff) >> 0) / 255
+
+                    self.init(red: red, green: green, blue: blue, alpha: 1.0)
+                    return
+                }
+            }
+        }
+
+        return nil
     }
 }

@@ -2,16 +2,15 @@ import UIKit
 import UserNotifications
 import UserNotificationsUI
 
-fileprivate enum Constants {
-    static let kContentSlider: String = "ct_ContentSlider"
-    static let kTemplateId: String = "pt_id"
-    static let kTemplateCarousel: String = "pt_carousel"
-    static let kDefaultString: String = ""
-}
-
 fileprivate enum CTNotificationContentType: Int {
+    // Dashboard
     case contentSlider = 0
-    // Add new templates type here
+    case singleMedia = 1
+    // Custom key-value pairs
+    case basicTemplate = 2
+    case autoCarousel = 3
+    case manualCarousel = 4
+    case timerTemplate = 5
 }
 
 open class CTNotificationViewController : UIViewController, UNNotificationContentExtension {
@@ -35,13 +34,73 @@ open class CTNotificationViewController : UIViewController, UNNotificationConten
         guard let content = content else {
             return
         }
-        
-        // TODO: Will add logic for new json data from custom key-value pair here to update contentType.
+
+        if content[TemplateConstants.kContentSlider] as? String != nil {
+            contentType = .contentSlider
+        } else {
+            if content[TemplateConstants.kTemplateId] as? String != nil {
+                if content[TemplateConstants.kTemplateId] as? String == TemplateConstants.kTemplateBasic {
+                    contentType = .basicTemplate
+                } else if content[TemplateConstants.kTemplateId] as? String == TemplateConstants.kTemplateAutoCarousel {
+                    contentType = .autoCarousel
+                } else if content[TemplateConstants.kTemplateId] as? String == TemplateConstants.kTemplateManualCarousel {
+                    contentType = .manualCarousel
+                } else if content[TemplateConstants.kTemplateId] as? String == TemplateConstants.kTemplateTimer {
+                    contentType = .timerTemplate
+                }
+            } else if content[ConstantKeys.kSingleMediaType] as? String != nil && content[ConstantKeys.kSingleMediaURL] as? String != nil {
+                contentType = .singleMedia
+            }
+        }
         
         switch contentType {
         case .contentSlider:
             let contentController = CTContentSliderController()
-            contentController.data = content[Constants.kContentSlider] as! String
+            contentController.data = content[TemplateConstants.kContentSlider] as! String
+            addChild(contentController)
+            self.view.addSubview(contentController.view)
+            contentController.view.frame = self.view.bounds
+            contentViewController = contentController
+        case .singleMedia:
+            let contentController = CTSingleMediaController()
+            contentController.caption = notification.request.content.title
+            contentController.subCaption = notification.request.content.body
+            contentController.mediaType = content[ConstantKeys.kSingleMediaType] as! String
+            contentController.mediaURL = content[ConstantKeys.kSingleMediaURL] as! String
+            if content[ConstantKeys.kDeeplinkURL] as? String != nil {
+                contentController.deeplinkURL = content[ConstantKeys.kDeeplinkURL] as! String
+            }
+            addChild(contentController)
+            self.view.addSubview(contentController.view)
+            contentController.view.frame = self.view.bounds
+            contentViewController = contentController
+        case .basicTemplate:
+            let contentController = CTCarouselController()
+            contentController.data = content[ConstantKeys.kJSON] as! String
+            contentController.templateType = TemplateConstants.kTemplateBasic
+            addChild(contentController)
+            self.view.addSubview(contentController.view)
+            contentController.view.frame = self.view.bounds
+            contentViewController = contentController
+        case .autoCarousel:
+            let contentController = CTCarouselController()
+            contentController.data = content[ConstantKeys.kJSON] as! String
+            contentController.templateType = TemplateConstants.kTemplateAutoCarousel
+            addChild(contentController)
+            self.view.addSubview(contentController.view)
+            contentController.view.frame = self.view.bounds
+            contentViewController = contentController
+        case .manualCarousel:
+            let contentController = CTCarouselController()
+            contentController.data = content[ConstantKeys.kJSON] as! String
+            contentController.templateType = TemplateConstants.kTemplateManualCarousel
+            addChild(contentController)
+            self.view.addSubview(contentController.view)
+            contentController.view.frame = self.view.bounds
+            contentViewController = contentController
+        case .timerTemplate:
+            let contentController = CTTimerTemplateController()
+            contentController.data = content[ConstantKeys.kJSON] as! String
             addChild(contentController)
             self.view.addSubview(contentController.view)
             contentController.view.frame = self.view.bounds

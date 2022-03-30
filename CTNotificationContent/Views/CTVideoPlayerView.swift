@@ -1,14 +1,12 @@
+import AVFoundation
 import Foundation
 import UIKit
-import AVFoundation
 
-/// A simple `UIView` subclass that is backed by an `AVPlayerLayer` layer.
-class VideoPlayerView: UIView {
+class CTVideoPlayerView: UIView {
     var player: AVPlayer? {
         get {
             return playerLayer.player
         }
-
         set {
             playerLayer.player = newValue
         }
