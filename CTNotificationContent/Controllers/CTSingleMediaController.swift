@@ -6,11 +6,11 @@ import AVFoundation
 class CTSingleMediaController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     var currentItemView: CTCaptionedImageView = CTCaptionedImageView(frame: .zero)
-    var caption: String = ""
-    var subCaption: String = ""
-    var mediaType: String = ""
-    var mediaURL: String = ""
-    var deeplinkURL: String = ""
+    @objc var caption: String = ""
+    @objc var subCaption: String = ""
+    @objc var mediaType: String = ""
+    @objc var mediaURL: String = ""
+    @objc var deeplinkURL: String = ""
     var player:AVPlayer?
     var videoPlayerView: CTVideoPlayerView = CTVideoPlayerView(frame: .zero)
     private var captionLabel: UILabel = {
@@ -121,12 +121,12 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         ])
     }
     
-    override func handleAction(action: String) -> UNNotificationContentExtensionResponseOption {
+    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if deeplinkURL != "" {
+            if !deeplinkURL.isEmpty {
                 let url = URL(string: deeplinkURL)!
-                getParentViewController().openUrl(url: url)
+                getParentViewController().open(url)
             }
             return .dismiss
         }

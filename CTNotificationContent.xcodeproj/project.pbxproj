@@ -8,35 +8,55 @@
 
 /* Begin PBXBuildFile section */
 		0B1898FE278D99B3000A0169 /* CTNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */; };
-		0B189903278D99F0000A0169 /* CTCaptionImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B189900278D99EF000A0169 /* CTCaptionImageView.xib */; };
-		0B189904278D99F0000A0169 /* CTCaptionImageViewproperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */; };
-		0B189905278D99F0000A0169 /* CTCaptionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189902278D99EF000A0169 /* CTCaptionImageView.swift */; };
-		0B18990C278D9A14000A0169 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189907278D9A14000A0169 /* Carousel.swift */; };
-		0B18990D278D9A14000A0169 /* CarouselTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B189908278D9A14000A0169 /* CarouselTemplate.swift */; };
 		0B18990E278D9A14000A0169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B189909278D9A14000A0169 /* Assets.xcassets */; };
-		0B18990F278D9A14000A0169 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B18990A278D9A14000A0169 /* CarouselLayout.swift */; };
-		0B189910278D9A14000A0169 /* Contentsliderproperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */; };
+		488F31A02816FFE900AE3AC8 /* BaseCTNotificationContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F319F2816FFE900AE3AC8 /* BaseCTNotificationContentViewController.swift */; };
+		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
+		488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A32816FFF300AE3AC8 /* ct_previous_button.png */; };
+		488F31A92816FFF300AE3AC8 /* ct_no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A42816FFF300AE3AC8 /* ct_no_image.png */; };
+		488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A52816FFF300AE3AC8 /* ct_play_button.png */; };
+		488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A62816FFF300AE3AC8 /* ct_pause_button.png */; };
+		488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31AC2817000200AE3AC8 /* CTVideoPlayerView.swift */; };
+		488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31AD2817000200AE3AC8 /* CTCaptionedImageView.swift */; };
+		488F31B52817001E00AE3AC8 /* CTContentSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31B02817001E00AE3AC8 /* CTContentSliderController.swift */; };
+		488F31B62817001E00AE3AC8 /* CTSingleMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31B12817001E00AE3AC8 /* CTSingleMediaController.swift */; };
+		488F31B72817001E00AE3AC8 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31B22817001E00AE3AC8 /* GlobalConstants.swift */; };
+		488F31B82817001E00AE3AC8 /* CTCarouselController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31B32817001E00AE3AC8 /* CTCarouselController.swift */; };
+		488F31B92817001E00AE3AC8 /* CTTimerTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31B42817001E00AE3AC8 /* CTTimerTemplateController.swift */; };
+		488F31BB2817008300AE3AC8 /* BaseCTNotificationContentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 488F31BA2817008300AE3AC8 /* BaseCTNotificationContentViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */; };
+		488F31BF2817011100AE3AC8 /* CTNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488F31C02817012500AE3AC8 /* CTNotificationViewController.m */; };
+		488F31C32817E95D00AE3AC8 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F31C22817E95D00AE3AC8 /* Test.swift */; };
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
-		575254F1278EC3E4009D5B9F /* ConstantKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575254F0278EC3E4009D5B9F /* ConstantKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTNotificationViewController.swift; sourceTree = "<group>"; };
-		0B189900278D99EF000A0169 /* CTCaptionImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTCaptionImageView.xib; sourceTree = "<group>"; };
-		0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCaptionImageViewproperties.swift; sourceTree = "<group>"; };
-		0B189902278D99EF000A0169 /* CTCaptionImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCaptionImageView.swift; sourceTree = "<group>"; };
-		0B189907278D9A14000A0169 /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
-		0B189908278D9A14000A0169 /* CarouselTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselTemplate.swift; sourceTree = "<group>"; };
 		0B189909278D9A14000A0169 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0B18990A278D9A14000A0169 /* CarouselLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
-		0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contentsliderproperties.swift; sourceTree = "<group>"; };
+		488F319F2816FFE900AE3AC8 /* BaseCTNotificationContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCTNotificationContentViewController.swift; sourceTree = "<group>"; };
+		488F31A22816FFF300AE3AC8 /* ct_next_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_next_button.png; sourceTree = "<group>"; };
+		488F31A32816FFF300AE3AC8 /* ct_previous_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_previous_button.png; sourceTree = "<group>"; };
+		488F31A42816FFF300AE3AC8 /* ct_no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_no_image.png; sourceTree = "<group>"; };
+		488F31A52816FFF300AE3AC8 /* ct_play_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_play_button.png; sourceTree = "<group>"; };
+		488F31A62816FFF300AE3AC8 /* ct_pause_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_pause_button.png; sourceTree = "<group>"; };
+		488F31AC2817000200AE3AC8 /* CTVideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTVideoPlayerView.swift; sourceTree = "<group>"; };
+		488F31AD2817000200AE3AC8 /* CTCaptionedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCaptionedImageView.swift; sourceTree = "<group>"; };
+		488F31B02817001E00AE3AC8 /* CTContentSliderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTContentSliderController.swift; sourceTree = "<group>"; };
+		488F31B12817001E00AE3AC8 /* CTSingleMediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTSingleMediaController.swift; sourceTree = "<group>"; };
+		488F31B22817001E00AE3AC8 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		488F31B32817001E00AE3AC8 /* CTCarouselController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCarouselController.swift; sourceTree = "<group>"; };
+		488F31B42817001E00AE3AC8 /* CTTimerTemplateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTTimerTemplateController.swift; sourceTree = "<group>"; };
+		488F31BA2817008300AE3AC8 /* BaseCTNotificationContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseCTNotificationContentViewController.h; sourceTree = "<group>"; };
+		488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseCTNotificationContentViewController.m; sourceTree = "<group>"; };
+		488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationViewController.h; sourceTree = "<group>"; };
+		488F31C02817012500AE3AC8 /* CTNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTNotificationViewController.m; sourceTree = "<group>"; };
+		488F31C22817E95D00AE3AC8 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Test.swift; path = ContentSlider/Test.swift; sourceTree = "<group>"; };
 		525715E91E67B8C0000E455B /* CTNotificationContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTNotificationContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		525715F61E67B990000E455B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
-		575254F0278EC3E4009D5B9F /* ConstantKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,9 +75,8 @@
 		0B1898FF278D99EF000A0169 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0B189900278D99EF000A0169 /* CTCaptionImageView.xib */,
-				0B189901278D99EF000A0169 /* CTCaptionImageViewproperties.swift */,
-				0B189902278D99EF000A0169 /* CTCaptionImageView.swift */,
+				488F31AD2817000200AE3AC8 /* CTCaptionedImageView.swift */,
+				488F31AC2817000200AE3AC8 /* CTVideoPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -65,13 +84,26 @@
 		0B189906278D9A14000A0169 /* ContentSlider */ = {
 			isa = PBXGroup;
 			children = (
-				0B189907278D9A14000A0169 /* Carousel.swift */,
-				0B189908278D9A14000A0169 /* CarouselTemplate.swift */,
+				488F31B32817001E00AE3AC8 /* CTCarouselController.swift */,
+				488F31B02817001E00AE3AC8 /* CTContentSliderController.swift */,
+				488F31B12817001E00AE3AC8 /* CTSingleMediaController.swift */,
+				488F31B42817001E00AE3AC8 /* CTTimerTemplateController.swift */,
+				488F31B22817001E00AE3AC8 /* GlobalConstants.swift */,
 				0B189909278D9A14000A0169 /* Assets.xcassets */,
-				0B18990A278D9A14000A0169 /* CarouselLayout.swift */,
-				0B18990B278D9A14000A0169 /* Contentsliderproperties.swift */,
 			);
 			path = ContentSlider;
+			sourceTree = "<group>";
+		};
+		488F31A12816FFF300AE3AC8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				488F31A22816FFF300AE3AC8 /* ct_next_button.png */,
+				488F31A32816FFF300AE3AC8 /* ct_previous_button.png */,
+				488F31A42816FFF300AE3AC8 /* ct_no_image.png */,
+				488F31A52816FFF300AE3AC8 /* ct_play_button.png */,
+				488F31A62816FFF300AE3AC8 /* ct_pause_button.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		525715DF1E67B8C0000E455B = {
@@ -94,11 +126,17 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				488F31A12816FFF300AE3AC8 /* Resources */,
+				488F319F2816FFE900AE3AC8 /* BaseCTNotificationContentViewController.swift */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				0B1898FD278D99B3000A0169 /* CTNotificationViewController.swift */,
-				575254F0278EC3E4009D5B9F /* ConstantKeys.swift */,
 				0B189906278D9A14000A0169 /* ContentSlider */,
 				0B1898FF278D99EF000A0169 /* Views */,
+				488F31BA2817008300AE3AC8 /* BaseCTNotificationContentViewController.h */,
+				488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */,
+				488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */,
+				488F31C02817012500AE3AC8 /* CTNotificationViewController.m */,
+				488F31C22817E95D00AE3AC8 /* Test.swift */,
 			);
 			path = CTNotificationContent;
 			sourceTree = "<group>";
@@ -119,6 +157,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				488F31BF2817011100AE3AC8 /* CTNotificationViewController.h in Headers */,
+				488F31BB2817008300AE3AC8 /* BaseCTNotificationContentViewController.h in Headers */,
 				525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +196,7 @@
 					525715E81E67B8C0000E455B = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A5J34NR598;
-						LastSwiftMigration = 1310;
+						LastSwiftMigration = 1320;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -184,8 +224,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */,
+				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
+				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
+				488F31A92816FFF300AE3AC8 /* ct_no_image.png in Resources */,
 				0B18990E278D9A14000A0169 /* Assets.xcassets in Resources */,
-				0B189903278D99F0000A0169 /* CTCaptionImageView.xib in Resources */,
+				488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,14 +240,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B189905278D99F0000A0169 /* CTCaptionImageView.swift in Sources */,
-				0B18990F278D9A14000A0169 /* CarouselLayout.swift in Sources */,
-				0B189910278D9A14000A0169 /* Contentsliderproperties.swift in Sources */,
-				575254F1278EC3E4009D5B9F /* ConstantKeys.swift in Sources */,
+				488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */,
+				488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */,
+				488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */,
+				488F31B82817001E00AE3AC8 /* CTCarouselController.swift in Sources */,
+				488F31B92817001E00AE3AC8 /* CTTimerTemplateController.swift in Sources */,
+				488F31C32817E95D00AE3AC8 /* Test.swift in Sources */,
+				488F31A02816FFE900AE3AC8 /* BaseCTNotificationContentViewController.swift in Sources */,
+				488F31B72817001E00AE3AC8 /* GlobalConstants.swift in Sources */,
+				488F31B62817001E00AE3AC8 /* CTSingleMediaController.swift in Sources */,
+				488F31B52817001E00AE3AC8 /* CTContentSliderController.swift in Sources */,
 				0B1898FE278D99B3000A0169 /* CTNotificationViewController.swift in Sources */,
-				0B189904278D99F0000A0169 /* CTCaptionImageViewproperties.swift in Sources */,
-				0B18990D278D9A14000A0169 /* CarouselTemplate.swift in Sources */,
-				0B18990C278D9A14000A0169 /* Carousel.swift in Sources */,
+				488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +292,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -304,6 +353,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

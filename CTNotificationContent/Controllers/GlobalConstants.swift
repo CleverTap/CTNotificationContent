@@ -1,10 +1,7 @@
 enum TemplateConstants {
-    static let kTemplateId: String = "pt_id"
-    static let kContentSlider: String = "ct_ContentSlider"
     static let kTemplateBasic: String = "pt_basic"
     static let kTemplateAutoCarousel: String = "pt_carousel"
     static let kTemplateManualCarousel: String = "pt_manual_carousel"
-    static let kTemplateTimer: String = "pt_timer"
 }
 
 enum Constraints {
@@ -22,10 +19,6 @@ enum Constraints {
 }
 
 enum ConstantKeys {
-    static let kSingleMediaType: String = "ct_mediaType"
-    static let kSingleMediaURL: String = "ct_mediaUrl"
-    static let kJSON: String = "pt_json"
-    static let kDeeplinkURL: String = "wzrk_dl"
     static let kDefaultColor: String = ""
     static let kHexBlackColor: String = "#000000"
     static let kHexLightGrayColor: String = "#d3d3d3"

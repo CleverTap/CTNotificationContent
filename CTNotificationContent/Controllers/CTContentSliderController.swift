@@ -33,7 +33,7 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     var itemViews =  [CTCaptionedImageView]()
     var currentItemIndex: Int = 0
     var autoDismiss: Int = 0
-    var data: String = ""
+    @objc var data: String = ""
     var jsonContent: ContentSliderProperties? = nil
     
     override func viewDidLoad() {
@@ -111,7 +111,7 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     }
     
     
-    override func handleAction(action: String) -> UNNotificationContentExtensionResponseOption {
+    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous
             stopAutoPlay()
@@ -126,7 +126,7 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
                 let urlString = itemViews[currentItemIndex].components.actionUrl
                 getParentViewController().userDidPerformAction(ConstantKeys.kOpenedContentUrlAction, withProperties: items[currentItemIndex])
                 let url = URL(string: urlString)!
-                getParentViewController().openUrl(url: url)
+                getParentViewController().open(url)
                 return (autoDismiss == 1) ? .dismiss : .doNotDismiss
             }
             return .dismissAndForwardAction

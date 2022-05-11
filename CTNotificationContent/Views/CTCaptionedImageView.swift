@@ -98,7 +98,7 @@ class CTCaptionedImageView : UIView {
     func loadImage() {
         // When imageUrl is empty or invalid display no image preview.
         let noImage = UIImage(named: "ct_no_image", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        if components.imageUrl == "" {
+        if components.imageUrl.isEmpty {
             self.imageView.image = noImage
             return
         }

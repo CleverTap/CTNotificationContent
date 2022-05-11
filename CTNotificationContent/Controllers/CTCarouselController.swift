@@ -5,17 +5,17 @@ struct CarouselProperties: Decodable {
     let pt_title: String
     let pt_msg: String
     let pt_msg_summary: String?
-    let pt_subtitle: String?
+    let pt_subtitle: String?    // Not used
     let pt_dl1: String?
     let pt_big_img: String?
     let pt_img1: String?
     let pt_img2: String?
     let pt_img3: String?
     let pt_bg: String
-    let pt_ico: String?
+    let pt_ico: String? // Not used
     let pt_title_clr: String?
     let pt_msg_clr: String?
-    let pt_small_icon_clr: String?
+    let pt_small_icon_clr: String?  // Not used
 }
 
 class CTCarouselController: BaseCTNotificationContentViewController {
@@ -25,8 +25,8 @@ class CTCarouselController: BaseCTNotificationContentViewController {
     var timer: Timer? = nil
     var itemViews =  [CTCaptionedImageView]()
     var currentItemIndex: Int = 0
-    var data: String = ""
-    var templateType: String = ""
+    @objc var data: String = ""
+    @objc var templateType: String = ""
     var jsonContent: CarouselProperties? = nil
     var nextButtonImage: UIImage = UIImage()
     var previousButtonImage: UIImage = UIImage()
@@ -168,7 +168,7 @@ class CTCarouselController: BaseCTNotificationContentViewController {
         showPrevious()
     }
 
-    override func handleAction(action: String) -> UNNotificationContentExtensionResponseOption {
+    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous
             if templateType == TemplateConstants.kTemplateManualCarousel {
@@ -183,9 +183,9 @@ class CTCarouselController: BaseCTNotificationContentViewController {
             // Maps to run the relevant deeplink
             if itemViews.count > 0 {
                 let urlString = itemViews[currentItemIndex].components.actionUrl
-                if urlString != "" {
+                if !urlString.isEmpty {
                     let url = URL(string: urlString)!
-                    getParentViewController().openUrl(url: url)
+                    getParentViewController().open(url)
                 }
                 return .dismiss
             }

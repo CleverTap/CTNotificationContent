@@ -7,22 +7,22 @@ struct TimerTemplateProperties: Decodable {
     let pt_msg: String
     let pt_msg_alt: String?
     let pt_msg_summary: String?
-    let pt_subtitle: String?
+    let pt_subtitle: String?    // Not used
     let pt_dl1: String
     let pt_big_img: String
     let pt_big_img_alt: String?
     let pt_bg: String
     let pt_chrono_title_clr: String?
-    let pt_timer_threshold: Int
-    let pt_timer_end: String?
+    let pt_timer_threshold: Int?
+    let pt_timer_end: Int?
     let pt_title_clr: String?
     let pt_msg_clr: String?
-    let pt_small_icon_clr: String?
+    let pt_small_icon_clr: String?  // Not used
 }
 
 class CTTimerTemplateController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
-    var data: String = ""
+    @objc var data: String = ""
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
     var thresholdSeconds = 0
@@ -98,6 +98,21 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        
+        if let threshold = jsonContent.pt_timer_threshold {
+            thresholdSeconds = threshold
+        } else {
+            if let endTime = jsonContent.pt_timer_end {
+                let date = NSDate()
+                let currentTime = date.timeIntervalSince1970
+                thresholdSeconds = endTime - Int(currentTime)
+            }
+        }
+        
+        if thresholdSeconds < 10 {
+            // Add error logs here as notification will not be displayed, if threshold is less than 10 seconds.
+            return
+        }
 
         contentView.addSubview(imageView)
         contentView.addSubview(captionLabel)
@@ -111,7 +126,6 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
             subcaptionLabel.text = jsonContent.pt_msg
         }
         
-        thresholdSeconds = jsonContent.pt_timer_threshold
         view.backgroundColor = UIColor(hex: jsonContent.pt_bg)
         if let titleColor = jsonContent.pt_title_clr {
             captionLabel.textColor = UIColor(hex: titleColor)
@@ -169,7 +183,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
             thresholdSeconds -= 1
         } else {
             timer.invalidate()
-            self.timerLabel.text = "00:00"
+            self.timerLabel.isHidden = true
             if let altImage = jsonContent?.pt_big_img_alt {
                 loadImage(imageString: altImage)
             }
@@ -182,12 +196,12 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         }
     }
     
-    override func handleAction(action: String) -> UNNotificationContentExtensionResponseOption {
+    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if let deeplink = jsonContent?.pt_dl1 {
                 let url = URL(string: deeplink)!
-                getParentViewController().openUrl(url: url)
+                getParentViewController().open(url)
             }
             return .dismiss
         }
@@ -196,7 +210,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
 
     func loadImage(imageString: String) {
         let noImage = UIImage(named: "ct_no_image", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        if imageString == "" {
+        if imageString.isEmpty {
             self.imageView.image = noImage
             return
         }
