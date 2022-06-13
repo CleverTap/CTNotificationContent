@@ -136,6 +136,10 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
     }
 }
 
+- (void)preferredContentSizeDidChangeForChildContentContainer:(id<UIContentContainer>)container {
+    self.preferredContentSize = self.contentViewController.preferredContentSize;
+}
+
 - (void)didReceiveNotificationResponse:(UNNotificationResponse *)response
                      completionHandler:(void (^)(UNNotificationContentExtensionResponseOption))completion {
     UNNotificationContentExtensionResponseOption actionResponseOption = [self.contentViewController handleAction:response.actionIdentifier];

@@ -7,9 +7,8 @@ struct TimerTemplateProperties: Decodable {
     let pt_msg: String
     let pt_msg_alt: String?
     let pt_msg_summary: String?
-    let pt_subtitle: String?    // Not used
     let pt_dl1: String
-    let pt_big_img: String
+    let pt_big_img: String?
     let pt_big_img_alt: String?
     let pt_bg: String
     let pt_chrono_title_clr: String?
@@ -17,7 +16,6 @@ struct TimerTemplateProperties: Decodable {
     let pt_timer_end: Int?
     let pt_title_clr: String?
     let pt_msg_clr: String?
-    let pt_small_icon_clr: String?  // Not used
 }
 
 class CTTimerTemplateController: BaseCTNotificationContentViewController {
@@ -29,10 +27,9 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.borderWidth = Constraints.kImageLayerBorderWidth
         imageView.layer.masksToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private var captionLabel: UILabel = {
@@ -41,6 +38,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         captionLabel.adjustsFontSizeToFitWidth = false
         captionLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabel.textColor = UIColor.black
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
         return captionLabel
     }()
     private var subcaptionLabel: UILabel = {
@@ -49,6 +47,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         subcaptionLabel.adjustsFontSizeToFitWidth = false
         subcaptionLabel.font = UIFont.systemFont(ofSize: 12.0)
         subcaptionLabel.textColor = UIColor.lightGray
+        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return subcaptionLabel
     }()
     private var timerLabel: UILabel = {
@@ -57,6 +56,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         timerLabel.adjustsFontSizeToFitWidth = false
         timerLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         timerLabel.textColor = UIColor.black
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
         return timerLabel
     }()
     
@@ -88,17 +88,6 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         guard let jsonContent = jsonContent else {
             return
         }
-        
-        let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-        // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-
-        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        view.frame = frame
-        contentView.frame = frame
-        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-        
         if let threshold = jsonContent.pt_timer_threshold {
             thresholdSeconds = threshold
         } else {
@@ -109,16 +98,24 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
             }
         }
         
-        if thresholdSeconds < 10 {
-            // Add error logs here as notification will not be displayed, if threshold is less than 10 seconds.
-            return
+        let viewWidth = view.frame.size.width
+        var viewHeight = getCaptionHeight()
+        if jsonContent.pt_big_img != nil && thresholdSeconds > 0 {
+            viewHeight = viewWidth + getCaptionHeight()
+            // For view in Landscape
+            viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
         }
+
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
 
         contentView.addSubview(imageView)
         contentView.addSubview(captionLabel)
         contentView.addSubview(subcaptionLabel)
         contentView.addSubview(timerLabel)
-        loadImage(imageString: jsonContent.pt_big_img)
+
         captionLabel.text = jsonContent.pt_title
         if let msgSummary = jsonContent.pt_msg_summary {
             subcaptionLabel.text = msgSummary
@@ -127,6 +124,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         }
         
         view.backgroundColor = UIColor(hex: jsonContent.pt_bg)
+        imageView.backgroundColor = UIColor(hex: jsonContent.pt_bg)
         if let titleColor = jsonContent.pt_title_clr {
             captionLabel.textColor = UIColor(hex: titleColor)
         }
@@ -136,32 +134,35 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         if let timerColor = jsonContent.pt_chrono_title_clr {
             timerLabel.textColor = UIColor(hex: timerColor)
         }
+        if let bigImg = jsonContent.pt_big_img {
+            if thresholdSeconds > 0 {
+                // Load image only if timer is not ended.
+                loadImage(imageString: bigImg)
+
+                NSLayoutConstraint.activate([
+                    imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
+                    imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
+                    imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
+                    imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight())
+                ])
+            }
+        }
     }
     
     func setupConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        let imageHeight = contentView.frame.size.height - getCaptionHeight()
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            
-            captionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionTopPadding),
+            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(getCaptionHeight() - Constraints.kCaptionTopPadding)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
             
-            subcaptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionHeight + Constraints.kSubCaptionTopPadding),
+            subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
             
-            timerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionTopPadding),
+            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight()),
             timerLabel.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
             timerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
             timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
@@ -184,14 +185,33 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         } else {
             timer.invalidate()
             self.timerLabel.isHidden = true
-            if let altImage = jsonContent?.pt_big_img_alt {
-                loadImage(imageString: altImage)
-            }
-            if let title = jsonContent?.pt_title_alt {
-                captionLabel.text = title
-            }
-            if let msg = jsonContent?.pt_msg_alt {
-                subcaptionLabel.text = msg
+            if let jsonContent = jsonContent {
+                if let title = jsonContent.pt_title_alt {
+                    captionLabel.text = title
+                }
+                if let msg = jsonContent.pt_msg_alt {
+                    subcaptionLabel.text = msg
+                }
+                if let altImage = jsonContent.pt_big_img_alt {
+                    // Load expired image, if available.
+                    loadImage(imageString: altImage)
+
+                    let viewWidth = view.frame.size.width
+                    var viewHeight = viewWidth + getCaptionHeight()
+                    viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
+                    let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+                    view.frame = frame
+                    contentView.frame = frame
+                    preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+
+                    // Activate imageView constraints if initial image is nil but there is expired image.
+                    NSLayoutConstraint.activate([
+                        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
+                        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
+                        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
+                        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight())
+                    ])
+                }
             }
         }
     }

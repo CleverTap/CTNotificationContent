@@ -16,10 +16,9 @@ class CTCaptionedImageView : UIView {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
         imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.borderWidth = Constraints.kImageLayerBorderWidth
         imageView.layer.masksToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private var captionLabel: UILabel = {
@@ -27,6 +26,7 @@ class CTCaptionedImageView : UIView {
         captionLabel.textAlignment = .left
         captionLabel.adjustsFontSizeToFitWidth = false
         captionLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
         return captionLabel
     }()
     private var subcaptionLabel: UILabel = {
@@ -34,6 +34,7 @@ class CTCaptionedImageView : UIView {
         subcaptionLabel.textAlignment = .left
         subcaptionLabel.adjustsFontSizeToFitWidth = false
         subcaptionLabel.font = UIFont.systemFont(ofSize: 12.0)
+        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return subcaptionLabel
     }()
 
@@ -58,13 +59,16 @@ class CTCaptionedImageView : UIView {
     }
     
     func setUpViews() {
-        backgroundColor = UIColor(hex: components.bgColor)
-
         addSubview(imageView)
         addSubview(captionLabel)
         addSubview(subcaptionLabel)
 
-        loadImage()
+        backgroundColor = UIColor(hex: components.bgColor)
+        imageView.backgroundColor = UIColor(hex: components.bgColor)
+
+        if !components.imageUrl.isEmpty {
+            loadImage()
+        }
         captionLabel.text = components.caption
         subcaptionLabel.text = components.subcaption
         captionLabel.textColor = UIColor(hex: components.captionColor)
@@ -72,27 +76,27 @@ class CTCaptionedImageView : UIView {
     }
     
     func setupConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let imageHeight = frame.size.height - getCaptionHeight()
+        if !components.imageUrl.isEmpty {
+            NSLayoutConstraint.activate([
+               imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constraints.kImageBorderWidth),
+               imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constraints.kImageBorderWidth),
+               imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constraints.kImageBorderWidth),
+               imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -getCaptionHeight())
+            ])
+        }
+        
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constraints.kImageBorderWidth),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constraints.kImageBorderWidth),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constraints.kImageBorderWidth),
-            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
-            
-            captionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionTopPadding),
-            captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
-            
-            subcaptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constraints.kCaptionHeight + Constraints.kSubCaptionTopPadding),
-            subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
-            subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)
-        ])
+               captionLabel.topAnchor.constraint(equalTo: bottomAnchor, constant: -(getCaptionHeight() - Constraints.kCaptionTopPadding)),
+               captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+               captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+               captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
+               
+               subcaptionLabel.topAnchor.constraint(equalTo: bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
+               subcaptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+               subcaptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+               subcaptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
+               subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)
+           ])
     }
     
     func loadImage() {

@@ -10,7 +10,5 @@ Pod::Spec.new do |s|
   s.platform = :ios, '10.0'
   s.weak_frameworks = 'UserNotifications', 'UIKit'
   s.source_files = 'CTNotificationContent/**/*.{h,m,swift}'
-  s.subspec 'Resources' do |resources|
-    resources.resource_bundle = {'CTNotificationContent' => ['CTNotificationContent/**/*.{png}']}
-  end
+  s.resources = 'CTNotificationContent/**/*.{png}'
 end
