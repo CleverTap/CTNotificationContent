@@ -54,10 +54,6 @@ class CTCaptionedImageView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getCaptionHeight() -> CGFloat {
-        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
-    }
-    
     func setUpViews() {
         addSubview(imageView)
         addSubview(captionLabel)
@@ -66,8 +62,13 @@ class CTCaptionedImageView : UIView {
         backgroundColor = UIColor(hex: components.bgColor)
         imageView.backgroundColor = UIColor(hex: components.bgColor)
 
-        if !components.imageUrl.isEmpty {
-            loadImage()
+        CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                if imageData != nil {
+                    self?.imageView.image = imageData
+                    self?.activateImageViewContraints()
+                }
+            }
         }
         captionLabel.text = components.caption
         subcaptionLabel.text = components.subcaption
@@ -76,17 +77,8 @@ class CTCaptionedImageView : UIView {
     }
     
     func setupConstraints() {
-        if !components.imageUrl.isEmpty {
-            NSLayoutConstraint.activate([
-               imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constraints.kImageBorderWidth),
-               imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constraints.kImageBorderWidth),
-               imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constraints.kImageBorderWidth),
-               imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -getCaptionHeight())
-            ])
-        }
-        
         NSLayoutConstraint.activate([
-               captionLabel.topAnchor.constraint(equalTo: bottomAnchor, constant: -(getCaptionHeight() - Constraints.kCaptionTopPadding)),
+            captionLabel.topAnchor.constraint(equalTo: bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
                captionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constraints.kCaptionLeftPadding),
                captionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
                captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
@@ -99,25 +91,13 @@ class CTCaptionedImageView : UIView {
            ])
     }
     
-    func loadImage() {
-        // When imageUrl is empty or invalid display no image preview.
-        let noImage = UIImage(named: "ct_no_image", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        if components.imageUrl.isEmpty {
-            self.imageView.image = noImage
-            return
-        }
-        
-        let url = URL(string: components.imageUrl)!
-        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, _, _) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    self?.imageView.image = UIImage(data: data)
-                }
-            } else {
-                self?.imageView.image = noImage
-            }
-        }
-        dataTask.resume()
+    func activateImageViewContraints() {
+        NSLayoutConstraint.activate([
+           imageView.topAnchor.constraint(equalTo: topAnchor, constant: -Constraints.kImageBorderWidth),
+           imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -Constraints.kImageBorderWidth),
+           imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constraints.kImageBorderWidth),
+           imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -CTUtiltiy.getCaptionHeight())
+        ])
     }
 }
 

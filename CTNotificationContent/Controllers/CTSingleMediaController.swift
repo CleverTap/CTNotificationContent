@@ -19,6 +19,7 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         captionLabel.adjustsFontSizeToFitWidth = false
         captionLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabel.textColor = UIColor.black
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
         return captionLabel
     }()
     private var subcaptionLabel: UILabel = {
@@ -27,6 +28,7 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         subcaptionLabel.adjustsFontSizeToFitWidth = false
         subcaptionLabel.font = UIFont.systemFont(ofSize: 12.0)
         subcaptionLabel.textColor = UIColor.lightGray
+        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return subcaptionLabel
     }()
     var playImage: UIImage = UIImage()
@@ -40,15 +42,7 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
 
-        let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-        // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-
-        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        view.frame = frame
-        contentView.frame = frame
-        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        createFrameWithImage()
 
         if mediaType == ConstantKeys.kMediaTypeVideo || mediaType == ConstantKeys.kMediaTypeAudio {
             createVideoView()
@@ -58,59 +52,71 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
     }
     
     func createVideoView() {
-        let urlToVideo = URL(string: mediaURL)!
-        let player = AVPlayer(url: urlToVideo)
+        createBasicCaptionView()
 
-        videoPlayerView.player = player
-        captionLabel.text = caption
-        subcaptionLabel.text = subCaption
+        guard let urlToVideo = URL(string: mediaURL) else {
+            createFrameWithoutImage()
+            return
+        }
         
-        contentView.addSubview(videoPlayerView)
-        contentView.addSubview(captionLabel)
-        contentView.addSubview(subcaptionLabel)
-        videoPlayerView.translatesAutoresizingMaskIntoConstraints = false
-        captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let imageHeight = contentView.frame.size.height - getCaptionHeight()
-        NSLayoutConstraint.activate([
-            videoPlayerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
-            videoPlayerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
-            videoPlayerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-            videoPlayerView.heightAnchor.constraint(equalToConstant: imageHeight),
+        if AVAsset(url: urlToVideo).isPlayable {
+            let player = AVPlayer(url: urlToVideo)
+
+            videoPlayerView.player = player
             
-            captionLabel.topAnchor.constraint(equalTo: videoPlayerView.bottomAnchor, constant: Constraints.kCaptionTopPadding),
-            captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
+            contentView.addSubview(videoPlayerView)
+            videoPlayerView.translatesAutoresizingMaskIntoConstraints = false
+            let imageHeight = contentView.frame.size.height - CTUtiltiy.getCaptionHeight()
+            NSLayoutConstraint.activate([
+                videoPlayerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
+                videoPlayerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
+                videoPlayerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
+                videoPlayerView.heightAnchor.constraint(equalToConstant: imageHeight)
+            ])
+
+            videoPlayerView.player?.play()
+            isPlaying = true
             
-            subcaptionLabel.topAnchor.constraint(equalTo: videoPlayerView.bottomAnchor, constant: Constraints.kCaptionHeight + Constraints.kSubCaptionTopPadding),
-            subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
-            subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)
-        ])
+            playImage = UIImage(named: "ct_play_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+            pauseImage = UIImage(named: "ct_pause_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
 
-        videoPlayerView.player?.play()
-        isPlaying = true
-        
-        playImage = UIImage(named: "ct_play_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
-        pauseImage = UIImage(named: "ct_pause_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
-
-        playPauseButton.setImage(pauseImage, for: .normal)
-        playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped(_:)), for: .touchUpInside)
-        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(playPauseButton)
-        contentView.bringSubviewToFront(playPauseButton)
-        
-        NSLayoutConstraint.activate([
-            playPauseButton.centerXAnchor.constraint(equalTo: videoPlayerView.centerXAnchor),
-            playPauseButton.centerYAnchor.constraint(equalTo: videoPlayerView.centerYAnchor)
-        ])
+            playPauseButton.setImage(pauseImage, for: .normal)
+            playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped(_:)), for: .touchUpInside)
+            playPauseButton.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(playPauseButton)
+            contentView.bringSubviewToFront(playPauseButton)
+            
+            NSLayoutConstraint.activate([
+                playPauseButton.centerXAnchor.constraint(equalTo: videoPlayerView.centerXAnchor),
+                playPauseButton.centerYAnchor.constraint(equalTo: videoPlayerView.centerYAnchor)
+            ])
+        } else {
+            // Video url is invalid.
+            createFrameWithoutImage()
+        }
     }
     
     func createImageView() {
+        CTUtiltiy.checkImageUrlValid(imageUrl: mediaURL) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                if imageData != nil {
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+                    self?.currentItemView = CTCaptionedImageView(components: itemComponents)
+                } else {
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+                    self?.currentItemView = CTCaptionedImageView(components: itemComponents)
+                    self?.createFrameWithoutImage()
+                }
+                self?.setUpConstraints()
+            }
+        }
+        
         let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
         currentItemView = CTCaptionedImageView(components: itemComponents)
+        
+    }
+    
+    func setUpConstraints() {
         contentView.addSubview(currentItemView)
         currentItemView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -121,12 +127,54 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         ])
     }
     
+    func createFrameWithoutImage() {
+        let viewWidth = view.frame.size.width
+        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func createFrameWithImage() {
+        let viewWidth = view.frame.size.width
+        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight()
+        // For view in Landscape
+        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight()
+
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func createBasicCaptionView() {
+        contentView.addSubview(captionLabel)
+        contentView.addSubview(subcaptionLabel)
+        captionLabel.text = caption
+        subcaptionLabel.text = subCaption
+        
+        NSLayoutConstraint.activate([
+            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
+            captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
+            
+            subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
+            subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
+            subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)
+           ])
+    }
+    
     override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if !deeplinkURL.isEmpty {
-                let url = URL(string: deeplinkURL)!
-                getParentViewController().open(url)
+                if let url = URL(string: deeplinkURL) {
+                    getParentViewController().open(url)
+                }
             }
             return .dismiss
         }
@@ -143,9 +191,5 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
             playPauseButton.setImage(pauseImage, for: .normal)
             isPlaying = true
         }
-    }
-    
-    func getCaptionHeight() -> CGFloat {
-        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
 }

@@ -47,6 +47,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         case CTNotificationContentTypeContentSlider: {
             CTContentSliderController *contentController = [[CTContentSliderController alloc] init];
             [contentController setData:content[kContentSlider]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
             [self.view addSubview:contentController.view];
@@ -71,6 +76,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         case CTNotificationContentTypeBasicTemplate: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
             [contentController setData:content[kJSON]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
             [contentController setTemplateType:kTemplateBasic];
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
@@ -81,6 +91,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         case CTNotificationContentTypeAutoCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
             [contentController setData:content[kJSON]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
             [contentController setTemplateType:kTemplateAutoCarousel];
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
@@ -91,6 +106,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         case CTNotificationContentTypeManualCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
             [contentController setData:content[kJSON]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
             [contentController setTemplateType:kTemplateManualCarousel];
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
@@ -101,6 +121,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         case CTNotificationContentTypeTimerTemplate: {
             CTTimerTemplateController *contentController = [[CTTimerTemplateController alloc] init];
             [contentController setData:content[kJSON]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
             [self.view addSubview:contentController.view];
@@ -129,9 +154,15 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
                 self.contentType = CTNotificationContentTypeManualCarousel;
             } else if ([content[kTemplateId] isEqualToString:kTemplateTimer]) {
                 self.contentType = CTNotificationContentTypeTimerTemplate;
+            } else {
+                // Invalid pt_id value fallback to basic.
+                self.contentType = CTNotificationContentTypeBasicTemplate;
             }
         } else if (content[kSingleMediaType] != nil && content[kSingleMediaURL] != nil) {
             self.contentType = CTNotificationContentTypeSingleMedia;
+        } else {
+            // Invalid payload data fallback to basic.
+            self.contentType = CTNotificationContentTypeBasicTemplate;
         }
     }
 }

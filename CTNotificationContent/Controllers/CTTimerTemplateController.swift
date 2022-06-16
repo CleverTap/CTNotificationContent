@@ -2,15 +2,15 @@ import UIKit
 import UserNotificationsUI
 
 struct TimerTemplateProperties: Decodable {
-    let pt_title: String
+    let pt_title: String?
     let pt_title_alt: String?
-    let pt_msg: String
+    let pt_msg: String?
     let pt_msg_alt: String?
     let pt_msg_summary: String?
-    let pt_dl1: String
+    let pt_dl1: String?
     let pt_big_img: String?
     let pt_big_img_alt: String?
-    let pt_bg: String
+    let pt_bg: String?
     let pt_chrono_title_clr: String?
     let pt_timer_threshold: Int?
     let pt_timer_end: Int?
@@ -21,6 +21,13 @@ struct TimerTemplateProperties: Decodable {
 class CTTimerTemplateController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     @objc var data: String = ""
+    @objc var templateCaption: String = ""
+    @objc var templateSubcaption: String = ""
+    @objc var deeplinkURL: String = ""
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var captionColor: String = ConstantKeys.kHexBlackColor
+    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    var timerColor: String = ConstantKeys.kHexBlackColor
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
     var thresholdSeconds = 0
@@ -66,6 +73,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
 
+        loadContentData()
         createView()
         setupConstraints()
     }
@@ -76,7 +84,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    func createView() {
+    func loadContentData() {
         if let configData = data.data(using: .utf8) {
             do {
                 jsonContent = try JSONDecoder().decode(TimerTemplateProperties.self, from: configData)
@@ -85,6 +93,18 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
                 jsonContent = nil
             }
         }
+    }
+    
+    func createView() {
+        createFrameWithoutImage()
+        contentView.addSubview(imageView)
+        contentView.addSubview(captionLabel)
+        contentView.addSubview(subcaptionLabel)
+        contentView.addSubview(timerLabel)
+        
+        captionLabel.text = templateCaption
+        subcaptionLabel.text = templateSubcaption
+
         guard let jsonContent = jsonContent else {
             return
         }
@@ -97,61 +117,56 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
                 thresholdSeconds = endTime - Int(currentTime)
             }
         }
-        
-        let viewWidth = view.frame.size.width
-        var viewHeight = getCaptionHeight()
-        if jsonContent.pt_big_img != nil && thresholdSeconds > 0 {
-            viewHeight = viewWidth + getCaptionHeight()
-            // For view in Landscape
-            viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
+
+        if let title = jsonContent.pt_title, !title.isEmpty {
+            captionLabel.text = title
         }
-
-        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        view.frame = frame
-        contentView.frame = frame
-        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-
-        contentView.addSubview(imageView)
-        contentView.addSubview(captionLabel)
-        contentView.addSubview(subcaptionLabel)
-        contentView.addSubview(timerLabel)
-
-        captionLabel.text = jsonContent.pt_title
-        if let msgSummary = jsonContent.pt_msg_summary {
+        if let msg = jsonContent.pt_msg, !msg.isEmpty {
+            subcaptionLabel.text = msg
+        }
+        if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
             subcaptionLabel.text = msgSummary
-        } else {
-            subcaptionLabel.text = jsonContent.pt_msg
         }
-        
-        view.backgroundColor = UIColor(hex: jsonContent.pt_bg)
-        imageView.backgroundColor = UIColor(hex: jsonContent.pt_bg)
-        if let titleColor = jsonContent.pt_title_clr {
-            captionLabel.textColor = UIColor(hex: titleColor)
+        if let bg = jsonContent.pt_bg, !bg.isEmpty {
+            bgColor = bg
         }
-        if let msgColor = jsonContent.pt_msg_clr {
-            subcaptionLabel.textColor = UIColor(hex: msgColor)
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+            captionColor = titleColor
         }
-        if let timerColor = jsonContent.pt_chrono_title_clr {
-            timerLabel.textColor = UIColor(hex: timerColor)
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+            subcaptionColor = msgColor
         }
-        if let bigImg = jsonContent.pt_big_img {
+        if let timerClr = jsonContent.pt_chrono_title_clr, !timerClr.isEmpty {
+            timerColor = timerClr
+        }
+        if let action = jsonContent.pt_dl1, !action.isEmpty {
+            deeplinkURL = action
+        }
+        if let bigImg = jsonContent.pt_big_img, !bigImg.isEmpty {
             if thresholdSeconds > 0 {
                 // Load image only if timer is not ended.
-                loadImage(imageString: bigImg)
-
-                NSLayoutConstraint.activate([
-                    imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
-                    imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
-                    imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-                    imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight())
-                ])
+                CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
+                    DispatchQueue.main.async {
+                        if imageData != nil {
+                            self?.imageView.image = imageData
+                            self?.activateImageViewContraints()
+                            self?.createFrameWithImage()
+                        }
+                    }
+                }
             }
         }
+
+        view.backgroundColor = UIColor(hex: bgColor)
+        imageView.backgroundColor = UIColor(hex: bgColor)
+        captionLabel.textColor = UIColor(hex: captionColor)
+        subcaptionLabel.textColor = UIColor(hex: subcaptionColor)
+        timerLabel.textColor = UIColor(hex: timerColor)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(getCaptionHeight() - Constraints.kCaptionTopPadding)),
+            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
@@ -162,11 +177,11 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
             
-            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight()),
+            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CTUtiltiy.getCaptionHeight()),
             timerLabel.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
             timerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
             timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
-            timerLabel.heightAnchor.constraint(equalToConstant: getCaptionHeight())
+            timerLabel.heightAnchor.constraint(equalToConstant: CTUtiltiy.getCaptionHeight())
         ])
     }
 
@@ -185,70 +200,73 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         } else {
             timer.invalidate()
             self.timerLabel.isHidden = true
-            if let jsonContent = jsonContent {
-                if let title = jsonContent.pt_title_alt {
-                    captionLabel.text = title
-                }
-                if let msg = jsonContent.pt_msg_alt {
-                    subcaptionLabel.text = msg
-                }
-                if let altImage = jsonContent.pt_big_img_alt {
-                    // Load expired image, if available.
-                    loadImage(imageString: altImage)
-
-                    let viewWidth = view.frame.size.width
-                    var viewHeight = viewWidth + getCaptionHeight()
-                    viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-                    let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-                    view.frame = frame
-                    contentView.frame = frame
-                    preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-
-                    // Activate imageView constraints if initial image is nil but there is expired image.
-                    NSLayoutConstraint.activate([
-                        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
-                        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
-                        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-                        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -getCaptionHeight())
-                    ])
+            updateViewForExpiredTime()
+        }
+    }
+    
+    func updateViewForExpiredTime() {
+        if let jsonContent = jsonContent {
+            if let title = jsonContent.pt_title_alt, !title.isEmpty {
+                captionLabel.text = title
+            }
+            if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
+                subcaptionLabel.text = msg
+            }
+            if let altImage = jsonContent.pt_big_img_alt, !altImage.isEmpty {
+                // Load expired image, if available.
+                CTUtiltiy.checkImageUrlValid(imageUrl: altImage) { [weak self] (imageData) in
+                    DispatchQueue.main.async {
+                        if imageData != nil {
+                                self?.imageView.image = imageData
+                                self?.createFrameWithImage()
+                                self?.activateImageViewContraints()
+                        }
+                    }
                 }
             }
         }
+    }
+    
+    func createFrameWithoutImage() {
+        let viewWidth = view.frame.size.width
+        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+
+    func createFrameWithImage() {
+        let viewWidth = view.frame.size.width
+        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight()
+        // For view in Landscape
+        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight()
+
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func activateImageViewContraints() {
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CTUtiltiy.getCaptionHeight())
+        ])
     }
     
     override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if let deeplink = jsonContent?.pt_dl1 {
-                let url = URL(string: deeplink)!
-                getParentViewController().open(url)
+            if !deeplinkURL.isEmpty {
+                if let url = URL(string: deeplinkURL) {
+                    getParentViewController().open(url)
+                }
             }
             return .dismiss
         }
         return .doNotDismiss
-    }
-
-    func loadImage(imageString: String) {
-        let noImage = UIImage(named: "ct_no_image", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        if imageString.isEmpty {
-            self.imageView.image = noImage
-            return
-        }
-        
-        let url = URL(string: imageString)!
-        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, _, _) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    self?.imageView.image = UIImage(data: data)
-                }
-            } else {
-                self?.imageView.image = noImage
-            }
-        }
-        dataTask.resume()
-    }
-    
-    func getCaptionHeight() -> CGFloat {
-        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
 }

@@ -2,15 +2,15 @@ import UIKit
 import UserNotificationsUI
 
 struct CarouselProperties: Decodable {
-    let pt_title: String
-    let pt_msg: String
+    let pt_title: String?
+    let pt_msg: String?
     let pt_msg_summary: String?
     let pt_dl1: String?
     let pt_big_img: String?
     let pt_img1: String?
     let pt_img2: String?
     let pt_img3: String?
-    let pt_bg: String
+    let pt_bg: String?
     let pt_title_clr: String?
     let pt_msg_clr: String?
 }
@@ -24,6 +24,12 @@ class CTCarouselController: BaseCTNotificationContentViewController {
     var currentItemIndex: Int = 0
     @objc var data: String = ""
     @objc var templateType: String = ""
+    @objc var templateCaption: String = ""
+    @objc var templateSubcaption: String = ""
+    @objc var deeplinkURL: String = ""
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var captionColor: String = ConstantKeys.kHexBlackColor
+    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
     var jsonContent: CarouselProperties? = nil
     var nextButtonImage: UIImage = UIImage()
     var previousButtonImage: UIImage = UIImage()
@@ -35,10 +41,12 @@ class CTCarouselController: BaseCTNotificationContentViewController {
 
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
+
+        loadContentData()
         createView()
     }
     
-    func createView() {
+    func loadContentData() {
         if let configData = data.data(using: .utf8) {
             do {
                 jsonContent = try JSONDecoder().decode(CarouselProperties.self, from: configData)
@@ -47,64 +55,92 @@ class CTCarouselController: BaseCTNotificationContentViewController {
                 jsonContent = nil
             }
         }
+    }
+    
+    func createView() {
         guard let jsonContent = jsonContent else {
+            // Show default alert view and update constraints when json data is not available.
+            setUpConstraints()
             return
         }
-        let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-        // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-        
-        if templateType == TemplateConstants.kTemplateBasic && jsonContent.pt_big_img == nil {
-            // Basic template has support for optional image.
-            viewHeight = getCaptionHeight()
-        }
 
-        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        view.frame = frame
-        contentView.frame = frame
-        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-        
-        var subcaption = jsonContent.pt_msg
-        var captionColor = ConstantKeys.kHexBlackColor
-        var subcaptionColor = ConstantKeys.kHexLightGrayColor
-        var actionUrl = ""
-        if let msgSummary = jsonContent.pt_msg_summary {
-            subcaption = msgSummary
+        if let title = jsonContent.pt_title, !title.isEmpty {
+            templateCaption = title
         }
-        if let titleColor = jsonContent.pt_title_clr {
+        if let msg = jsonContent.pt_msg, !msg.isEmpty {
+            templateSubcaption = msg
+        }
+        if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
+            templateSubcaption = msgSummary
+        }
+        if let bg = jsonContent.pt_bg, !bg.isEmpty {
+            bgColor = bg
+        }
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
             captionColor = titleColor
         }
-        if let msgColor = jsonContent.pt_msg_clr {
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
             subcaptionColor = msgColor
         }
-        if let deeplink = jsonContent.pt_dl1 {
+        var actionUrl = deeplinkURL
+        if let deeplink = jsonContent.pt_dl1, !deeplink.isEmpty {
             actionUrl = deeplink
         }
+        deeplinkURL = actionUrl
 
         if templateType == TemplateConstants.kTemplateBasic {
             var basicImageUrl = ""
-            if let url = jsonContent.pt_big_img {
+            if let url = jsonContent.pt_big_img, !url.isEmpty {
                 basicImageUrl = url
             }
-            let itemComponents = CaptionedImageViewComponents(caption: jsonContent.pt_title, subcaption: subcaption, imageUrl: basicImageUrl, actionUrl: actionUrl, bgColor: jsonContent.pt_bg, captionColor: captionColor, subcaptionColor: subcaptionColor)
-            let itemView = CTCaptionedImageView(components: itemComponents)
-            itemViews.append(itemView)
+
+            CTUtiltiy.checkImageUrlValid(imageUrl: basicImageUrl) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageUrl, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor)
+                        let itemView = CTCaptionedImageView(components: itemComponents)
+                        self?.itemViews.append(itemView)
+                    }
+                    self?.setUpConstraints()
+                }
+            }
         } else if templateType == TemplateConstants.kTemplateAutoCarousel || templateType == TemplateConstants.kTemplateManualCarousel {
-            // Image 1
-            var itemComponents = CaptionedImageViewComponents(caption: jsonContent.pt_title, subcaption: subcaption, imageUrl: jsonContent.pt_img1!, actionUrl: actionUrl, bgColor: jsonContent.pt_bg, captionColor: captionColor, subcaptionColor: subcaptionColor)
-            var itemView = CTCaptionedImageView(components: itemComponents)
-            itemViews.append(itemView)
+            // Add non empty image urls.
+            var imageUrls = [String]()
+            if let url = jsonContent.pt_img1, !url.isEmpty {
+                imageUrls.append(url)
+            }
+            if let url = jsonContent.pt_img2, !url.isEmpty {
+                imageUrls.append(url)
+            }
+            if let url = jsonContent.pt_img3, !url.isEmpty {
+                imageUrls.append(url)
+            }
 
-            // Image 2
-            itemComponents = CaptionedImageViewComponents(caption: jsonContent.pt_title, subcaption: subcaption, imageUrl: jsonContent.pt_img2!, actionUrl: actionUrl, bgColor: jsonContent.pt_bg, captionColor: captionColor, subcaptionColor: subcaptionColor)
-            itemView = CTCaptionedImageView(components: itemComponents)
-            itemViews.append(itemView)
-
-            // Image 3
-            itemComponents = CaptionedImageViewComponents(caption: jsonContent.pt_title, subcaption: subcaption, imageUrl: jsonContent.pt_img3!, actionUrl: actionUrl, bgColor: jsonContent.pt_bg, captionColor: captionColor, subcaptionColor: subcaptionColor)
-            itemView = CTCaptionedImageView(components: itemComponents)
-            itemViews.append(itemView)
+            for (index,url) in imageUrls.enumerated() {
+                CTUtiltiy.checkImageUrlValid(imageUrl: url) { [weak self] (imageData) in
+                    DispatchQueue.main.async {
+                        if imageData != nil {
+                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor)
+                            let itemView = CTCaptionedImageView(components: itemComponents)
+                            self?.itemViews.append(itemView)
+                        }
+                        if index == imageUrls.count - 1 {
+                            self?.setUpConstraints()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func setUpConstraints() {
+        if itemViews.count == 0 {
+            // Add default alert view if no image is downloaded.
+            createDefaultAlertView()
+            createFrameWithoutImage()
+        } else {
+            createFrameWithImage()
         }
         
         for subView in itemViews {
@@ -120,46 +156,76 @@ class CTCarouselController: BaseCTNotificationContentViewController {
             currentItemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
 
-        pageControl.numberOfPages = itemViews.count
-        pageControl.hidesForSinglePage = true
-        view.addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(getCaptionHeight() + Constraints.kPageControlViewHeight)),
-            pageControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            pageControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            pageControl.heightAnchor.constraint(equalToConstant: Constraints.kPageControlViewHeight)
-        ])
-        
-        if templateType == TemplateConstants.kTemplateAutoCarousel {
-            startAutoPlay()
-        } else if templateType == TemplateConstants.kTemplateManualCarousel {
-            // Show Next and Previous button for manual carousel.
-            nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
-            nextButton.setImage(nextButtonImage, for: .normal)
-            nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-    
-            previousButtonImage = UIImage(named: "ct_previous_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
-            previousButton.setImage(previousButtonImage, for: .normal)
-            previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
-
-            contentView.addSubview(nextButton)
-            contentView.addSubview(previousButton)
-            nextButton.translatesAutoresizingMaskIntoConstraints = false
-            previousButton.translatesAutoresizingMaskIntoConstraints = false
-            
+        // Show other view elements if image downloaded is more than 1
+        if itemViews.count > 1 {
+            pageControl.numberOfPages = itemViews.count
+            pageControl.hidesForSinglePage = true
+            view.addSubview(pageControl)
+            pageControl.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
-                nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0),
-                nextButton.heightAnchor.constraint(equalToConstant: 40.0),
-                
-                previousButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
-                previousButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0),
-                previousButton.heightAnchor.constraint(equalToConstant: 40.0)
+                pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + Constraints.kPageControlViewHeight)),
+                pageControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                pageControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                pageControl.heightAnchor.constraint(equalToConstant: Constraints.kPageControlViewHeight)
             ])
-            contentView.bringSubviewToFront(nextButton)
-            contentView.bringSubviewToFront(previousButton)
+            
+            if templateType == TemplateConstants.kTemplateAutoCarousel {
+                startAutoPlay()
+            } else if templateType == TemplateConstants.kTemplateManualCarousel {
+                // Show Next and Previous button for manual carousel.
+                nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+                nextButton.setImage(nextButtonImage, for: .normal)
+                nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
+                previousButtonImage = UIImage(named: "ct_previous_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+                previousButton.setImage(previousButtonImage, for: .normal)
+                previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
+
+                contentView.addSubview(nextButton)
+                contentView.addSubview(previousButton)
+                nextButton.translatesAutoresizingMaskIntoConstraints = false
+                previousButton.translatesAutoresizingMaskIntoConstraints = false
+                
+                NSLayoutConstraint.activate([
+                    nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
+                    nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0),
+                    nextButton.heightAnchor.constraint(equalToConstant: 40.0),
+                    
+                    previousButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
+                    previousButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0),
+                    previousButton.heightAnchor.constraint(equalToConstant: 40.0)
+                ])
+                contentView.bringSubviewToFront(nextButton)
+                contentView.bringSubviewToFront(previousButton)
+            }
         }
+    }
+    
+    func createFrameWithoutImage() {
+        let viewWidth = view.frame.size.width
+        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func createFrameWithImage() {
+        let viewWidth = view.frame.size.width
+        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight()
+        // For view in Landscape
+        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight()
+
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func createDefaultAlertView() {
+        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor)
+        let itemView = CTCaptionedImageView(components: itemComponents)
+        itemViews.append(itemView)
     }
     
     @objc func nextButtonTapped() {
@@ -186,8 +252,9 @@ class CTCarouselController: BaseCTNotificationContentViewController {
             if itemViews.count > 0 {
                 let urlString = itemViews[currentItemIndex].components.actionUrl
                 if !urlString.isEmpty {
-                    let url = URL(string: urlString)!
-                    getParentViewController().open(url)
+                    if let url = URL(string: urlString) {
+                        getParentViewController().open(url)
+                    }
                 }
                 return .dismiss
             }
@@ -234,9 +301,5 @@ class CTCarouselController: BaseCTNotificationContentViewController {
         if timer == nil {
             timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(showNext), userInfo: nil, repeats: true)
         }
-    }
-    
-    func getCaptionHeight() -> CGFloat {
-        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
 }

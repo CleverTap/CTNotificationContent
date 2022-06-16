@@ -33,7 +33,13 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     var itemViews =  [CTCaptionedImageView]()
     var currentItemIndex: Int = 0
     var autoDismiss: Int = 0
+    var showPaging: Int = 0
+    var autoPlay: Int = 0
+    var orientation: String = ConstantKeys.kOrientationLandscape
     @objc var data: String = ""
+    @objc var templateCaption: String = ""
+    @objc var templateSubcaption: String = ""
+    @objc var deeplinkURL: String = ""
     var jsonContent: ContentSliderProperties? = nil
     
     override func viewDidLoad() {
@@ -41,10 +47,12 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
 
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
+        
+        loadContentData()
         createView()
     }
     
-    func createView() {
+    func loadContentData() {
         if let configData = data.data(using: .utf8) {
             do {
                 jsonContent = try JSONDecoder().decode(ContentSliderProperties.self, from: configData)
@@ -53,31 +61,60 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
                 jsonContent = nil
             }
         }
+    }
+    
+    func createView() {
         guard let jsonContent = jsonContent else {
+            setUpConstraints()
             return
         }
-        let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-
-        if jsonContent.orientation == ConstantKeys.kOrientationLandscape  {
-            viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-        }
-
-        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-        view.frame = frame
-        contentView.frame = frame
-        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-
-        autoDismiss = jsonContent.autoDismiss
-        for item in jsonContent.items {
-            let itemComponents = CaptionedImageViewComponents(caption: item.caption, subcaption: item.subcaption, imageUrl: item.imageUrl, actionUrl: item.actionUrl, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
-            let itemView = CTCaptionedImageView(components: itemComponents)
-            itemViews.append(itemView)
-            
-            let keyItem = [Constants.kCaption : item.caption, Constants.kSubcaption : item.subcaption, Constants.kImageUrl : item.imageUrl, Constants.kActionUrl : item.actionUrl]
-            items.append(keyItem)
-        }
         
+        orientation = jsonContent.orientation
+        autoDismiss = jsonContent.autoDismiss
+        showPaging = jsonContent.showsPaging
+        autoPlay = jsonContent.autoPlay
+        
+        for (index,item) in jsonContent.items.enumerated() {
+            CTUtiltiy.checkImageUrlValid(imageUrl: item.imageUrl) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        var title = item.caption
+                        if title.isEmpty {
+                            title = self!.templateCaption
+                        }
+                        var subTiltle = item.subcaption
+                        if subTiltle.isEmpty {
+                            subTiltle = self!.templateSubcaption
+                        }
+                        var action = item.actionUrl
+                        if action.isEmpty {
+                            action = self!.deeplinkURL
+                        }
+                        
+                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+                        let itemView = CTCaptionedImageView(components: itemComponents)
+                        self?.itemViews.append(itemView)
+                        
+                        let keyItem = [Constants.kCaption : item.caption, Constants.kSubcaption : item.subcaption, Constants.kImageUrl : item.imageUrl, Constants.kActionUrl : item.actionUrl]
+                        self?.items.append(keyItem)
+                    }
+                    if index == jsonContent.items.count - 1 {
+                        self?.setUpConstraints()
+                    }
+                }
+            }
+        }
+    }
+    
+    func setUpConstraints() {
+        if itemViews.count == 0 {
+            // Add default alert view if no image is downloaded.
+            createDefaultAlertView()
+            createFrameWithoutImage()
+        } else {
+            createFrameWithImage()
+        }
+
         for subView in itemViews {
             subView.superview?.removeFromSuperview()
         }
@@ -91,23 +128,56 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
             currentItemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             currentItemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        if (jsonContent.showsPaging != 0) {
-            pageControl.numberOfPages = itemViews.count
-            pageControl.hidesForSinglePage = true
-            view.addSubview(pageControl)
-            pageControl.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(getCaptionHeight() + Constraints.kPageControlViewHeight)),
-                pageControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                pageControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                pageControl.heightAnchor.constraint(equalToConstant: Constraints.kPageControlViewHeight)
-            ])
+        
+        if itemViews.count > 1 {
+            if (showPaging != 0) {
+                pageControl.numberOfPages = itemViews.count
+                pageControl.hidesForSinglePage = true
+                view.addSubview(pageControl)
+                pageControl.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    pageControl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + Constraints.kPageControlViewHeight)),
+                    pageControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                    pageControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                    pageControl.heightAnchor.constraint(equalToConstant: Constraints.kPageControlViewHeight)
+                ])
+            }
+            if (autoPlay != 0) {
+                startAutoPlay()
+            } else {
+                stopAutoPlay()
+            }
         }
-        if (jsonContent.autoPlay != 0) {
-            startAutoPlay()
-        } else {
-            stopAutoPlay()
+    }
+    
+    func createDefaultAlertView() {
+        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+        let itemView = CTCaptionedImageView(components: itemComponents)
+        itemViews.append(itemView)
+    }
+    
+    func createFrameWithoutImage() {
+        let viewWidth = view.frame.size.width
+        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func createFrameWithImage() {
+        let viewWidth = view.frame.size.width
+        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight()
+
+        if orientation == ConstantKeys.kOrientationLandscape  {
+            viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight()
         }
+
+        let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
+        view.frame = frame
+        contentView.frame = frame
+        preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+
     }
     
     
@@ -125,8 +195,9 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
             if itemViews.count > 0 {
                 let urlString = itemViews[currentItemIndex].components.actionUrl
                 getParentViewController().userDidPerformAction(ConstantKeys.kOpenedContentUrlAction, withProperties: items[currentItemIndex])
-                let url = URL(string: urlString)!
-                getParentViewController().open(url)
+                if let url = URL(string: urlString) {
+                    getParentViewController().open(url)
+                }
                 return (autoDismiss == 1) ? .dismiss : .doNotDismiss
             }
             return .dismissAndForwardAction
@@ -175,9 +246,5 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     func stopAutoPlay() {
         timer?.invalidate()
         timer = nil
-    }
-    
-    func getCaptionHeight() -> CGFloat {
-        return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
 }
