@@ -45,6 +45,8 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
         createFrameWithImage()
 
         if mediaType == ConstantKeys.kMediaTypeVideo || mediaType == ConstantKeys.kMediaTypeAudio {
+            // TODO: Remove mediaURL = "" when video template is supported.
+            mediaURL = ""
             createVideoView()
         } else {
             createImageView()

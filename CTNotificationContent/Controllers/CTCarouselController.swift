@@ -172,6 +172,10 @@ class CTCarouselController: BaseCTNotificationContentViewController {
             if templateType == TemplateConstants.kTemplateAutoCarousel {
                 startAutoPlay()
             } else if templateType == TemplateConstants.kTemplateManualCarousel {
+                // TODO: Unhide buttons when user interaction will be added.
+                nextButton.isHidden = true
+                previousButton.isHidden = true
+                
                 // Show Next and Previous button for manual carousel.
                 nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
                 nextButton.setImage(nextButtonImage, for: .normal)
