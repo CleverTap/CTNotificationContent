@@ -708,8 +708,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/CTNotificationContent.git";
 			requirement = {
-				branch = "SDK-1132-SwiftRewriteContent";
-				kind = branch;
+				kind = revision;
+				revision = 99be1e39b87eba95a088f7deb23cb43fcb3e3ce3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
