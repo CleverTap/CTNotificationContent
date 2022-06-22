@@ -140,7 +140,7 @@ Auto carousel is an automatic revolving carousel push notification where user ca
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomAutoCarousel.gif" alt="Auto carousel" width="450" height="800"/>
 
 ### Manual Carousel Template
-This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the next/previous buttons.
+This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the Next/Back buttons.
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomManualCarousel.gif" alt="Manual carousel" width="450" height="800"/>
 
 ### Timer Template
