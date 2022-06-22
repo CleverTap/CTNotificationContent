@@ -120,7 +120,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sendCustomAutoCarousel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eyU-uf-Qq8"/>
-                                                    <action selector="sendCustomAutoCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IQE-7q-tsG"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="68l-2A-28A">
@@ -140,7 +139,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sendCustomBasic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZDi-eJ-6TD"/>
-                                                    <action selector="sendCutomBasicTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OQb-Pe-Prl"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJc-DE-c9b">
@@ -160,7 +158,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sendCustomManualCarousel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q7V-4o-V4k"/>
-                                                    <action selector="sendCustomManualCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uUP-VF-0co"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9X-ih-xtK">
@@ -180,7 +177,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sendVideoMedia:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FVI-hw-IBN"/>
-                                                    <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uYe-fA-8Bb"/>
                                                 </connections>
                                             </button>
                                         </subviews>
