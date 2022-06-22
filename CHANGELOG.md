@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 0.2.0 *(22 June, 2022)*
+-----------------------------------------------
+- Supports new templates - Basic, Auto carousel, Manual carousel and Timer.
+- Compatible with CleverTap CTNotificationContent v0.1.5 - Rich Media(Single and Carousel).
+
 Version 0.1.5 *(3 December, 2021)*
 -----------------------------------------------
 - Adds support for installation via Swift Package Manager
