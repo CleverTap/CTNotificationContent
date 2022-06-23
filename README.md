@@ -112,8 +112,9 @@ While creating a Push Notification campaign on CleverTap, just follow the steps 
 ![Dashboard alert](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_alert.png)
 2. Click on "Advanced" and then click on "Rich Media" and select Single or Carousel template.
 ![Dashboard Rich Media](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_richMedia.png)
-3. For adding custom key-value pair, use the [template Keys](#template-keys) into one JSON object and use the `pt_json` key to fill in the values.
-![Dashboard Custom Key value](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeyValue.png)
+3. For adding custom key-value pair, add the [template Keys](#template-keys) individually or into one JSON object and use the `pt_json` key to fill in the values.
+![Dashboard Custom Key individual](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeysIndividual.png)
+![Dashboard Custom Key JSON](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeyValue.png)
 4. Send a test push and schedule!
 
 # Template Types
@@ -202,7 +203,6 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 Basic Template Keys | Required | Description
  ---:|:---:|:---| 
 pt_id | Required | Value - `pt_basic`
-pt_json | Required | Below keys in JSON format
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Required | Message line when Notification is expanded
@@ -211,13 +211,13 @@ pt_big_img | Optional | Image
 pt_dl1 | Optional | One Deep Link
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
 
 ### Auto Carousel Template
 
 Auto Carousel Template Keys | Required | Description
   ---:|:---:|:--- 
 pt_id | Required | Value - `pt_carousel`
-pt_json | Required | Below keys in JSON format
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
@@ -228,13 +228,13 @@ pt_img3 | Required | Image Three
 pt_bg | Required | Background Color in HEX
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
 
 ### Manual Carousel Template
 
 Manual Carousel Template Keys | Required | Description
   ---:|:---:|:--- 
 pt_id | Required | Value - `pt_manual_carousel`
-pt_json | Required | Below keys in JSON format
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
@@ -245,13 +245,13 @@ pt_img3 | Required | Image Three
 pt_bg | Required | Background Color in HEX
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
 
 ### Timer Template
 
 Timer Template Keys | Required | Description
   ---:|:---:|:--- 
 pt_id | Required | Value - `pt_timer`
-pt_json | Required | Below keys in JSON format
 pt_title | Required | Title
 pt_title_alt | Optional | Title to show after timer expires
 pt_msg | Required | Message
@@ -266,6 +266,7 @@ pt_timer_threshold | Required | Timer duration in seconds. Will be given higher 
 pt_timer_end | Optional | Epoch Timestamp to countdown to (for example, $D_1595871380 or 1595871380). Not needed if pt_timer_threshold is specified.
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
 
 # Developer Notes
 

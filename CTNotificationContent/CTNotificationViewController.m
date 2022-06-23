@@ -28,6 +28,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
 
 @property(nonatomic, assign) CTNotificationContentType contentType;
 @property(nonatomic, strong, readwrite) BaseCTNotificationContentViewController *contentViewController;
+@property(nonatomic) NSString *jsonString;
 
 @end
 
@@ -75,7 +76,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             break;
         case CTNotificationContentTypeBasicTemplate: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:content[kJSON]];
+            [contentController setData:self.jsonString];
             [contentController setTemplateCaption:notification.request.content.title];
             [contentController setTemplateSubcaption:notification.request.content.body];
             if (content[kDeeplinkURL] != nil) {
@@ -90,7 +91,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             break;
         case CTNotificationContentTypeAutoCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:content[kJSON]];
+            [contentController setData:self.jsonString];
             [contentController setTemplateCaption:notification.request.content.title];
             [contentController setTemplateSubcaption:notification.request.content.body];
             if (content[kDeeplinkURL] != nil) {
@@ -105,7 +106,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             break;
         case CTNotificationContentTypeManualCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:content[kJSON]];
+            [contentController setData:self.jsonString];
             [contentController setTemplateCaption:notification.request.content.title];
             [contentController setTemplateSubcaption:notification.request.content.body];
             if (content[kDeeplinkURL] != nil) {
@@ -120,7 +121,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             break;
         case CTNotificationContentTypeTimerTemplate: {
             CTTimerTemplateController *contentController = [[CTTimerTemplateController alloc] init];
-            [contentController setData:content[kJSON]];
+            [contentController setData:self.jsonString];
             [contentController setTemplateCaption:notification.request.content.title];
             [contentController setTemplateSubcaption:notification.request.content.body];
             if (content[kDeeplinkURL] != nil) {
@@ -146,6 +147,12 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
         self.contentType = CTNotificationContentTypeContentSlider;
     } else {
         if (content[kTemplateId] != nil) {
+            if (content[kJSON] != nil) {
+                self.jsonString = content[kJSON];
+            } else {
+                self.jsonString = [self createJSONData:content];
+            }
+
             if ([content[kTemplateId] isEqualToString:kTemplateBasic]) {
                 self.contentType = CTNotificationContentTypeBasicTemplate;
             } else if ([content[kTemplateId] isEqualToString:kTemplateAutoCarousel]) {
@@ -165,6 +172,19 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             self.contentType = CTNotificationContentTypeBasicTemplate;
         }
     }
+}
+
+- (NSString *)createJSONData:(NSDictionary *)content {
+    // create JSON Data from individual keys provided.
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+    for (NSString *key in content) {
+        // Values received can be of NSNumber class, so keeping all values as NSString so that we can decode for type String in swift and typecast into our desired data types.
+        NSString *value = content[key];
+        [json setObject:value forKey:key];
+    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return jsonString;
 }
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id<UIContentContainer>)container {

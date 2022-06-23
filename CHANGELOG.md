@@ -4,7 +4,7 @@ Change Log
 Version 0.2.0 *(22 June, 2022)*
 -----------------------------------------------
 - Supports new templates - Basic, Auto carousel, Manual carousel and Timer
-- Compatible with CleverTap CTNotificationContent v0.1.5 - Rich Media(Single and Carousel)
+- Backward compatible with Rich Media Push Notifications (Single Image and Content Slider)
 - Compatibile with CleverTap iOS SDK v4.1.0
 
 Version 0.1.5 *(3 December, 2021)*
