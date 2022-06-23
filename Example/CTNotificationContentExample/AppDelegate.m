@@ -2,7 +2,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <CleverTapSDK/CleverTap.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -13,7 +13,15 @@
     [CleverTap autoIntegrate];
     [self registerPush];
     
+    
+//  for running notification in foreground
+    [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+    
     return YES;
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 - (void)registerPush {

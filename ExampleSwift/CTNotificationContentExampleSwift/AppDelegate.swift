@@ -3,17 +3,27 @@ import UserNotifications
 import CleverTapSDK
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        CleverTap.setDebugLevel(CleverTapLogLevel.debug.rawValue + 1)
         CleverTap.autoIntegrate()
         // register for push notifications
         self.registerPush()
+//        for running notification in foreground
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
+    
+//    for running notification in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+        {
+            print("Push notification received in foreground.")
+            completionHandler([.alert, .badge, .sound])
+        }
     
     private func registerPush() {
         

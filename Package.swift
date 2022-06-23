@@ -1,5 +1,4 @@
 // swift-tools-version:5.3
-
 import PackageDescription
 
 let package = Package(
@@ -13,21 +12,9 @@ let package = Package(
             targets: ["CTNotificationContent"])
     ],
     targets: [
-        .target(
+        .binaryTarget(
             name: "CTNotificationContent",
-            path: "CTNotificationContent",
-            exclude: ["Info.plist"],
-            publicHeadersPath: "Public",
-            cSettings: [
-                .headerSearchPath("./"),
-                .headerSearchPath("ContentSlider/"),
-                .headerSearchPath("Views/"),
-                .headerSearchPath("Categories/")
-            ],
-            linkerSettings: [
-                .linkedFramework("UserNotifications"),
-                .linkedFramework("UIKit")
-            ]
-        )
+            path: "Framework/CTNotificationContent.xcframework"
+        ),
     ]
 )

@@ -19,9 +19,19 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 
 [Custom push notification content interfaces](https://developer.apple.com/videos/play/wwdc2016/708/) are enabled in iOS 10 via a [Notification Content Extension](https://developer.apple.com/reference/usernotificationsui/unnotificationcontentextension), a separate and distinct binary embedded in your app bundle.
 
-## 🎉 Installation #
+# Table of contents
+- [Installation](#installation)
+- [Setup](#setup)
+- [Dashboard Usage](#dashboard-usage)
+- [Template Types](#template-types)
+- [Template Keys](#template-keys)
+- [Developer Notes](#developer-notes)
+- [Sample App](#sample-app)
+- [Changelog](#changelog)
 
-### [CocoaPods](http://cocoapods.org)
+# 🎉 Installation #
+[(Back to top)](#table-of-contents)
+## [CocoaPods](http://cocoapods.org)
 
 Your Podfile should look something like this:
 
@@ -38,17 +48,18 @@ Then run `pod install`
 
 [See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
 
-### Swift Package Manager
+## Swift Package Manager
 
 Swift Package Manager is an Xcode tool that installs project dependencies. To use it to install CTNotificationContent SDK, follow these steps:
 
-- In Xcode, navigate to **File -> Swift Package Manager -> Add Package Dependency.**
-- Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
+- In Xcode, navigate to **File -> Swift Package Manager -> Add Package Dependency.**
+- Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
 - On the next screen, Select an SDK version (by default, Xcode selects the latest stable version). Click **Next.**
 - Click **Finish** and ensure that the **CTNotificationContent** has been added to the appropriate target.
 
-## 🚀 Setup #
+# 🚀 Setup #
 
+[(Back to top)](#table-of-contents)
 ### Configure your app for Push and add a Notification Content Extension target
 
 Enable [push notifications](https://developer.apple.com/notifications/) in your main app.
@@ -92,7 +103,60 @@ Then configure your Notification Content target Info.plist to reflect the catego
 
 Also, If you plan on downloading non-SSL urls please be sure to enable `App Transport Security Settings -> Allow Arbitrary Loads -> true` in your plist.  [See plist example here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/NotificationContent/Info.plist).  
 
-### Configure your APNS payload
+# Dashboard Usage
+
+[(Back to top)](#table-of-contents)
+While creating a Push Notification campaign on CleverTap, just follow the steps below -
+
+1. On the "WHAT" section pass the desired required values in the "title" and "message" fields (NOTE: These are iOS alert title and body).
+![Dashboard alert](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_alert.png)
+2. Click on "Advanced" and then click on "Rich Media" and select Single or Carousel template.
+![Dashboard Rich Media](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_richMedia.png)
+3. For adding custom key-value pair, add the [template Keys](#template-keys) individually or into one JSON object and use the `pt_json` key to fill in the values.
+![Dashboard Custom Key individual](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeysIndividual.png)
+![Dashboard Custom Key JSON](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeyValue.png)
+4. Send a test push and schedule!
+
+# Template Types
+
+[(Back to top)](#table-of-contents)
+
+## Rich Media
+### Single Media
+Single media is for basic view with single image.
+![Single Media](https://github.com/CleverTap/CTNotificationContent/blob/master/images/SingleMedia.png)
+
+### Content Slider
+Content Slider is for image slideshow view where user can add multiple images with different captions, sub-captions, and actions.
+<img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/ContentSlider.gif" alt="Content slider" width="450" height="800"/>
+
+## Custom key-value pair
+
+### Basic Template
+Basic Template is the basic push notification received on apps where user can also update text colour, background colour.
+![Custom Basic template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomBasicTemplate.png)
+
+### Auto Carousel Template
+Auto carousel is an automatic revolving carousel push notification where user can also update text colour, background colour.
+<img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomAutoCarousel.gif" alt="Auto carousel" width="450" height="800"/>
+
+### Manual Carousel Template
+This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the Next/Back buttons.
+<img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomManualCarousel.gif" alt="Manual carousel" width="450" height="800"/>
+
+### Timer Template
+This template features a live countdown timer. You can even choose to show different title, message, and background image after the timer expires.
+<img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomTimerTemplate.gif" alt="Timer template" width="450" height="800"/>
+
+**Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
+
+# Template Keys
+
+[(Back to top)](#table-of-contents)
+
+## Rich Media
+### Content Slider
+Configure your APNS payload:
 
 Then, when sending notifications via [APNS](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html):
 - include the mutable-content flag in your payload aps entry (this key must be present in the aps payload or the system will not call your app extension) 
@@ -105,9 +169,9 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
 
     "aps": {
         "alert": {
-      		"body": "test message",
-      		"title": "test title",
-   	  	},
+            "body": "test message",
+            "title": "test title",
+        },
         "category": "CTNotification",
         "mutable-content": true,
       },
@@ -133,16 +197,93 @@ Then, when sending notifications via [APNS](https://developer.apple.com/library/
    }
 }
 ```
+## Custom key-value pair
 
-## Example Usage #
+### Basic Template
+Basic Template Keys | Required | Description
+ ---:|:---:|:---| 
+pt_id | Required | Value - `pt_basic`
+pt_title | Required | Title
+pt_msg | Required | Message
+pt_msg_summary | Required | Message line when Notification is expanded
+pt_bg | Required | Background Color in HEX
+pt_big_img | Optional | Image
+pt_dl1 | Optional | One Deep Link
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
 
+### Auto Carousel Template
+
+Auto Carousel Template Keys | Required | Description
+  ---:|:---:|:--- 
+pt_id | Required | Value - `pt_carousel`
+pt_title | Required | Title
+pt_msg | Required | Message
+pt_msg_summary | Optional | Message line when Notification is expanded
+pt_dl1 | Required | Deep Link
+pt_img1 | Required | Image One
+pt_img2 | Required | Image Two
+pt_img3 | Required | Image Three
+pt_bg | Required | Background Color in HEX
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
+
+### Manual Carousel Template
+
+Manual Carousel Template Keys | Required | Description
+  ---:|:---:|:--- 
+pt_id | Required | Value - `pt_manual_carousel`
+pt_title | Required | Title
+pt_msg | Required | Message
+pt_msg_summary | Optional | Message line when Notification is expanded
+pt_dl1 | Required | Deep Link One
+pt_img1 | Required | Image One
+pt_img2 | Required | Image Two
+pt_img3 | Required | Image Three
+pt_bg | Required | Background Color in HEX
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
+
+### Timer Template
+
+Timer Template Keys | Required | Description
+  ---:|:---:|:--- 
+pt_id | Required | Value - `pt_timer`
+pt_title | Required | Title
+pt_title_alt | Optional | Title to show after timer expires
+pt_msg | Required | Message
+pt_msg_alt | Optional | Message to show after timer expires
+pt_msg_summary | Optional | Message line when Notification is expanded
+pt_dl1 | Required | Deep Link
+pt_big_img | Optional | Image
+pt_big_img_alt | Optional | Image to show when timer expires
+pt_bg | Required | Background Color in HEX
+pt_chrono_title_clr | Optional | Color for timer text in HEX
+pt_timer_threshold | Required | Timer duration in seconds. Will be given higher priority. 
+pt_timer_end | Optional | Epoch Timestamp to countdown to (for example, $D_1595871380 or 1595871380). Not needed if pt_timer_threshold is specified.
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
+
+# Developer Notes
+
+[(Back to top)](#table-of-contents)
+- Use `ENV['SWIFT_VERSION'] = '5'` at top of Podfile in your Objective-C app before `pod install` to successfully install pod. See [example](./Example/Podfile)
+
+# Sample App #
+
+[(Back to top)](#table-of-contents)
 - See [an example Swift project here](./ExampleSwift).
 
 - See [an example Objective-C project here](./Example).
 
 - See [an example SwiftPM project here](./ExampleSwiftPM).
 
-## Changelog #
+# Changelog #
 
+[(Back to top)](#table-of-contents)
 Refer to the [Change Log](./CHANGELOG.md).
 

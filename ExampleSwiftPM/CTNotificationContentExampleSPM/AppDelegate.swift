@@ -19,7 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         CleverTap.autoIntegrate()
         registerPush()
         registerCategory()
+//        for running notification in foreground
+        UNUserNotificationCenter.current().delegate = self
         return true
+    }
+
+//    for running notification in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        print("Push notification received in foreground.")
+        completionHandler([.alert, .badge, .sound])
     }
     
     private func registerPush() {

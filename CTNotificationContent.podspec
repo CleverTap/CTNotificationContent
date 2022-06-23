@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CTNotificationContent"
-  s.version          = "0.1.5"
+  s.version          = "0.2.0"
   s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications"
   s.homepage         = "https://github.com/CleverTap/CTNotificationContent"
   s.license          = "MIT" 
@@ -9,5 +9,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.platform = :ios, '10.0'
   s.weak_frameworks = 'UserNotifications', 'UIKit'
-  s.source_files = 'CTNotificationContent/**/*.{m,h}' 
+  s.source_files = 'CTNotificationContent/**/*.{h,m,swift,png}'
 end

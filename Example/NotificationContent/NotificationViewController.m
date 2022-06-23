@@ -3,7 +3,6 @@
 @implementation NotificationViewController
 
 - (void)viewDidLoad {
-    self.contentType = CTNotificationContentTypeContentSlider;  // CTNotificationContentTypeContentSlider is the default, just here for illustration
     [super viewDidLoad];
 }
 

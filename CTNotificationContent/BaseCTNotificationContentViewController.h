@@ -5,8 +5,6 @@
 
 @interface BaseCTNotificationContentViewController : UIViewController
 
-- (void)configureViewForContent:(UNNotificationContent *)content; // must override in subclass
-
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action;  // must override in subclass
 
 - (CTNotificationViewController *)getParentViewController;
