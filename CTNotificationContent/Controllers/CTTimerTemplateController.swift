@@ -64,12 +64,12 @@ struct TimerTemplateProperties: Decodable {
     }
 }
 
-class CTTimerTemplateController: BaseCTNotificationContentViewController {
+@objc public class CTTimerTemplateController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
-    @objc var data: String = ""
-    @objc var templateCaption: String = ""
-    @objc var templateSubcaption: String = ""
-    @objc var deeplinkURL: String = ""
+    @objc public var data: String = ""
+    @objc public var templateCaption: String = ""
+    @objc public var templateSubcaption: String = ""
+    @objc public var deeplinkURL: String = ""
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -113,7 +113,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         return timerLabel
     }()
     
-    override func viewDidLoad() {
+    @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
@@ -124,7 +124,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         setupConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -303,7 +303,7 @@ class CTTimerTemplateController: BaseCTNotificationContentViewController {
         ])
     }
     
-    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
+    @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if !deeplinkURL.isEmpty {

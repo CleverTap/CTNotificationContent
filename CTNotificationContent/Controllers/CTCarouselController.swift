@@ -15,18 +15,18 @@ struct CarouselProperties: Decodable {
     let pt_msg_clr: String?
 }
 
-class CTCarouselController: BaseCTNotificationContentViewController {
+@objc public class CTCarouselController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     var pageControl: UIPageControl = UIPageControl(frame: .zero)
     var currentItemView: CTCaptionedImageView = CTCaptionedImageView(frame: .zero)
     var timer: Timer? = nil
     var itemViews =  [CTCaptionedImageView]()
     var currentItemIndex: Int = 0
-    @objc var data: String = ""
-    @objc var templateType: String = ""
-    @objc var templateCaption: String = ""
-    @objc var templateSubcaption: String = ""
-    @objc var deeplinkURL: String = ""
+    @objc public var data: String = ""
+    @objc public var templateType: String = ""
+    @objc public var templateCaption: String = ""
+    @objc public var templateSubcaption: String = ""
+    @objc public var deeplinkURL: String = ""
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -36,7 +36,7 @@ class CTCarouselController: BaseCTNotificationContentViewController {
     var nextButton: UIButton = UIButton(frame: .zero)
     var previousButton: UIButton = UIButton(frame: .zero)
     
-    override func viewDidLoad() {
+    @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
@@ -240,7 +240,7 @@ class CTCarouselController: BaseCTNotificationContentViewController {
         showPrevious()
     }
 
-    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
+    @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous
             if templateType == TemplateConstants.kTemplateManualCarousel {
