@@ -24,7 +24,7 @@ fileprivate enum Constants {
     static let kActionUrl: String = "actionUrl"
 }
 
-class CTContentSliderController: BaseCTNotificationContentViewController {
+@objc public class CTContentSliderController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     var pageControl: UIPageControl = UIPageControl(frame: .zero)
     var currentItemView: CTCaptionedImageView = CTCaptionedImageView(frame: .zero)
@@ -36,13 +36,13 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     var showPaging: Int = 0
     var autoPlay: Int = 0
     var orientation: String = ConstantKeys.kOrientationLandscape
-    @objc var data: String = ""
-    @objc var templateCaption: String = ""
-    @objc var templateSubcaption: String = ""
-    @objc var deeplinkURL: String = ""
+    @objc public var data: String = ""
+    @objc public var templateCaption: String = ""
+    @objc public var templateSubcaption: String = ""
+    @objc public var deeplinkURL: String = ""
     var jsonContent: ContentSliderProperties? = nil
     
-    override func viewDidLoad() {
+    @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
@@ -181,7 +181,7 @@ class CTContentSliderController: BaseCTNotificationContentViewController {
     }
     
     
-    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
+    @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous
             stopAutoPlay()

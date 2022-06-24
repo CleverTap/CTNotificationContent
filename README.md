@@ -25,7 +25,6 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Dashboard Usage](#dashboard-usage)
 - [Template Types](#template-types)
 - [Template Keys](#template-keys)
-- [Developer Notes](#developer-notes)
 - [Sample App](#sample-app)
 - [Changelog](#changelog)
 
@@ -128,24 +127,29 @@ Single media is for basic view with single image.
 
 ### Content Slider
 Content Slider is for image slideshow view where user can add multiple images with different captions, sub-captions, and actions.
+
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/ContentSlider.gif" alt="Content slider" width="450" height="800"/>
 
 ## Custom key-value pair
 
 ### Basic Template
 Basic Template is the basic push notification received on apps where user can also update text colour, background colour.
+
 ![Custom Basic template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomBasicTemplate.png)
 
 ### Auto Carousel Template
 Auto carousel is an automatic revolving carousel push notification where user can also update text colour, background colour.
+
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomAutoCarousel.gif" alt="Auto carousel" width="450" height="800"/>
 
 ### Manual Carousel Template
 This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the Next/Back buttons.
+
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomManualCarousel.gif" alt="Manual carousel" width="450" height="800"/>
 
 ### Timer Template
 This template features a live countdown timer. You can even choose to show different title, message, and background image after the timer expires.
+
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomTimerTemplate.gif" alt="Timer template" width="450" height="800"/>
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
@@ -267,11 +271,6 @@ pt_timer_end | Optional | Epoch Timestamp to countdown to (for example, $D_15958
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_json | Optional | Above keys in JSON format
-
-# Developer Notes
-
-[(Back to top)](#table-of-contents)
-- Use `ENV['SWIFT_VERSION'] = '5'` at top of Podfile in your Objective-C app before `pod install` to successfully install pod. See [example](./Example/Podfile)
 
 # Sample App #
 

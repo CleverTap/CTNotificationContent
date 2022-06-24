@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 0.2.0 *(22 June, 2022)*
+Version 0.2.0 *(24 June, 2022)*
 -----------------------------------------------
 - Supports new templates - Basic, Auto carousel, Manual carousel and Timer
 - Backward compatible with Rich Media Push Notifications (Single Image and Content Slider)

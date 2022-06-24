@@ -3,14 +3,14 @@ import UserNotificationsUI
 import AVKit
 import AVFoundation
 
-class CTSingleMediaController: BaseCTNotificationContentViewController {
+@objc public class CTSingleMediaController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     var currentItemView: CTCaptionedImageView = CTCaptionedImageView(frame: .zero)
-    @objc var caption: String = ""
-    @objc var subCaption: String = ""
-    @objc var mediaType: String = ""
-    @objc var mediaURL: String = ""
-    @objc var deeplinkURL: String = ""
+    @objc public var caption: String = ""
+    @objc public var subCaption: String = ""
+    @objc public var mediaType: String = ""
+    @objc public var mediaURL: String = ""
+    @objc public var deeplinkURL: String = ""
     var player:AVPlayer?
     var videoPlayerView: CTVideoPlayerView = CTVideoPlayerView(frame: .zero)
     private var captionLabel: UILabel = {
@@ -36,7 +36,7 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
     var playPauseButton: UIButton = UIButton(frame: .zero)
     var isPlaying: Bool = false
     
-    override func viewDidLoad() {
+    @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
@@ -170,7 +170,7 @@ class CTSingleMediaController: BaseCTNotificationContentViewController {
            ])
     }
     
-    override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
+    @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if !deeplinkURL.isEmpty {
