@@ -11,6 +11,7 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeAutoCarousel = 3,
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
+    CTNotificationContentTypeProductDisplay = 6,
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -23,6 +24,7 @@ static NSString * const kSingleMediaType = @"ct_mediaType";
 static NSString * const kSingleMediaURL = @"ct_mediaUrl";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
+static NSString * const kTemplateProductDisplay = @"pt_product_display";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -33,6 +35,7 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
 @end
 
 @implementation CTNotificationViewController
+BOOL isFromProductDisplay = false;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,8 +77,11 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             self.contentViewController = contentController;
         }
             break;
-        case CTNotificationContentTypeBasicTemplate: {
+        basic: case CTNotificationContentTypeBasicTemplate: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
+            if (isFromProductDisplay){
+                [contentController setIsFromProductDisplay:true];
+            }
             [contentController setData:self.jsonString];
             [contentController setTemplateCaption:notification.request.content.title];
             [contentController setTemplateSubcaption:notification.request.content.body];
@@ -133,13 +139,48 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             self.contentViewController = contentController;
         }
             break;
-
+        case CTNotificationContentTypeProductDisplay: {
+            CTProductDisplayVerticalViewController *vc = [[CTProductDisplayVerticalViewController alloc] init];
+            ProductDisplayProperties *jsonContent = [vc getJsonWithData:self.jsonString];
+            //fallback to basic when reuired keys are not provided
+            if ( jsonContent.pt_img1 == nil || jsonContent.pt_img2 == nil || jsonContent.pt_bt1 == nil || jsonContent.pt_bt2 == nil || jsonContent.pt_st1 == nil || jsonContent.pt_st2 == nil || jsonContent.pt_dl1 == nil || jsonContent.pt_dl2 == nil || jsonContent.pt_price1 == nil || jsonContent.pt_price2 == nil || jsonContent.pt_product_display_action == nil) {
+                isFromProductDisplay = true;
+                goto basic;
+            }else{
+                BaseCTNotificationContentViewController *contentController = [self getControllerType:content jsonData:jsonContent ];
+                [self addChildViewController:contentController];
+                contentController.view.frame = self.view.frame;
+                [self.view addSubview:contentController.view];
+                self.contentViewController = contentController;
+            }
+        }
+            break;
         default:
             break;
     }
     
     self.view.frame = self.contentViewController.view.frame;
     self.preferredContentSize = self.contentViewController.preferredContentSize;
+}
+
+// function to get controller type for product display template between linear and vertical
+- (BaseCTNotificationContentViewController *)getControllerType:(NSDictionary *)content jsonData:(ProductDisplayProperties *) jsonContent {
+        if (jsonContent.pt_product_display_linear != nil){
+            if
+                ([jsonContent.pt_product_display_linear localizedCaseInsensitiveContainsString:@"true" ]) {
+                    CTProductDisplayLinearViewController *contentController = [[CTProductDisplayLinearViewController alloc] init];
+                [contentController setData:self.jsonString];
+                return contentController;
+            }else{
+                CTProductDisplayVerticalViewController *contentController = [[CTProductDisplayVerticalViewController alloc] init];
+                [contentController setData:self.jsonString];
+                return contentController;
+            }
+        }else{
+            CTProductDisplayVerticalViewController *contentController = [[CTProductDisplayVerticalViewController alloc] init];
+            [contentController setData:self.jsonString];
+            return contentController;
+        }
 }
 
 - (void)updateContentType:(NSDictionary *)content {
@@ -161,6 +202,8 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
                 self.contentType = CTNotificationContentTypeManualCarousel;
             } else if ([content[kTemplateId] isEqualToString:kTemplateTimer]) {
                 self.contentType = CTNotificationContentTypeTimerTemplate;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateProductDisplay]) {
+                self.contentType = CTNotificationContentTypeProductDisplay;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;

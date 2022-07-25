@@ -27,6 +27,7 @@ struct CarouselProperties: Decodable {
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    @objc public var isFromProductDisplay: Bool = false
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -92,6 +93,15 @@ struct CarouselProperties: Decodable {
             var basicImageUrl = ""
             if let url = jsonContent.pt_big_img, !url.isEmpty {
                 basicImageUrl = url
+            }else if isFromProductDisplay{
+                //case for handling image data for product display
+                if let url = jsonContent.pt_img1, !url.isEmpty {
+                    basicImageUrl = url
+                }else if let url = jsonContent.pt_img2, !url.isEmpty {
+                    basicImageUrl = url
+                }else if let url = jsonContent.pt_img3, !url.isEmpty {
+                    basicImageUrl = url
+                }
             }
 
             CTUtiltiy.checkImageUrlValid(imageUrl: basicImageUrl) { [weak self] (imageData) in
