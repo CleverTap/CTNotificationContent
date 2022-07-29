@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
     CTNotificationContentTypeProductDisplay = 6,
+    CTNotificationContentTypeRating = 7
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -25,6 +26,7 @@ static NSString * const kSingleMediaURL = @"ct_mediaUrl";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
+static NSString * const kTemplateRating = @"pt_rating";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -155,6 +157,20 @@ BOOL isFromProductDisplay = false;
             }
         }
             break;
+        case CTNotificationContentTypeRating: {
+            CTRatingViewController *contentController = [[CTRatingViewController alloc] init];
+            [contentController setData:self.jsonString];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubCaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
+            [self addChildViewController:contentController];
+            contentController.view.frame = self.view.frame;
+            [self.view addSubview:contentController.view];
+            self.contentViewController = contentController;
+        }
+            break;
         default:
             break;
     }
@@ -204,6 +220,8 @@ BOOL isFromProductDisplay = false;
                 self.contentType = CTNotificationContentTypeTimerTemplate;
             }else if ([content[kTemplateId] isEqualToString:kTemplateProductDisplay]) {
                 self.contentType = CTNotificationContentTypeProductDisplay;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateRating]) {
+                self.contentType = CTNotificationContentTypeRating;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;
