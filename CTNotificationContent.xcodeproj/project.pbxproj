@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3219B190289861C900822EB9 /* CTZeroBezelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3219B18E289861C900822EB9 /* CTZeroBezelViewController.swift */; };
+		3219B191289861C900822EB9 /* CTZeroBezelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3219B18F289861C900822EB9 /* CTZeroBezelViewController.xib */; };
 		32EE78BA2897E3BD00662A0E /* CTRatingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B02897E3BD00662A0E /* CTRatingViewController.xib */; };
 		32EE78BB2897E3BD00662A0E /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B12897E3BD00662A0E /* ct_star_outline.png */; };
 		32EE78BC2897E3BD00662A0E /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B22897E3BD00662A0E /* ct_star_filled.png */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3219B18E289861C900822EB9 /* CTZeroBezelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTZeroBezelViewController.swift; sourceTree = "<group>"; };
+		3219B18F289861C900822EB9 /* CTZeroBezelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTZeroBezelViewController.xib; sourceTree = "<group>"; };
 		32EE78B02897E3BD00662A0E /* CTRatingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTRatingViewController.xib; sourceTree = "<group>"; };
 		32EE78B12897E3BD00662A0E /* ct_star_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_outline.png; sourceTree = "<group>"; };
 		32EE78B22897E3BD00662A0E /* ct_star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_filled.png; sourceTree = "<group>"; };
@@ -94,9 +98,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		32EE78AE2897E3BD00662A0E /* ZeroBezel */ = {
+		3219B18D289861C900822EB9 /* ZeroBezel */ = {
 			isa = PBXGroup;
 			children = (
+				3219B18E289861C900822EB9 /* CTZeroBezelViewController.swift */,
+				3219B18F289861C900822EB9 /* CTZeroBezelViewController.xib */,
 			);
 			path = ZeroBezel;
 			sourceTree = "<group>";
@@ -176,8 +182,8 @@
 				488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */,
 				488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */,
 				488F31C02817012500AE3AC8 /* CTNotificationViewController.m */,
+				3219B18D289861C900822EB9 /* ZeroBezel */,
 				48F39FDC2857766000810877 /* Info.plist */,
-				32EE78AE2897E3BD00662A0E /* ZeroBezel */,
 				32EE78B42897E3BD00662A0E /* ProductDisplay */,
 				48F39FCF285775E700810877 /* Controllers */,
 				488F31A12816FFF300AE3AC8 /* Resources */,
@@ -272,6 +278,7 @@
 				488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */,
 				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
 				32EE78BE2897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib in Resources */,
+				3219B191289861C900822EB9 /* CTZeroBezelViewController.xib in Resources */,
 				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
 				48F39FD7285775E700810877 /* Assets.xcassets in Resources */,
 				32EE78BC2897E3BD00662A0E /* ct_star_filled.png in Resources */,
@@ -291,6 +298,7 @@
 			files = (
 				488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */,
 				32EE78C12897E3BD00662A0E /* CTProductDisplayLinearViewController.swift in Sources */,
+				3219B190289861C900822EB9 /* CTZeroBezelViewController.swift in Sources */,
 				48F39FD6285775E700810877 /* CTCarouselController.swift in Sources */,
 				488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */,
 				48F39FDB285775E700810877 /* CTTimerTemplateController.swift in Sources */,
