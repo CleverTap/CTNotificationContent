@@ -11,6 +11,7 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeAutoCarousel = 3,
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
+    CTNotificationContentTypeZeroBezel = 6
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -23,6 +24,7 @@ static NSString * const kSingleMediaType = @"ct_mediaType";
 static NSString * const kSingleMediaURL = @"ct_mediaUrl";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
+static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -133,6 +135,20 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
             self.contentViewController = contentController;
         }
             break;
+        case CTNotificationContentTypeZeroBezel: {
+            CTZeroBezelController *contentController = [[CTZeroBezelController alloc] init];
+            [contentController setData:self.jsonString];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubCaption:notification.request.content.body];
+            if (content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            }
+            [self addChildViewController:contentController];
+            contentController.view.frame = self.view.frame;
+            [self.view addSubview:contentController.view];
+            self.contentViewController = contentController;
+        }
+            break;
 
         default:
             break;
@@ -161,6 +177,8 @@ static NSString * const kDeeplinkURL = @"wzrk_dl";
                 self.contentType = CTNotificationContentTypeManualCarousel;
             } else if ([content[kTemplateId] isEqualToString:kTemplateTimer]) {
                 self.contentType = CTNotificationContentTypeTimerTemplate;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateZeroBezel]) {
+                self.contentType = CTNotificationContentTypeZeroBezel;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;

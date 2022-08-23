@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32DFD7A828B4382C00E72588 /* CTZeroBezelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD7A728B4382C00E72588 /* CTZeroBezelController.swift */; };
 		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
 		488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A32816FFF300AE3AC8 /* ct_previous_button.png */; };
 		488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A52816FFF300AE3AC8 /* ct_play_button.png */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32DFD7A728B4382C00E72588 /* CTZeroBezelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTZeroBezelController.swift; sourceTree = "<group>"; };
 		488F31A22816FFF300AE3AC8 /* ct_next_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_next_button.png; sourceTree = "<group>"; };
 		488F31A32816FFF300AE3AC8 /* ct_previous_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_previous_button.png; sourceTree = "<group>"; };
 		488F31A52816FFF300AE3AC8 /* ct_play_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_play_button.png; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		48F39FCF285775E700810877 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				32DFD7A728B4382C00E72588 /* CTZeroBezelController.swift */,
 				48D04E532860E856008403CD /* CTUtility.swift */,
 				48F39FD0285775E700810877 /* CTCarouselController.swift */,
 				48F39FD1285775E700810877 /* Assets.xcassets */,
@@ -239,6 +242,7 @@
 				48F39FDA285775E700810877 /* CTContentSliderController.swift in Sources */,
 				488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */,
 				48F39FD9285775E700810877 /* GlobalConstants.swift in Sources */,
+				32DFD7A828B4382C00E72588 /* CTZeroBezelController.swift in Sources */,
 				488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */,
 				48F39FD8285775E700810877 /* CTSingleMediaController.swift in Sources */,
 				48D04E542860E856008403CD /* CTUtility.swift in Sources */,
