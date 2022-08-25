@@ -52,19 +52,19 @@
                 <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="mWt-uc-10t">
                     <rect key="frame" x="30" y="204" width="357" height="30"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="pq7-ei-NSt">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="pq7-ei-NSt">
                             <rect key="frame" x="0.0" y="0.0" width="55.5" height="30"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-vb-sGm">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-vb-sGm">
                             <rect key="frame" x="75.5" y="0.0" width="55.5" height="30"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="65B-pj-CWr">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="65B-pj-CWr">
                             <rect key="frame" x="151" y="0.0" width="55" height="30"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="lSh-c8-WIf">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="lSh-c8-WIf">
                             <rect key="frame" x="226" y="0.0" width="55.5" height="30"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="bnd-dF-EKP">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ct_star_outline.png" translatesAutoresizingMaskIntoConstraints="NO" id="bnd-dF-EKP">
                             <rect key="frame" x="301.5" y="0.0" width="55.5" height="30"/>
                         </imageView>
                     </subviews>

@@ -76,27 +76,27 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         heightConstant = 231
     }
     func addGestureReconizerToImageView(){
-        let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(self.selectOneStar))
+        let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR1.delegate = self
         oneStarImageView.isUserInteractionEnabled = true
         oneStarImageView.addGestureRecognizer(tapGR1)
         
-        let tapGR2 = UITapGestureRecognizer(target: self, action: #selector(self.selectTwoStar))
+        let tapGR2 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR2.delegate = self
         twoStarImageView.isUserInteractionEnabled = true
         twoStarImageView.addGestureRecognizer(tapGR2)
 
-        let tapGR3 = UITapGestureRecognizer(target: self, action: #selector(self.selectThreeStar))
+        let tapGR3 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR3.delegate = self
         threeStarImageView.isUserInteractionEnabled = true
         threeStarImageView.addGestureRecognizer(tapGR3)
         
-        let tapGR4 = UITapGestureRecognizer(target: self, action: #selector(self.selectFourStar))
+        let tapGR4 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR3.delegate = self
         fourStarImageView.isUserInteractionEnabled = true
         fourStarImageView.addGestureRecognizer(tapGR4)
         
-        let tapGR5 = UITapGestureRecognizer(target: self, action: #selector(self.selectFiveStar))
+        let tapGR5 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR5.delegate = self
         fiveStarImageView.isUserInteractionEnabled = true
         fiveStarImageView.addGestureRecognizer(tapGR5)
@@ -117,86 +117,55 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         subTitleLabel.addGestureRecognizer(tapGRSubTitle)
         
     }
-    
-    @objc func selectOneStar(_ sender: UITapGestureRecognizer) {
-        oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        
-        if let url = jsonContent?.pt_dl1{
-            if let url = URL(string: url){
-                getParentViewController().open(url)
-            }
+
+    @objc func selectStar(_ sender: UITapGestureRecognizer){
+        var deepLink:String?
+        switch sender.view?.tag{
+        case 1:
+            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            twoStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            deepLink = jsonContent?.pt_dl1
+            break
+        case 2:
+            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            deepLink = jsonContent?.pt_dl2
+            break
+        case 3:
+            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            deepLink = jsonContent?.pt_dl3
+            break
+        case 4:
+            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            deepLink = jsonContent?.pt_dl4
+            break
+        case 5:
+            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            fiveStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            deepLink = jsonContent?.pt_dl5
+            break
+        default:
+            break
         }
         
-    }
-    @objc func selectTwoStar(_ sender: UITapGestureRecognizer) {
-        oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        
-        if let url = jsonContent?.pt_dl2{
-            if let url = URL(string: url){
-                getParentViewController().open(url)
-            }
-        }else{
-            if let url = jsonContent?.pt_dl1{
-                if let url = URL(string: url){
-                    getParentViewController().open(url)
-                }
-            }
-        }
-    }
-    @objc func selectThreeStar(_ sender: UITapGestureRecognizer) {
-        oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        
-        if let url = jsonContent?.pt_dl3{
-            if let url = URL(string: url){
-                getParentViewController().open(url)
-            }
-        }else{
-            if let url = jsonContent?.pt_dl1{
-                if let url = URL(string: url){
-                    getParentViewController().open(url)
-                }
-            }
-        }
-    }
-    @objc func selectFourStar(_ sender: UITapGestureRecognizer) {
-        oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        
-        if let url = jsonContent?.pt_dl2{
-            if let url = URL(string: url){
-                getParentViewController().open(url)
-            }
-        }else{
-            if let url = jsonContent?.pt_dl1{
-                if let url = URL(string: url){
-                    getParentViewController().open(url)
-                }
-            }
-        }
-    }
-    @objc func selectFiveStar(_ sender: UITapGestureRecognizer) {
-        oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        
-        if let url = jsonContent?.pt_dl2{
+        if let url = deepLink{
             if let url = URL(string: url){
                 getParentViewController().open(url)
             }
