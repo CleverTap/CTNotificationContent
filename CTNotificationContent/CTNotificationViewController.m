@@ -45,8 +45,8 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
 }
 
 - (void)didReceiveNotification:(UNNotification *)notification {
-    self.content = notification.request.content.userInfo;
-    self.notification = notification;
+    _content = notification.request.content.userInfo;
+    _notification = notification;
 
     [self updateContentType:_content];
     
