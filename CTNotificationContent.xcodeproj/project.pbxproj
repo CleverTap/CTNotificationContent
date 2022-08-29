@@ -201,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				32DFD84028BCCCBB00E72588 /* Controller */,
-				32DFD84228BCCCBB00E72588 /* Model */,
 			);
 			path = SingleMedia;
 			sourceTree = "<group>";
@@ -212,13 +211,6 @@
 				32DFD84128BCCCBB00E72588 /* CTSingleMediaController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		32DFD84228BCCCBB00E72588 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		32DFD84328BCCCBB00E72588 /* Utility */ = {
