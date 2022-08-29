@@ -6,26 +6,13 @@
 //
 
 import UIKit
-import UserNotificationsUI
-
-struct ZeroBezelProperties: Decodable {
-    let pt_title: String?
-    let pt_msg: String?
-    let pt_msg_summary: String?
-    let pt_subtitle: String?
-    let pt_big_img: String?
-    let pt_dl1: String?
-    let pt_title_clr: String?
-    let pt_msg_clr: String?
-    let pt_small_icon_clr: String?
-}
 
 @objc public class CTZeroBezelController: BaseCTNotificationContentViewController {
 
     var contentView: UIView = UIView(frame: .zero)
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
-    @objc public var templateSubCaption: String = ""
+    @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
@@ -65,7 +52,7 @@ struct ZeroBezelProperties: Decodable {
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
         
-        loadContentData()
+        jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
         setupConstraints()
     }
@@ -91,23 +78,11 @@ struct ZeroBezelProperties: Decodable {
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
     }
     
-    func loadContentData(){
-        if let configData = data.data(using: .utf8) {
-            do {
-                jsonContent = try JSONDecoder().decode(ZeroBezelProperties.self, from: configData)
-            } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
-                jsonContent = nil
-            }
-        }
-    }
-    
     func createView() {
         createFrameWithoutImage()
         contentView.addSubview(bigImageView)
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(titleLabel)
-        
         
         guard let jsonContent = jsonContent else {
             return
@@ -117,7 +92,7 @@ struct ZeroBezelProperties: Decodable {
             templateCaption = title
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty{
-            templateSubCaption = msg
+            templateSubcaption = msg
         }
         if let deeplink = jsonContent.pt_dl1, !deeplink.isEmpty{
             deeplinkURL = deeplink
@@ -128,7 +103,7 @@ struct ZeroBezelProperties: Decodable {
         }
         
         self.titleLabel.text = templateCaption
-        self.subTitleLabel.text = templateSubCaption
+        self.subTitleLabel.text = templateSubcaption
     
         if let bigImg = jsonContent.pt_big_img{
             CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in

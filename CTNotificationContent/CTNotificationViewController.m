@@ -31,6 +31,8 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
 @property(nonatomic, assign) CTNotificationContentType contentType;
 @property(nonatomic, strong, readwrite) BaseCTNotificationContentViewController *contentViewController;
 @property(nonatomic) NSString *jsonString;
+@property(nonatomic) NSDictionary *content;
+@property(nonatomic) UNNotification *notification;
 
 @end
 
@@ -43,32 +45,25 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
 }
 
 - (void)didReceiveNotification:(UNNotification *)notification {
-    NSDictionary *content = notification.request.content.userInfo;
-    [self updateContentType:content];
+    self.content = notification.request.content.userInfo;
+    self.notification = notification;
+
+    [self updateContentType:_content];
     
     switch (self.contentType) {
         case CTNotificationContentTypeContentSlider: {
             CTContentSliderController *contentController = [[CTContentSliderController alloc] init];
-            [contentController setData:content[kContentSlider]];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubcaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
         case CTNotificationContentTypeSingleMedia: {
             CTSingleMediaController *contentController = [[CTSingleMediaController alloc] init];
             [contentController setCaption:notification.request.content.title];
             [contentController setSubCaption:notification.request.content.body];
-            [contentController setMediaType:content[kSingleMediaType]];
-            [contentController setMediaURL:content[kSingleMediaURL]];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
+            [contentController setMediaType:_content[kSingleMediaType]];
+            [contentController setMediaURL:_content[kSingleMediaURL]];
+            if (_content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:_content[kDeeplinkURL]];
             }
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
@@ -78,75 +73,30 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
             break;
         case CTNotificationContentTypeBasicTemplate: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:self.jsonString];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubcaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
             [contentController setTemplateType:kTemplateBasic];
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
         case CTNotificationContentTypeAutoCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:self.jsonString];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubcaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
             [contentController setTemplateType:kTemplateAutoCarousel];
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
         case CTNotificationContentTypeManualCarousel: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
-            [contentController setData:self.jsonString];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubcaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
             [contentController setTemplateType:kTemplateManualCarousel];
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
         case CTNotificationContentTypeTimerTemplate: {
             CTTimerTemplateController *contentController = [[CTTimerTemplateController alloc] init];
-            [contentController setData:self.jsonString];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubcaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
         case CTNotificationContentTypeZeroBezel: {
             CTZeroBezelController *contentController = [[CTZeroBezelController alloc] init];
-            [contentController setData:self.jsonString];
-            [contentController setTemplateCaption:notification.request.content.title];
-            [contentController setTemplateSubCaption:notification.request.content.body];
-            if (content[kDeeplinkURL] != nil) {
-                [contentController setDeeplinkURL:content[kDeeplinkURL]];
-            }
-            [self addChildViewController:contentController];
-            contentController.view.frame = self.view.frame;
-            [self.view addSubview:contentController.view];
-            self.contentViewController = contentController;
+            [self setupContentController:contentController];
         }
             break;
 
@@ -156,6 +106,19 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
     
     self.view.frame = self.contentViewController.view.frame;
     self.preferredContentSize = self.contentViewController.preferredContentSize;
+}
+
+- (void)setupContentController:(id)contentController{
+    [contentController setData:self.jsonString];
+    [contentController setTemplateCaption:_notification.request.content.title];
+    [contentController setTemplateSubcaption:_notification.request.content.body];
+    if (self.content[kDeeplinkURL] != nil) {
+        [contentController setDeeplinkURL:self.content[kDeeplinkURL]];
+    }
+    [self addChildViewController:contentController];
+    [contentController view].frame = self.view.frame;
+    [self.view addSubview:[contentController view]];
+    self.contentViewController = contentController;
 }
 
 - (void)updateContentType:(NSDictionary *)content {

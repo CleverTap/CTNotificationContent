@@ -26,4 +26,17 @@ class CTUtiltiy {
     static func getCaptionHeight() -> CGFloat {
         return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
+    
+    static func loadContentData<T>(data:String)->T? where T:Decodable{
+        var jsonContent: T? = nil
+        if let configData = data.data(using: .utf8) {
+            do {
+                jsonContent = try JSONDecoder().decode(T.self, from: configData)
+            } catch let error {
+                print("Failed to load: \(error.localizedDescription)")
+                jsonContent = nil
+            }
+        }
+        return jsonContent
+    }
 }
