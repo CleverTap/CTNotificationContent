@@ -152,11 +152,11 @@ This template features a live countdown timer. You can even choose to show diffe
 
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomTimerTemplate.gif" alt="Timer template" width="450" height="800"/>
 
-### ZeroBezel Template
+### Zero Bezel Template
 
 The Zero Bezel template ensures that the background image covers the entire available surface area of the push notification. All the text is overlayed on the image.
 
-![ZeroBezel template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ZeroBezel.png)
+![Zero Bezel template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ZeroBezel.png)
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
