@@ -94,12 +94,10 @@ import UIKit
         if let msg = jsonContent.pt_msg, !msg.isEmpty{
             templateSubcaption = msg
         }
-        if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty{
-            templateSubcaption = msgSummary
-        }
         if let deeplink = jsonContent.pt_dl1, !deeplink.isEmpty{
             deeplinkURL = deeplink
         }
+    
         if let bigImage = jsonContent.pt_big_img, !bigImage.isEmpty{
             templateBigImage = bigImage
         }

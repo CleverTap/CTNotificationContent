@@ -16,4 +16,5 @@ struct ZeroBezelProperties: Decodable {
     let pt_dl1: String?
     let pt_title_clr: String?
     let pt_msg_clr: String?
+    let pt_small_icon_clr: String?
 }
