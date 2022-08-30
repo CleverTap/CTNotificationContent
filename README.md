@@ -291,7 +291,6 @@ pt_json | Optional | Above keys in JSON format
   pt_dl1 | Required | Deep Link
   pt_title_clr | Optional | Title Color in HEX
   pt_msg_clr | Optional | Message Color in HEX
-  pt_small_icon_clr | Optional | Small Icon Color in HEX  
   pt_json | Optional | Above keys in JSON format
 
 # Sample App #
