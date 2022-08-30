@@ -53,7 +53,16 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
     switch (self.contentType) {
         case CTNotificationContentTypeContentSlider: {
             CTContentSliderController *contentController = [[CTContentSliderController alloc] init];
-            [self setupContentController:contentController];
+            [contentController setData:_content[kContentSlider]];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (_content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:_content[kDeeplinkURL]];
+            }
+            [self addChildViewController:contentController];
+            contentController.view.frame = self.view.frame;
+            [self.view addSubview:contentController.view];
+            self.contentViewController = contentController;
         }
             break;
         case CTNotificationContentTypeSingleMedia: {
