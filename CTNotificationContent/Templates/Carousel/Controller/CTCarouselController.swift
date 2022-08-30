@@ -1,20 +1,6 @@
 import UIKit
 import UserNotificationsUI
 
-struct CarouselProperties: Decodable {
-    let pt_title: String?
-    let pt_msg: String?
-    let pt_msg_summary: String?
-    let pt_dl1: String?
-    let pt_big_img: String?
-    let pt_img1: String?
-    let pt_img2: String?
-    let pt_img3: String?
-    let pt_bg: String?
-    let pt_title_clr: String?
-    let pt_msg_clr: String?
-}
-
 @objc public class CTCarouselController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
     var pageControl: UIPageControl = UIPageControl(frame: .zero)
@@ -42,19 +28,8 @@ struct CarouselProperties: Decodable {
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
 
-        loadContentData()
+        jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
-    }
-    
-    func loadContentData() {
-        if let configData = data.data(using: .utf8) {
-            do {
-                jsonContent = try JSONDecoder().decode(CarouselProperties.self, from: configData)
-            } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
-                jsonContent = nil
-            }
-        }
     }
     
     func createView() {

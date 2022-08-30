@@ -1,22 +1,6 @@
 import UIKit
 import UserNotificationsUI
 
-struct ContentSliderProperties: Decodable {
-    let orientation: String
-    let showsPaging: Int
-    let autoPlay: Int
-    let autoDismiss: Int
-    let items: [ItemContent]
-    let type: String
-}
-
-struct ItemContent: Decodable {
-    let caption: String
-    let subcaption: String
-    let imageUrl: String
-    let actionUrl: String
-}
-
 fileprivate enum Constants {
     static let kCaption: String = "caption"
     static let kSubcaption: String = "subcaption"
@@ -48,19 +32,8 @@ fileprivate enum Constants {
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
         
-        loadContentData()
+        jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
-    }
-    
-    func loadContentData() {
-        if let configData = data.data(using: .utf8) {
-            do {
-                jsonContent = try JSONDecoder().decode(ContentSliderProperties.self, from: configData)
-            } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
-                jsonContent = nil
-            }
-        }
     }
     
     func createView() {

@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Version 0.2.1 (30 August, 2022)
+-----------------------------------------------
+- Supports a new template - Zero Bezel
+
 Version 0.2.0 *(24 June, 2022)*
 -----------------------------------------------
 - Supports new templates - Basic, Auto carousel, Manual carousel and Timer

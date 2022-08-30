@@ -12,9 +12,20 @@ import _Concurrency
 extension UIKit.UIColor {
   public convenience init?(hex: Swift.String)
 }
-@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTCarouselController : CTNotificationContent.BaseCTNotificationContentViewController {
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTSingleMediaController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var caption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var subCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var mediaType: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var mediaURL: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) override dynamic public func viewDidLoad()
+  @objc @_Concurrency.MainActor(unsafe) override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTContentSliderController : CTNotificationContent.BaseCTNotificationContentViewController {
   @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
-  @objc @_Concurrency.MainActor(unsafe) public var templateType: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
@@ -36,7 +47,7 @@ extension UIKit.UIColor {
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTContentSliderController : CTNotificationContent.BaseCTNotificationContentViewController {
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTZeroBezelController : CTNotificationContent.BaseCTNotificationContentViewController {
   @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
@@ -47,11 +58,11 @@ extension UIKit.UIColor {
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTSingleMediaController : CTNotificationContent.BaseCTNotificationContentViewController {
-  @objc @_Concurrency.MainActor(unsafe) public var caption: Swift.String
-  @objc @_Concurrency.MainActor(unsafe) public var subCaption: Swift.String
-  @objc @_Concurrency.MainActor(unsafe) public var mediaType: Swift.String
-  @objc @_Concurrency.MainActor(unsafe) public var mediaURL: Swift.String
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTCarouselController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateType: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
   @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
   @objc @_Concurrency.MainActor(unsafe) override dynamic public func viewDidLoad()
   @objc @_Concurrency.MainActor(unsafe) override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption

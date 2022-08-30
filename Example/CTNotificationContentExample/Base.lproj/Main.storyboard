@@ -161,7 +161,7 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9X-ih-xtK">
-                                                <rect key="frame" x="10" y="500" width="355" height="35"/>
+                                                <rect key="frame" x="10" y="555" width="355" height="35"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
@@ -179,12 +179,32 @@
                                                     <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k1S-Lx-q6X"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gd0-Ml-Vjr">
+                                                <rect key="frame" x="10" y="500" width="355" height="35"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send ZeroBezel Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendZeroBezelTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JqC-8a-sCl"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1000" id="4QQ-fZ-xUR"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="6RL-Dz-EoN"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="top" secondItem="bbb-7J-Iw6" secondAttribute="bottom" constant="20" id="8eI-YL-xkt"/>
+                                            <constraint firstItem="gd0-Ml-Vjr" firstAttribute="top" secondItem="UJc-DE-c9b" secondAttribute="bottom" constant="20" id="ANG-qy-zY9"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Mje-k5-aan" secondAttribute="trailing" constant="10" id="CQe-dJ-YUe"/>
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="top" secondItem="vsh-Uo-ktl" secondAttribute="top" constant="10" id="EsW-Y2-V2y"/>
                                             <constraint firstItem="J9X-ih-xtK" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="EvM-Kc-clK"/>
@@ -198,18 +218,20 @@
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="QpC-pT-eba"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="bbb-7J-Iw6" secondAttribute="trailing" constant="10" id="Qxm-dx-fGh"/>
                                             <constraint firstItem="68l-2A-28A" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="VyV-e5-tdV"/>
+                                            <constraint firstAttribute="trailing" secondItem="gd0-Ml-Vjr" secondAttribute="trailing" constant="10" id="ZZP-vo-RHb"/>
                                             <constraint firstItem="bbb-7J-Iw6" firstAttribute="top" secondItem="zpA-8J-bdk" secondAttribute="bottom" constant="30" id="aQq-bM-tsN"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="bRS-sS-dru"/>
                                             <constraint firstAttribute="trailing" secondItem="zpA-8J-bdk" secondAttribute="trailing" constant="10" id="bpR-Z3-uVS"/>
+                                            <constraint firstItem="gd0-Ml-Vjr" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="cCf-qC-F2R"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="DSC-5d-pCt" secondAttribute="trailing" constant="10" id="cX4-A6-ybC"/>
                                             <constraint firstItem="zpA-8J-bdk" firstAttribute="top" secondItem="K40-EZ-rXb" secondAttribute="bottom" constant="20" id="dZe-dr-PRU"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="8nr-Ie-33n" secondAttribute="trailing" constant="10" id="dkx-La-dd8"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="top" secondItem="Mje-k5-aan" secondAttribute="bottom" constant="20" id="flm-M3-HdO"/>
                                             <constraint firstAttribute="trailing" secondItem="K40-EZ-rXb" secondAttribute="trailing" constant="10" id="i0i-fX-oCo"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="68l-2A-28A" secondAttribute="trailing" constant="10" id="vBN-GQ-VzU"/>
-                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="UJc-DE-c9b" secondAttribute="bottom" constant="20" id="xZ9-tN-Y4H"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="yx7-Jz-l4c"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="top" secondItem="DSC-5d-pCt" secondAttribute="bottom" constant="20" id="zew-Ma-EsO"/>
+                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="gd0-Ml-Vjr" secondAttribute="bottom" constant="20" id="zyx-Q9-YdG"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -234,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="138.98050974512745"/>
+            <point key="canvasLocation" x="140" y="138.53073463268368"/>
         </scene>
     </scenes>
     <resources>

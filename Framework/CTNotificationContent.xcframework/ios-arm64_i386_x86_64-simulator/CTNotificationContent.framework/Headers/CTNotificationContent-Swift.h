@@ -295,6 +295,19 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layer
 @end
 
 
+SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
+@interface CTZeroBezelController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -597,6 +610,19 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layer
 @end
 
 
+SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
+@interface CTZeroBezelController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -895,6 +921,19 @@ SWIFT_CLASS("_TtC21CTNotificationContent17CTVideoPlayerView")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layerClass;)
 + (Class _Nonnull)layerClass SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
+@interface CTZeroBezelController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
