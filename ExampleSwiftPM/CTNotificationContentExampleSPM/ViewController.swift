@@ -42,5 +42,10 @@ class ViewController: UIViewController {
     @IBAction func sendVideoMedia(_ sender: Any) {
         CleverTap.sharedInstance()?.recordEvent("VideoMediaTemplate_NotificationSent")
     }
+    
+    @IBAction func sendZeroBezelTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("ZeroBezelTemplate_NotificationSent")
+    }
+    
 }
 

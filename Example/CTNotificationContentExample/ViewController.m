@@ -45,4 +45,9 @@
     [[CleverTap sharedInstance] recordEvent:@"VideoMediaTemplate_NotificationSent"];
 }
 
+- (IBAction)sendZeroBezelTemplate:(id)sender {
+    [[CleverTap sharedInstance] recordEvent:@"ZeroBezelTemplate_NotificationSent"];
+}
+
+
 @end
