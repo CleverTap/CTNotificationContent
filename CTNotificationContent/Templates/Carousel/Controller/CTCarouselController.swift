@@ -28,6 +28,9 @@ import UserNotificationsUI
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
 
+        let recognizer1 = UITapGestureRecognizer(target: self, action: #selector(openDeeplink))
+        contentView.addGestureRecognizer(recognizer1)
+        
         jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
     }
@@ -148,8 +151,8 @@ import UserNotificationsUI
                 startAutoPlay()
             } else if templateType == TemplateConstants.kTemplateManualCarousel {
                 // TODO: Unhide buttons when user interaction will be added.
-                nextButton.isHidden = true
-                previousButton.isHidden = true
+//                nextButton.isHidden = true
+//                previousButton.isHidden = true
                 
                 // Show Next and Previous button for manual carousel.
                 nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
@@ -215,6 +218,20 @@ import UserNotificationsUI
         showPrevious()
     }
 
+    @objc func openDeeplink() {
+        let urlString = itemViews[currentItemIndex].components.actionUrl
+        if !urlString.isEmpty {
+            if let url = URL(string: urlString) {
+                getParentViewController().open(url)
+            }
+        }
+        else {
+            if #available(iOSApplicationExtension 12.0, *) {
+                self.extensionContext?.performNotificationDefaultAction()
+            }
+        }
+    }
+    
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous

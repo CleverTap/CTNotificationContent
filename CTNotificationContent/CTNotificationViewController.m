@@ -11,7 +11,8 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeAutoCarousel = 3,
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
-    CTNotificationContentTypeZeroBezel = 6
+    CTNotificationContentTypeZeroBezel = 6,
+    CTNotificationContentTypeWebView = 7
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -25,6 +26,7 @@ static NSString * const kSingleMediaURL = @"ct_mediaUrl";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
 static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
+static NSString * const kTemplateWebView = @"pt_web_view";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -108,7 +110,11 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
             [self setupContentController:contentController];
         }
             break;
-
+        case CTNotificationContentTypeWebView: {
+            CTWebViewController *contentController = [[CTWebViewController alloc] init];
+            [self setupContentController:contentController];
+        }
+            break;
         default:
             break;
     }
@@ -151,6 +157,8 @@ static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
                 self.contentType = CTNotificationContentTypeTimerTemplate;
             }else if ([content[kTemplateId] isEqualToString:kTemplateZeroBezel]) {
                 self.contentType = CTNotificationContentTypeZeroBezel;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateWebView]) {
+                self.contentType = CTNotificationContentTypeWebView;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;
