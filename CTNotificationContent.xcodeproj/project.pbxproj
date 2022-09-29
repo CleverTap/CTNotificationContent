@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32EE78BA2897E3BD00662A0E /* CTRatingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B02897E3BD00662A0E /* CTRatingViewController.xib */; };
-		32EE78BB2897E3BD00662A0E /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B12897E3BD00662A0E /* ct_star_outline.png */; };
-		32EE78BC2897E3BD00662A0E /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B22897E3BD00662A0E /* ct_star_filled.png */; };
-		32EE78BD2897E3BD00662A0E /* CTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE78B32897E3BD00662A0E /* CTRatingViewController.swift */; };
-		32EE78BE2897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B52897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib */; };
-		32EE78BF2897E3BD00662A0E /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE78B62897E3BD00662A0E /* CTProductDisplayVerticalViewController.swift */; };
-		32EE78C02897E3BD00662A0E /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE78B72897E3BD00662A0E /* ProductDisplayProperties.swift */; };
-		32EE78C12897E3BD00662A0E /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE78B82897E3BD00662A0E /* CTProductDisplayLinearViewController.swift */; };
-		32EE78C22897E3BD00662A0E /* CTProductDisplayLinearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EE78B92897E3BD00662A0E /* CTProductDisplayLinearViewController.xib */; };
+		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
+		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
+		3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */; };
+		3270BFDD28E4D80E003528ED /* CTProductDisplayVerticalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */; };
+		3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */; };
+		3270BFF028E4D89C003528ED /* CTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */; };
+		3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFED28E4D89C003528ED /* RatingProperties.swift */; };
+		3270BFF228E4D89C003528ED /* CTRatingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */; };
 		32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */; };
 		32DFD84728BCCCBB00E72588 /* ZeroBezelProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */; };
 		32DFD84828BCCCBB00E72588 /* CTTimerTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD83128BCCCBB00E72588 /* CTTimerTemplateController.swift */; };
@@ -27,6 +26,8 @@
 		32DFD84F28BCCCBB00E72588 /* CTSingleMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84128BCCCBB00E72588 /* CTSingleMediaController.swift */; };
 		32DFD85028BCCCBB00E72588 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */; };
 		32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84528BCCCBB00E72588 /* CTUtility.swift */; };
+		32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0628D87FDD00F1395D /* ct_star_outline.png */; };
+		32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0728D87FDD00F1395D /* ct_star_filled.png */; };
 		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
 		488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A32816FFF300AE3AC8 /* ct_previous_button.png */; };
 		488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A52816FFF300AE3AC8 /* ct_play_button.png */; };
@@ -43,15 +44,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		32EE78B02897E3BD00662A0E /* CTRatingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTRatingViewController.xib; sourceTree = "<group>"; };
-		32EE78B12897E3BD00662A0E /* ct_star_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_outline.png; sourceTree = "<group>"; };
-		32EE78B22897E3BD00662A0E /* ct_star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_filled.png; sourceTree = "<group>"; };
-		32EE78B32897E3BD00662A0E /* CTRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRatingViewController.swift; sourceTree = "<group>"; };
-		32EE78B52897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayVerticalViewController.xib; sourceTree = "<group>"; };
-		32EE78B62897E3BD00662A0E /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
-		32EE78B72897E3BD00662A0E /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
-		32EE78B82897E3BD00662A0E /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
-		32EE78B92897E3BD00662A0E /* CTProductDisplayLinearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayLinearViewController.xib; sourceTree = "<group>"; };
+		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
+		3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
+		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
+		3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayVerticalViewController.xib; sourceTree = "<group>"; };
+		3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayLinearViewController.xib; sourceTree = "<group>"; };
+		3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRatingViewController.swift; sourceTree = "<group>"; };
+		3270BFED28E4D89C003528ED /* RatingProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingProperties.swift; sourceTree = "<group>"; };
+		3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTRatingViewController.xib; sourceTree = "<group>"; };
 		32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTZeroBezelController.swift; sourceTree = "<group>"; };
 		32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroBezelProperties.swift; sourceTree = "<group>"; };
 		32DFD83128BCCCBB00E72588 /* CTTimerTemplateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTTimerTemplateController.swift; sourceTree = "<group>"; };
@@ -63,6 +63,8 @@
 		32DFD84128BCCCBB00E72588 /* CTSingleMediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTSingleMediaController.swift; sourceTree = "<group>"; };
 		32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		32DFD84528BCCCBB00E72588 /* CTUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTUtility.swift; sourceTree = "<group>"; };
+		32E55C0628D87FDD00F1395D /* ct_star_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_outline.png; sourceTree = "<group>"; };
+		32E55C0728D87FDD00F1395D /* ct_star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_filled.png; sourceTree = "<group>"; };
 		488F31A22816FFF300AE3AC8 /* ct_next_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_next_button.png; sourceTree = "<group>"; };
 		488F31A32816FFF300AE3AC8 /* ct_previous_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_previous_button.png; sourceTree = "<group>"; };
 		488F31A52816FFF300AE3AC8 /* ct_play_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_play_button.png; sourceTree = "<group>"; };
@@ -102,12 +104,81 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		32EE78AE2897E3BD00662A0E /* ZeroBezel */ = {
+		3270BFD128E4D80E003528ED /* ProductDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				3270BFD228E4D80E003528ED /* Controller */,
+				3270BFD528E4D80E003528ED /* Model */,
+				3270BFD728E4D80E003528ED /* View */,
+			);
+			path = ProductDisplay;
+			sourceTree = "<group>";
+		};
+		3270BFD228E4D80E003528ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */,
+				3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3270BFD528E4D80E003528ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3270BFD728E4D80E003528ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */,
+				3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3270BFE928E4D89C003528ED /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFEA28E4D89C003528ED /* Controller */,
+				3270BFEC28E4D89C003528ED /* Model */,
+				3270BFEE28E4D89C003528ED /* View */,
+			);
+			path = Rating;
+			sourceTree = "<group>";
+		};
+		3270BFEA28E4D89C003528ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3270BFEC28E4D89C003528ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFED28E4D89C003528ED /* RatingProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3270BFEE28E4D89C003528ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		32DFD82928BCCCBB00E72588 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				3270BFE928E4D89C003528ED /* Rating */,
+				3270BFD128E4D80E003528ED /* ProductDisplay */,
 				32DFD82A28BCCCBB00E72588 /* ZeroBezel */,
 				32DFD82F28BCCCBB00E72588 /* Timer */,
 				32DFD83528BCCCBB00E72588 /* Carousel */,
@@ -127,28 +198,6 @@
 			path = ZeroBezel;
 			sourceTree = "<group>";
 		};
-		32EE78AF2897E3BD00662A0E /* Rating */ = {
-			isa = PBXGroup;
-			children = (
-				32EE78B02897E3BD00662A0E /* CTRatingViewController.xib */,
-				32EE78B12897E3BD00662A0E /* ct_star_outline.png */,
-				32EE78B22897E3BD00662A0E /* ct_star_filled.png */,
-				32EE78B32897E3BD00662A0E /* CTRatingViewController.swift */,
-			);
-			path = Rating;
-			sourceTree = "<group>";
-		};
-		32EE78B42897E3BD00662A0E /* ProductDisplay */ = {
-			isa = PBXGroup;
-			children = (
-				32EE78B52897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib */,
-				32EE78B62897E3BD00662A0E /* CTProductDisplayVerticalViewController.swift */,
-				32EE78B72897E3BD00662A0E /* ProductDisplayProperties.swift */,
-				32EE78B82897E3BD00662A0E /* CTProductDisplayLinearViewController.swift */,
-				32EE78B92897E3BD00662A0E /* CTProductDisplayLinearViewController.xib */,
-			);
-			name = ProductDisplay;
-			path = ../ProductDisplay;
 		32DFD82B28BCCCBB00E72588 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +317,8 @@
 		488F31A12816FFF300AE3AC8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				32E55C0728D87FDD00F1395D /* ct_star_filled.png */,
+				32E55C0628D87FDD00F1395D /* ct_star_outline.png */,
 				488F31A22816FFF300AE3AC8 /* ct_next_button.png */,
 				488F31A32816FFF300AE3AC8 /* ct_previous_button.png */,
 				488F31A52816FFF300AE3AC8 /* ct_play_button.png */,
@@ -279,7 +330,6 @@
 		525715DF1E67B8C0000E455B = {
 			isa = PBXGroup;
 			children = (
-				32EE78AF2897E3BD00662A0E /* Rating */,
 				525715EB1E67B8C0000E455B /* CTNotificationContent */,
 				525715EA1E67B8C0000E455B /* Products */,
 				525715F41E67B990000E455B /* Frameworks */,
@@ -303,9 +353,6 @@
 				488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */,
 				488F31C02817012500AE3AC8 /* CTNotificationViewController.m */,
 				48F39FDC2857766000810877 /* Info.plist */,
-				32EE78AE2897E3BD00662A0E /* ZeroBezel */,
-				32EE78B42897E3BD00662A0E /* ProductDisplay */,
-				48F39FCF285775E700810877 /* Controllers */,
 				488F31A12816FFF300AE3AC8 /* Resources */,
 				32DFD82928BCCCBB00E72588 /* Templates */,
 				0B1898FF278D99EF000A0169 /* Views */,
@@ -397,15 +444,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */,
+				3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */,
 				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
-				32EE78BE2897E3BD00662A0E /* CTProductDisplayVerticalViewController.xib in Resources */,
+				32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */,
+				3270BFF228E4D89C003528ED /* CTRatingViewController.xib in Resources */,
 				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
-				48F39FD7285775E700810877 /* Assets.xcassets in Resources */,
-				32EE78BC2897E3BD00662A0E /* ct_star_filled.png in Resources */,
-				32EE78BA2897E3BD00662A0E /* CTRatingViewController.xib in Resources */,
 				488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */,
-				32EE78BB2897E3BD00662A0E /* ct_star_outline.png in Resources */,
-				32EE78C22897E3BD00662A0E /* CTProductDisplayLinearViewController.xib in Resources */,
+				32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */,
+				3270BFDD28E4D80E003528ED /* CTProductDisplayVerticalViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,30 +463,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */,
-				32EE78C12897E3BD00662A0E /* CTProductDisplayLinearViewController.swift in Sources */,
-				48F39FD6285775E700810877 /* CTCarouselController.swift in Sources */,
-				488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */,
-				48F39FDB285775E700810877 /* CTTimerTemplateController.swift in Sources */,
-				32EE78BD2897E3BD00662A0E /* CTRatingViewController.swift in Sources */,
-				32EE78C02897E3BD00662A0E /* ProductDisplayProperties.swift in Sources */,
-				48F39FDA285775E700810877 /* CTContentSliderController.swift in Sources */,
 				32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */,
 				32DFD84928BCCCBB00E72588 /* TimerTemplateProperties.swift in Sources */,
 				488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */,
 				32DFD85028BCCCBB00E72588 /* GlobalConstants.swift in Sources */,
 				32DFD84728BCCCBB00E72588 /* ZeroBezelProperties.swift in Sources */,
+				3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */,
 				32DFD84F28BCCCBB00E72588 /* CTSingleMediaController.swift in Sources */,
+				3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */,
 				32DFD84D28BCCCBB00E72588 /* CTContentSliderController.swift in Sources */,
 				32DFD84828BCCCBB00E72588 /* CTTimerTemplateController.swift in Sources */,
 				488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */,
 				32DFD84E28BCCCBB00E72588 /* ContentSliderProperties.swift in Sources */,
 				32DFD84C28BCCCBB00E72588 /* CarouselProperties.swift in Sources */,
+				3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */,
 				32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */,
 				488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */,
-				48F39FD8285775E700810877 /* CTSingleMediaController.swift in Sources */,
-				32EE78BF2897E3BD00662A0E /* CTProductDisplayVerticalViewController.swift in Sources */,
-				48D04E542860E856008403CD /* CTUtility.swift in Sources */,
+				3270BFF028E4D89C003528ED /* CTRatingViewController.swift in Sources */,
 				32DFD84B28BCCCBB00E72588 /* CTCarouselController.swift in Sources */,
+				3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -163,6 +163,10 @@ import UIKit
         return .doNotDismiss
     }
     
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
+    }
+    
     /*
     // MARK: - Navigation
 

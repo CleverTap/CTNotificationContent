@@ -7,29 +7,11 @@
 
 import UIKit
 
-struct RatingProperties: Decodable {
-    let pt_title: String?
-    let pt_msg: String?
-    let pt_msg_summary: String?
-    let pt_subtitle: String?
-    let pt_default_dl: String?
-    let pt_dl1: String?
-    let pt_dl2: String?
-    let pt_dl3: String?
-    let pt_dl4: String?
-    let pt_dl5: String?
-    let pt_big_img: String?
-    let pt_bg: String?
-    let pt_title_clr: String?
-    let pt_msg_clr: String?
-    let pt_small_icon_clr: String?
-}
-
 class CTRatingViewController: BaseCTNotificationContentViewController, UIGestureRecognizerDelegate {
     
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
-    @objc public var templateSubCaption: String = ""
+    @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
     var jsonContent: RatingProperties? = nil
     var templateBigImage:String = ""
@@ -49,9 +31,20 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        jsonContent = CTUtiltiy.loadContentData(data: data)
+
         self.addGestureReconizerToImageView()
         createView()
         // Do any additional setup after loading the view.
+    }
+    
+    func checkForiOS12(){
+        if #available(iOSApplicationExtension 12.0, *) {
+            // no change in loading view
+        }else{
+            // change in view to have basic template
+           templateDl1 = ""
+        }
     }
     
     func viewWithoutImage(){
@@ -100,21 +93,6 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         tapGR5.delegate = self
         fiveStarImageView.isUserInteractionEnabled = true
         fiveStarImageView.addGestureRecognizer(tapGR5)
-        
-        let tapGRBigImage = UITapGestureRecognizer(target: self, action: #selector(self.openDefaultDeepLink))
-        tapGRBigImage.delegate = self
-        bigImageView.isUserInteractionEnabled = true
-        bigImageView.addGestureRecognizer(tapGRBigImage)
-        
-        let tapGRTitle = UITapGestureRecognizer(target: self, action: #selector(self.openDefaultDeepLink))
-        tapGRTitle.delegate = self
-        titleLabel.isUserInteractionEnabled = true
-        titleLabel.addGestureRecognizer(tapGRTitle)
-        
-        let tapGRSubTitle = UITapGestureRecognizer(target: self, action: #selector(self.openDefaultDeepLink))
-        tapGRSubTitle.delegate = self
-        subTitleLabel.isUserInteractionEnabled = true
-        subTitleLabel.addGestureRecognizer(tapGRSubTitle)
         
     }
 
@@ -178,21 +156,7 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         }
     }
     
-    @objc func openDefaultDeepLink(_ sender: UITapGestureRecognizer) {
-        if let url = URL(string: deeplinkURL){
-            getParentViewController().open(url)
-        }
-    }
-    
     func createView() {
-        if let configData = data.data(using: .utf8) {
-            do {
-                jsonContent = try JSONDecoder().decode(RatingProperties.self, from: configData)
-            } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
-                jsonContent = nil
-            }
-        }
         guard let jsonContent = jsonContent else {
             return
         }
@@ -201,7 +165,7 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
             templateCaption = title
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty{
-            templateSubCaption = msg
+            templateSubcaption = msg
         }
         if let deeplink = jsonContent.pt_default_dl, !deeplink.isEmpty{
             deeplinkURL = deeplink
@@ -214,7 +178,7 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         }
         
         self.titleLabel.text = templateCaption
-        self.subTitleLabel.text = templateSubCaption
+        self.subTitleLabel.text = templateSubcaption
     
         if let bigImg = jsonContent.pt_big_img{
             CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
@@ -233,6 +197,7 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
             templateBigImage = ""
         }
         
+        checkForiOS12()
         updateUI()
         
         if let bgColor = jsonContent.pt_bg,!bgColor.isEmpty{
@@ -282,6 +247,11 @@ class CTRatingViewController: BaseCTNotificationContentViewController, UIGesture
         }
         return .doNotDismiss
     }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
+    }
+    
     /*
     // MARK: - Navigation
 

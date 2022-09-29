@@ -241,4 +241,8 @@ import UserNotificationsUI
         }
         return .doNotDismiss
     }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
+    }
 }

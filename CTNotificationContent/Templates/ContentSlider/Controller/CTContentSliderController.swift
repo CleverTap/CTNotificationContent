@@ -220,4 +220,9 @@ fileprivate enum Constants {
         timer?.invalidate()
         timer = nil
     }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        let deeplink = itemViews[currentItemIndex].components.actionUrl
+        return deeplink
+    }
 }
