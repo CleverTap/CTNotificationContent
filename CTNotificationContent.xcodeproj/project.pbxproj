@@ -12,9 +12,7 @@
 		3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */; };
 		3270BFDD28E4D80E003528ED /* CTProductDisplayVerticalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */; };
 		3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */; };
-		3270BFF028E4D89C003528ED /* CTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */; };
 		3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFED28E4D89C003528ED /* RatingProperties.swift */; };
-		3270BFF228E4D89C003528ED /* CTRatingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */; };
 		32C575EE28F744E600BF0A3F /* CTRatingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C575ED28F744E600BF0A3F /* CTRatingsViewController.swift */; };
 		32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */; };
 		32DFD84728BCCCBB00E72588 /* ZeroBezelProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */; };
@@ -50,9 +48,7 @@
 		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
 		3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayVerticalViewController.xib; sourceTree = "<group>"; };
 		3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayLinearViewController.xib; sourceTree = "<group>"; };
-		3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRatingViewController.swift; sourceTree = "<group>"; };
 		3270BFED28E4D89C003528ED /* RatingProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingProperties.swift; sourceTree = "<group>"; };
-		3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTRatingViewController.xib; sourceTree = "<group>"; };
 		32C575ED28F744E600BF0A3F /* CTRatingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRatingsViewController.swift; sourceTree = "<group>"; };
 		32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTZeroBezelController.swift; sourceTree = "<group>"; };
 		32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroBezelProperties.swift; sourceTree = "<group>"; };
@@ -147,7 +143,6 @@
 			children = (
 				3270BFEA28E4D89C003528ED /* Controller */,
 				3270BFEC28E4D89C003528ED /* Model */,
-				3270BFEE28E4D89C003528ED /* View */,
 			);
 			path = Rating;
 			sourceTree = "<group>";
@@ -156,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				32C575ED28F744E600BF0A3F /* CTRatingsViewController.swift */,
-				3270BFEB28E4D89C003528ED /* CTRatingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,14 +161,6 @@
 				3270BFED28E4D89C003528ED /* RatingProperties.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		3270BFEE28E4D89C003528ED /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3270BFEF28E4D89C003528ED /* CTRatingViewController.xib */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		32DFD82928BCCCBB00E72588 /* Templates */ = {
@@ -450,7 +436,6 @@
 				3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */,
 				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
 				32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */,
-				3270BFF228E4D89C003528ED /* CTRatingViewController.xib in Resources */,
 				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
 				488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */,
 				32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */,
@@ -483,7 +468,6 @@
 				3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */,
 				32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */,
 				488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */,
-				3270BFF028E4D89C003528ED /* CTRatingViewController.swift in Sources */,
 				32DFD84B28BCCCBB00E72588 /* CTCarouselController.swift in Sources */,
 				3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */,
 			);
