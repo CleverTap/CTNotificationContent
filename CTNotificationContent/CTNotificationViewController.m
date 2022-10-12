@@ -133,7 +133,7 @@ BOOL isFromProductDisplay = false;
         }
             break;
         case CTNotificationContentTypeRating: {
-            CTRatingViewController *contentController = [[CTRatingViewController alloc] init];
+            CTRatingsViewController *contentController = [[CTRatingsViewController alloc] init];
             [self setupContentController:contentController];
         }
             break;
