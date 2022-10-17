@@ -27,7 +27,7 @@
     
     if (@available(iOS 12.0, *)) {
         NSString *url = [self getDeeplinkUrl];
-        if ([url length] == 0){
+        if (!url || url.length == 0) {
             [[self extensionContext] performNotificationDefaultAction];
         }else{
             [[self getParentViewController] openUrl:([[NSURL alloc] initWithString:url])];

@@ -232,7 +232,16 @@ BOOL isFromProductDisplay = false;
 
 // convenience
 - (void)openUrl:(NSURL *)url {
-    [self.extensionContext openURL:url completionHandler:nil];
+    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
+        // IF THE DEEP LINK DIDNT WORK, OPEN PARENT APP
+        if (!success) {
+            if (@available(iOS 12.0, *)) {
+                [self.extensionContext performNotificationDefaultAction];
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }];
 }
 
 @end

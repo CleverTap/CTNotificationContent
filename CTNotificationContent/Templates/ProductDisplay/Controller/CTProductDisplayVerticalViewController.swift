@@ -93,9 +93,7 @@ import UserNotificationsUI
             return
         }
         let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-        // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
+        let viewHeight = ((viewWidth/2) * Constraints.kLandscapeMultiplier) + titleLabel.frame.height + subTitleLabel.frame.height + 60
 
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
