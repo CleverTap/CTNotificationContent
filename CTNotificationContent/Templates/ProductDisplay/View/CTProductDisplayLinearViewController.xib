@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CTProductDisplayLinearViewController" customModule="CleverTapSDK" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CTProductDisplayLinearViewController" customModule="CTNotificationContent" customModuleProvider="target">
             <connections>
                 <outlet property="bigImageView" destination="UAj-ee-Oh4" id="M4r-BC-8mi"/>
                 <outlet property="buyBtnOutlet" destination="mZq-z0-13j" id="EBy-i3-ahR"/>
@@ -26,10 +26,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UAj-ee-Oh4">
-                    <rect key="frame" x="8" y="8" width="401" height="126"/>
+                    <rect key="frame" x="8" y="8" width="401" height="107"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZq-z0-13j">
-                    <rect key="frame" x="309" y="142.5" width="100" height="34.5"/>
+                    <rect key="frame" x="309" y="123.5" width="100" height="34.5"/>
                     <color key="backgroundColor" systemColor="systemYellowColor"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="6ZD-Fp-QF1"/>
@@ -42,22 +42,22 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Rs. 100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCO-oh-kGC">
-                    <rect key="frame" x="8" y="149.5" width="293" height="19.5"/>
+                    <rect key="frame" x="8" y="130.5" width="293" height="19.5"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2oy-Zh-GnT">
-                    <rect key="frame" x="8" y="188" width="128.5" height="31"/>
+                    <rect key="frame" x="8" y="169" width="128.5" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="31" id="03W-ux-bTb"/>
+                        <constraint firstAttribute="height" constant="50" id="03W-ux-bTb"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XOm-Uj-Xws">
-                    <rect key="frame" x="144.5" y="188" width="128" height="31"/>
+                    <rect key="frame" x="144.5" y="169" width="128" height="50"/>
                 </imageView>
                 <imageView clipsSubviews="YES" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k5s-8C-FoQ">
-                    <rect key="frame" x="280.5" y="188" width="128.5" height="31"/>
+                    <rect key="frame" x="280.5" y="169" width="128.5" height="50"/>
                 </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="aNf-Kd-PpL"/>
