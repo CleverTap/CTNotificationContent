@@ -63,6 +63,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         oneStarImageView.contentMode = .scaleAspectFit
         oneStarImageView.layer.masksToBounds = true
         oneStarImageView.translatesAutoresizingMaskIntoConstraints = false
+        oneStarImageView.tag = 1
         return oneStarImageView
     }()
     
@@ -71,6 +72,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         twoStarImageView.contentMode = .scaleAspectFit
         twoStarImageView.layer.masksToBounds = true
         twoStarImageView.translatesAutoresizingMaskIntoConstraints = false
+        twoStarImageView.tag = 2
         return twoStarImageView
     }()
     
@@ -79,6 +81,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         threeStarImageView.contentMode = .scaleAspectFit
         threeStarImageView.layer.masksToBounds = true
         threeStarImageView.translatesAutoresizingMaskIntoConstraints = false
+        threeStarImageView.tag = 3
         return threeStarImageView
     }()
     
@@ -87,6 +90,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         fourStarImageView.contentMode = .scaleAspectFit
         fourStarImageView.layer.masksToBounds = true
         fourStarImageView.translatesAutoresizingMaskIntoConstraints = false
+        fourStarImageView.tag = 4
         return fourStarImageView
     }()
     
@@ -95,6 +99,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         fiveStarImageView.contentMode = .scaleAspectFit
         fiveStarImageView.layer.masksToBounds = true
         fiveStarImageView.translatesAutoresizingMaskIntoConstraints = false
+        fiveStarImageView.tag = 5
         return fiveStarImageView
     }()
     
