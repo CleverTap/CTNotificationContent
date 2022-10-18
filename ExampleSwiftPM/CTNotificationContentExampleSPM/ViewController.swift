@@ -47,5 +47,8 @@ class ViewController: UIViewController {
         CleverTap.sharedInstance()?.recordEvent("ZeroBezelTemplate_NotificationSent")
     }
     
+    @IBAction func sendWebViewTemplate(_ sender: Any) {
+        CleverTap.sharedInstance()?.recordEvent("WebViewTemplate_NotificationSent")
+    }
 }
 
