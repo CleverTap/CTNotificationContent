@@ -2,7 +2,7 @@ import UIKit
 import WebKit
 
 @objc public class CTWebViewController: BaseCTNotificationContentViewController {
-
+    
     var contentView: UIView = UIView(frame: .zero)
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
@@ -12,7 +12,7 @@ import WebKit
     var templateDl1:String = ""
     var webView : WKWebView!
     var webViewUrl: String = ""
-            
+    
     @objc public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,14 +30,14 @@ import WebKit
         if let orientation = jsonContent?.pt_orientation, orientation == ConstantKeys.kOrientationLandscape  {
             viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier))
         }
-
+        
         
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
     }
-
+    
     func createView() {
         
         createFrameWithWebView()
@@ -71,7 +71,7 @@ import WebKit
             deeplinkURL = deeplink
         }
     }
-
+    
     func activateWebViewContraints() {
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -93,16 +93,20 @@ import WebKit
         }
         return .doNotDismiss
     }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
+    }
 }
 
 //MARK:- WKNavigationDelegate
 
 extension CTWebViewController: WKNavigationDelegate {
-
+    
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
     }
-
+    
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print(error.localizedDescription)
     }
