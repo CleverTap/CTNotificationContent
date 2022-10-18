@@ -105,7 +105,7 @@ import UserNotificationsUI
                 }
             }
         }
-        if let img3 = jsonContent.pt_img3, !img3.isEmpty ,(jsonContent.pt_bt3 != nil && jsonContent.pt_st3 != nil && jsonContent.pt_dl3 != nil && jsonContent.pt_price3 != nil){
+        if let img3 = jsonContent.pt_img3, !img3.isEmpty ,(jsonContent.pt_bt3 != nil && jsonContent.pt_st3 != nil && jsonContent.pt_dl3 != nil){
             CTUtiltiy.checkImageUrlValid(imageUrl: img3) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
