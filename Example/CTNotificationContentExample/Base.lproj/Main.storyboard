@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CTNotificationContentExampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -62,7 +62,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendBasicTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uuq-Vg-Xt7"/>
+                                                    <action selector="sendBasicTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B3O-dS-3eu"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSC-5d-pCt">
@@ -81,7 +81,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="isT-id-r4r"/>
+                                                    <action selector="sendCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XYJ-aZ-rnl"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nr-Ie-33n">
@@ -100,7 +100,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendTimerTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hdR-7u-7G9"/>
+                                                    <action selector="sendTimerTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SMF-yv-gBw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mje-k5-aan">
@@ -119,7 +119,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendCustomAutoCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nHg-5s-h2l"/>
+                                                    <action selector="sendCustomAutoCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IQE-7q-tsG"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="68l-2A-28A">
@@ -138,7 +138,7 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendCustomBasicTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Ff-AO-zxe"/>
+                                                    <action selector="sendCutomBasicTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OQb-Pe-Prl"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJc-DE-c9b">
@@ -157,11 +157,11 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendCustomManualTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z8V-zL-0KA"/>
+                                                    <action selector="sendCustomManualCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uUP-VF-0co"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9X-ih-xtK">
-                                                <rect key="frame" x="10" y="720" width="355" height="35"/>
+                                                <rect key="frame" x="18" y="841" width="339" height="52"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
@@ -176,11 +176,11 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k1S-Lx-q6X"/>
+                                                    <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uYe-fA-8Bb"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gd0-Ml-Vjr">
-                                                <rect key="frame" x="10" y="500" width="355" height="35"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lg-6m-WFB">
+                                                <rect key="frame" x="10" y="538" width="355" height="33"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
@@ -195,49 +195,11 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendZeroBezelTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JqC-8a-sCl"/>
+                                                    <action selector="sendZeroBezelTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BEM-yF-uub"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxQ-nf-LN4">
-                                                <rect key="frame" x="10" y="610" width="355" height="35"/>
-                                                <color key="backgroundColor" systemColor="labelColor"/>
-                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Send ProductDisplay-Vertical Template Notification">
-                                                            <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="sendProductDisplay_VerticalTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ge-k0-LL1"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B10-KE-t7f">
-                                                <rect key="frame" x="10" y="665" width="355" height="35"/>
-                                                <color key="backgroundColor" systemColor="labelColor"/>
-                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Send Rating Template Notification">
-                                                            <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="sendRatingTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RS0-nk-cUr"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5i-hU-GoL">
-                                                <rect key="frame" x="10" y="555" width="355" height="35"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqP-p9-PkC">
+                                                <rect key="frame" x="10" y="591" width="355" height="52"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
@@ -252,52 +214,113 @@
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendProductDisplay_LinearTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jbs-de-UTD"/>
+                                                    <action selector="sendProductDisplay_LinearTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KdA-SU-iew"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOh-jA-1eA">
+                                                <rect key="frame" x="10" y="663" width="355" height="52"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send ProductDisplay-Vertical Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendProductDisplay_VerticalTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sn3-ag-0Wl"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-KO-ZFO">
+                                                <rect key="frame" x="10" y="735" width="355" height="33"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send Rating Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendRatingTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O4Q-mR-rco"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5n-qj-6gC">
+                                                <rect key="frame" x="10" y="788" width="355" height="33"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send WebView Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendWebViewTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F4S-pO-KcE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1000" id="4QQ-fZ-xUR"/>
+                                            <constraint firstItem="2Lg-6m-WFB" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="5cv-Pg-Yae"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="6RL-Dz-EoN"/>
+                                            <constraint firstItem="zxB-KO-ZFO" firstAttribute="top" secondItem="aOh-jA-1eA" secondAttribute="bottom" constant="20" id="6pA-BW-xF4"/>
+                                            <constraint firstItem="Q5n-qj-6gC" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="80x-si-j4C"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="top" secondItem="bbb-7J-Iw6" secondAttribute="bottom" constant="20" id="8eI-YL-xkt"/>
-                                            <constraint firstItem="gd0-Ml-Vjr" firstAttribute="top" secondItem="UJc-DE-c9b" secondAttribute="bottom" constant="20" id="ANG-qy-zY9"/>
+                                            <constraint firstItem="aOh-jA-1eA" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="Ami-mJ-DYT"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Mje-k5-aan" secondAttribute="trailing" constant="10" id="CQe-dJ-YUe"/>
-                                            <constraint firstAttribute="trailing" secondItem="TxQ-nf-LN4" secondAttribute="trailing" constant="10" id="DbK-1Y-9aW"/>
+                                            <constraint firstItem="zxB-KO-ZFO" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="CR0-fb-ONp"/>
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="top" secondItem="vsh-Uo-ktl" secondAttribute="top" constant="10" id="EsW-Y2-V2y"/>
                                             <constraint firstItem="J9X-ih-xtK" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="EvM-Kc-clK"/>
-                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="B10-KE-t7f" secondAttribute="bottom" constant="20" id="FOC-c1-wvH"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="UJc-DE-c9b" secondAttribute="trailing" constant="10" id="GJU-Cz-4nn"/>
                                             <constraint firstItem="bbb-7J-Iw6" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="Gsq-tk-zKB"/>
                                             <constraint firstItem="Mje-k5-aan" firstAttribute="top" secondItem="68l-2A-28A" secondAttribute="bottom" constant="20" id="HFj-o6-ygc"/>
-                                            <constraint firstItem="TxQ-nf-LN4" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="LCq-ZO-Nch"/>
+                                            <constraint firstAttribute="trailing" secondItem="zxB-KO-ZFO" secondAttribute="trailing" constant="10" id="LG9-nK-ii9"/>
                                             <constraint firstItem="68l-2A-28A" firstAttribute="top" secondItem="8nr-Ie-33n" secondAttribute="bottom" constant="20" id="La5-YM-CMa"/>
+                                            <constraint firstAttribute="trailing" secondItem="aOh-jA-1eA" secondAttribute="trailing" constant="10" id="MUH-lZ-bNM"/>
+                                            <constraint firstItem="aOh-jA-1eA" firstAttribute="top" secondItem="eqP-p9-PkC" secondAttribute="bottom" constant="20" id="N3n-gK-5pv"/>
                                             <constraint firstItem="zpA-8J-bdk" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="Nnd-Qg-WP7"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="J9X-ih-xtK" secondAttribute="trailing" constant="10" id="OCT-je-vPa"/>
-                                            <constraint firstItem="S5i-hU-GoL" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="OhM-yt-zm7"/>
+                                            <constraint firstItem="eqP-p9-PkC" firstAttribute="top" secondItem="2Lg-6m-WFB" secondAttribute="bottom" constant="20" id="PoU-5m-uxB"/>
                                             <constraint firstItem="Mje-k5-aan" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="Pqw-w3-4cO"/>
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="QpC-pT-eba"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="bbb-7J-Iw6" secondAttribute="trailing" constant="10" id="Qxm-dx-fGh"/>
+                                            <constraint firstItem="Q5n-qj-6gC" firstAttribute="top" secondItem="zxB-KO-ZFO" secondAttribute="bottom" constant="20" id="Vx5-RO-0Ec"/>
                                             <constraint firstItem="68l-2A-28A" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="VyV-e5-tdV"/>
-                                            <constraint firstAttribute="trailing" secondItem="gd0-Ml-Vjr" secondAttribute="trailing" constant="10" id="ZZP-vo-RHb"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J9X-ih-xtK" secondAttribute="bottom" constant="20" id="ZoL-u3-ong"/>
                                             <constraint firstItem="bbb-7J-Iw6" firstAttribute="top" secondItem="zpA-8J-bdk" secondAttribute="bottom" constant="30" id="aQq-bM-tsN"/>
-                                            <constraint firstItem="TxQ-nf-LN4" firstAttribute="top" secondItem="S5i-hU-GoL" secondAttribute="bottom" constant="20" id="abF-SS-Njw"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="bRS-sS-dru"/>
                                             <constraint firstAttribute="trailing" secondItem="zpA-8J-bdk" secondAttribute="trailing" constant="10" id="bpR-Z3-uVS"/>
-                                            <constraint firstItem="gd0-Ml-Vjr" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="cCf-qC-F2R"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="DSC-5d-pCt" secondAttribute="trailing" constant="10" id="cX4-A6-ybC"/>
                                             <constraint firstItem="zpA-8J-bdk" firstAttribute="top" secondItem="K40-EZ-rXb" secondAttribute="bottom" constant="20" id="dZe-dr-PRU"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="8nr-Ie-33n" secondAttribute="trailing" constant="10" id="dkx-La-dd8"/>
+                                            <constraint firstAttribute="trailing" secondItem="2Lg-6m-WFB" secondAttribute="trailing" constant="10" id="ewF-1g-pxb"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="top" secondItem="Mje-k5-aan" secondAttribute="bottom" constant="20" id="flm-M3-HdO"/>
+                                            <constraint firstAttribute="trailing" secondItem="eqP-p9-PkC" secondAttribute="trailing" constant="10" id="gMd-YO-poD"/>
                                             <constraint firstAttribute="trailing" secondItem="K40-EZ-rXb" secondAttribute="trailing" constant="10" id="i0i-fX-oCo"/>
-                                            <constraint firstItem="B10-KE-t7f" firstAttribute="top" secondItem="TxQ-nf-LN4" secondAttribute="bottom" constant="20" id="nQj-Rp-Kmd"/>
-                                            <constraint firstAttribute="trailing" secondItem="S5i-hU-GoL" secondAttribute="trailing" constant="10" id="qya-3U-rop"/>
-                                            <constraint firstAttribute="trailing" secondItem="B10-KE-t7f" secondAttribute="trailing" constant="10" id="rCd-ZR-HrP"/>
-                                            <constraint firstItem="B10-KE-t7f" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="rMU-Xc-7cP"/>
+                                            <constraint firstAttribute="trailing" secondItem="Q5n-qj-6gC" secondAttribute="trailing" constant="10" id="qTf-Os-0iy"/>
+                                            <constraint firstItem="2Lg-6m-WFB" firstAttribute="top" secondItem="UJc-DE-c9b" secondAttribute="bottom" constant="20" id="sVN-2o-aiu"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="68l-2A-28A" secondAttribute="trailing" constant="10" id="vBN-GQ-VzU"/>
+                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="Q5n-qj-6gC" secondAttribute="bottom" constant="20" id="wq3-59-3cK"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="yx7-Jz-l4c"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="top" secondItem="DSC-5d-pCt" secondAttribute="bottom" constant="20" id="zew-Ma-EsO"/>
-                                            <constraint firstItem="S5i-hU-GoL" firstAttribute="top" secondItem="gd0-Ml-Vjr" secondAttribute="bottom" constant="20" id="zyx-Q9-YdG"/>
+                                            <constraint firstItem="eqP-p9-PkC" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="zii-dg-56K"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -328,7 +351,7 @@
     <resources>
         <image name="logo" width="171" height="63"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

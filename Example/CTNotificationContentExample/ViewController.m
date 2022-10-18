@@ -48,6 +48,9 @@
 - (IBAction)sendZeroBezelTemplate:(id)sender {
     [[CleverTap sharedInstance] recordEvent:@"ZeroBezelTemplate_NotificationSent"];
 }
+- (IBAction)sendWebViewTemplate:(id)sender {
+    [[CleverTap sharedInstance] recordEvent:@"WebViewTemplate_NotificationSent"];
+}
 
 - (IBAction)sendProductDisplay_LinearTemplate:(id)sender {
     [[CleverTap sharedInstance] recordEvent:@"ProductDisplay_LinearTemplate_NotificationSent"];

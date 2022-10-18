@@ -12,8 +12,9 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
     CTNotificationContentTypeZeroBezel = 6,
-    CTNotificationContentTypeProductDisplay = 7,
-    CTNotificationContentTypeRating = 8
+    CTNotificationContentTypeWebView = 7,
+    CTNotificationContentTypeProductDisplay = 8,
+    CTNotificationContentTypeRating = 9
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -27,6 +28,7 @@ static NSString * const kSingleMediaURL = @"ct_mediaUrl";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
 static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
+static NSString * const kTemplateWebView = @"pt_web_view";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
 static NSString * const kTemplateRating = @"pt_rating";
 
@@ -122,6 +124,11 @@ BOOL isFromProductDisplay = false;
             [self setupContentController:contentController];
         }
             break;
+        case CTNotificationContentTypeWebView: {
+            CTWebViewController *contentController = [[CTWebViewController alloc] init];
+            [self setupContentController:contentController];
+        }
+            break;
         case CTNotificationContentTypeProductDisplay: {
             if ([CTUtiltiy isRequiredKeysProvidedWithJsonString:self.jsonString]){
                 BaseCTNotificationContentViewController *contentController = [CTUtiltiy getControllerTypeWithJsonString:self.jsonString];
@@ -179,6 +186,8 @@ BOOL isFromProductDisplay = false;
                 self.contentType = CTNotificationContentTypeTimerTemplate;
             }else if ([content[kTemplateId] isEqualToString:kTemplateZeroBezel]) {
                 self.contentType = CTNotificationContentTypeZeroBezel;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateWebView]) {
+                self.contentType = CTNotificationContentTypeWebView;
             }else if ([content[kTemplateId] isEqualToString:kTemplateProductDisplay]) {
                 self.contentType = CTNotificationContentTypeProductDisplay;
             }else if ([content[kTemplateId] isEqualToString:kTemplateRating]) {

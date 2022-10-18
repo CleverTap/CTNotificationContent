@@ -37,6 +37,8 @@
 		488F31BD2817009900AE3AC8 /* BaseCTNotificationContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */; };
 		488F31BF2817011100AE3AC8 /* CTNotificationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488F31C02817012500AE3AC8 /* CTNotificationViewController.m */; };
+		4E6CACEA28FE826800FD7E97 /* CTWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6CACE728FE826800FD7E97 /* CTWebViewController.swift */; };
+		4E6CACEB28FE826800FD7E97 /* WebViewProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6CACE928FE826800FD7E97 /* WebViewProperties.swift */; };
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
@@ -74,6 +76,8 @@
 		488F31BE2817011100AE3AC8 /* CTNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationViewController.h; sourceTree = "<group>"; };
 		488F31C02817012500AE3AC8 /* CTNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTNotificationViewController.m; sourceTree = "<group>"; };
 		48F39FDC2857766000810877 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E6CACE728FE826800FD7E97 /* CTWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTWebViewController.swift; sourceTree = "<group>"; };
+		4E6CACE928FE826800FD7E97 /* WebViewProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewProperties.swift; sourceTree = "<group>"; };
 		525715E91E67B8C0000E455B /* CTNotificationContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTNotificationContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -166,6 +170,7 @@
 		32DFD82928BCCCBB00E72588 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				4E6CACE528FE826800FD7E97 /* WebView */,
 				3270BFE928E4D89C003528ED /* Rating */,
 				3270BFD128E4D80E003528ED /* ProductDisplay */,
 				32DFD82A28BCCCBB00E72588 /* ZeroBezel */,
@@ -316,6 +321,31 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4E6CACE528FE826800FD7E97 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				4E6CACE628FE826800FD7E97 /* Controller */,
+				4E6CACE828FE826800FD7E97 /* Model */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		4E6CACE628FE826800FD7E97 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4E6CACE728FE826800FD7E97 /* CTWebViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4E6CACE828FE826800FD7E97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E6CACE928FE826800FD7E97 /* WebViewProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		525715DF1E67B8C0000E455B = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +491,8 @@
 				32DFD84F28BCCCBB00E72588 /* CTSingleMediaController.swift in Sources */,
 				3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */,
 				32DFD84D28BCCCBB00E72588 /* CTContentSliderController.swift in Sources */,
+				4E6CACEB28FE826800FD7E97 /* WebViewProperties.swift in Sources */,
+				4E6CACEA28FE826800FD7E97 /* CTWebViewController.swift in Sources */,
 				32DFD84828BCCCBB00E72588 /* CTTimerTemplateController.swift in Sources */,
 				488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */,
 				32DFD84E28BCCCBB00E72588 /* ContentSliderProperties.swift in Sources */,
