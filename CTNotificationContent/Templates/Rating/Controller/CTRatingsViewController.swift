@@ -168,9 +168,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         activateStarStackViewContraints()
 
         let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + getCaptionHeight()
-        // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
+        let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight() + 44 // padding
         
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
