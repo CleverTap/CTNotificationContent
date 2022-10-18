@@ -12,7 +12,9 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeManualCarousel = 4,
     CTNotificationContentTypeTimerTemplate = 5,
     CTNotificationContentTypeZeroBezel = 6,
-    CTNotificationContentTypeWebView = 7
+    CTNotificationContentTypeWebView = 7,
+    CTNotificationContentTypeProductDisplay = 8,
+    CTNotificationContentTypeRating = 9
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -27,6 +29,8 @@ static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
 static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
 static NSString * const kTemplateWebView = @"pt_web_view";
+static NSString * const kTemplateProductDisplay = @"pt_product_display";
+static NSString * const kTemplateRating = @"pt_rating";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -39,6 +43,7 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 @end
 
 @implementation CTNotificationViewController
+BOOL isFromProductDisplay = false;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,8 +87,17 @@ static NSString * const kTemplateWebView = @"pt_web_view";
             self.contentViewController = contentController;
         }
             break;
-        case CTNotificationContentTypeBasicTemplate: {
+        basic: case CTNotificationContentTypeBasicTemplate: {
             CTCarouselController *contentController = [[CTCarouselController alloc] init];
+            if (isFromProductDisplay){
+                [contentController setIsFromProductDisplay:true];
+            }
+            [contentController setData:self.jsonString];
+            [contentController setTemplateCaption:notification.request.content.title];
+            [contentController setTemplateSubcaption:notification.request.content.body];
+            if (_content[kDeeplinkURL] != nil) {
+                [contentController setDeeplinkURL:_content[kDeeplinkURL]];
+            }
             [contentController setTemplateType:kTemplateBasic];
             [self setupContentController:contentController];
         }
@@ -115,6 +129,21 @@ static NSString * const kTemplateWebView = @"pt_web_view";
             [self setupContentController:contentController];
         }
             break;
+        case CTNotificationContentTypeProductDisplay: {
+            if ([CTUtiltiy isRequiredKeysProvidedWithJsonString:self.jsonString]){
+                BaseCTNotificationContentViewController *contentController = [CTUtiltiy getControllerTypeWithJsonString:self.jsonString];
+                [self setupContentController:contentController];
+            }else{
+                isFromProductDisplay = true;
+                goto basic;
+            }
+        }
+            break;
+        case CTNotificationContentTypeRating: {
+            CTRatingsViewController *contentController = [[CTRatingsViewController alloc] init];
+            [self setupContentController:contentController];
+        }
+            break;
         default:
             break;
     }
@@ -127,8 +156,8 @@ static NSString * const kTemplateWebView = @"pt_web_view";
     [contentController setData:self.jsonString];
     [contentController setTemplateCaption:_notification.request.content.title];
     [contentController setTemplateSubcaption:_notification.request.content.body];
-    if (self.content[kDeeplinkURL] != nil) {
-        [contentController setDeeplinkURL:self.content[kDeeplinkURL]];
+    if (_content[kDeeplinkURL] != nil) {
+        [contentController setDeeplinkURL:_content[kDeeplinkURL]];
     }
     [self addChildViewController:contentController];
     [contentController view].frame = self.view.frame;
@@ -159,6 +188,10 @@ static NSString * const kTemplateWebView = @"pt_web_view";
                 self.contentType = CTNotificationContentTypeZeroBezel;
             }else if ([content[kTemplateId] isEqualToString:kTemplateWebView]) {
                 self.contentType = CTNotificationContentTypeWebView;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateProductDisplay]) {
+                self.contentType = CTNotificationContentTypeProductDisplay;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateRating]) {
+                self.contentType = CTNotificationContentTypeRating;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;
@@ -208,7 +241,16 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 
 // convenience
 - (void)openUrl:(NSURL *)url {
-    [self.extensionContext openURL:url completionHandler:nil];
+    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
+        // IF THE DEEP LINK DIDNT WORK, OPEN PARENT APP
+        if (!success) {
+            if (@available(iOS 12.0, *)) {
+                [self.extensionContext performNotificationDefaultAction];
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }];
 }
 
 @end

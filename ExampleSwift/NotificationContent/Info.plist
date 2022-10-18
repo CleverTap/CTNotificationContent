@@ -32,6 +32,8 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
+			<key>UNNotificationExtensionUserInteractionEnabled</key>
+			<string>1</string>
 			<key>UNNotificationExtensionCategory</key>
 			<string>CTNotification</string>
 			<key>UNNotificationExtensionDefaultContentHidden</key>

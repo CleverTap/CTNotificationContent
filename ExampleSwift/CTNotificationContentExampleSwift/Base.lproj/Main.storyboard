@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -160,6 +160,25 @@
                                                     <action selector="sendCustomManualCarouselTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uUP-VF-0co"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9X-ih-xtK">
+                                                <rect key="frame" x="18" y="841" width="339" height="52"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send Video Media Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uYe-fA-8Bb"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lg-6m-WFB">
                                                 <rect key="frame" x="10" y="538" width="355" height="33"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
@@ -179,8 +198,65 @@
                                                     <action selector="sendZeroBezelTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BEM-yF-uub"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DsW-mv-74s">
-                                                <rect key="frame" x="10" y="591" width="355" height="33"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqP-p9-PkC">
+                                                <rect key="frame" x="10" y="591" width="355" height="52"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send ProductDisplay-Linear Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendProductDisplay_LinearTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KdA-SU-iew"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOh-jA-1eA">
+                                                <rect key="frame" x="10" y="663" width="355" height="52"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send ProductDisplay-Vertical Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendProductDisplay_VerticalTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sn3-ag-0Wl"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-KO-ZFO">
+                                                <rect key="frame" x="10" y="735" width="355" height="33"/>
+                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Send Rating Template Notification">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendRatingTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O4Q-mR-rco"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5n-qj-6gC">
+                                                <rect key="frame" x="10" y="788" width="355" height="33"/>
                                                 <color key="backgroundColor" systemColor="labelColor"/>
                                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
@@ -189,58 +265,45 @@
                                                         <fragment content="Send WebView Template Notification">
                                                             <attributes>
                                                                 <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="sendWebViewTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m44-fK-Ohu"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9X-ih-xtK">
-                                                <rect key="frame" x="18" y="644" width="339" height="52"/>
-                                                <color key="backgroundColor" systemColor="labelColor"/>
-                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Send Video Media Template Notification">
-                                                            <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="sendVideoMediaTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uYe-fA-8Bb"/>
+                                                    <action selector="sendWebViewTemplate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F4S-pO-KcE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1000" id="4QQ-fZ-xUR"/>
-                                            <constraint firstItem="DsW-mv-74s" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="4hQ-97-XsM"/>
                                             <constraint firstItem="2Lg-6m-WFB" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="5cv-Pg-Yae"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="6RL-Dz-EoN"/>
-                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="DsW-mv-74s" secondAttribute="bottom" constant="20" id="7yC-MD-Xxr"/>
+                                            <constraint firstItem="zxB-KO-ZFO" firstAttribute="top" secondItem="aOh-jA-1eA" secondAttribute="bottom" constant="20" id="6pA-BW-xF4"/>
+                                            <constraint firstItem="Q5n-qj-6gC" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="80x-si-j4C"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="top" secondItem="bbb-7J-Iw6" secondAttribute="bottom" constant="20" id="8eI-YL-xkt"/>
+                                            <constraint firstItem="aOh-jA-1eA" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="Ami-mJ-DYT"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Mje-k5-aan" secondAttribute="trailing" constant="10" id="CQe-dJ-YUe"/>
+                                            <constraint firstItem="zxB-KO-ZFO" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="CR0-fb-ONp"/>
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="top" secondItem="vsh-Uo-ktl" secondAttribute="top" constant="10" id="EsW-Y2-V2y"/>
                                             <constraint firstItem="J9X-ih-xtK" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="EvM-Kc-clK"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="UJc-DE-c9b" secondAttribute="trailing" constant="10" id="GJU-Cz-4nn"/>
                                             <constraint firstItem="bbb-7J-Iw6" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="Gsq-tk-zKB"/>
                                             <constraint firstItem="Mje-k5-aan" firstAttribute="top" secondItem="68l-2A-28A" secondAttribute="bottom" constant="20" id="HFj-o6-ygc"/>
+                                            <constraint firstAttribute="trailing" secondItem="zxB-KO-ZFO" secondAttribute="trailing" constant="10" id="LG9-nK-ii9"/>
                                             <constraint firstItem="68l-2A-28A" firstAttribute="top" secondItem="8nr-Ie-33n" secondAttribute="bottom" constant="20" id="La5-YM-CMa"/>
-                                            <constraint firstAttribute="trailing" secondItem="DsW-mv-74s" secondAttribute="trailing" constant="10" id="MNe-K5-8tq"/>
+                                            <constraint firstAttribute="trailing" secondItem="aOh-jA-1eA" secondAttribute="trailing" constant="10" id="MUH-lZ-bNM"/>
+                                            <constraint firstItem="aOh-jA-1eA" firstAttribute="top" secondItem="eqP-p9-PkC" secondAttribute="bottom" constant="20" id="N3n-gK-5pv"/>
                                             <constraint firstItem="zpA-8J-bdk" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="Nnd-Qg-WP7"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="J9X-ih-xtK" secondAttribute="trailing" constant="10" id="OCT-je-vPa"/>
+                                            <constraint firstItem="eqP-p9-PkC" firstAttribute="top" secondItem="2Lg-6m-WFB" secondAttribute="bottom" constant="20" id="PoU-5m-uxB"/>
                                             <constraint firstItem="Mje-k5-aan" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="Pqw-w3-4cO"/>
                                             <constraint firstItem="K40-EZ-rXb" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="QpC-pT-eba"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="bbb-7J-Iw6" secondAttribute="trailing" constant="10" id="Qxm-dx-fGh"/>
-                                            <constraint firstItem="DsW-mv-74s" firstAttribute="top" secondItem="2Lg-6m-WFB" secondAttribute="bottom" constant="20" id="Sbg-pT-kcc"/>
+                                            <constraint firstItem="Q5n-qj-6gC" firstAttribute="top" secondItem="zxB-KO-ZFO" secondAttribute="bottom" constant="20" id="Vx5-RO-0Ec"/>
                                             <constraint firstItem="68l-2A-28A" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="VyV-e5-tdV"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J9X-ih-xtK" secondAttribute="bottom" constant="20" id="ZoL-u3-ong"/>
                                             <constraint firstItem="bbb-7J-Iw6" firstAttribute="top" secondItem="zpA-8J-bdk" secondAttribute="bottom" constant="30" id="aQq-bM-tsN"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="bRS-sS-dru"/>
                                             <constraint firstAttribute="trailing" secondItem="zpA-8J-bdk" secondAttribute="trailing" constant="10" id="bpR-Z3-uVS"/>
@@ -249,11 +312,15 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="8nr-Ie-33n" secondAttribute="trailing" constant="10" id="dkx-La-dd8"/>
                                             <constraint firstAttribute="trailing" secondItem="2Lg-6m-WFB" secondAttribute="trailing" constant="10" id="ewF-1g-pxb"/>
                                             <constraint firstItem="UJc-DE-c9b" firstAttribute="top" secondItem="Mje-k5-aan" secondAttribute="bottom" constant="20" id="flm-M3-HdO"/>
+                                            <constraint firstAttribute="trailing" secondItem="eqP-p9-PkC" secondAttribute="trailing" constant="10" id="gMd-YO-poD"/>
                                             <constraint firstAttribute="trailing" secondItem="K40-EZ-rXb" secondAttribute="trailing" constant="10" id="i0i-fX-oCo"/>
+                                            <constraint firstAttribute="trailing" secondItem="Q5n-qj-6gC" secondAttribute="trailing" constant="10" id="qTf-Os-0iy"/>
                                             <constraint firstItem="2Lg-6m-WFB" firstAttribute="top" secondItem="UJc-DE-c9b" secondAttribute="bottom" constant="20" id="sVN-2o-aiu"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="68l-2A-28A" secondAttribute="trailing" constant="10" id="vBN-GQ-VzU"/>
+                                            <constraint firstItem="J9X-ih-xtK" firstAttribute="top" secondItem="Q5n-qj-6gC" secondAttribute="bottom" constant="20" id="wq3-59-3cK"/>
                                             <constraint firstItem="DSC-5d-pCt" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leadingMargin" constant="10" id="yx7-Jz-l4c"/>
                                             <constraint firstItem="8nr-Ie-33n" firstAttribute="top" secondItem="DSC-5d-pCt" secondAttribute="bottom" constant="20" id="zew-Ma-EsO"/>
+                                            <constraint firstItem="eqP-p9-PkC" firstAttribute="leading" secondItem="vsh-Uo-ktl" secondAttribute="leading" constant="10" id="zii-dg-56K"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -284,7 +351,7 @@
     <resources>
         <image name="logo" width="171" height="63"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

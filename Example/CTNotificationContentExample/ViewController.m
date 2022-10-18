@@ -52,5 +52,16 @@
     [[CleverTap sharedInstance] recordEvent:@"WebViewTemplate_NotificationSent"];
 }
 
+- (IBAction)sendProductDisplay_LinearTemplate:(id)sender {
+    [[CleverTap sharedInstance] recordEvent:@"ProductDisplay_LinearTemplate_NotificationSent"];
+}
+
+- (IBAction)sendProductDisplay_VerticalTemplate:(id)sender {
+    [[CleverTap sharedInstance] recordEvent:@"ProductDisplay_VerticalTemplate_NotificationSent"];
+}
+
+- (IBAction)sendRatingTemplate:(id)sender {
+    [[CleverTap sharedInstance] recordEvent:@"RatingTemplate_NotificationSent"];
+}
 
 @end

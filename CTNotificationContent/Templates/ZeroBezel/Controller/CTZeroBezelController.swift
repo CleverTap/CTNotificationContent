@@ -17,7 +17,6 @@ import UIKit
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var templateDl1:String = ""
-    var heightConstant:CGFloat = 0
     
     private var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -161,6 +160,10 @@ import UIKit
             return .dismiss
         }
         return .doNotDismiss
+    }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
     }
     
     /*

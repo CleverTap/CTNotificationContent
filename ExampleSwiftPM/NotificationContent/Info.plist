@@ -26,6 +26,8 @@
 		<dict>
 			<key>UNNotificationExtensionCategory</key>
 			<string>CTNotification</string>
+			<key>UNNotificationExtensionUserInteractionEnabled</key>
+			<string>1</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
 			<real>0.1</real>
 			<key>UNNotificationExtensionDefaultContentHidden</key>
