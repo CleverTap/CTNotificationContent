@@ -44,5 +44,18 @@ class ViewController: UIViewController {
     @IBAction func sendZeroBezelTemplate(_ sender: UIButton) {
         CleverTap.sharedInstance()?.recordEvent("ZeroBezelTemplate_NotificationSent")
     }
+   
+    @IBAction func sendProductDisplay_LinearTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("ProductDisplay_LinearTemplate_NotificationSent")
+    }
+    
+    @IBAction func sendProductDisplay_VerticalTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("ProductDisplay_VerticalTemplate_NotificationSent")
+    }
+    
+    @IBAction func sendRatingTemplate(_ sender: UIButton) {
+        CleverTap.sharedInstance()?.recordEvent("RatingTemplate_NotificationSent")
+    }
+    
 }
 

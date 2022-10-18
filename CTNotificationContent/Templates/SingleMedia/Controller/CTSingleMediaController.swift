@@ -194,4 +194,8 @@ import AVFoundation
             isPlaying = true
         }
     }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        return deeplinkURL
+    }
 }
