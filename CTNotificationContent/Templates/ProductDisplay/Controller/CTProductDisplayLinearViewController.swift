@@ -59,20 +59,17 @@ import UserNotificationsUI
         switch sender.view?.tag{
         case 1:
             self.bigImageView.image = smallImageBtn1.image
-            let priceText = "₹ " + (jsonContent?.pt_price1 ?? "")
-            self.priceLabel.text = priceText
+            self.priceLabel.text = jsonContent?.pt_bt1
             self.deeplink = jsonContent?.pt_dl1 ?? ""
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
-            let priceText = "₹ " + (jsonContent?.pt_price2 ?? "")
-            self.priceLabel.text = priceText
+            self.priceLabel.text = jsonContent?.pt_bt2
             self.deeplink = jsonContent?.pt_dl2 ?? ""
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
-            let priceText = "₹ " + (jsonContent?.pt_price3 ?? "")
-            self.priceLabel.text = priceText
+            self.priceLabel.text = jsonContent?.pt_bt3
             self.deeplink = jsonContent?.pt_dl3 ?? ""
             break
         default:
@@ -120,8 +117,7 @@ import UserNotificationsUI
             self.smallImageBtn3.isUserInteractionEnabled=false
         }
         
-        let priceText = "₹ " + (jsonContent.pt_price1)
-        self.priceLabel.text = priceText
+        self.priceLabel.text = jsonContent.pt_bt1
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
         view.backgroundColor = UIColor(hex: jsonContent.pt_bg ?? "")
