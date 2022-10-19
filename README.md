@@ -182,6 +182,12 @@ pt_product_display_linear | Optional | `true`
 
 ![Product Display](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ProductDisplayLinear.gif)
 
+### WebView Template 
+
+WebView template lets you load a remote https URL.
+
+![WebView Template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/WebView.gif)
+
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
 # Template Keys
@@ -368,6 +374,15 @@ pt_product_display_linear | Optional  | Linear Layout Template ("true"/"false")
 pt_product_display_action_clr | Required  | Action Button Background Color in HEX
 pt_title_clr | Optional  | Title Color in HEX
 pt_msg_clr | Optional  | Message Color in HEX
+pt_json | Optional  | Above keys in JSON format
+
+### WebView Template
+
+WebView Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_web_view`
+pt_dl1 | Required  | Deep Link
+pt_url | Required  | URL to load
 pt_json | Optional  | Above keys in JSON format
 
 # Sample App #
