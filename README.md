@@ -383,6 +383,7 @@ WebView Template Keys | Required | Description
 pt_id | Required  | Value - `pt_web_view`
 pt_dl1 | Required  | Deep Link
 pt_url | Required  | URL to load
+pt_orientation | Optional  | Value - `landscape` or `portrait`
 pt_json | Optional  | Above keys in JSON format
 
 # Sample App #
