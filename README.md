@@ -158,6 +158,30 @@ The Zero Bezel template ensures that the background image covers the entire avai
 
 ![Zero Bezel template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ZeroBezel.png)
 
+### Rating Template
+
+Rating template lets your users give you feedback.
+
+![Rating](https://github.com/CleverTap/CTNotificationContent/blob/master/images/Rating.gif)
+
+### Product Catalog Template
+
+Product catalog template lets you show case different images of a product (or a product catalog) before the user can decide to click on the "BUY NOW" option which can take them directly to the product via deep links. This template has two variants.
+
+### Vertical View 
+
+![Product Display](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ProductDisplayVertical.gif)
+
+### Linear View
+
+Use the following keys to enable linear view variant of this template.
+
+Template Key | Required | Value
+---:|:---:|:---
+pt_product_display_linear | Optional | `true`
+
+![Product Display](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ProductDisplayLinear.gif)
+
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
 # Template Keys
@@ -292,6 +316,59 @@ pt_json | Optional | Above keys in JSON format
   pt_title_clr | Optional | Title Color in HEX
   pt_msg_clr | Optional | Message Color in HEX
   pt_json | Optional | Above keys in JSON format
+
+### Rating Template
+
+Rating Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_rating`
+pt_title | Required  | Title
+pt_msg | Required  | Message
+pt_big_img | Optional | Image
+pt_msg_summary | Optional | Message line when Notification is expanded
+pt_subtitle | Optional | Subtitle
+pt_default_dl | Required  | Default Deep Link for Push Notification
+pt_dl1 | Required  | Deep Link for first/all star(s)
+pt_dl2 | Optional | Deep Link for second star
+pt_dl3 | Optional | Deep Link for third star
+pt_dl4 | Optional | Deep Link for fourth star
+pt_dl5 | Optional | Deep Link for fifth star
+pt_bg | Required  | Background Color in HEX
+pt_ico | Optional | Large Icon
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
+
+### Product Catalog Template
+
+Product Catalog Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_product_display`
+pt_title | Required  | Title
+pt_msg | Required  | Message
+pt_subtitle | Optional  | Subtitle
+pt_img1 | Required  | Image One
+pt_img2 | Required  | Image Two
+pt_img3 | Optional  | Image Three
+pt_bt1 | Required  | Big text for first image
+pt_bt2 | Required  | Big text for second image
+pt_bt3 | Required  | Big text for third image
+pt_st1 | Required  | Small text for first image
+pt_st2 | Required  | Small text for second image
+pt_st3 | Required  | Small text for third image
+pt_dl1 | Required  | Deep Link for first image
+pt_dl2 | Required  | Deep Link for second image
+pt_dl3 | Required  | Deep Link for third image
+pt_price1 | Required  | Price for first image
+pt_price2 | Required  | Price for second image
+pt_price3 | Required  | Price for third image
+pt_bg | Required  | Background Color in HEX
+pt_product_display_action | Required  | Action Button Label Text
+pt_product_display_linear | Optional  | Linear Layout Template ("true"/"false")
+pt_product_display_action_clr | Required  | Action Button Background Color in HEX
+pt_title_clr | Optional  | Title Color in HEX
+pt_msg_clr | Optional  | Message Color in HEX
+pt_json | Optional  | Above keys in JSON format
 
 # Sample App #
 

@@ -292,6 +292,9 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         if let msg = jsonContent.pt_msg, !msg.isEmpty{
             templateSubcaption = msg
         }
+        if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty{
+            templateSubcaption = msgSummary
+        }
         if let deeplink = jsonContent.pt_default_dl, !deeplink.isEmpty{
             deeplinkURL = deeplink
         }
