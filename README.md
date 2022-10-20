@@ -144,6 +144,14 @@ Auto carousel is an automatic revolving carousel push notification where user ca
 
 ### Manual Carousel Template
 This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the Next/Back buttons.
+---
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+
+For iOS 11 and below, the previous/next buttons will not work. Please use notification actions with identifiers `action_1` and `action_2` for this purpose.
+
+---
 
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomManualCarousel.gif" alt="Manual carousel" width="450" height="800"/>
 
@@ -157,6 +165,50 @@ This template features a live countdown timer. You can even choose to show diffe
 The Zero Bezel template ensures that the background image covers the entire available surface area of the push notification. All the text is overlayed on the image.
 
 ![Zero Bezel template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ZeroBezel.png)
+
+### Rating Template
+
+Rating template lets your users give you feedback.
+
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+For iOS 11 and below, it will fallback to a basic template.
+
+---
+
+![Rating](https://github.com/CleverTap/CTNotificationContent/blob/master/images/Rating.gif)
+
+### Product Catalog Template
+
+Product catalog template lets you show case different images of a product (or a product catalog) before the user can decide to click on the "BUY NOW" option which can take them directly to the product via deep links. This template has two variants.
+
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+For iOS 11 and below, it will fallback to a basic template.
+
+---
+
+### Vertical View 
+
+![Product Display](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ProductDisplayVertical.gif)
+
+### Linear View
+
+Use the following keys to enable linear view variant of this template.
+
+Template Key | Required | Value
+---:|:---:|:---
+pt_product_display_linear | Optional | `true`
+
+![Product Display](https://github.com/CleverTap/CTNotificationContent/blob/master/images/ProductDisplayLinear.gif)
+
+### WebView Template 
+
+WebView template lets you load a remote https URL.
+
+![WebView Template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/WebView.gif)
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
@@ -292,6 +344,69 @@ pt_json | Optional | Above keys in JSON format
   pt_title_clr | Optional | Title Color in HEX
   pt_msg_clr | Optional | Message Color in HEX
   pt_json | Optional | Above keys in JSON format
+
+### Rating Template
+
+Rating Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_rating`
+pt_title | Required  | Title
+pt_msg | Required  | Message
+pt_big_img | Optional | Image
+pt_msg_summary | Optional | Message line when Notification is expanded
+pt_subtitle | Optional | Subtitle
+pt_default_dl | Required  | Default Deep Link for Push Notification
+pt_dl1 | Required  | Deep Link for first/all star(s)
+pt_dl2 | Optional | Deep Link for second star
+pt_dl3 | Optional | Deep Link for third star
+pt_dl4 | Optional | Deep Link for fourth star
+pt_dl5 | Optional | Deep Link for fifth star
+pt_bg | Required  | Background Color in HEX
+pt_ico | Optional | Large Icon
+pt_title_clr | Optional | Title Color in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_json | Optional | Above keys in JSON format
+
+### Product Catalog Template
+
+Product Catalog Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_product_display`
+pt_title | Required  | Title
+pt_msg | Required  | Message
+pt_subtitle | Optional  | Subtitle
+pt_img1 | Required  | Image One
+pt_img2 | Required  | Image Two
+pt_img3 | Optional  | Image Three
+pt_bt1 | Required  | Big text for first image
+pt_bt2 | Required  | Big text for second image
+pt_bt3 | Required  | Big text for third image
+pt_st1 | Required  | Small text for first image
+pt_st2 | Required  | Small text for second image
+pt_st3 | Required  | Small text for third image
+pt_dl1 | Required  | Deep Link for first image
+pt_dl2 | Required  | Deep Link for second image
+pt_dl3 | Required  | Deep Link for third image
+pt_price1 | Required  | Price for first image
+pt_price2 | Required  | Price for second image
+pt_price3 | Required  | Price for third image
+pt_bg | Required  | Background Color in HEX
+pt_product_display_action | Required  | Action Button Label Text
+pt_product_display_linear | Optional  | Linear Layout Template ("true"/"false")
+pt_product_display_action_clr | Required  | Action Button Background Color in HEX
+pt_title_clr | Optional  | Title Color in HEX
+pt_msg_clr | Optional  | Message Color in HEX
+pt_json | Optional  | Above keys in JSON format
+
+### WebView Template
+
+WebView Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required  | Value - `pt_web_view`
+pt_dl1 | Required  | Deep Link
+pt_url | Required  | URL to load
+pt_orientation | Optional  | Value - `landscape` or `portrait`
+pt_json | Optional  | Above keys in JSON format
 
 # Sample App #
 

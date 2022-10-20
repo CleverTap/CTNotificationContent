@@ -13,6 +13,7 @@ import UserNotificationsUI
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    @objc public var isFromProductDisplay: Bool = false
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -28,6 +29,9 @@ import UserNotificationsUI
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
 
+        let recognizer1 = UITapGestureRecognizer(target: self, action: #selector(openDeeplink))
+        contentView.addGestureRecognizer(recognizer1)
+        
         jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
     }
@@ -67,6 +71,15 @@ import UserNotificationsUI
             var basicImageUrl = ""
             if let url = jsonContent.pt_big_img, !url.isEmpty {
                 basicImageUrl = url
+            }else if isFromProductDisplay{
+                //case for handling image data for product display
+                if let url = jsonContent.pt_img1, !url.isEmpty {
+                    basicImageUrl = url
+                }else if let url = jsonContent.pt_img2, !url.isEmpty {
+                    basicImageUrl = url
+                }else if let url = jsonContent.pt_img3, !url.isEmpty {
+                    basicImageUrl = url
+                }
             }
 
             CTUtiltiy.checkImageUrlValid(imageUrl: basicImageUrl) { [weak self] (imageData) in
@@ -148,8 +161,9 @@ import UserNotificationsUI
                 startAutoPlay()
             } else if templateType == TemplateConstants.kTemplateManualCarousel {
                 // TODO: Unhide buttons when user interaction will be added.
-                nextButton.isHidden = true
-                previousButton.isHidden = true
+//                nextButton.isHidden = true
+//                previousButton.isHidden = true
+
                 
                 // Show Next and Previous button for manual carousel.
                 nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
@@ -169,10 +183,12 @@ import UserNotificationsUI
                     nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
                     nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5.0),
                     nextButton.heightAnchor.constraint(equalToConstant: 40.0),
-                    
+                    nextButton.widthAnchor.constraint(equalToConstant: 40.0),
+
                     previousButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100.0),
                     previousButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5.0),
-                    previousButton.heightAnchor.constraint(equalToConstant: 40.0)
+                    previousButton.heightAnchor.constraint(equalToConstant: 40.0),
+                    previousButton.widthAnchor.constraint(equalToConstant: 40.0)
                 ])
                 contentView.bringSubviewToFront(nextButton)
                 contentView.bringSubviewToFront(previousButton)
@@ -215,6 +231,20 @@ import UserNotificationsUI
         showPrevious()
     }
 
+    @objc func openDeeplink() {
+        let urlString = itemViews[currentItemIndex].components.actionUrl
+        if !urlString.isEmpty {
+            if let url = URL(string: urlString) {
+                getParentViewController().open(url)
+            }
+        }
+        else {
+            if #available(iOS 12.0, *) {
+                self.extensionContext?.performNotificationDefaultAction()
+            }
+        }
+    }
+    
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction1 {
             // Maps to show previous
@@ -280,5 +310,10 @@ import UserNotificationsUI
         if timer == nil {
             timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(showNext), userInfo: nil, repeats: true)
         }
+    }
+    
+    @objc public override func getDeeplinkUrl() -> String! {
+        let deeplink = itemViews[currentItemIndex].components.actionUrl
+        return deeplink
     }
 }

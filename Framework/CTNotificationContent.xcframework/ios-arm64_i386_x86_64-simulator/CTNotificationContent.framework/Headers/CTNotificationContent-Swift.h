@@ -191,8 +191,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreGraphics;
+@import ObjectiveC;
 @import UIKit;
 @import UserNotificationsUI;
+@import WebKit;
 #endif
 
 #import <CTNotificationContent/CTNotificationContent.h>
@@ -221,6 +223,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCaptionedImageView")
 @end
 
 @class NSString;
+@class NSNumber;
 @class NSBundle;
 
 SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
@@ -230,11 +233,14 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
 @property (nonatomic, copy) NSString * _Nonnull templateCaption;
 @property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic) BOOL isFromProductDisplay;
 - (void)viewDidLoad;
 - (void)nextButtonTapped;
 - (void)previousButtonTapped;
+- (void)openDeeplink;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -249,11 +255,78 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTContentSliderController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIImageView;
+@class UILabel;
 @class UIButton;
+@class UITapGestureRecognizer;
+
+SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
+@interface CTProductDisplayLinearViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent38CTProductDisplayVerticalViewController")
+@interface CTProductDisplayVerticalViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified subTitleLabel;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent23CTRatingsViewController")
+@interface CTRatingsViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (void)selectStar:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 @interface CTSingleMediaController : BaseCTNotificationContentViewController
@@ -265,11 +338,11 @@ SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)playPauseButtonTapped:(UIButton * _Nonnull)sender;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NSNumber;
 
 SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 @interface CTTimerTemplateController : BaseCTNotificationContentViewController
@@ -281,8 +354,17 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 - (void)viewWillAppear:(BOOL)animated;
 - (void)updateTimer;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent9CTUtiltiy")
+@interface CTUtiltiy : NSObject
++ (BOOL)isRequiredKeysProvidedWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
++ (BaseCTNotificationContentViewController * _Nonnull)getControllerTypeWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -295,6 +377,28 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layer
 @end
 
 
+SWIFT_CLASS("_TtC21CTNotificationContent19CTWebViewController")
+@interface CTWebViewController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class WKWebView;
+@class WKNavigation;
+
+@interface CTWebViewController (SWIFT_EXTENSION(CTNotificationContent)) <WKNavigationDelegate>
+- (void)webView:(WKWebView * _Nonnull)webView didFailProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+- (void)webView:(WKWebView * _Nonnull)webView didFailNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+@end
+
+
 SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @interface CTZeroBezelController : BaseCTNotificationContentViewController
 @property (nonatomic, copy) NSString * _Nonnull data;
@@ -303,8 +407,38 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
+@interface ProductDisplayProperties : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_subtitle;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bt3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_st3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_dl3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_price3;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bg;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_product_display_action;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_linear;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr;
 @end
 
 
@@ -506,8 +640,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreGraphics;
+@import ObjectiveC;
 @import UIKit;
 @import UserNotificationsUI;
+@import WebKit;
 #endif
 
 #import <CTNotificationContent/CTNotificationContent.h>
@@ -536,6 +672,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCaptionedImageView")
 @end
 
 @class NSString;
+@class NSNumber;
 @class NSBundle;
 
 SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
@@ -545,11 +682,14 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
 @property (nonatomic, copy) NSString * _Nonnull templateCaption;
 @property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic) BOOL isFromProductDisplay;
 - (void)viewDidLoad;
 - (void)nextButtonTapped;
 - (void)previousButtonTapped;
+- (void)openDeeplink;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -564,11 +704,78 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTContentSliderController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIImageView;
+@class UILabel;
 @class UIButton;
+@class UITapGestureRecognizer;
+
+SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
+@interface CTProductDisplayLinearViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent38CTProductDisplayVerticalViewController")
+@interface CTProductDisplayVerticalViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified subTitleLabel;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent23CTRatingsViewController")
+@interface CTRatingsViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (void)selectStar:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 @interface CTSingleMediaController : BaseCTNotificationContentViewController
@@ -580,11 +787,11 @@ SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)playPauseButtonTapped:(UIButton * _Nonnull)sender;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NSNumber;
 
 SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 @interface CTTimerTemplateController : BaseCTNotificationContentViewController
@@ -596,8 +803,17 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 - (void)viewWillAppear:(BOOL)animated;
 - (void)updateTimer;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent9CTUtiltiy")
+@interface CTUtiltiy : NSObject
++ (BOOL)isRequiredKeysProvidedWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
++ (BaseCTNotificationContentViewController * _Nonnull)getControllerTypeWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -610,6 +826,28 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layer
 @end
 
 
+SWIFT_CLASS("_TtC21CTNotificationContent19CTWebViewController")
+@interface CTWebViewController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class WKWebView;
+@class WKNavigation;
+
+@interface CTWebViewController (SWIFT_EXTENSION(CTNotificationContent)) <WKNavigationDelegate>
+- (void)webView:(WKWebView * _Nonnull)webView didFailProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+- (void)webView:(WKWebView * _Nonnull)webView didFailNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+@end
+
+
 SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @interface CTZeroBezelController : BaseCTNotificationContentViewController
 @property (nonatomic, copy) NSString * _Nonnull data;
@@ -618,8 +856,38 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
+@interface ProductDisplayProperties : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_subtitle;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bt3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_st3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_dl3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_price3;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bg;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_product_display_action;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_linear;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr;
 @end
 
 
@@ -821,8 +1089,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreGraphics;
+@import ObjectiveC;
 @import UIKit;
 @import UserNotificationsUI;
+@import WebKit;
 #endif
 
 #import <CTNotificationContent/CTNotificationContent.h>
@@ -851,6 +1121,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCaptionedImageView")
 @end
 
 @class NSString;
+@class NSNumber;
 @class NSBundle;
 
 SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
@@ -860,11 +1131,14 @@ SWIFT_CLASS("_TtC21CTNotificationContent20CTCarouselController")
 @property (nonatomic, copy) NSString * _Nonnull templateCaption;
 @property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic) BOOL isFromProductDisplay;
 - (void)viewDidLoad;
 - (void)nextButtonTapped;
 - (void)previousButtonTapped;
+- (void)openDeeplink;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -879,11 +1153,78 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTContentSliderController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)showNext;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIImageView;
+@class UILabel;
 @class UIButton;
+@class UITapGestureRecognizer;
+
+SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
+@interface CTProductDisplayLinearViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent38CTProductDisplayVerticalViewController")
+@interface CTProductDisplayVerticalViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified subTitleLabel;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified bigImageView;
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified priceLabel;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified buyBtnOutlet;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn1;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn2;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified smallImageBtn3;
+- (void)viewDidLoad;
+- (IBAction)buyAction:(UIButton * _Nonnull)sender;
+- (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent23CTRatingsViewController")
+@interface CTRatingsViewController : BaseCTNotificationContentViewController <UIGestureRecognizerDelegate>
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (void)selectStar:(UITapGestureRecognizer * _Nonnull)sender;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 @interface CTSingleMediaController : BaseCTNotificationContentViewController
@@ -895,11 +1236,11 @@ SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (void)playPauseButtonTapped:(UIButton * _Nonnull)sender;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NSNumber;
 
 SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 @interface CTTimerTemplateController : BaseCTNotificationContentViewController
@@ -911,8 +1252,17 @@ SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 - (void)viewWillAppear:(BOOL)animated;
 - (void)updateTimer;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent9CTUtiltiy")
+@interface CTUtiltiy : NSObject
++ (BOOL)isRequiredKeysProvidedWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
++ (BaseCTNotificationContentViewController * _Nonnull)getControllerTypeWithJsonString:(NSString * _Nonnull)jsonString SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -925,6 +1275,28 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layer
 @end
 
 
+SWIFT_CLASS("_TtC21CTNotificationContent19CTWebViewController")
+@interface CTWebViewController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class WKWebView;
+@class WKNavigation;
+
+@interface CTWebViewController (SWIFT_EXTENSION(CTNotificationContent)) <WKNavigationDelegate>
+- (void)webView:(WKWebView * _Nonnull)webView didFailProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+- (void)webView:(WKWebView * _Nonnull)webView didFailNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
+@end
+
+
 SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @interface CTZeroBezelController : BaseCTNotificationContentViewController
 @property (nonatomic, copy) NSString * _Nonnull data;
@@ -933,8 +1305,38 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
+@interface ProductDisplayProperties : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_subtitle;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_img2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_bt2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bt3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_st2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_st3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_dl2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_dl3;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price1;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_price2;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_price3;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_bg;
+@property (nonatomic, readonly, copy) NSString * _Nonnull pt_product_display_action;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_linear;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr;
 @end
 
 
