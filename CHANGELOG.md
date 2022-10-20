@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 0.2.2 (19 October, 2022)
+Version 0.2.2 (20 October, 2022)
 -----------------------------------------------
 - Supports new templates - Rating, Product Catalog and WebView
 
