@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestureRecognizerDelegate {
+@objc public class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestureRecognizerDelegate {
 
     var contentView: UIView = UIView(frame: .zero)
     @objc public var data: String = ""
@@ -103,7 +103,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
         return fiveStarImageView
     }()
     
-    override func viewDidLoad() {
+    @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
         contentView = UIView(frame: view.frame)
@@ -118,7 +118,7 @@ class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestur
     }
     
     func checkForiOS12(){
-        if #available(iOSApplicationExtension 12.0, *) {
+        if #available(iOS 12.0, *) {
             // no change in loading view
         }else{
             // change in view to have basic template
