@@ -327,9 +327,7 @@ import UIKit
             templateBigImage = ""
             self.updateUI()
         }
-        
-        checkForiOS12()
-        
+                
         if let bgColor = jsonContent.pt_bg,!bgColor.isEmpty{
             view.backgroundColor = UIColor(hex: bgColor)
         }
@@ -343,6 +341,7 @@ import UIKit
     }
     
     func updateUI(){
+        checkForiOS12()
         if templateBigImage == "" && templateDl1 == ""{
             viewWithoutImageandRating()
         }else if templateBigImage == ""{
