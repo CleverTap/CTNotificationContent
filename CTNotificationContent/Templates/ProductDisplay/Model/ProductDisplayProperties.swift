@@ -31,5 +31,4 @@ import Foundation
     @objc public let pt_product_display_action_clr: String?
     @objc public let pt_title_clr: String?
     @objc public let pt_msg_clr: String?
-    @objc public let pt_small_icon_clr: String?
 }

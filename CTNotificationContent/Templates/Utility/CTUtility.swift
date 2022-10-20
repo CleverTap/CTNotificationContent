@@ -53,7 +53,7 @@
     
     // Required keys check for product display template
     @objc public static func isRequiredKeysProvided(jsonString: String)->Bool{
-        if #available(iOSApplicationExtension 12.0, *) {
+        if #available(iOS 12.0, *) {
             let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)
             if ( jsonContent?.pt_img1 == nil || jsonContent?.pt_img2 == nil || jsonContent?.pt_bt1 == nil || jsonContent?.pt_bt2 == nil || jsonContent?.pt_st1 == nil || jsonContent?.pt_st2 == nil || jsonContent?.pt_dl1 == nil || jsonContent?.pt_dl2 == nil || jsonContent?.pt_price1 == nil || jsonContent?.pt_price2 == nil || jsonContent?.pt_product_display_action == nil){
                 return false

@@ -7,6 +7,10 @@
 
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString *)action;  // must override in subclass
 
+- (NSString *)getDeeplinkUrl;  // must override in subclass
+
 - (CTNotificationViewController *)getParentViewController;
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 
 @end

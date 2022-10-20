@@ -239,7 +239,7 @@ import UserNotificationsUI
             }
         }
         else {
-            if #available(iOSApplicationExtension 12.0, *) {
+            if #available(iOS 12.0, *) {
                 self.extensionContext?.performNotificationDefaultAction()
             }
         }
