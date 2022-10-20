@@ -144,6 +144,14 @@ Auto carousel is an automatic revolving carousel push notification where user ca
 
 ### Manual Carousel Template
 This is the manual version of the carousel. The user can navigate to the next/previous image by clicking on the Next/Back buttons.
+---
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+
+For iOS 11 and below, the previous/next buttons will not work. Please use notification actions with identifiers `action_1` and `action_2` for this purpose.
+
+---
 
 <img src="https://github.com/CleverTap/CTNotificationContent/blob/master/images/CustomManualCarousel.gif" alt="Manual carousel" width="450" height="800"/>
 
@@ -162,11 +170,25 @@ The Zero Bezel template ensures that the background image covers the entire avai
 
 Rating template lets your users give you feedback.
 
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+For iOS 11 and below, it will fallback to a basic template.
+
+---
+
 ![Rating](https://github.com/CleverTap/CTNotificationContent/blob/master/images/Rating.gif)
 
 ### Product Catalog Template
 
 Product catalog template lets you show case different images of a product (or a product catalog) before the user can decide to click on the "BUY NOW" option which can take them directly to the product via deep links. This template has two variants.
+
+**NOTE:**
+
+For iOS 12 and above, you need to configure your Notification Content target Info.plist to reflect the category identifier you registered: `NSExtension -> NSExtensionAttributes -> UNNotificationExtensionCategory`.  In addition, set the `UNNotificationExtensionInitialContentSizeRatio -> 0.1` ,  `UNNotificationExtensionDefaultContentHidden -> true` and `UNNotificationExtensionUserInteractionEnabled -> 1`.
+For iOS 11 and below, it will fallback to a basic template.
+
+---
 
 ### Vertical View 
 
