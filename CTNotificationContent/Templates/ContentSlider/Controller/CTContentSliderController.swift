@@ -187,6 +187,10 @@ fileprivate enum Constants {
     }
     
     func moveSlider(direction: Int) {
+        guard let _ = getParentViewController() else {
+            stopAutoPlay()
+            return
+        }
         currentItemView.removeFromSuperview()
 
         currentItemIndex = currentItemIndex + direction
