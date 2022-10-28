@@ -281,6 +281,11 @@ import UserNotificationsUI
     }
     
     func moveSlider(direction: Int) {
+        guard let _ = getParentViewController() else {
+            timer?.invalidate()
+            timer = nil
+            return
+        }
         currentItemView.removeFromSuperview()
 
         currentItemIndex = currentItemIndex + direction
