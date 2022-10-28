@@ -2,7 +2,7 @@ Change Log
 ==========
 Version 0.2.3 (27 October, 2022)
 -----------------------------------------------
-- Fixes for slider and timer
+- Fixes a potential crash for the content slider template.
 
 Version 0.2.2 (20 October, 2022)
 -----------------------------------------------
