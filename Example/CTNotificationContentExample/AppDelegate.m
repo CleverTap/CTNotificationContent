@@ -1,6 +1,10 @@
 #import "AppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
+#if __has_include(<CleverTapSDK/CleverTap.h>)
 #import <CleverTapSDK/CleverTap.h>
+#else
+#import "CleverTap.h"
+#endif
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
