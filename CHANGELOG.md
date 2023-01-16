@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.2.4 (17 January, 2023)
+-----------------------------------------------
+- Adds support for importing from static libraries and frameworks.
+
 Version 0.2.3 (28 October, 2022)
 -----------------------------------------------
 - Fixes a potential crash for the content slider template.
