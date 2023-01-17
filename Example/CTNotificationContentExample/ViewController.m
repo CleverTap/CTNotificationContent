@@ -1,5 +1,9 @@
 #import "ViewController.h"
+#if __has_include(<CleverTapSDK/CleverTap.h>)
 #import <CleverTapSDK/CleverTap.h>
+#else
+#import "CleverTap.h"
+#endif
 
 @interface ViewController ()
 
