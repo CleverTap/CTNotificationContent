@@ -14,6 +14,7 @@ import UserNotificationsUI
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
     var thresholdSeconds = 0
+    var progressViewHeight: CGFloat = 0.0
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -49,6 +50,12 @@ import UserNotificationsUI
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
         return timerLabel
     }()
+    private var timerProgressView: UIProgressView = {
+        let timerProgressView = UIProgressView()
+        timerProgressView.setProgress(0.0, animated: true)
+        timerProgressView.translatesAutoresizingMaskIntoConstraints = false
+        return timerProgressView
+    }()
     
     @objc public override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +80,7 @@ import UserNotificationsUI
         contentView.addSubview(captionLabel)
         contentView.addSubview(subcaptionLabel)
         contentView.addSubview(timerLabel)
+        contentView.addSubview(timerProgressView)
         
         captionLabel.text = templateCaption
         subcaptionLabel.text = templateSubcaption
@@ -128,7 +136,19 @@ import UserNotificationsUI
                 }
             }
         }
+        if let timerProgressView = jsonContent.pt_timer_progress_view, timerProgressView{
+            if thresholdSeconds > 0 {
+                // Load progress view only if timer is not ended.
+                progressViewHeight = Constraints.kProgressViewHeight
+                self.activateProgressViewContraints()
+                self.createFrameWithoutImage()
+            }
+        }
 
+        if let timerProgressClr = jsonContent.pt_timer_progress_clr, !timerProgressClr.isEmpty {
+            timerProgressView.progressTintColor = UIColor(hex: timerProgressClr)
+        }
+        
         view.backgroundColor = UIColor(hex: bgColor)
         imageView.backgroundColor = UIColor(hex: bgColor)
         captionLabel.textColor = UIColor(hex: captionColor)
@@ -138,21 +158,21 @@ import UserNotificationsUI
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
+            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding + progressViewHeight)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
             
-            subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
+            subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding + progressViewHeight)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
+            subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight)),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
             
-            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CTUtiltiy.getCaptionHeight()),
+            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight)),
             timerLabel.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
             timerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
+            timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight)),
             timerLabel.heightAnchor.constraint(equalToConstant: CTUtiltiy.getCaptionHeight())
         ])
     }
@@ -168,6 +188,9 @@ import UserNotificationsUI
             else {
                 self.timerLabel.text = String(format: "%02i:%02i:%02i", hr, min, sec)
             }
+            if let progressView = jsonContent?.pt_timer_progress_view, progressView{
+                timerProgressView.setProgress(Float(thresholdSeconds), animated: true)
+            }
             thresholdSeconds -= 1
         } else {
             timer.invalidate()
@@ -178,6 +201,10 @@ import UserNotificationsUI
     
     func updateViewForExpiredTime() {
         if let jsonContent = jsonContent {
+            if let progressView = jsonContent.pt_timer_progress_view, progressView{
+                timerProgressView.removeFromSuperview()
+            }
+            
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
                 captionLabel.text = title
             }
@@ -201,7 +228,7 @@ import UserNotificationsUI
     
     func createFrameWithoutImage() {
         let viewWidth = view.frame.size.width
-        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let viewHeight = CTUtiltiy.getCaptionHeight() + progressViewHeight
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
@@ -210,22 +237,31 @@ import UserNotificationsUI
 
     func createFrameWithImage() {
         let viewWidth = view.frame.size.width
-        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight()
+        var viewHeight = viewWidth + CTUtiltiy.getCaptionHeight() + progressViewHeight
         // For view in Landscape
-        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight()
+        viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + CTUtiltiy.getCaptionHeight() + progressViewHeight
 
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
     }
-    
+
     func activateImageViewContraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CTUtiltiy.getCaptionHeight())
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight))
+        ])
+    }
+    
+    func activateProgressViewContraints() {
+        NSLayoutConstraint.activate([
+            timerProgressView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kProgressViewHeight),
+            timerProgressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
+            timerProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+            timerProgressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kCaptionTopPadding)
         ])
     }
     
