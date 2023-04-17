@@ -153,10 +153,6 @@ import UserNotificationsUI
                 self.createFrameWithoutImage()
             }
         }
-
-        if let timerProgressClr = jsonContent.pt_timer_progress_clr, !timerProgressClr.isEmpty {
-            timerProgressView.progressTintColor = UIColor(hex: timerProgressClr)
-        }
         
         view.backgroundColor = UIColor(hex: bgColor)
         imageView.backgroundColor = UIColor(hex: bgColor)

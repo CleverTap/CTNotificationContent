@@ -23,10 +23,9 @@ struct TimerTemplateProperties: Decodable {
     let pt_title_clr: String?
     let pt_msg_clr: String?
     let pt_timer_progress_view: Bool?
-    let pt_timer_progress_clr: String?
     
     enum CodingKeys: String, CodingKey {
-        case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_chrono_title_clr, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_msg_clr, pt_timer_progress_view, pt_timer_progress_clr
+        case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_chrono_title_clr, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_msg_clr, pt_timer_progress_view
     }
 
     init(from decoder: Decoder) throws {
@@ -44,7 +43,6 @@ struct TimerTemplateProperties: Decodable {
         pt_chrono_title_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_title_clr)
         pt_title_clr = try container.decodeIfPresent(String.self, forKey: .pt_title_clr)
         pt_msg_clr = try container.decodeIfPresent(String.self, forKey: .pt_msg_clr)
-        pt_timer_progress_clr = try container.decodeIfPresent(String.self, forKey: .pt_timer_progress_clr)
         
         // Value for pt_timer_threshold and pt_timer_end key can be Int or String if received from JSON data or individual keys respectively, so checked for both case if present or else nil.
         var thresholdValue: Int? = nil
