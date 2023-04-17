@@ -15,6 +15,14 @@ import UserNotificationsUI
     var timer: Timer = Timer()
     var thresholdSeconds = 0
     var progressViewHeight: CGFloat = 0.0
+    var captionLabelTopConstraint: NSLayoutConstraint?
+    var subCaptionBottomConstraint: NSLayoutConstraint?
+    var subCaptionTopConstraint: NSLayoutConstraint?
+    var timerLabelTopConstraint: NSLayoutConstraint?
+    var timerLabelBottomConstraint: NSLayoutConstraint?
+    var imageViewBottomConstraint: NSLayoutConstraint?
+    var isImageAdded = false
+    
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -128,6 +136,7 @@ import UserNotificationsUI
                 CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
+                            self?.isImageAdded = true
                             self?.imageView.image = imageData
                             self?.activateImageViewContraints()
                             self?.createFrameWithImage()
@@ -157,22 +166,27 @@ import UserNotificationsUI
     }
     
     func setupConstraints() {
+        captionLabelTopConstraint = captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding + progressViewHeight))
+        captionLabelTopConstraint?.isActive = true
+        subCaptionTopConstraint = subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding + progressViewHeight))
+        subCaptionTopConstraint?.isActive = true
+        subCaptionBottomConstraint = subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight))
+        subCaptionBottomConstraint?.isActive = true
+        timerLabelTopConstraint = timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight))
+        timerLabelTopConstraint?.isActive = true
+        timerLabelBottomConstraint = timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight))
+        timerLabelBottomConstraint?.isActive = true
         NSLayoutConstraint.activate([
-            captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding + progressViewHeight)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
             
-            subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding + progressViewHeight)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
-            subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight)),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
             
-            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight)),
             timerLabel.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
             timerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionTopPadding + progressViewHeight)),
             timerLabel.heightAnchor.constraint(equalToConstant: CTUtiltiy.getCaptionHeight())
         ])
     }
@@ -203,6 +217,13 @@ import UserNotificationsUI
         if let jsonContent = jsonContent {
             if let progressView = jsonContent.pt_timer_progress_view, progressView{
                 timerProgressView.removeFromSuperview()
+                progressViewHeight = 0.0
+                updateConstraints()
+                if isImageAdded{
+                    createFrameWithImage()
+                }else{
+                    createFrameWithoutImage()
+                }
             }
             
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
@@ -220,9 +241,27 @@ import UserNotificationsUI
                                 self?.createFrameWithImage()
                                 self?.activateImageViewContraints()
                         }
+                        else{
+                            if let imageAdded = self?.isImageAdded, imageAdded{
+                                self?.createFrameWithImage()
+                            }else{
+                                self?.createFrameWithoutImage()
+                            }
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    func updateConstraints(){
+        captionLabelTopConstraint?.constant = -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding + progressViewHeight)
+        subCaptionTopConstraint?.constant = -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding + progressViewHeight)
+        subCaptionBottomConstraint?.constant = -(Constraints.kSubCaptionTopPadding + progressViewHeight)
+        timerLabelTopConstraint?.constant = -(CTUtiltiy.getCaptionHeight() + progressViewHeight)
+        timerLabelBottomConstraint?.constant = -(Constraints.kSubCaptionTopPadding + progressViewHeight)
+        if isImageAdded{
+            imageViewBottomConstraint?.constant = -(CTUtiltiy.getCaptionHeight() + progressViewHeight)
         }
     }
     
@@ -248,11 +287,12 @@ import UserNotificationsUI
     }
 
     func activateImageViewContraints() {
+        imageViewBottomConstraint = imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight))
+        imageViewBottomConstraint?.isActive = true
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -Constraints.kImageBorderWidth),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -Constraints.kImageBorderWidth),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() + progressViewHeight))
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constraints.kImageBorderWidth)
         ])
     }
     
