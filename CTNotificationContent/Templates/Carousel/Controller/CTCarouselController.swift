@@ -104,8 +104,10 @@ import UserNotificationsUI
             if let url = jsonContent.pt_img3, !url.isEmpty {
                 imageUrls.append(url)
             }
-
-            for (index,url) in imageUrls.enumerated() {
+            
+            let dispatchGroup = DispatchGroup()
+            for (_,url) in imageUrls.enumerated() {
+                dispatchGroup.enter()
                 CTUtiltiy.checkImageUrlValid(imageUrl: url) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
@@ -113,11 +115,12 @@ import UserNotificationsUI
                             let itemView = CTCaptionedImageView(components: itemComponents)
                             self?.itemViews.append(itemView)
                         }
-                        if index == imageUrls.count - 1 {
-                            self?.setUpConstraints()
-                        }
+                        dispatchGroup.leave()
                     }
                 }
+            }
+            dispatchGroup.notify(queue: .main) {
+                self.setUpConstraints()
             }
         }
     }
