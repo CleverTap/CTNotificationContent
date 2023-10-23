@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.2.5 (23 October, 2023)
+-----------------------------------------------
+- Fixes push notifications not being removed from notification center when clicked on expanded view.
+- Fixes carousel not shown correctly for the first time when app is installed.
+
 Version 0.2.4 (17 January, 2023)
 -----------------------------------------------
 - Adds support for importing from static libraries and frameworks.

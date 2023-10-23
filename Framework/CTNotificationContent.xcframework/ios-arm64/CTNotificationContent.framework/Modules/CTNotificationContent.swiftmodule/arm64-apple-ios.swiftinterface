@@ -1,0 +1,168 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name CTNotificationContent
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import AVKit
+@_exported import CTNotificationContent
+import Foundation
+import Swift
+import UIKit
+import UserNotificationsUI
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+extension UIKit.UIColor {
+  convenience public init?(hex: Swift.String)
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTRatingsViewController : CTNotificationContent.BaseCTNotificationContentViewController, UIKit.UIGestureRecognizerDelegate {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class CTUtiltiy : ObjectiveC.NSObject {
+  @objc public static func isRequiredKeysProvided(jsonString: Swift.String) -> Swift.Bool
+  @objc public static func getControllerType(jsonString: Swift.String) -> CTNotificationContent.BaseCTNotificationContentViewController
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_Concurrency.MainActor(unsafe) public class CTProductDisplayLinearViewController : CTNotificationContent.BaseCTNotificationContentViewController, UIKit.UIGestureRecognizerDelegate {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTSingleMediaController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var caption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var subCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var mediaType: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var mediaURL: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class ProductDisplayProperties : ObjectiveC.NSObject, Swift.Decodable {
+  @objc final public let pt_title: Swift.String?
+  @objc final public let pt_msg: Swift.String?
+  @objc final public let pt_subtitle: Swift.String?
+  @objc final public let pt_img1: Swift.String
+  @objc final public let pt_img2: Swift.String
+  @objc final public let pt_img3: Swift.String?
+  @objc final public let pt_bt1: Swift.String
+  @objc final public let pt_bt2: Swift.String
+  @objc final public let pt_bt3: Swift.String?
+  @objc final public let pt_st1: Swift.String
+  @objc final public let pt_st2: Swift.String
+  @objc final public let pt_st3: Swift.String?
+  @objc final public let pt_dl1: Swift.String
+  @objc final public let pt_dl2: Swift.String
+  @objc final public let pt_dl3: Swift.String?
+  @objc final public let pt_price1: Swift.String
+  @objc final public let pt_price2: Swift.String
+  @objc final public let pt_price3: Swift.String?
+  @objc final public let pt_bg: Swift.String?
+  @objc final public let pt_product_display_action: Swift.String
+  @objc final public let pt_product_display_linear: Swift.String?
+  @objc final public let pt_product_display_action_clr: Swift.String?
+  @objc final public let pt_title_clr: Swift.String?
+  @objc final public let pt_msg_clr: Swift.String?
+  @objc deinit
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTContentSliderController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTWebViewController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension CTNotificationContent.CTWebViewController : WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFailProvisionalNavigation navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTTimerTemplateController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_Concurrency.MainActor(unsafe) public class CTProductDisplayVerticalViewController : CTNotificationContent.BaseCTNotificationContentViewController, UIKit.UIGestureRecognizerDelegate {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTZeroBezelController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) public class CTCarouselController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var data: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateType: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var deeplinkURL: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var isFromProductDisplay: Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}

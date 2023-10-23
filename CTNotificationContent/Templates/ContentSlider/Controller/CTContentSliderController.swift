@@ -46,8 +46,10 @@ fileprivate enum Constants {
         autoDismiss = jsonContent.autoDismiss
         showPaging = jsonContent.showsPaging
         autoPlay = jsonContent.autoPlay
-        
-        for (index,item) in jsonContent.items.enumerated() {
+
+        let dispatchGroup = DispatchGroup()
+        for (_,item) in jsonContent.items.enumerated() {
+            dispatchGroup.enter()
             CTUtiltiy.checkImageUrlValid(imageUrl: item.imageUrl) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
@@ -71,11 +73,12 @@ fileprivate enum Constants {
                         let keyItem = [Constants.kCaption : item.caption, Constants.kSubcaption : item.subcaption, Constants.kImageUrl : item.imageUrl, Constants.kActionUrl : item.actionUrl]
                         self?.items.append(keyItem)
                     }
-                    if index == jsonContent.items.count - 1 {
-                        self?.setUpConstraints()
-                    }
+                    dispatchGroup.leave()
                 }
             }
+        }
+        dispatchGroup.notify(queue: .main) {
+            self.setUpConstraints()
         }
     }
     
