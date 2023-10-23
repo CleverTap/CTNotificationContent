@@ -255,6 +255,21 @@ BOOL isFromProductDisplay = false;
                 // Fallback on earlier versions
             }
         }
+        
+        // This removes the clicked notification from Notification Center when clicked in expanded view.
+        UNUserNotificationCenter *current = [UNUserNotificationCenter currentNotificationCenter];
+        [current getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+            NSString *notificationIdentifier;
+            for (NSUInteger i = 0; i < [notifications count]; i++) {
+                if ([notifications[i].request.identifier isEqualToString:self.notification.request.identifier]) {
+                    notificationIdentifier = self.notification.request.identifier;
+                    break;
+                }
+            }
+            if (notificationIdentifier) {
+                [[UNUserNotificationCenter currentNotificationCenter] removeDeliveredNotificationsWithIdentifiers:@[notificationIdentifier]];
+            }
+        }];
     }];
 }
 
