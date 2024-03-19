@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3210E7212BA341E300C44F19 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */; };
 		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
 		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
 		3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = file; path = PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
 		3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
 		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				488F31BA2817008300AE3AC8 /* BaseCTNotificationContentViewController.h */,
 				488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */,
@@ -465,6 +468,7 @@
 				488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */,
 				3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */,
 				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
+				3210E7212BA341E300C44F19 /* PrivacyInfo.xcprivacy in Resources */,
 				32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */,
 				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
 				488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */,

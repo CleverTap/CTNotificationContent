@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.2.6 (20 March, 2024)
+-----------------------------------------------
+- Adds privacy manifests.
+
 Version 0.2.5 (23 October, 2023)
 -----------------------------------------------
 - Fixes push notifications not being removed from notification center when clicked on expanded view.
