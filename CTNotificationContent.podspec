@@ -11,6 +11,6 @@ Pod::Spec.new do |s|
   s.weak_frameworks = 'UserNotifications', 'UIKit'
   s.source_files = 'CTNotificationContent/**/*.{h,m,swift}'
   s.resources = 'CTNotificationContent/**/*.{png,xib}'
-  s.resource_bundles = { 'CTNotificationService' => 'CTNotificationService/*.{xcprivacy}' }
+  s.resource_bundles = { 'CTNotificationContent' => 'CTNotificationContent/**/*.{xcprivacy}' }
   s.swift_version = '5.0'
 end
