@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CTNotificationContent"
-  s.version          = "0.2.6"
+  s.version          = "0.2.7"
   s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications"
   s.homepage         = "https://github.com/CleverTap/CTNotificationContent"
   s.license          = "MIT" 
@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, '10.0'
   s.weak_frameworks = 'UserNotifications', 'UIKit'
   s.source_files = 'CTNotificationContent/**/*.{h,m,swift}'
-  s.resources = 'CTNotificationContent/**/*.{png,xib,xcprivacy}'
+  s.resources = 'CTNotificationContent/**/*.{png,xib}'
+  s.resource_bundles = { 'CTNotificationContent' => 'CTNotificationContent/**/*.{xcprivacy}' }
   s.swift_version = '5.0'
 end

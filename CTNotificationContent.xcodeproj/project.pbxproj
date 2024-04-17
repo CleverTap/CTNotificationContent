@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3210E7212BA341E300C44F19 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */; };
 		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
 		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
 		3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */; };
 		3270BFDD28E4D80E003528ED /* CTProductDisplayVerticalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */; };
 		3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */; };
 		3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFED28E4D89C003528ED /* RatingProperties.swift */; };
+		328B649A2BC594CE00B53C17 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 328B64992BC594CD00B53C17 /* PrivacyInfo.xcprivacy */; };
 		32C575EE28F744E600BF0A3F /* CTRatingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C575ED28F744E600BF0A3F /* CTRatingsViewController.swift */; };
 		32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */; };
 		32DFD84728BCCCBB00E72588 /* ZeroBezelProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */; };
@@ -46,13 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = file; path = PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
 		3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
 		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
 		3270BFD828E4D80E003528ED /* CTProductDisplayVerticalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayVerticalViewController.xib; sourceTree = "<group>"; };
 		3270BFD928E4D80E003528ED /* CTProductDisplayLinearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTProductDisplayLinearViewController.xib; sourceTree = "<group>"; };
 		3270BFED28E4D89C003528ED /* RatingProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingProperties.swift; sourceTree = "<group>"; };
+		328B64992BC594CD00B53C17 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		32C575ED28F744E600BF0A3F /* CTRatingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRatingsViewController.swift; sourceTree = "<group>"; };
 		32DFD82C28BCCCBB00E72588 /* CTZeroBezelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTZeroBezelController.swift; sourceTree = "<group>"; };
 		32DFD82E28BCCCBB00E72588 /* ZeroBezelProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroBezelProperties.swift; sourceTree = "<group>"; };
@@ -313,6 +313,7 @@
 		488F31A12816FFF300AE3AC8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				328B64992BC594CD00B53C17 /* PrivacyInfo.xcprivacy */,
 				32E55C0728D87FDD00F1395D /* ct_star_filled.png */,
 				32E55C0628D87FDD00F1395D /* ct_star_outline.png */,
 				488F31A22816FFF300AE3AC8 /* ct_next_button.png */,
@@ -368,7 +369,6 @@
 		525715EB1E67B8C0000E455B /* CTNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
-				3210E7202BA341E300C44F19 /* PrivacyInfo.xcprivacy */,
 				525715EC1E67B8C0000E455B /* CTNotificationContent.h */,
 				488F31BA2817008300AE3AC8 /* BaseCTNotificationContentViewController.h */,
 				488F31BC2817009900AE3AC8 /* BaseCTNotificationContentViewController.m */,
@@ -468,7 +468,7 @@
 				488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */,
 				3270BFDE28E4D80E003528ED /* CTProductDisplayLinearViewController.xib in Resources */,
 				488F31AB2816FFF300AE3AC8 /* ct_pause_button.png in Resources */,
-				3210E7212BA341E300C44F19 /* PrivacyInfo.xcprivacy in Resources */,
+				328B649A2BC594CE00B53C17 /* PrivacyInfo.xcprivacy in Resources */,
 				32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */,
 				488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */,
 				488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */,
