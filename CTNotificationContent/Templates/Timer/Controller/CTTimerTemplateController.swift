@@ -74,8 +74,8 @@ import UserNotificationsUI
         contentView.addSubview(subcaptionLabel)
         contentView.addSubview(timerLabel)
         
-        captionLabel.text = templateCaption
-        subcaptionLabel.text = templateSubcaption
+        captionLabel.setHTMLText(templateCaption)
+        subcaptionLabel.setHTMLText(templateSubcaption)
 
         guard let jsonContent = jsonContent else {
             return
@@ -91,13 +91,13 @@ import UserNotificationsUI
         }
 
         if let title = jsonContent.pt_title, !title.isEmpty {
-            captionLabel.text = title
+            captionLabel.setHTMLText(title)
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty {
-            subcaptionLabel.text = msg
+            subcaptionLabel.setHTMLText(msg)
         }
         if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
-            subcaptionLabel.text = msgSummary
+            subcaptionLabel.setHTMLText(msgSummary)
         }
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
@@ -179,10 +179,10 @@ import UserNotificationsUI
     func updateViewForExpiredTime() {
         if let jsonContent = jsonContent {
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
-                captionLabel.text = title
+                captionLabel.setHTMLText(title)
             }
             if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
-                subcaptionLabel.text = msg
+                subcaptionLabel.setHTMLText(msg)
             }
             if let altImage = jsonContent.pt_big_img_alt, !altImage.isEmpty {
                 // Load expired image, if available.

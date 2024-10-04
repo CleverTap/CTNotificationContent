@@ -306,8 +306,8 @@ import UIKit
             templateBigImage = bigImage
         }
         
-        self.titleLabel.text = templateCaption
-        self.subTitleLabel.text = templateSubcaption
+        self.titleLabel.setHTMLText(templateCaption)
+        self.subTitleLabel.setHTMLText(templateSubcaption)
     
         if let bigImg = jsonContent.pt_big_img{
             CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
