@@ -1,6 +1,6 @@
 Change Log
 ==========
-Version 0.3.0 (5 October, 2024)
+Version 0.3.0 (10 April, 2025)
 -----------------------------------------------
 - Added support for bold, italic, underline, and strikethrough HTML tags in title and message for rich push notifications.
 
