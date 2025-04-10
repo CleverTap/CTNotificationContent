@@ -70,8 +70,8 @@ class CTCaptionedImageView : UIView {
                 }
             }
         }
-        captionLabel.text = components.caption
-        subcaptionLabel.text = components.subcaption
+        captionLabel.setHTMLText(components.caption)
+        subcaptionLabel.setHTMLText(components.subcaption)
         captionLabel.textColor = UIColor(hex: components.captionColor)
         subcaptionLabel.textColor = UIColor(hex: components.subcaptionColor)
     }

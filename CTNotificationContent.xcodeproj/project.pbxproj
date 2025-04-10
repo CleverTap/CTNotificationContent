@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0115BE2CAFFD8C00985815 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0115BD2CAFFD8900985815 /* Extensions.swift */; };
 		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
 		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
 		3270BFDC28E4D80E003528ED /* ProductDisplayProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B0115BD2CAFFD8900985815 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
 		3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
 		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		32DFD84328BCCCBB00E72588 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0B0115BD2CAFFD8900985815 /* Extensions.swift */,
 				32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */,
 				32DFD84528BCCCBB00E72588 /* CTUtility.swift */,
 			);
@@ -484,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B0115BE2CAFFD8C00985815 /* Extensions.swift in Sources */,
 				488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */,
 				32C575EE28F744E600BF0A3F /* CTRatingsViewController.swift in Sources */,
 				32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */,

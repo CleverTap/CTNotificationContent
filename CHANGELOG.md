@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.3.0 (10 April, 2025)
+-----------------------------------------------
+- Added support for bold, italic, underline, and strikethrough HTML tags in title and message for rich push notifications.
+
 Version 0.2.7 (17 April, 2024)
 -----------------------------------------------
 - Fixes a build error related to privacy manifests when statically linking the SDK using Cocoapods.
