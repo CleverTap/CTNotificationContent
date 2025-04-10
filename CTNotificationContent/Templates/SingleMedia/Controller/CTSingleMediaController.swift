@@ -153,8 +153,8 @@ import AVFoundation
     func createBasicCaptionView() {
         contentView.addSubview(captionLabel)
         contentView.addSubview(subcaptionLabel)
-        captionLabel.text = caption
-        subcaptionLabel.text = subCaption
+        captionLabel.setHTMLText(caption)
+        subcaptionLabel.setHTMLText(subCaption)
         
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
