@@ -17,6 +17,7 @@ enum Constraints {
     static let kTimerLabelWidth: CGFloat = 100.0
     static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait
+    static let kProgressViewHeight: CGFloat = 12.0
 }
 
 enum ConstantKeys {
