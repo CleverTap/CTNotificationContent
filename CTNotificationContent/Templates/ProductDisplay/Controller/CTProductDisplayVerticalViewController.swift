@@ -26,6 +26,17 @@ import UserNotificationsUI
     @IBOutlet weak var smallImageBtn2: UIImageView!
     @IBOutlet weak var smallImageBtn3: UIImageView!
     
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var captionColor: String = ConstantKeys.kHexBlackColor
+    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    var productDisplayActionColor: String = ConstantKeys.kHexBlackColor
+    
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var captionColorDark: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+    var productDisplayActionColorDark: String = ConstantKeys.kHexWhiteColor
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -134,15 +145,52 @@ import UserNotificationsUI
         self.priceLabel.text = priceText
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
-        view.backgroundColor = UIColor(hex: jsonContent.pt_bg ?? "")
-        if let titleColor = jsonContent.pt_title_clr {
-            self.titleLabel.textColor = UIColor(hex: titleColor)
+        if let bg = jsonContent.pt_bg, !bg.isEmpty {
+            bgColor = bg
         }
-        if let msgColor = jsonContent.pt_msg_clr {
-            self.subTitleLabel.textColor = UIColor(hex: msgColor)
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+            captionColor = titleColor
+        }
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+            subcaptionColor = msgColor
+        }
+        if let actionColor = jsonContent.pt_product_display_action_clr, !actionColor.isEmpty {
+            self.productDisplayActionColor = actionColor
         }
 
-        buyBtnOutlet.backgroundColor = UIColor(hex: jsonContent.pt_product_display_action_clr ?? "")
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+            captionColorDark = titleColorDark
+        }
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+            subcaptionColorDark = msgColorDark
+        }
+        if let actionColorDark = jsonContent.pt_product_display_action_clr_dark, !actionColorDark.isEmpty {
+            self.productDisplayActionColorDark = actionColorDark
+        }
+        
+        updateInterfaceColors()
+    }
+    
+    func updateInterfaceColors() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+        
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+        self.buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
+        
     }
     
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {

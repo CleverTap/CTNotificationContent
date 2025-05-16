@@ -168,7 +168,6 @@ import UserNotificationsUI
             isDarkMode = false
         }
         
-        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         captionLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         subcaptionLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
