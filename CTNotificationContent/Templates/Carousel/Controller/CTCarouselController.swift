@@ -14,9 +14,16 @@ import UserNotificationsUI
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
     @objc public var isFromProductDisplay: Bool = false
+
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var captionColorDark: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+
     var jsonContent: CarouselProperties? = nil
     var nextButtonImage: UIImage = UIImage()
     var previousButtonImage: UIImage = UIImage()
@@ -61,6 +68,17 @@ import UserNotificationsUI
         if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
             subcaptionColor = msgColor
         }
+
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+            captionColorDark = titleColorDark
+        }
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+            subcaptionColorDark = msgColorDark
+        }
         var actionUrl = deeplinkURL
         if let deeplink = jsonContent.pt_dl1, !deeplink.isEmpty {
             actionUrl = deeplink
@@ -85,7 +103,7 @@ import UserNotificationsUI
             CTUtiltiy.checkImageUrlValid(imageUrl: basicImageUrl) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
-                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageUrl, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor)
+                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageUrl, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark)
                         let itemView = CTCaptionedImageView(components: itemComponents)
                         self?.itemViews.append(itemView)
                     }
@@ -111,7 +129,7 @@ import UserNotificationsUI
                 CTUtiltiy.checkImageUrlValid(imageUrl: url) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
-                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor)
+                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark)
                             let itemView = CTCaptionedImageView(components: itemComponents)
                             self?.itemViews.append(itemView)
                         }
@@ -124,6 +142,7 @@ import UserNotificationsUI
             }
         }
     }
+    
     
     func setUpConstraints() {
         if itemViews.count == 0 {
