@@ -157,6 +157,17 @@ import UserNotificationsUI
         }
     }
     
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            // Check if iOS 12+ API is available before using it
+            if #available(iOSApplicationExtension 12.0, *) {
+                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                    updateInterfaceColors()
+                }
+            }
+    }
+    
     func updateInterfaceColors() {
         // Check if device is in dark mode (iOS 12+)
         let isDarkMode: Bool
@@ -168,6 +179,7 @@ import UserNotificationsUI
             isDarkMode = false
         }
         
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         captionLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         subcaptionLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
