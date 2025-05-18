@@ -62,8 +62,6 @@ class CTCaptionedImageView : UIView {
         addSubview(captionLabel)
         addSubview(subcaptionLabel)
 
-        updateInterfaceColors()
-
         CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
@@ -74,6 +72,7 @@ class CTCaptionedImageView : UIView {
         }
         captionLabel.setHTMLText(components.caption)
         subcaptionLabel.setHTMLText(components.subcaption)
+        updateInterfaceColors()
     }
     
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

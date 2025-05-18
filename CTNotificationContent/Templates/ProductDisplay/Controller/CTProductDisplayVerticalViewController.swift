@@ -29,13 +29,12 @@ import UserNotificationsUI
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
-    var productDisplayActionColor: String = ConstantKeys.kHexBlackColor
-    
+    var productDisplayActionColor: String = ConstantKeys.kHexWhiteColor
     // Dark mode colors
     var bgColorDark: String = ConstantKeys.kDefaultColorDark
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
-    var productDisplayActionColorDark: String = ConstantKeys.kHexWhiteColor
+    var productDisplayActionColorDark: String = ConstantKeys.kHexBlackColor
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -199,6 +198,7 @@ import UserNotificationsUI
         
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        self.priceLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
         self.buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
         

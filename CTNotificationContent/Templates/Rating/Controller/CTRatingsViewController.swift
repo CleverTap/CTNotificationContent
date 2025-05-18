@@ -340,8 +340,8 @@ import UIKit
             self.updateUI()
         }
         
-        if let bgColor = jsonContent.pt_bg,!bgColor.isEmpty{
-            view.backgroundColor = UIColor(hex: bgColor)
+        if let bg = jsonContent.pt_bg,!bgColor.isEmpty{
+            bgColor = bg
         }
         if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
             captionColor = titleColor

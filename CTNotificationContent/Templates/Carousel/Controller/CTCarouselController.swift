@@ -84,6 +84,7 @@ import UserNotificationsUI
             actionUrl = deeplink
         }
         deeplinkURL = actionUrl
+        updateContentViewBackground()
 
         if templateType == TemplateConstants.kTemplateBasic {
             var basicImageUrl = ""
@@ -143,6 +144,30 @@ import UserNotificationsUI
         }
     }
     
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            // Check if iOS 12+ API is available before using it
+            if #available(iOSApplicationExtension 12.0, *) {
+                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                    updateContentViewBackground()
+                }
+            }
+    }
+    
+    func updateContentViewBackground() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+        
+        contentView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+    }
     
     func setUpConstraints() {
         if itemViews.count == 0 {
@@ -240,7 +265,7 @@ import UserNotificationsUI
     }
     
     func createDefaultAlertView() {
-        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor)
+        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor, bgColorDark: bgColorDark, captionColorDark: captionColorDark, subcaptionColorDark: subcaptionColorDark)
         let itemView = CTCaptionedImageView(components: itemComponents)
         itemViews.append(itemView)
     }

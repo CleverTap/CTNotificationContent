@@ -246,6 +246,8 @@ import UserNotificationsUI
                     }
                 }
             }
+            
+            updateInterfaceColors()
         }
     }
     
