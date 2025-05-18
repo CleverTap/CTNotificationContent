@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.4.0 (19 May, 2025)
+-----------------------------------------------
+- Adds dark mode support for push templates
+- Parses colour based on dark/light mode of phone
+
 Version 0.3.0 (10 April, 2025)
 -----------------------------------------------
 - Added support for bold, italic, underline, and strikethrough HTML tags in title and message for rich push notifications.

@@ -708,7 +708,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/CTNotificationContent.git";
 			requirement = {
-				branch = "SDK-4068-Add-HTML-support-to-title-and-message-fields";
+				branch = "task/add-dark-mode-support";
 				kind = branch;
 			};
 		};
