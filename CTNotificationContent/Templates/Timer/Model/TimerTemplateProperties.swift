@@ -28,7 +28,7 @@ struct TimerTemplateProperties: Decodable {
     let pt_msg_clr_dark: String?
     
     enum CodingKeys: String, CodingKey {
-        case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_bg_dark, pt_chrono_title_clr, pt_chrono_title_clr_dark,pt_timer_threshold, pt_timer_end, pt_title_clr, pt_title_clr_dark, pt_msg_clr, pt_msg_clr_dark
+        case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_bg_dark, pt_chrono_title_clr, pt_chrono_title_clr_dark, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_title_clr_dark, pt_msg_clr, pt_msg_clr_dark
     }
 
     init(from decoder: Decoder) throws {
@@ -45,7 +45,7 @@ struct TimerTemplateProperties: Decodable {
         pt_bg = try container.decodeIfPresent(String.self, forKey: .pt_bg)
         pt_bg_dark = try container.decodeIfPresent(String.self, forKey: .pt_bg_dark)
         pt_chrono_title_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_title_clr)
-        pt_chrono_title_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_title_clr)
+        pt_chrono_title_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_title_clr_dark)
         pt_title_clr = try container.decodeIfPresent(String.self, forKey: .pt_title_clr)
         pt_msg_clr = try container.decodeIfPresent(String.self, forKey: .pt_msg_clr)
         pt_title_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_title_clr_dark)
