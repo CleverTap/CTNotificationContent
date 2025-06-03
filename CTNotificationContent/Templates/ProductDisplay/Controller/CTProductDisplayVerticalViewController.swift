@@ -71,27 +71,27 @@ import UserNotificationsUI
         switch sender.view?.tag{
         case 1:
             self.bigImageView.image = smallImageBtn1.image
+            self.deeplink = jsonContent?.pt_dl1 ?? ""
             self.titleLabel.setHTMLText(jsonContent?.pt_bt1 ?? "")
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st1 ?? "")
             let priceText = "₹ " + (jsonContent?.pt_price1 ?? "")
             self.priceLabel.text = priceText
-            self.deeplink = jsonContent?.pt_dl1 ?? ""
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
+            self.deeplink = jsonContent?.pt_dl2 ?? ""
             self.titleLabel.setHTMLText(jsonContent?.pt_bt2 ?? "")
             let priceText = "₹ " + (jsonContent?.pt_price2 ?? "")
             self.priceLabel.text = priceText
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st2 ?? "")
-            self.deeplink = jsonContent?.pt_dl2 ?? ""
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
+            self.deeplink = jsonContent?.pt_dl3 ?? ""
             self.titleLabel.setHTMLText(jsonContent?.pt_bt3 ?? "")
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st3 ?? "")
             let priceText = "₹ " + (jsonContent?.pt_price3 ?? "")
             self.priceLabel.text = priceText
-            self.deeplink = jsonContent?.pt_dl3 ?? ""
             break
         default:
             break
