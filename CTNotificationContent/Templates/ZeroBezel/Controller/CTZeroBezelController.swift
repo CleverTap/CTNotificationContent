@@ -14,6 +14,14 @@ import UIKit
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    
+    var captionColor: String = ConstantKeys.kHexBlackColor
+    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    
+    // Dark mode colors
+    var captionColorDark: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var templateDl1:String = ""
@@ -118,12 +126,22 @@ import UIKit
             }
         }
         
-        if let titleColor = jsonContent.pt_title_clr {
-            self.titleLabel.textColor = UIColor(hex: titleColor)
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+            captionColor = titleColor
         }
-        if let msgColor = jsonContent.pt_msg_clr {
-            self.subTitleLabel.textColor = UIColor(hex: msgColor)
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+            subcaptionColor = msgColor
         }
+
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+            captionColorDark = titleColorDark
+        }
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+            subcaptionColorDark = msgColorDark
+        }
+
+        updateInterfaceColors()
+
     }
     
     func setupConstraints() {
@@ -166,6 +184,32 @@ import UIKit
         return deeplinkURL
     }
     
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            
+            // Check if iOS 12+ API is available before using it
+            if #available(iOSApplicationExtension 12.0, *) {
+                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                    updateInterfaceColors()
+                }
+            }
+    }
+    
+    func updateInterfaceColors() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+
+        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+    }
+
     /*
     // MARK: - Navigation
 

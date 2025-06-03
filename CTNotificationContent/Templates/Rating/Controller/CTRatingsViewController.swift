@@ -18,13 +18,11 @@ import UIKit
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
-    var timerColor: String = ConstantKeys.kHexBlackColor
     
     // Dark mode colors
     var bgColorDark: String = ConstantKeys.kDefaultColorDark
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
-    var timerColorDark: String = ConstantKeys.kHexWhiteColor
     
     var jsonContent: RatingProperties? = nil
     var templateBigImage:String = ""
