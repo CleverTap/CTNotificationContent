@@ -26,6 +26,7 @@ import UserNotificationsUI
     @IBOutlet weak var smallImageBtn2: UIImageView!
     @IBOutlet weak var smallImageBtn3: UIImageView!
     
+    // Color properties with defaults
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -38,13 +39,16 @@ import UserNotificationsUI
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.addGestureReconizerToImageView()
         createView()
-        // Do any additional setup after loading the view.
     }
 
-    func addGestureReconizerToImageView(){
+    func addGestureReconizerToImageView() {
+        // Enable user interaction for all image views
+        smallImageBtn1.isUserInteractionEnabled = true
+        smallImageBtn2.isUserInteractionEnabled = true
+        smallImageBtn3.isUserInteractionEnabled = true
+        
         let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(self.smallImageAction))
         tapGR1.delegate = self
         smallImageBtn1.tag = 1
@@ -62,13 +66,13 @@ import UserNotificationsUI
     }
     
     @IBAction func buyAction(_ sender: UIButton) {
-        if let url = URL(string: deeplink){
+        if let url = URL(string: deeplink) {
             getParentViewController().open(url)
         }
     }
     
     @objc func smallImageAction(_ sender: UITapGestureRecognizer) {
-        switch sender.view?.tag{
+        switch sender.view?.tag {
         case 1:
             self.bigImageView.image = smallImageBtn1.image
             self.deeplink = jsonContent?.pt_dl1 ?? ""
@@ -111,6 +115,7 @@ import UserNotificationsUI
         guard let jsonContent = jsonContent else {
             return
         }
+        
         let viewWidth = view.frame.size.width
         let viewHeight = ((viewWidth/2) * Constraints.kLandscapeMultiplier) + titleLabel.frame.height + subTitleLabel.frame.height + 60
 
@@ -118,10 +123,17 @@ import UserNotificationsUI
         view.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
         
+        // Set initial deeplink, title, subtitle, and price
         self.deeplink = jsonContent.pt_dl1
         self.titleLabel.setHTMLText(jsonContent.pt_bt1)
         self.subTitleLabel.setHTMLText(jsonContent.pt_st1)
+        let priceText = "₹ " + (jsonContent.pt_price1)
+        self.priceLabel.text = priceText
+        self.titleLabel.accessibilityIdentifier = "CTNotificationTitle1"
+        self.subTitleLabel.accessibilityIdentifier = "CTNotificationBody1"
+        self.priceLabel.accessibilityIdentifier = "CTNotificationPrice1"
 
+        // Load images
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img1) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
@@ -130,6 +142,7 @@ import UserNotificationsUI
                 }
             }
         }
+        
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img2) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
@@ -137,7 +150,13 @@ import UserNotificationsUI
                 }
             }
         }
-        if let img3 = jsonContent.pt_img3, !img3.isEmpty ,(jsonContent.pt_bt3 != nil && jsonContent.pt_st3 != nil && jsonContent.pt_dl3 != nil && jsonContent.pt_price3 != nil){
+        
+        // Check if all required data exists for image 3
+        if let img3 = jsonContent.pt_img3, !img3.isEmpty,
+           jsonContent.pt_bt3 != nil,
+           jsonContent.pt_st3 != nil,
+           jsonContent.pt_dl3 != nil,
+           jsonContent.pt_price3 != nil {
             CTUtiltiy.checkImageUrlValid(imageUrl: img3) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
@@ -145,14 +164,14 @@ import UserNotificationsUI
                     }
                 }
             }
-        }else{
-            self.smallImageBtn3.isUserInteractionEnabled=false
+        } else {
+            self.smallImageBtn3.isUserInteractionEnabled = false
         }
-                
-        let priceText = "₹ " + (jsonContent.pt_price1)
-        self.priceLabel.text = priceText
+        
+        // Set button title
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
+        // Handle colors
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
         }
@@ -163,7 +182,7 @@ import UserNotificationsUI
             subcaptionColor = msgColor
         }
         if let actionColor = jsonContent.pt_product_display_action_clr, !actionColor.isEmpty {
-            self.productDisplayActionColor = actionColor
+            productDisplayActionColor = actionColor
         }
 
         // Handle dark mode colors
@@ -177,46 +196,41 @@ import UserNotificationsUI
             subcaptionColorDark = msgColorDark
         }
         if let actionColorDark = jsonContent.pt_product_display_action_clr_dark, !actionColorDark.isEmpty {
-            self.productDisplayActionColorDark = actionColorDark
+            productDisplayActionColorDark = actionColorDark
         }
         
         updateInterfaceColors()
     }
     
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-            
-            // Check if iOS 12+ API is available before using it
-            if #available(iOSApplicationExtension 12.0, *) {
-                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                    updateInterfaceColors()
-                }
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
             }
+        }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
         let isDarkMode: Bool
         
         if #available(iOSApplicationExtension 12.0, *) {
             isDarkMode = traitCollection.userInterfaceStyle == .dark
         } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
             isDarkMode = false
         }
         
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
-        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
-        self.priceLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
-        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
-        self.buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
-        
+        titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        priceLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+        buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
     }
     
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
-            // Maps to run the relevant deeplink
-            if let url = URL(string: deeplink){
+            if let url = URL(string: deeplink) {
                 getParentViewController().open(url)
             }
             return .dismiss
@@ -235,8 +249,8 @@ import UserNotificationsUI
     public init() {
         super.init(nibName: "CTProductDisplayVerticalViewController", bundle: Bundle(for: CTProductDisplayVerticalViewController.self))
     }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

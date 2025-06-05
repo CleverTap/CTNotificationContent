@@ -8,7 +8,7 @@
 import UIKit
 import UserNotificationsUI
 
-@objc public class CTProductDisplayLinearViewController: BaseCTNotificationContentViewController,UIGestureRecognizerDelegate{
+@objc public class CTProductDisplayLinearViewController: BaseCTNotificationContentViewController, UIGestureRecognizerDelegate {
 
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
@@ -24,15 +24,27 @@ import UserNotificationsUI
     @IBOutlet weak var smallImageBtn2: UIImageView!
     @IBOutlet weak var smallImageBtn3: UIImageView!
     
+    // Color properties with defaults
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var priceLabelColor: String = ConstantKeys.kHexBlackColor
+    var productDisplayActionColor: String = ConstantKeys.kHexWhiteColor
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var priceLabelColorDark: String = ConstantKeys.kHexWhiteColor
+    var productDisplayActionColorDark: String = ConstantKeys.kHexBlackColor
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         self.addGestureReconizerToImageView()
         createView()
-        // Do any additional setup after loading the view.
     }
     
-    func addGestureReconizerToImageView(){
+    func addGestureReconizerToImageView() {
+        // Enable user interaction for all image views
+        smallImageBtn1.isUserInteractionEnabled = true
+        smallImageBtn2.isUserInteractionEnabled = true
+        smallImageBtn3.isUserInteractionEnabled = true
+        
         let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(self.smallImageAction))
         tapGR1.delegate = self
         smallImageBtn1.tag = 1
@@ -50,27 +62,33 @@ import UserNotificationsUI
     }
 
     @IBAction func buyAction(_ sender: UIButton) {
-        if let url = URL(string: deeplink){
+        if let url = URL(string: deeplink) {
             getParentViewController().open(url)
         }
     }
     
     @objc func smallImageAction(_ sender: UITapGestureRecognizer) {
-        switch sender.view?.tag{
+        switch sender.view?.tag {
         case 1:
             self.bigImageView.image = smallImageBtn1.image
-            self.priceLabel.text = jsonContent?.pt_bt1
             self.deeplink = jsonContent?.pt_dl1 ?? ""
+            let priceText = "₹ " + (jsonContent?.pt_price1 ?? "")
+            self.priceLabel.text = priceText
+            self.priceLabel.accessibilityIdentifier = "CTNotificationPrice1"
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
-            self.priceLabel.text = jsonContent?.pt_bt2
             self.deeplink = jsonContent?.pt_dl2 ?? ""
+            let priceText = "₹ " + (jsonContent?.pt_price2 ?? "")
+            self.priceLabel.text = priceText
+            self.priceLabel.accessibilityIdentifier = "CTNotificationPrice2"
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
-            self.priceLabel.text = jsonContent?.pt_bt3
             self.deeplink = jsonContent?.pt_dl3 ?? ""
+            let priceText = "₹ " + (jsonContent?.pt_price3 ?? "")
+            self.priceLabel.text = priceText
+            self.priceLabel.accessibilityIdentifier = "CTNotificationPrice3"
             break
         default:
             break
@@ -81,15 +99,21 @@ import UserNotificationsUI
         guard let jsonContent = jsonContent else {
             return
         }
+        
         let viewWidth = view.frame.size.width
-        let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + buyBtnOutlet.frame.height + smallImageBtn1.frame.height + 50 //imageview + buynowbutton + smallimageview + padding
+        let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + buyBtnOutlet.frame.height + smallImageBtn1.frame.height + 50
 
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
         
+        // Set initial deeplink and price
         self.deeplink = jsonContent.pt_dl1
+        let priceText = "₹ " + (jsonContent.pt_price1)
+        self.priceLabel.text = priceText
+        self.priceLabel.accessibilityIdentifier = "CTNotificationPrice1"
         
+        // Load images
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img1) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
@@ -98,6 +122,7 @@ import UserNotificationsUI
                 }
             }
         }
+        
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img2) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
@@ -105,7 +130,11 @@ import UserNotificationsUI
                 }
             }
         }
-        if let img3 = jsonContent.pt_img3, !img3.isEmpty ,(jsonContent.pt_bt3 != nil && jsonContent.pt_st3 != nil && jsonContent.pt_dl3 != nil){
+        
+        // Check if all required data exists for image 3
+        if let img3 = jsonContent.pt_img3, !img3.isEmpty,
+           jsonContent.pt_price3 != nil,
+           jsonContent.pt_dl3 != nil {
             CTUtiltiy.checkImageUrlValid(imageUrl: img3) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
@@ -113,23 +142,65 @@ import UserNotificationsUI
                     }
                 }
             }
-        }else{
-            self.smallImageBtn3.isUserInteractionEnabled=false
+        } else {
+            self.smallImageBtn3.isUserInteractionEnabled = false
         }
         
-        self.priceLabel.text = jsonContent.pt_bt1
+        // Set button title
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
-        view.backgroundColor = UIColor(hex: jsonContent.pt_bg ?? "")
+        // Handle colors
+        if let bg = jsonContent.pt_bg, !bg.isEmpty {
+            bgColor = bg
+        }
+        if let priceColor = jsonContent.pt_title_clr, !priceColor.isEmpty {
+            priceLabelColor = priceColor
+        }
+        if let actionColor = jsonContent.pt_product_display_action_clr, !actionColor.isEmpty {
+            productDisplayActionColor = actionColor
+        }
+        
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let priceColorDark = jsonContent.pt_title_clr_dark, !priceColorDark.isEmpty {
+            priceLabelColorDark = priceColorDark
+        }
+        if let actionColorDark = jsonContent.pt_product_display_action_clr_dark, !actionColorDark.isEmpty {
+            productDisplayActionColorDark = actionColorDark
+        }
+        
+        updateInterfaceColors()
+    }
     
-        buyBtnOutlet.backgroundColor = UIColor(hex: jsonContent.pt_product_display_action_clr ?? "")
-       
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
+            }
+        }
+    }
+    
+    func updateInterfaceColors() {
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            isDarkMode = false
+        }
+        
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        priceLabel.textColor = UIColor(hex: isDarkMode ? priceLabelColorDark : priceLabelColor)
+        buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
     }
     
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
-            // Maps to run the relevant deeplink
-            if let url = URL(string: deeplink){
+            if let url = URL(string: deeplink) {
                 getParentViewController().open(url)
             }
             return .dismiss
@@ -144,21 +215,12 @@ import UserNotificationsUI
     func getCaptionHeight() -> CGFloat {
         return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     public init() {
         super.init(nibName: "CTProductDisplayLinearViewController", bundle: Bundle(for: CTProductDisplayLinearViewController.self))
     }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
