@@ -84,6 +84,8 @@ import UserNotificationsUI
         
         captionLabel.setHTMLText(templateCaption)
         subcaptionLabel.setHTMLText(templateSubcaption)
+        captionLabel.accessibilityIdentifier = "CTNotificationTitle"
+        subcaptionLabel.accessibilityIdentifier = "CTNotificationBody"
 
         guard let jsonContent = jsonContent else {
             return
@@ -100,12 +102,15 @@ import UserNotificationsUI
 
         if let title = jsonContent.pt_title, !title.isEmpty {
             captionLabel.setHTMLText(title)
+            captionLabel.accessibilityIdentifier = "CTNotificationTitle"
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty {
             subcaptionLabel.setHTMLText(msg)
+            subcaptionLabel.accessibilityIdentifier = "CTNotificationBody"
         }
         if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
             subcaptionLabel.setHTMLText(msgSummary)
+            subcaptionLabel.accessibilityIdentifier = "CTNotificationSummary"
         }
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
@@ -230,9 +235,11 @@ import UserNotificationsUI
         if let jsonContent = jsonContent {
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
                 captionLabel.setHTMLText(title)
+                captionLabel.accessibilityIdentifier = "CTNotificationTitle"
             }
             if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
                 subcaptionLabel.setHTMLText(msg)
+                subcaptionLabel.accessibilityIdentifier = "CTNotificationBody"
             }
             if let altImage = jsonContent.pt_big_img_alt, !altImage.isEmpty {
                 // Load expired image, if available.

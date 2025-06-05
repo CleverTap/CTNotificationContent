@@ -155,6 +155,8 @@ import AVFoundation
         contentView.addSubview(subcaptionLabel)
         captionLabel.setHTMLText(caption)
         subcaptionLabel.setHTMLText(subCaption)
+        self.captionLabel.accessibilityIdentifier = "CTNotificationTitle"
+        self.subcaptionLabel.accessibilityIdentifier = "CTNotificationBody"
         
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),

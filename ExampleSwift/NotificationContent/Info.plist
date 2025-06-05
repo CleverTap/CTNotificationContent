@@ -25,21 +25,21 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CleverTapAccountID</key>
-	<string></string>
+	<string>449-RW6-794Z</string>
+	<key>CleverTapRegion</key>
+	<string>eu1</string>
 	<key>CleverTapToken</key>
-	<string></string>
+	<string>602-c44</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>UNNotificationExtensionUserInteractionEnabled</key>
-			<string>1</string>
 			<key>UNNotificationExtensionCategory</key>
 			<string>CTNotification</string>
 			<key>UNNotificationExtensionDefaultContentHidden</key>
 			<true/>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>0.1</real>
+			<real>0.10000000000000001</real>
 			<key>UNNotificationExtensionUserInteractionEnabled</key>
 			<true/>
 		</dict>

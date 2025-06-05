@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // register category with actions
         let action1 = UNNotificationAction(identifier: "action_1", title: "Back", options: [])
         let action2 = UNNotificationAction(identifier: "action_2", title: "Next", options: [])
-        let action3 = UNNotificationAction(identifier: "action_3", title: "View In App", options: [])
+        let action3 = UNNotificationAction(identifier: "action_3", title: "Open deeplink", options: [])
         let category = UNNotificationCategory(identifier: "CTNotification", actions: [action1, action2, action3], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
         

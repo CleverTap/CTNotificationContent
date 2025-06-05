@@ -72,6 +72,8 @@ class CTCaptionedImageView : UIView {
         }
         captionLabel.setHTMLText(components.caption)
         subcaptionLabel.setHTMLText(components.subcaption)
+        captionLabel.accessibilityIdentifier = "CTNotificationTitle"
+        subcaptionLabel.accessibilityIdentifier = "CTNotificationBody"
         updateInterfaceColors()
     }
     

@@ -318,6 +318,9 @@ import UIKit
         
         self.titleLabel.setHTMLText(templateCaption)
         self.subTitleLabel.setHTMLText(templateSubcaption)
+        
+        self.titleLabel.accessibilityIdentifier = "CTNotificationTitle"
+        self.subTitleLabel.accessibilityIdentifier = "CTNotificationBody"
     
         if let bigImg = jsonContent.pt_big_img{
             CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
