@@ -268,11 +268,14 @@ pt_id | Required | Value - `pt_basic`
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Required | Message line when Notification is expanded
-pt_bg | Required | Background Color in HEX
+pt_bg | Optional | Background Color in HEX
+pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_big_img | Optional | Image
 pt_dl1 | Optional | One Deep Link
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
 
 ### Auto Carousel Template
@@ -287,9 +290,12 @@ pt_dl1 | Required | Deep Link
 pt_img1 | Required | Image One
 pt_img2 | Required | Image Two
 pt_img3 | Required | Image Three
-pt_bg | Required | Background Color in HEX
+pt_bg | Optional | Background Color in HEX
+pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
 
 ### Manual Carousel Template
@@ -305,8 +311,11 @@ pt_img1 | Required | Image One
 pt_img2 | Required | Image Two
 pt_img3 | Required | Image Three
 pt_bg | Required | Background Color in HEX
+pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
 
 ### Timer Template
@@ -322,12 +331,16 @@ pt_msg_summary | Optional | Message line when Notification is expanded
 pt_dl1 | Required | Deep Link
 pt_big_img | Optional | Image
 pt_big_img_alt | Optional | Image to show when timer expires
-pt_bg | Required | Background Color in HEX
+pt_bg |Optional | Background Color in HEX
+pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_chrono_title_clr | Optional | Color for timer text in HEX
+pt_chrono_title_clr_dark | Optional | Color for timer text for dark mode in HEX
 pt_timer_threshold | Required | Timer duration in seconds. Will be given higher priority. 
 pt_timer_end | Optional | Epoch Timestamp to countdown to (for example, $D_1595871380 or 1595871380). Not needed if pt_timer_threshold is specified.
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
 
 ### Zero Bezel Template
@@ -342,6 +355,7 @@ pt_json | Optional | Above keys in JSON format
   pt_big_img | Required | Image
   pt_dl1 | Required | Deep Link
   pt_title_clr | Optional | Title Color in HEX
+  pt_title_clr_dark | Optional | Title Color for dark mode in HEX
   pt_msg_clr | Optional | Message Color in HEX
   pt_json | Optional | Above keys in JSON format
 
@@ -361,10 +375,13 @@ pt_dl2 | Optional | Deep Link for second star
 pt_dl3 | Optional | Deep Link for third star
 pt_dl4 | Optional | Deep Link for fourth star
 pt_dl5 | Optional | Deep Link for fifth star
-pt_bg | Required  | Background Color in HEX
+pt_bg | Optional  | Background Color in HEX
+pt_bg_dark | Optional  | Background Color in HEX
 pt_ico | Optional | Large Icon
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
 
 ### Product Catalog Template
@@ -390,12 +407,16 @@ pt_dl3 | Required  | Deep Link for third image
 pt_price1 | Required  | Price for first image
 pt_price2 | Required  | Price for second image
 pt_price3 | Required  | Price for third image
-pt_bg | Required  | Background Color in HEX
+pt_bg | Optional  | Background Color in HEX
+pt_bg_dark | Optional  | Background Color for dark mode in HEX
 pt_product_display_action | Required  | Action Button Label Text
 pt_product_display_linear | Optional  | Linear Layout Template ("true"/"false")
 pt_product_display_action_clr | Required  | Action Button Background Color in HEX
+pt_product_display_action_clr_dark | Required  | Action Button Background Color for dark mode in HEX
 pt_title_clr | Optional  | Title Color in HEX
 pt_msg_clr | Optional  | Message Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional  | Above keys in JSON format
 
 ### WebView Template

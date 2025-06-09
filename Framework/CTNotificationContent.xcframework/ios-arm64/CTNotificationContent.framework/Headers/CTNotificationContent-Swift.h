@@ -374,6 +374,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
 - (void)viewDidLoad;
 - (IBAction)buyAction:(UIButton * _Nonnull)sender;
 - (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -496,6 +497,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -526,10 +528,12 @@ SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_text_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_bg_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr_dark;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_text_clr_dark;
 @end
 
 #endif

@@ -41,6 +41,7 @@ extension UIKit.UIColor {
   @objc @_Concurrency.MainActor @preconcurrency public var templateSubcaption: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var deeplinkURL: Swift.String
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
   @_Concurrency.MainActor @preconcurrency @objc dynamic public init()
@@ -85,10 +86,12 @@ extension UIKit.UIColor {
   @objc final public let pt_product_display_action_clr: Swift.String?
   @objc final public let pt_title_clr: Swift.String?
   @objc final public let pt_msg_clr: Swift.String?
+  @objc final public let pt_product_display_action_text_clr: Swift.String?
   @objc final public let pt_bg_dark: Swift.String?
   @objc final public let pt_title_clr_dark: Swift.String?
   @objc final public let pt_msg_clr_dark: Swift.String?
   @objc final public let pt_product_display_action_clr_dark: Swift.String?
+  @objc final public let pt_product_display_action_text_clr_dark: Swift.String?
   @objc deinit
   required public init(from decoder: any Swift.Decoder) throws
 }
@@ -155,6 +158,7 @@ extension CTNotificationContent.CTWebViewController : WebKit.WKNavigationDelegat
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
