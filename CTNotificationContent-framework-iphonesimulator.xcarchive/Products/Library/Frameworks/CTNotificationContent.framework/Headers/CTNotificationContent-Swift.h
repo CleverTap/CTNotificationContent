@@ -374,6 +374,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
 - (void)viewDidLoad;
 - (IBAction)buyAction:(UIButton * _Nonnull)sender;
 - (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -917,6 +918,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent36CTProductDisplayLinearViewController")
 - (void)viewDidLoad;
 - (IBAction)buyAction:(UIButton * _Nonnull)sender;
 - (void)smallImageAction:(UITapGestureRecognizer * _Nonnull)sender;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

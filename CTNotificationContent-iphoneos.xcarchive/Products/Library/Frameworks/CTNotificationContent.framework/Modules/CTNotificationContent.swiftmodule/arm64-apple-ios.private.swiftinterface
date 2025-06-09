@@ -41,6 +41,7 @@ extension UIKit.UIColor {
   @objc @_Concurrency.MainActor @preconcurrency public var templateSubcaption: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var deeplinkURL: Swift.String
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
   @_Concurrency.MainActor @preconcurrency @objc dynamic public init()
