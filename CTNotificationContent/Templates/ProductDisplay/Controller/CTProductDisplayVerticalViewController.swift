@@ -26,15 +26,19 @@ import UserNotificationsUI
     @IBOutlet weak var smallImageBtn2: UIImageView!
     @IBOutlet weak var smallImageBtn3: UIImageView!
     
+    // Light mode colors
     var bgColor: String = ConstantKeys.kDefaultColor
-    var captionColor: String = ConstantKeys.kHexBlackColor
-    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
-    var productDisplayActionColor: String = ConstantKeys.kHexWhiteColor
+    var titleColor: String = ConstantKeys.kHexBlackColor
+    var msgColor: String = ConstantKeys.kHexLightGrayColor
+    var productDisplayActionColor: String = ConstantKeys.kHexLightGrayColor
+    var productDisplayActionTextColor: String = ConstantKeys.kHexBlackColor
+    
     // Dark mode colors
-    var bgColorDark: String = ConstantKeys.kDefaultColorDark
-    var captionColorDark: String = ConstantKeys.kHexWhiteColor
-    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+    var bgColorDark: String = ConstantKeys.kHexBlackColor
+    var titleColorDark: String = ConstantKeys.kDefaultColor
+    var msgColorDark: String = ConstantKeys.kDefaultColor
     var productDisplayActionColorDark: String = ConstantKeys.kHexBlackColor
+    var productDisplayActionTextColorDark: String = ConstantKeys.kDefaultColor
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,45 +148,52 @@ import UserNotificationsUI
         self.priceLabel.text = priceText
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
+        // Set light mode colors
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
         }
-        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
-            captionColor = titleColor
+        if let titleClr = jsonContent.pt_title_clr, !titleClr.isEmpty {
+            titleColor = titleClr
         }
-        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
-            subcaptionColor = msgColor
+        if let msgClr = jsonContent.pt_msg_clr, !msgClr.isEmpty {
+            msgColor = msgClr
         }
         if let actionColor = jsonContent.pt_product_display_action_clr, !actionColor.isEmpty {
-            self.productDisplayActionColor = actionColor
+            productDisplayActionColor = actionColor
         }
-
+        if let actionTextColor = jsonContent.pt_product_display_action_text_clr, !actionTextColor.isEmpty {
+            productDisplayActionTextColor = actionTextColor
+        }
+        
         // Handle dark mode colors
         if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
             bgColorDark = bgDark
         }
-        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
-            captionColorDark = titleColorDark
+        if let titleClrDark = jsonContent.pt_title_clr_dark, !titleClrDark.isEmpty {
+            titleColorDark = titleClrDark
         }
-        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
-            subcaptionColorDark = msgColorDark
+        if let msgClrDark = jsonContent.pt_msg_clr_dark, !msgClrDark.isEmpty {
+            msgColorDark = msgClrDark
         }
         if let actionColorDark = jsonContent.pt_product_display_action_clr_dark, !actionColorDark.isEmpty {
-            self.productDisplayActionColorDark = actionColorDark
+            productDisplayActionColorDark = actionColorDark
+        }
+        if let actionTextColorDark = jsonContent.pt_product_display_action_text_clr_dark, !actionTextColorDark.isEmpty {
+            productDisplayActionTextColorDark = actionTextColorDark
         }
         
         updateInterfaceColors()
     }
     
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-            
-            // Check if iOS 12+ API is available before using it
-            if #available(iOSApplicationExtension 12.0, *) {
-                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                    updateInterfaceColors()
-                }
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Check if iOS 12+ API is available before using it
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
             }
+        }
     }
     
     func updateInterfaceColors() {
@@ -192,16 +203,16 @@ import UserNotificationsUI
         if #available(iOSApplicationExtension 12.0, *) {
             isDarkMode = traitCollection.userInterfaceStyle == .dark
         } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            // For iOS versions before 12.0, using light mode colors since dark mode wasn't officially supported
             isDarkMode = false
         }
         
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
-        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
-        self.priceLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
-        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
-        self.buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
-        
+        titleLabel.textColor = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
+        priceLabel.textColor = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
+        subTitleLabel.textColor = UIColor(hex: isDarkMode ? msgColorDark : msgColor)
+        buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
+        buyBtnOutlet.setTitleColor(UIColor(hex: isDarkMode ? productDisplayActionTextColorDark : productDisplayActionTextColor), for: .normal)
     }
     
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
