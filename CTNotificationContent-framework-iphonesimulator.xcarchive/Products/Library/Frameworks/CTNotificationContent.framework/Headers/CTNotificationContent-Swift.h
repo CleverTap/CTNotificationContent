@@ -496,6 +496,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -1038,6 +1039,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
