@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/CTNotificationContent-Swift.h</key>
 		<data>
-		0s2e53KOrvjINpCYfrB0zHLtKbc=
+		b2UMhTJXTlVdRgYusmiMcQDfqRo=
 		</data>
 		<key>Headers/CTNotificationContent.h</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		+c1vxUtisBqQ9mrULJaoUU4Y45w=
+		ApaQj1a92bMYwjriksT+Qof6JTo=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		M0yQdY220lvnc5+E6yYjL0pCVk0=
+		XVslZzfQV6SxyBTWpWc9v70yjzY=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -54,19 +54,19 @@
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		M0yQdY220lvnc5+E6yYjL0pCVk0=
+		XVslZzfQV6SxyBTWpWc9v70yjzY=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		ou4dp8HDQtGaI75b2B5M0rUaAKQ=
+		QGLr0RAXfNRVkIjs2g9C4ObWcnk=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		+c1vxUtisBqQ9mrULJaoUU4Y45w=
+		ApaQj1a92bMYwjriksT+Qof6JTo=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		IGGp3BMf/xFdidd71GkG2T8SkV8=
+		nmvK8oeln9hIFJvi91E5+hkTSs0=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -74,11 +74,11 @@
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		IGGp3BMf/xFdidd71GkG2T8SkV8=
+		nmvK8oeln9hIFJvi91E5+hkTSs0=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CV0HfCJ9mYhtQ4RN4Bq72tZykdA=
+		YscunxG/RAhV8TszTmAkClMW70c=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -174,11 +174,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0s2e53KOrvjINpCYfrB0zHLtKbc=
+			b2UMhTJXTlVdRgYusmiMcQDfqRo=
 			</data>
 			<key>hash2</key>
 			<data>
-			j0kvpMHh39UBJX39Rk5fZC+O6I3hx4pb0GwTY/HZP60=
+			C5jKpW7Y8mhAUt7JWk5mrp04OjjM7Ch32fQHR2/tv0Q=
 			</data>
 		</dict>
 		<key>Headers/CTNotificationContent.h</key>
@@ -207,22 +207,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+c1vxUtisBqQ9mrULJaoUU4Y45w=
+			ApaQj1a92bMYwjriksT+Qof6JTo=
 			</data>
 			<key>hash2</key>
 			<data>
-			G9UheiWEmrMFkaks+O4RtX85N+upOW73ONuos3CLq9U=
+			5l3SVNjor9innQu6MWkV8vKBcoazbq5kcCCX4YZvQOc=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			M0yQdY220lvnc5+E6yYjL0pCVk0=
+			XVslZzfQV6SxyBTWpWc9v70yjzY=
 			</data>
 			<key>hash2</key>
 			<data>
-			nR1WQu3wFcliAw7wamr3GtS62Ryj2FAYboGxwkXKoo8=
+			EGxJdgt7gPaJse/ZmlYFnDoSEpuwpGf8g1cYtMhn/IY=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -240,44 +240,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			M0yQdY220lvnc5+E6yYjL0pCVk0=
+			XVslZzfQV6SxyBTWpWc9v70yjzY=
 			</data>
 			<key>hash2</key>
 			<data>
-			nR1WQu3wFcliAw7wamr3GtS62Ryj2FAYboGxwkXKoo8=
+			EGxJdgt7gPaJse/ZmlYFnDoSEpuwpGf8g1cYtMhn/IY=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ou4dp8HDQtGaI75b2B5M0rUaAKQ=
+			QGLr0RAXfNRVkIjs2g9C4ObWcnk=
 			</data>
 			<key>hash2</key>
 			<data>
-			6UMbUYl+8zZ33oc/sD184Z4sUPg7GDicBafmY7y693M=
+			jp+zsr115vsbVkx0HMxKy2uyQVDzLdmCTdfUDVP11IQ=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+c1vxUtisBqQ9mrULJaoUU4Y45w=
+			ApaQj1a92bMYwjriksT+Qof6JTo=
 			</data>
 			<key>hash2</key>
 			<data>
-			G9UheiWEmrMFkaks+O4RtX85N+upOW73ONuos3CLq9U=
+			5l3SVNjor9innQu6MWkV8vKBcoazbq5kcCCX4YZvQOc=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			IGGp3BMf/xFdidd71GkG2T8SkV8=
+			nmvK8oeln9hIFJvi91E5+hkTSs0=
 			</data>
 			<key>hash2</key>
 			<data>
-			KWd2YaUqKtANMH5wlHBk3rTH8teXhEz/3OUdctL8Wrs=
+			up4soUw7yFhPDor4+IHYLGPQN1leIKeRLqsZLlh1yHw=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -295,22 +295,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IGGp3BMf/xFdidd71GkG2T8SkV8=
+			nmvK8oeln9hIFJvi91E5+hkTSs0=
 			</data>
 			<key>hash2</key>
 			<data>
-			KWd2YaUqKtANMH5wlHBk3rTH8teXhEz/3OUdctL8Wrs=
+			up4soUw7yFhPDor4+IHYLGPQN1leIKeRLqsZLlh1yHw=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CV0HfCJ9mYhtQ4RN4Bq72tZykdA=
+			YscunxG/RAhV8TszTmAkClMW70c=
 			</data>
 			<key>hash2</key>
 			<data>
-			UXZRjlaKAwpRop6F/KX4vu0jJvtd0i6kQ5EappZAYJA=
+			HfbOSW0APwqPmKXIX2Fyp4nIjFu2Pb4hiIvIbxViDw8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

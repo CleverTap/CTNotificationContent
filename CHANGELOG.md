@@ -10,6 +10,7 @@ Version 0.4.0 (9 June, 2025)
 `pt_bg_dark` - For background in dark mode
 `pt_chrono_title_clr_dark` - For timer text in dark mode
 `pt_product_display_action_clr_dark` - For action buttons in product display templates
+`pt_product_display_action_text_clr_dark` - For action button text in product display templates
 
 - Implemented a dynamic color selection system that adapts to the device's UI mode. If no colours are passed in the payload then the default colours will be picked for iOS 13+
 

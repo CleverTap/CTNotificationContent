@@ -528,10 +528,12 @@ SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_text_clr;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_bg_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_title_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr_dark;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_text_clr_dark;
 @end
 
 #endif

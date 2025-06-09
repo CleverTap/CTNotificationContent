@@ -86,10 +86,12 @@ extension UIKit.UIColor {
   @objc final public let pt_product_display_action_clr: Swift.String?
   @objc final public let pt_title_clr: Swift.String?
   @objc final public let pt_msg_clr: Swift.String?
+  @objc final public let pt_product_display_action_text_clr: Swift.String?
   @objc final public let pt_bg_dark: Swift.String?
   @objc final public let pt_title_clr_dark: Swift.String?
   @objc final public let pt_msg_clr_dark: Swift.String?
   @objc final public let pt_product_display_action_clr_dark: Swift.String?
+  @objc final public let pt_product_display_action_text_clr_dark: Swift.String?
   @objc deinit
   required public init(from decoder: any Swift.Decoder) throws
 }
