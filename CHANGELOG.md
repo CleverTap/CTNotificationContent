@@ -1,6 +1,6 @@
 Change Log
 ==========
-Version 0.4.0 (19 May, 2025)
+Version 0.4.0 (9 June, 2025)
 -----------------------------------------------
 
 - Implemented new color attributes with _dark suffix for theming:

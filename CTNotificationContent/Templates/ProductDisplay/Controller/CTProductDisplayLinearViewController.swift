@@ -16,6 +16,13 @@ import UserNotificationsUI
     @objc public var deeplinkURL: String = ""
     var jsonContent: ProductDisplayProperties? = nil
     var deeplink: String = ""
+    
+    // Add these properties after the existing IBOutlets
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var productDisplayActionColor: String = ConstantKeys.kHexWhiteColor
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var productDisplayActionColorDark: String = ConstantKeys.kHexBlackColor
 
     @IBOutlet weak var bigImageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -120,10 +127,52 @@ import UserNotificationsUI
         self.priceLabel.text = jsonContent.pt_bt1
         self.buyBtnOutlet.setTitle(jsonContent.pt_product_display_action, for: .normal)
         
-        view.backgroundColor = UIColor(hex: jsonContent.pt_bg ?? "")
-    
-        buyBtnOutlet.backgroundColor = UIColor(hex: jsonContent.pt_product_display_action_clr ?? "")
+        // Set light mode colors
+        if let bg = jsonContent.pt_bg, !bg.isEmpty {
+            bgColor = bg
+        }
+        if let actionColor = jsonContent.pt_product_display_action_clr, !actionColor.isEmpty {
+            productDisplayActionColor = actionColor
+        }
+        
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let actionColorDark = jsonContent.pt_product_display_action_clr_dark, !actionColorDark.isEmpty {
+            productDisplayActionColorDark = actionColorDark
+        }
+        
+        updateInterfaceColors()
        
+    }
+    
+    // Add this new method
+    func updateInterfaceColors() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0, using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+        
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        buyBtnOutlet.backgroundColor = UIColor(hex: isDarkMode ? productDisplayActionColorDark : productDisplayActionColor)
+    }
+
+    // Add this override method
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Check if iOS 12+ API is available before using it
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
+            }
+        }
     }
     
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
