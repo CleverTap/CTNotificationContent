@@ -310,7 +310,7 @@ pt_dl1 | Required | Deep Link One
 pt_img1 | Required | Image One
 pt_img2 | Required | Image Two
 pt_img3 | Required | Image Three
-pt_bg | Required | Background Color in HEX
+pt_bg | Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX

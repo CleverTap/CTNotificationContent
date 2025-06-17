@@ -41,11 +41,13 @@ import UserNotificationsUI
 
         self.addGestureReconizerToImageView()
         createView()
-        // Do any additional setup after loading the view.
+
         // Register for trait changes on iOS 17+
         if #available(iOSApplicationExtension 17.0, *) {
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
-                self.updateInterfaceColors()
+                if self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle {
+                    self.updateInterfaceColors()
+                }
             }
         }
     }
@@ -170,17 +172,14 @@ import UserNotificationsUI
     }
     
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-            
-            // Only handle trait changes on iOS 16 and below
-            // iOS 17+ uses registerForTraitChanges
-            if #available(iOSApplicationExtension 17.0, *) {
-                // Do nothing, handled by registerForTraitChanges
-            } else if #available(iOSApplicationExtension 12.0, *) {
-                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                    updateInterfaceColors()
-                }
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
             }
+        }
     }
     
     func updateInterfaceColors() {

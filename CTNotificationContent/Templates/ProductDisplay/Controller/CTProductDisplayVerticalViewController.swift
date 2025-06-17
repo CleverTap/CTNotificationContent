@@ -16,6 +16,7 @@ import UserNotificationsUI
     @objc public var deeplinkURL: String = ""
     var jsonContent: ProductDisplayProperties? = nil
     var deeplink: String = ""
+    var smallImageTapped: Bool = false
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subTitleLabel: UILabel!
@@ -45,11 +46,13 @@ import UserNotificationsUI
         
         self.addGestureReconizerToImageView()
         createView()
-        // Do any additional setup after loading the view.
+        
         // Register for trait changes on iOS 17+
         if #available(iOSApplicationExtension 17.0, *) {
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
-                self.updateInterfaceColors()
+                if self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle {
+                    self.updateInterfaceColors()
+                }
             }
         }
     }
@@ -78,27 +81,28 @@ import UserNotificationsUI
     }
     
     @objc func smallImageAction(_ sender: UITapGestureRecognizer) {
+        smallImageTapped = true
         switch sender.view?.tag{
         case 1:
             self.bigImageView.image = smallImageBtn1.image
-            self.titleLabel.text = jsonContent?.pt_bt1
-            self.subTitleLabel.text = jsonContent?.pt_st1
+            self.titleLabel.setHTMLText(jsonContent?.pt_bt1 ?? "")
+            self.subTitleLabel.setHTMLText(jsonContent?.pt_st1 ?? "")
             self.deeplink = jsonContent?.pt_dl1 ?? ""
             let priceText = "₹ " + (jsonContent?.pt_price1 ?? "")
             self.priceLabel.text = priceText
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
-            self.titleLabel.text = jsonContent?.pt_bt2
-            self.subTitleLabel.text = jsonContent?.pt_st2
+            self.titleLabel.setHTMLText(jsonContent?.pt_bt2 ?? "")
+            self.subTitleLabel.setHTMLText(jsonContent?.pt_st2 ?? "")
             self.deeplink = jsonContent?.pt_dl2 ?? ""
             let priceText = "₹ " + (jsonContent?.pt_price2 ?? "")
             self.priceLabel.text = priceText
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
-            self.titleLabel.text = jsonContent?.pt_bt3
-            self.subTitleLabel.text = jsonContent?.pt_st3
+            self.titleLabel.setHTMLText(jsonContent?.pt_bt3 ?? "")
+            self.subTitleLabel.setHTMLText(jsonContent?.pt_st3 ?? "")
             self.deeplink = jsonContent?.pt_dl3 ?? ""
             let priceText = "₹ " + (jsonContent?.pt_price3 ?? "")
             self.priceLabel.text = priceText
@@ -106,6 +110,8 @@ import UserNotificationsUI
         default:
             break
         }
+        smallImageTapped = false
+        updateInterfaceColors()
     }
     
     func createView() {
@@ -192,17 +198,14 @@ import UserNotificationsUI
     }
     
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-            
-            // Only handle trait changes on iOS 16 and below
-            // iOS 17+ uses registerForTraitChanges
-            if #available(iOSApplicationExtension 17.0, *) {
-                // Do nothing, handled by registerForTraitChanges
-            } else if #available(iOSApplicationExtension 12.0, *) {
-                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                    updateInterfaceColors()
-                }
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
             }
+        }
     }
     
     func updateInterfaceColors() {
@@ -248,6 +251,15 @@ import UserNotificationsUI
     }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // For attributed string, clicking on small images was opening deeplink,
+        // as title text were also updated which may have hyperlink.
+        // Override here such that deeplink will be opened only if small image is not tapped.
+        if !smallImageTapped {
+            super.touchesBegan(touches, with: event)
+        }
     }
 
 }
