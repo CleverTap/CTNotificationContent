@@ -79,7 +79,7 @@ class CTCaptionedImageView : UIView {
             super.traitCollectionDidChange(previousTraitCollection)
             
             // Check if iOS 12+ API is available before using it
-            if #available(iOSApplicationExtension 12.0, *) {
+            if #available(iOS 12.0, *) {
                 if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
                     updateInterfaceColors()
                 }
@@ -90,7 +90,7 @@ class CTCaptionedImageView : UIView {
         // Check if device is in dark mode (iOS 12+)
         let isDarkMode: Bool
         
-        if #available(iOSApplicationExtension 12.0, *) {
+        if #available(iOS 12.0, *) {
             isDarkMode = traitCollection.userInterfaceStyle == .dark
         } else {
             // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
