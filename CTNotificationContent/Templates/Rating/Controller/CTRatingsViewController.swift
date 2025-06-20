@@ -14,6 +14,16 @@ import UIKit
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    
+    var bgColor: String = ConstantKeys.kDefaultColor
+    var captionColor: String = ConstantKeys.kHexBlackColor
+    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var captionColorDark: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+    
     var jsonContent: RatingProperties? = nil
     var templateBigImage:String = ""
     var templateDl1:String = ""
@@ -114,7 +124,15 @@ import UIKit
         self.addGestureReconizerToImageView()
         createView()
         setupConstraints()
-        // Do any additional setup after loading the view.
+        
+        // Register for trait changes on iOS 17+
+        if #available(iOS 17.0, *) {
+            registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+                if self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle {
+                    self.updateInterfaceColors()
+                }
+            }
+        }
     }
     
     func checkForiOS12(){
@@ -327,17 +345,29 @@ import UIKit
             templateBigImage = ""
             self.updateUI()
         }
-                
-        if let bgColor = jsonContent.pt_bg,!bgColor.isEmpty{
-            view.backgroundColor = UIColor(hex: bgColor)
+        
+        if let bg = jsonContent.pt_bg,!bgColor.isEmpty{
+            bgColor = bg
         }
-        if let titleColor = jsonContent.pt_title_clr {
-            self.titleLabel.textColor = UIColor(hex: titleColor)
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+            captionColor = titleColor
         }
-        if let msgColor = jsonContent.pt_msg_clr {
-            self.subTitleLabel.textColor = UIColor(hex: msgColor)
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+            subcaptionColor = msgColor
+        }
+
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+            captionColorDark = titleColorDark
+        }
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+            subcaptionColorDark = msgColorDark
         }
         
+        updateInterfaceColors()
     }
     
     func updateUI(){
@@ -351,6 +381,33 @@ import UIKit
         }else{
             viewWithImageandRating()
         }
+    }
+    
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
+            }
+        }
+    }
+    
+    func updateInterfaceColors() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOS 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+        
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
     }
     
     func setupConstraints() {

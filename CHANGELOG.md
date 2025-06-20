@@ -1,5 +1,19 @@
 Change Log
 ==========
+Version 1.0.0 (20 June, 2025)
+-----------------------------------------------
+
+- Implemented new color attributes with _dark suffix for theming:
+
+`pt_title_clr_dark` - For title text in dark mode
+`pt_msg_clr_dark` - For message text in dark mode
+`pt_bg_dark` - For background in dark mode
+`pt_chrono_title_clr_dark` - For timer text in dark mode
+`pt_product_display_action_clr_dark` - For action buttons in product display templates
+`pt_product_display_action_text_clr_dark` - For action button text in product display templates
+
+- Implemented a dynamic color selection system that adapts to the device's UI mode. If no colours are passed in the payload then the default colours will be picked for iOS 13+
+
 Version 0.3.0 (10 April, 2025)
 -----------------------------------------------
 - Added support for bold, italic, underline, and strikethrough HTML tags in title and message for rich push notifications.
