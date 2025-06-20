@@ -7,10 +7,18 @@ import UserNotificationsUI
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
     var timerColor: String = ConstantKeys.kHexBlackColor
+    
+    // Dark mode colors
+    var bgColorDark: String = ConstantKeys.kDefaultColorDark
+    var captionColorDark: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+    var timerColorDark: String = ConstantKeys.kHexWhiteColor
+    
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
     var thresholdSeconds = 0
@@ -59,6 +67,15 @@ import UserNotificationsUI
         jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
         setupConstraints()
+        
+        // Register for trait changes on iOS 17+
+        if #available(iOSApplicationExtension 17.0, *) {
+            registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+                if self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle {
+                    self.updateInterfaceColors()
+                }
+            }
+        }
     }
     
     @objc public override func viewWillAppear(_ animated: Bool) {
@@ -111,9 +128,28 @@ import UserNotificationsUI
         if let timerClr = jsonContent.pt_chrono_title_clr, !timerClr.isEmpty {
             timerColor = timerClr
         }
+
+        // Handle dark mode colors
+        if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
+            bgColorDark = bgDark
+        }
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+            captionColorDark = titleColorDark
+        }
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+            subcaptionColorDark = msgColorDark
+        }
+        if let timerClrDark = jsonContent.pt_chrono_title_clr_dark, !timerClrDark.isEmpty {
+            timerColorDark = timerClrDark
+        }
+        
         if let action = jsonContent.pt_dl1, !action.isEmpty {
             deeplinkURL = action
         }
+        
+        updateInterfaceColors()
+        
+        // Handle image loading
         if let bigImg = jsonContent.pt_big_img, !bigImg.isEmpty {
             if thresholdSeconds > 0 {
                 // Load image only if timer is not ended.
@@ -128,14 +164,37 @@ import UserNotificationsUI
                 }
             }
         }
-
-        view.backgroundColor = UIColor(hex: bgColor)
-        imageView.backgroundColor = UIColor(hex: bgColor)
-        captionLabel.textColor = UIColor(hex: captionColor)
-        subcaptionLabel.textColor = UIColor(hex: subcaptionColor)
-        timerLabel.textColor = UIColor(hex: timerColor)
     }
     
+    @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
+        if #available(iOSApplicationExtension 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
+            }
+        }
+    }
+    
+    func updateInterfaceColors() {
+        // Check if device is in dark mode (iOS 12+)
+        let isDarkMode: Bool
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            isDarkMode = traitCollection.userInterfaceStyle == .dark
+        } else {
+            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
+            isDarkMode = false
+        }
+        
+        view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
+        captionLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
+        subcaptionLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+        timerLabel.textColor = UIColor(hex: isDarkMode ? timerColorDark : timerColor)
+    }
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
@@ -189,13 +248,15 @@ import UserNotificationsUI
                 CTUtiltiy.checkImageUrlValid(imageUrl: altImage) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
-                                self?.imageView.image = imageData
-                                self?.createFrameWithImage()
-                                self?.activateImageViewContraints()
+                            self?.imageView.image = imageData
+                            self?.createFrameWithImage()
+                            self?.activateImageViewContraints()
                         }
                     }
                 }
             }
+            
+            updateInterfaceColors()
         }
     }
     

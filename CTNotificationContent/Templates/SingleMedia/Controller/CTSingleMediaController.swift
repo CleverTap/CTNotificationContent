@@ -102,7 +102,7 @@ import AVFoundation
         CTUtiltiy.checkImageUrlValid(imageUrl: mediaURL) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
-                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor)
                     self?.currentItemView = CTCaptionedImageView(components: itemComponents)
                 } else {
                     let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
