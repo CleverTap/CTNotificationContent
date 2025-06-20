@@ -64,7 +64,7 @@ import UIKit
         setupConstraints()
         
         // Register for trait changes on iOS 17+
-        if #available(iOSApplicationExtension 17.0, *) {
+        if #available(iOS 17.0, *) {
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
                 if self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle {
                     self.updateInterfaceColors()
@@ -197,7 +197,7 @@ import UIKit
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOSApplicationExtension 12.0, *) {
+        if #available(iOS 12.0, *) {
             if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
                 updateInterfaceColors()
             }
@@ -208,7 +208,7 @@ import UIKit
         // Check if device is in dark mode (iOS 12+)
         let isDarkMode: Bool
         
-        if #available(iOSApplicationExtension 12.0, *) {
+        if #available(iOS 12.0, *) {
             isDarkMode = traitCollection.userInterfaceStyle == .dark
         } else {
             // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
