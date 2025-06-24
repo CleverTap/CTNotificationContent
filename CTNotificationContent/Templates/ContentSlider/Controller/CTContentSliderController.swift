@@ -48,6 +48,7 @@ fileprivate enum Constants {
         autoPlay = jsonContent.autoPlay
 
         let dispatchGroup = DispatchGroup()
+        var imageIndex = 1
         for (_,item) in jsonContent.items.enumerated() {
             dispatchGroup.enter()
             CTUtiltiy.checkImageUrlValid(imageUrl: item.imageUrl) { [weak self] (imageData) in
@@ -66,9 +67,10 @@ fileprivate enum Constants {
                             action = self!.deeplinkURL
                         }
                         
-                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor)
+                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.alt_text_wzrk_bp ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
                         let itemView = CTCaptionedImageView(components: itemComponents)
                         self?.itemViews.append(itemView)
+                        imageIndex = imageIndex + 1
                         
                         let keyItem = [Constants.kCaption : item.caption, Constants.kSubcaption : item.subcaption, Constants.kImageUrl : item.imageUrl, Constants.kActionUrl : item.actionUrl]
                         self?.items.append(keyItem)
@@ -127,7 +129,7 @@ fileprivate enum Constants {
     }
     
     func createDefaultAlertView() {
-        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
         let itemView = CTCaptionedImageView(components: itemComponents)
         itemViews.append(itemView)
     }

@@ -30,6 +30,7 @@ static NSString * const kTemplateManualCarousel = @"pt_manual_carousel";
 static NSString * const kTemplateTimer = @"pt_timer";
 static NSString * const kSingleMediaType = @"ct_mediaType";
 static NSString * const kSingleMediaURL = @"ct_mediaUrl";
+static NSString * const kSingleMediaDescription = @"alt_text_wzrk_bp";
 static NSString * const kJSON = @"pt_json";
 static NSString * const kDeeplinkURL = @"wzrk_dl";
 static NSString * const kTemplateZeroBezel = @"pt_zero_bezel";
@@ -83,6 +84,9 @@ BOOL isFromProductDisplay = false;
             [contentController setSubCaption:notification.request.content.body];
             [contentController setMediaType:_content[kSingleMediaType]];
             [contentController setMediaURL:_content[kSingleMediaURL]];
+            if (_content[kSingleMediaDescription] != nil) {
+                [contentController setMediaDescription:_content[kSingleMediaDescription]];
+            }
             if (_content[kDeeplinkURL] != nil) {
                 [contentController setDeeplinkURL:_content[kDeeplinkURL]];
             }

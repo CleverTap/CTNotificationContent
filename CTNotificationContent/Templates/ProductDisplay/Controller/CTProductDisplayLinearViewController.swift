@@ -79,16 +79,19 @@ import UserNotificationsUI
         switch sender.view?.tag{
         case 1:
             self.bigImageView.image = smallImageBtn1.image
+            self.bigImageView.accessibilityLabel = smallImageBtn1.accessibilityLabel
             self.priceLabel.text = jsonContent?.pt_bt1
             self.deeplink = jsonContent?.pt_dl1 ?? ""
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
+            self.bigImageView.accessibilityLabel = smallImageBtn2.accessibilityLabel
             self.priceLabel.text = jsonContent?.pt_bt2
             self.deeplink = jsonContent?.pt_dl2 ?? ""
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
+            self.bigImageView.accessibilityLabel = smallImageBtn3.accessibilityLabel
             self.priceLabel.text = jsonContent?.pt_bt3
             self.deeplink = jsonContent?.pt_dl3 ?? ""
             break
@@ -115,6 +118,8 @@ import UserNotificationsUI
                 if imageData != nil {
                     self?.smallImageBtn1.image = imageData
                     self?.bigImageView.image = imageData
+                    self?.smallImageBtn1.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
+                    self?.bigImageView.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
                 }
             }
         }
@@ -122,6 +127,7 @@ import UserNotificationsUI
             DispatchQueue.main.async {
                 if imageData != nil {
                     self?.smallImageBtn2.image = imageData
+                    self?.smallImageBtn2.accessibilityLabel = jsonContent.pt_img2_alt_text ?? CTAccessibility.kDefaultSmallImage2Description
                 }
             }
         }
@@ -130,6 +136,7 @@ import UserNotificationsUI
                 DispatchQueue.main.async {
                     if imageData != nil {
                         self?.smallImageBtn3.image = imageData
+                        self?.smallImageBtn3.accessibilityLabel = jsonContent.pt_img3_alt_text ?? CTAccessibility.kDefaultSmallImage3Description
                     }
                 }
             }
