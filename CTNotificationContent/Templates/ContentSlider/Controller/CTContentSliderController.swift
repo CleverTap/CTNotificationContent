@@ -67,7 +67,7 @@ fileprivate enum Constants {
                             action = self!.deeplinkURL
                         }
                         
-                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.alt_text_wzrk_bp ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
+                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.imgAltText ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
                         let itemView = CTCaptionedImageView(components: itemComponents)
                         self?.itemViews.append(itemView)
                         imageIndex = imageIndex + 1
