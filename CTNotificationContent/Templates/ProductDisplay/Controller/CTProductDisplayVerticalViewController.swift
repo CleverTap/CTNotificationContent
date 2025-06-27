@@ -85,6 +85,7 @@ import UserNotificationsUI
         switch sender.view?.tag{
         case 1:
             self.bigImageView.image = smallImageBtn1.image
+            self.bigImageView.accessibilityLabel = smallImageBtn1.accessibilityLabel
             self.titleLabel.setHTMLText(jsonContent?.pt_bt1 ?? "")
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st1 ?? "")
             self.deeplink = jsonContent?.pt_dl1 ?? ""
@@ -93,6 +94,7 @@ import UserNotificationsUI
             break
         case 2:
             self.bigImageView.image = smallImageBtn2.image
+            self.bigImageView.accessibilityLabel = smallImageBtn2.accessibilityLabel
             self.titleLabel.setHTMLText(jsonContent?.pt_bt2 ?? "")
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st2 ?? "")
             self.deeplink = jsonContent?.pt_dl2 ?? ""
@@ -101,6 +103,7 @@ import UserNotificationsUI
             break
         case 3:
             self.bigImageView.image = smallImageBtn3.image
+            self.bigImageView.accessibilityLabel = smallImageBtn3.accessibilityLabel
             self.titleLabel.setHTMLText(jsonContent?.pt_bt3 ?? "")
             self.subTitleLabel.setHTMLText(jsonContent?.pt_st3 ?? "")
             self.deeplink = jsonContent?.pt_dl3 ?? ""
@@ -134,6 +137,8 @@ import UserNotificationsUI
                 if imageData != nil {
                     self?.smallImageBtn1.image = imageData
                     self?.bigImageView.image = imageData
+                    self?.smallImageBtn1.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
+                    self?.bigImageView.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
                 }
             }
         }
@@ -141,6 +146,7 @@ import UserNotificationsUI
             DispatchQueue.main.async {
                 if imageData != nil {
                     self?.smallImageBtn2.image = imageData
+                    self?.smallImageBtn2.accessibilityLabel = jsonContent.pt_img2_alt_text ?? CTAccessibility.kDefaultSmallImage2Description
                 }
             }
         }
@@ -149,6 +155,7 @@ import UserNotificationsUI
                 DispatchQueue.main.async {
                     if imageData != nil {
                         self?.smallImageBtn3.image = imageData
+                        self?.smallImageBtn3.accessibilityLabel = jsonContent.pt_img3_alt_text ?? CTAccessibility.kDefaultSmallImage3Description
                     }
                 }
             }

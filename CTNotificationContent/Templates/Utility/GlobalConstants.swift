@@ -41,3 +41,10 @@ enum ConstantKeys {
     static let kViewContentItemAction: String = "CTViewedContentItem"
 }
 
+enum CTAccessibility {
+    static let kDefaultImageDescription: String = "Notification Image"
+    static let kDefaultSmallImage1Description: String = "Notification Image 1"
+    static let kDefaultSmallImage2Description: String = "Notification Image 2"
+    static let kDefaultSmallImage3Description: String = "Notification Image 3"
+}
+

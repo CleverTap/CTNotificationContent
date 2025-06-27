@@ -437,6 +437,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 @property (nonatomic, copy) NSString * _Nonnull subCaption;
 @property (nonatomic, copy) NSString * _Nonnull mediaType;
 @property (nonatomic, copy) NSString * _Nonnull mediaURL;
+@property (nonatomic, copy) NSString * _Nonnull mediaDescription;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
 - (void)viewDidLoad;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
@@ -550,6 +551,9 @@ SWIFT_CLASS("_TtC21CTNotificationContent24ProductDisplayProperties")
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_msg_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_clr_dark;
 @property (nonatomic, readonly, copy) NSString * _Nullable pt_product_display_action_text_clr_dark;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img1_alt_text;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img2_alt_text;
+@property (nonatomic, readonly, copy) NSString * _Nullable pt_img3_alt_text;
 @end
 
 

@@ -27,6 +27,7 @@ import UserNotificationsUI
         imageView.contentMode = .scaleAspectFit
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.masksToBounds = true
+        imageView.isAccessibilityElement = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -157,6 +158,7 @@ import UserNotificationsUI
                     DispatchQueue.main.async {
                         if imageData != nil {
                             self?.imageView.image = imageData
+                            self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                             self?.activateImageViewContraints()
                             self?.createFrameWithImage()
                         }
@@ -249,6 +251,7 @@ import UserNotificationsUI
                     DispatchQueue.main.async {
                         if imageData != nil {
                             self?.imageView.image = imageData
+                            self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_alt_text ?? CTAccessibility.kDefaultImageDescription
                             self?.createFrameWithImage()
                             self?.activateImageViewContraints()
                         }

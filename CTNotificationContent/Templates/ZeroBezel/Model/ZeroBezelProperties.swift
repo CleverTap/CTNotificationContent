@@ -18,4 +18,5 @@ struct ZeroBezelProperties: Decodable {
     let pt_msg_clr: String?
     let pt_title_clr_dark: String?
     let pt_msg_clr_dark: String?
+    let pt_big_img_alt_text: String?
 }
