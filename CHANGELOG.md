@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 1.1.0 (27 June, 2025)
+-----------------------------------------------
+- Adds Accessibility support for all Push Templates.
+
 Version 1.0.0 (20 June, 2025)
 -----------------------------------------------
 
