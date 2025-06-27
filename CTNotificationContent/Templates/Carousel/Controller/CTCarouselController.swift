@@ -96,24 +96,24 @@ import UserNotificationsUI
         updateContentViewBackground()
 
         if templateType == TemplateConstants.kTemplateBasic {
-            var basicImageUrl = ""
+            var basicImageDetails: (url: String, description: String?) = ("", nil)
             if let url = jsonContent.pt_big_img, !url.isEmpty {
-                basicImageUrl = url
+                basicImageDetails = (url: url, description: jsonContent.pt_big_img_alt_text)
             }else if isFromProductDisplay{
                 //case for handling image data for product display
                 if let url = jsonContent.pt_img1, !url.isEmpty {
-                    basicImageUrl = url
+                    basicImageDetails = (url: url, description: jsonContent.pt_img1_alt_text)
                 }else if let url = jsonContent.pt_img2, !url.isEmpty {
-                    basicImageUrl = url
+                    basicImageDetails = (url: url, description: jsonContent.pt_img2_alt_text)
                 }else if let url = jsonContent.pt_img3, !url.isEmpty {
-                    basicImageUrl = url
+                    basicImageDetails = (url: url, description: jsonContent.pt_img3_alt_text)
                 }
             }
 
-            CTUtiltiy.checkImageUrlValid(imageUrl: basicImageUrl) { [weak self] (imageData) in
+            CTUtiltiy.checkImageUrlValid(imageUrl: basicImageDetails.url) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     if imageData != nil {
-                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageUrl, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark)
+                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: basicImageDetails.description ?? CTAccessibility.kDefaultImageDescription)
                         let itemView = CTCaptionedImageView(components: itemComponents)
                         self?.itemViews.append(itemView)
                     }
@@ -122,26 +122,28 @@ import UserNotificationsUI
             }
         } else if templateType == TemplateConstants.kTemplateAutoCarousel || templateType == TemplateConstants.kTemplateManualCarousel {
             // Add non empty image urls.
-            var imageUrls = [String]()
+            var imageUrls = [(url: String, description: String?)]()
             if let url = jsonContent.pt_img1, !url.isEmpty {
-                imageUrls.append(url)
+                imageUrls.append((url: url, description: jsonContent.pt_img1_alt_text))
             }
             if let url = jsonContent.pt_img2, !url.isEmpty {
-                imageUrls.append(url)
+                imageUrls.append((url: url, description: jsonContent.pt_img2_alt_text))
             }
             if let url = jsonContent.pt_img3, !url.isEmpty {
-                imageUrls.append(url)
+                imageUrls.append((url: url, description: jsonContent.pt_img3_alt_text))
             }
             
             let dispatchGroup = DispatchGroup()
-            for (_,url) in imageUrls.enumerated() {
+            var imageIndex = 1
+            for (_,imageDetails) in imageUrls.enumerated() {
                 dispatchGroup.enter()
-                CTUtiltiy.checkImageUrlValid(imageUrl: url) { [weak self] (imageData) in
+                CTUtiltiy.checkImageUrlValid(imageUrl: imageDetails.url) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
-                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark)
+                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: imageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: imageDetails.description ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
                             let itemView = CTCaptionedImageView(components: itemComponents)
                             self?.itemViews.append(itemView)
+                            imageIndex = imageIndex + 1
                         }
                         dispatchGroup.leave()
                     }
@@ -274,7 +276,7 @@ import UserNotificationsUI
     }
     
     func createDefaultAlertView() {
-        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor, bgColorDark: bgColorDark, captionColorDark: captionColorDark, subcaptionColorDark: subcaptionColorDark)
+        let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor, bgColorDark: bgColorDark, captionColorDark: captionColorDark, subcaptionColorDark: subcaptionColorDark, imageDescription: "")
         let itemView = CTCaptionedImageView(components: itemComponents)
         itemViews.append(itemView)
     }

@@ -51,6 +51,7 @@ import UIKit
         let bigImageView = UIImageView()
         bigImageView.contentMode = .scaleAspectFill
         bigImageView.layer.masksToBounds = true
+        bigImageView.isAccessibilityElement = true
         bigImageView.translatesAutoresizingMaskIntoConstraints = false
         return bigImageView
     }()
@@ -72,6 +73,9 @@ import UIKit
         let oneStarImageView = UIImageView()
         oneStarImageView.contentMode = .scaleAspectFit
         oneStarImageView.layer.masksToBounds = true
+        oneStarImageView.isAccessibilityElement = true
+        oneStarImageView.accessibilityLabel = "Rating 1 Star"
+        oneStarImageView.accessibilityTraits = .button
         oneStarImageView.translatesAutoresizingMaskIntoConstraints = false
         oneStarImageView.tag = 1
         return oneStarImageView
@@ -81,6 +85,9 @@ import UIKit
         let twoStarImageView = UIImageView()
         twoStarImageView.contentMode = .scaleAspectFit
         twoStarImageView.layer.masksToBounds = true
+        twoStarImageView.isAccessibilityElement = true
+        twoStarImageView.accessibilityLabel = "Rating 2 Star"
+        twoStarImageView.accessibilityTraits = .button
         twoStarImageView.translatesAutoresizingMaskIntoConstraints = false
         twoStarImageView.tag = 2
         return twoStarImageView
@@ -90,6 +97,9 @@ import UIKit
         let threeStarImageView = UIImageView()
         threeStarImageView.contentMode = .scaleAspectFit
         threeStarImageView.layer.masksToBounds = true
+        threeStarImageView.isAccessibilityElement = true
+        threeStarImageView.accessibilityLabel = "Rating 3 Star"
+        threeStarImageView.accessibilityTraits = .button
         threeStarImageView.translatesAutoresizingMaskIntoConstraints = false
         threeStarImageView.tag = 3
         return threeStarImageView
@@ -99,6 +109,9 @@ import UIKit
         let fourStarImageView = UIImageView()
         fourStarImageView.contentMode = .scaleAspectFit
         fourStarImageView.layer.masksToBounds = true
+        fourStarImageView.isAccessibilityElement = true
+        fourStarImageView.accessibilityLabel = "Rating 4 Star"
+        fourStarImageView.accessibilityTraits = .button
         fourStarImageView.translatesAutoresizingMaskIntoConstraints = false
         fourStarImageView.tag = 4
         return fourStarImageView
@@ -108,6 +121,9 @@ import UIKit
         let fiveStarImageView = UIImageView()
         fiveStarImageView.contentMode = .scaleAspectFit
         fiveStarImageView.layer.masksToBounds = true
+        fiveStarImageView.isAccessibilityElement = true
+        fiveStarImageView.accessibilityLabel = "Rating 5 Star"
+        fiveStarImageView.accessibilityTraits = .button
         fiveStarImageView.translatesAutoresizingMaskIntoConstraints = false
         fiveStarImageView.tag = 5
         return fiveStarImageView
@@ -332,6 +348,7 @@ import UIKit
                 DispatchQueue.main.async {
                     if imageData != nil {
                         self?.bigImageView.image = imageData
+                        self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                         self?.updateUI()
                     }else{
                         //handle when image url is invalid

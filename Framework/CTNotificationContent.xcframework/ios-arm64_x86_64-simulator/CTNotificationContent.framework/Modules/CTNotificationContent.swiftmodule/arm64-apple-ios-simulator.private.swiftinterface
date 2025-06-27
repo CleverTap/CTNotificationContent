@@ -53,6 +53,7 @@ extension UIKit.UIColor {
   @objc @_Concurrency.MainActor @preconcurrency public var subCaption: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var mediaType: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var mediaURL: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency public var mediaDescription: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var deeplinkURL: Swift.String
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
@@ -92,6 +93,9 @@ extension UIKit.UIColor {
   @objc final public let pt_msg_clr_dark: Swift.String?
   @objc final public let pt_product_display_action_clr_dark: Swift.String?
   @objc final public let pt_product_display_action_text_clr_dark: Swift.String?
+  @objc final public let pt_img1_alt_text: Swift.String?
+  @objc final public let pt_img2_alt_text: Swift.String?
+  @objc final public let pt_img3_alt_text: Swift.String?
   @objc deinit
   required public init(from decoder: any Swift.Decoder) throws
 }

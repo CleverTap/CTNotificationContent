@@ -11,6 +11,7 @@ struct CaptionedImageViewComponents {
     var bgColorDark: String = ""
     var captionColorDark: String = ""
     var subcaptionColorDark: String = ""
+    var imageDescription: String = ""
 }
 
 class CTCaptionedImageView : UIView {
@@ -21,6 +22,7 @@ class CTCaptionedImageView : UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.masksToBounds = true
+        imageView.isAccessibilityElement = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -66,6 +68,7 @@ class CTCaptionedImageView : UIView {
             DispatchQueue.main.async {
                 if imageData != nil {
                     self?.imageView.image = imageData
+                    self?.imageView.accessibilityLabel = self?.components.imageDescription
                     self?.activateImageViewContraints()
                 }
             }

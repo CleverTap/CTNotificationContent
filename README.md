@@ -271,6 +271,7 @@ pt_msg_summary | Required | Message line when Notification is expanded
 pt_bg | Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_big_img | Optional | Image
+pt_big_img_alt_text | Optional | Alt Text for Image
 pt_dl1 | Optional | One Deep Link
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
@@ -288,8 +289,11 @@ pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_dl1 | Required | Deep Link
 pt_img1 | Required | Image One
+pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
+pt_img2_alt_text | Optional | Alt Text for Image Two
 pt_img3 | Required | Image Three
+pt_img3_alt_text | Optional | Alt Text for Image Three
 pt_bg | Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_title_clr | Optional | Title Color in HEX
@@ -308,8 +312,11 @@ pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_dl1 | Required | Deep Link One
 pt_img1 | Required | Image One
+pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
+pt_img2_alt_text | Optional | Alt Text for Image Two
 pt_img3 | Required | Image Three
+pt_img3_alt_text | Optional | Alt Text for Image Three
 pt_bg | Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_title_clr | Optional | Title Color in HEX
@@ -330,7 +337,9 @@ pt_msg_alt | Optional | Message to show after timer expires
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_dl1 | Required | Deep Link
 pt_big_img | Optional | Image
+pt_big_img_alt_text | Optional | Alt Text for Image
 pt_big_img_alt | Optional | Image to show when timer expires
+pt_big_img_alt_alt_text | Optional | Alt Text for Image to show when timer expires
 pt_bg |Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_chrono_title_clr | Optional | Color for timer text in HEX
@@ -353,6 +362,7 @@ pt_json | Optional | Above keys in JSON format
   pt_msg_summary | Optional | Message line when Notification is expanded
   pt_subtitle | Optional | Subtitle
   pt_big_img | Required | Image
+  pt_big_img_alt_text | Optional | Alt Text for Image
   pt_dl1 | Required | Deep Link
   pt_title_clr | Optional | Title Color in HEX
   pt_title_clr_dark | Optional | Title Color for dark mode in HEX
@@ -367,6 +377,7 @@ pt_id | Required  | Value - `pt_rating`
 pt_title | Required  | Title
 pt_msg | Required  | Message
 pt_big_img | Optional | Image
+pt_big_img_alt_text | Optional | Alt Text for Image
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_subtitle | Optional | Subtitle
 pt_default_dl | Required  | Default Deep Link for Push Notification
@@ -393,8 +404,11 @@ pt_title | Required  | Title
 pt_msg | Required  | Message
 pt_subtitle | Optional  | Subtitle
 pt_img1 | Required  | Image One
+pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required  | Image Two
+pt_img2_alt_text | Optional | Alt Text for Image Two
 pt_img3 | Optional  | Image Three
+pt_img3_alt_text | Optional | Alt Text for Image Three
 pt_bt1 | Required  | Big text for first image
 pt_bt2 | Required  | Big text for second image
 pt_bt3 | Required  | Big text for third image

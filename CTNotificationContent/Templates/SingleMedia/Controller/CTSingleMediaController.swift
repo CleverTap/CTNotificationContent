@@ -10,6 +10,7 @@ import AVFoundation
     @objc public var subCaption: String = ""
     @objc public var mediaType: String = ""
     @objc public var mediaURL: String = ""
+    @objc public var mediaDescription: String = CTAccessibility.kDefaultImageDescription
     @objc public var deeplinkURL: String = ""
     var player:AVPlayer?
     var videoPlayerView: CTVideoPlayerView = CTVideoPlayerView(frame: .zero)
@@ -102,10 +103,10 @@ import AVFoundation
         CTUtiltiy.checkImageUrlValid(imageUrl: mediaURL) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
-                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor)
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self!.mediaDescription)
                     self?.currentItemView = CTCaptionedImageView(components: itemComponents)
                 } else {
-                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
                     self?.currentItemView = CTCaptionedImageView(components: itemComponents)
                     self?.createFrameWithoutImage()
                 }
@@ -113,7 +114,7 @@ import AVFoundation
             }
         }
         
-        let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor)
+        let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: mediaDescription)
         currentItemView = CTCaptionedImageView(components: itemComponents)
         
     }

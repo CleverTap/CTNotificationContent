@@ -48,6 +48,7 @@ import UIKit
         let bigImageView = UIImageView()
         bigImageView.contentMode = .scaleAspectFill
         bigImageView.layer.masksToBounds = true
+        bigImageView.isAccessibilityElement = true
         bigImageView.translatesAutoresizingMaskIntoConstraints = false
         return bigImageView
     }()
@@ -128,6 +129,7 @@ import UIKit
                 DispatchQueue.main.async {
                     if imageData != nil {
                         self?.bigImageView.image = imageData
+                        self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                         self?.activateImageViewContraints()
                         self?.createFrameWithImage()
                     }

@@ -21,5 +21,6 @@ struct ItemContent: Decodable {
     let subcaption: String
     let imageUrl: String
     let actionUrl: String
+    let imgAltText: String?
 }
 
