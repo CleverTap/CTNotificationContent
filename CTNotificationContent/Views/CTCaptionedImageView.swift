@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 struct CaptionedImageViewComponents {
     var caption: String = ""
@@ -16,9 +17,10 @@ struct CaptionedImageViewComponents {
 
 class CTCaptionedImageView : UIView {
     var components = CaptionedImageViewComponents()
+    var isGifSupported: Bool = false
 
-    private var imageView: UIImageView = {
-        let imageView = UIImageView()
+    private var imageView: SDAnimatedImageView = {
+        let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.masksToBounds = true
@@ -43,10 +45,11 @@ class CTCaptionedImageView : UIView {
         return subcaptionLabel
     }()
 
-    init(components: CaptionedImageViewComponents) {
+    init(components: CaptionedImageViewComponents, isGifSupported: Bool) {
         super.init(frame: .zero)
 
         self.components = components
+        self.isGifSupported = isGifSupported
         setUpViews()
         setupConstraints()
     }
@@ -64,12 +67,23 @@ class CTCaptionedImageView : UIView {
         addSubview(captionLabel)
         addSubview(subcaptionLabel)
 
-        CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
-            DispatchQueue.main.async {
-                if imageData != nil {
-                    self?.imageView.image = imageData
-                    self?.imageView.accessibilityLabel = self?.components.imageDescription
-                    self?.activateImageViewContraints()
+        if isGifSupported {
+            if let url = URL(string: components.imageUrl) {
+                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+                    if image != nil {
+                        self?.imageView.accessibilityLabel = self?.components.imageDescription
+                        self?.activateImageViewContraints()
+                    }
+                })
+            }
+        } else {
+            CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self?.imageView.image = imageData
+                        self?.imageView.accessibilityLabel = self?.components.imageDescription
+                        self?.activateImageViewContraints()
+                    }
                 }
             }
         }

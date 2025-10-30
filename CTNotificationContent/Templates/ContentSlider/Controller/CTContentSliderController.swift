@@ -68,7 +68,7 @@ fileprivate enum Constants {
                         }
                         
                         let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.imgAltText ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
-                        let itemView = CTCaptionedImageView(components: itemComponents)
+                        let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                         self?.itemViews.append(itemView)
                         imageIndex = imageIndex + 1
                         
@@ -130,7 +130,7 @@ fileprivate enum Constants {
     
     func createDefaultAlertView() {
         let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
-        let itemView = CTCaptionedImageView(components: itemComponents)
+        let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
         itemViews.append(itemView)
     }
     

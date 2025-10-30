@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 @objc public class CTZeroBezelController: BaseCTNotificationContentViewController {
 
@@ -24,6 +25,8 @@ import UIKit
 
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
+    var bigImageAltText:String? = nil
+    var templateGif: String = ""
     var templateDl1:String = ""
     
     private var titleLabel: UILabel = {
@@ -44,8 +47,8 @@ import UIKit
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         return subTitleLabel
     }()
-    private var bigImageView: UIImageView = {
-        let bigImageView = UIImageView()
+    private var bigImageView: SDAnimatedImageView = {
+        let bigImageView = SDAnimatedImageView()
         bigImageView.contentMode = .scaleAspectFill
         bigImageView.layer.masksToBounds = true
         bigImageView.isAccessibilityElement = true
@@ -120,21 +123,28 @@ import UIKit
         if let bigImage = jsonContent.pt_big_img, !bigImage.isEmpty{
             templateBigImage = bigImage
         }
+        if let bigImageAlt = jsonContent.pt_big_img_alt_text, !bigImageAlt.isEmpty{
+            bigImageAltText = bigImageAlt
+        }
+        if let gifURL = jsonContent.pt_gif, !gifURL.isEmpty {
+            templateGif = gifURL
+        }
         
         self.titleLabel.setHTMLText(templateCaption)
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
-        if let bigImg = jsonContent.pt_big_img{
-            CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.bigImageView.image = imageData
-                        self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    }
+        if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
+            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+                if image != nil {
+                    self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self?.activateImageViewContraints()
+                    self?.createFrameWithImage()
+                } else {
+                    self?.showImageView()
                 }
-            }
+            })
+        } else {
+            self.showImageView()
         }
         
         if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
@@ -219,6 +229,21 @@ import UIKit
 
         self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+    }
+    
+    func showImageView() {
+        if templateBigImage != "" {
+            CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self?.bigImageView.image = imageData
+                        self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                        self?.activateImageViewContraints()
+                        self?.createFrameWithImage()
+                    }
+                }
+            }
+        }
     }
 
     /*
