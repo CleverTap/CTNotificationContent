@@ -26,7 +26,6 @@ import SDWebImage
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var bigImageAltText:String? = nil
-    var templateGif: String = ""
     var templateDl1:String = ""
     
     private var titleLabel: UILabel = {
@@ -125,9 +124,6 @@ import SDWebImage
         }
         if let bigImageAlt = jsonContent.pt_big_img_alt_text, !bigImageAlt.isEmpty{
             bigImageAltText = bigImageAlt
-        }
-        if let gifURL = jsonContent.pt_gif, !gifURL.isEmpty {
-            templateGif = gifURL
         }
         
         self.titleLabel.setHTMLText(templateCaption)

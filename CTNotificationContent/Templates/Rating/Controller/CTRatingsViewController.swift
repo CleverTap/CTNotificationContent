@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 @objc public class CTRatingsViewController: BaseCTNotificationContentViewController, UIGestureRecognizerDelegate {
 
@@ -26,6 +27,8 @@ import UIKit
     
     var jsonContent: RatingProperties? = nil
     var templateBigImage:String = ""
+    var templateBigGif:String = ""
+    var bigImageAltText:String? = nil
     var templateDl1:String = ""
     var imageViewBottomContraint:CGFloat = 0
 
@@ -47,8 +50,8 @@ import UIKit
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         return subTitleLabel
     }()
-    private var bigImageView: UIImageView = {
-        let bigImageView = UIImageView()
+    private var bigImageView: SDAnimatedImageView = {
+        let bigImageView = SDAnimatedImageView()
         bigImageView.contentMode = .scaleAspectFill
         bigImageView.layer.masksToBounds = true
         bigImageView.isAccessibilityElement = true
@@ -339,28 +342,27 @@ import UIKit
         if let bigImage = jsonContent.pt_big_img, !bigImage.isEmpty{
             templateBigImage = bigImage
         }
+        if let bigGif = jsonContent.pt_gif, !bigGif.isEmpty{
+            templateBigGif = bigGif
+        }
+        if let bigImageAlt = jsonContent.pt_big_img_alt_text, !bigImageAlt.isEmpty{
+            bigImageAltText = bigImageAlt
+        }
         
         self.titleLabel.setHTMLText(templateCaption)
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
-        if let bigImg = jsonContent.pt_big_img{
-            CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.bigImageView.image = imageData
-                        self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                        self?.updateUI()
-                    }else{
-                        //handle when image url is invalid
-                        self?.templateBigImage = ""
-                        self?.updateUI()
-                    }
+        if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
+            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+                if image != nil {
+                    self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self?.updateUI()
+                } else {
+                    self?.showImageView()
                 }
-            }
-        }else{
-            //handle when image is not provided
-            templateBigImage = ""
-            self.updateUI()
+            })
+        } else {
+            self.showImageView()
         }
         
         if let bg = jsonContent.pt_bg,!bgColor.isEmpty{
@@ -389,13 +391,13 @@ import UIKit
     
     func updateUI(){
         checkForiOS12()
-        if templateBigImage == "" && templateDl1 == ""{
+        if templateBigImage == "" && templateDl1 == "" && templateBigGif == "" {
             viewWithoutImageandRating()
-        }else if templateBigImage == ""{
+        } else if templateBigImage == "" && templateBigGif == "" {
             viewWithoutImage()
-        }else if templateDl1 == ""{
+        } else if templateDl1 == "" {
             viewWithoutRating()
-        }else{
+        } else {
             viewWithImageandRating()
         }
     }
@@ -494,5 +496,29 @@ import UIKit
     
     @objc public override func getDeeplinkUrl() -> String! {
         return deeplinkURL
+    }
+    
+    func showImageView() {
+        if templateBigImage != "" {
+            CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self?.bigImageView.image = imageData
+                        self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                        self?.updateUI()
+                    }else{
+                        //handle when image url is invalid
+                        self?.templateBigImage = ""
+                        self?.templateBigGif = ""
+                        self?.updateUI()
+                    }
+                }
+            }
+        } else {
+            //handle when image is not provided
+            templateBigImage = ""
+            templateBigGif = ""
+            self.updateUI()
+        }
     }
 }
