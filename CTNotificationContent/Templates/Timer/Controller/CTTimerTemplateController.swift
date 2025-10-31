@@ -1,5 +1,6 @@
 import UIKit
 import UserNotificationsUI
+import SDWebImage
 
 @objc public class CTTimerTemplateController: BaseCTNotificationContentViewController {
     var contentView: UIView = UIView(frame: .zero)
@@ -22,8 +23,12 @@ import UserNotificationsUI
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
     var thresholdSeconds = 0
-    private var imageView: UIImageView = {
-        let imageView = UIImageView()
+    var bigImage: String = ""
+    var bigImageAltText: String? = nil
+    var bigImageAlt: String = ""
+    var bigImageAltAltText: String? = nil
+    private var imageView: SDAnimatedImageView = {
+        let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.masksToBounds = true
@@ -147,23 +152,30 @@ import UserNotificationsUI
         if let action = jsonContent.pt_dl1, !action.isEmpty {
             deeplinkURL = action
         }
+        if let bigImg = jsonContent.pt_big_img, !bigImg.isEmpty {
+            bigImage = bigImg
+        }
+        if let bigImgAlt = jsonContent.pt_big_img_alt_text, !bigImgAlt.isEmpty {
+            bigImageAltText = bigImgAlt
+        }
         
         updateInterfaceColors()
         
         // Handle image loading
-        if let bigImg = jsonContent.pt_big_img, !bigImg.isEmpty {
-            if thresholdSeconds > 0 {
-                // Load image only if timer is not ended.
-                CTUtiltiy.checkImageUrlValid(imageUrl: bigImg) { [weak self] (imageData) in
-                    DispatchQueue.main.async {
-                        if imageData != nil {
-                            self?.imageView.image = imageData
-                            self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                            self?.activateImageViewContraints()
-                            self?.createFrameWithImage()
-                        }
+        // Load image only if timer is not ended.
+        if thresholdSeconds > 0 {
+            if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
+                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+                    if image != nil {
+                        self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                        self?.activateImageViewContraints()
+                        self?.createFrameWithImage()
+                    } else {
+                        self?.showImageView()
                     }
-                }
+                })
+            } else {
+                self.showImageView()
             }
         }
     }
@@ -245,18 +257,22 @@ import UserNotificationsUI
             if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
                 subcaptionLabel.setHTMLText(msg)
             }
-            if let altImage = jsonContent.pt_big_img_alt, !altImage.isEmpty {
-                // Load expired image, if available.
-                CTUtiltiy.checkImageUrlValid(imageUrl: altImage) { [weak self] (imageData) in
-                    DispatchQueue.main.async {
-                        if imageData != nil {
-                            self?.imageView.image = imageData
-                            self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_alt_text ?? CTAccessibility.kDefaultImageDescription
-                            self?.createFrameWithImage()
-                            self?.activateImageViewContraints()
-                        }
+            if let bigImgAlt = jsonContent.pt_big_img_alt, !bigImgAlt.isEmpty {
+                bigImageAlt = bigImgAlt
+            }
+            if let bigImgAltAlt = jsonContent.pt_big_img_alt_alt_text, !bigImgAltAlt.isEmpty {
+                bigImageAltAltText = bigImgAltAlt
+            }
+            if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty, let url = URL(string: gifAlt) {
+                CTUtiltiy.checkImageUrlValid(imageUrl: gifAlt) { [weak self] (imageData) in
+                    if imageData != nil {
+                        self?.showAltGifView(url)
+                    } else {
+                        self?.showAltImageView()
                     }
                 }
+            } else {
+                self.showAltImageView()
             }
             
             updateInterfaceColors()
@@ -308,5 +324,48 @@ import UserNotificationsUI
     
     @objc public override func getDeeplinkUrl() -> String! {
         return deeplinkURL
+    }
+    
+    func showImageView() {
+        if bigImage != "" {
+            CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self?.imageView.image = imageData
+                        self?.imageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                        self?.activateImageViewContraints()
+                        self?.createFrameWithImage()
+                    }
+                }
+            }
+        }
+    }
+    
+    func showAltGifView(_ url: URL) {
+        self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+            if image != nil {
+                self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+                self?.createFrameWithImage()
+                self?.activateImageViewContraints()
+            } else {
+                self?.showAltImageView()
+            }
+        })
+    }
+    
+    func showAltImageView() {
+        if bigImageAlt != "" {
+            // Load expired image, if available.
+            CTUtiltiy.checkImageUrlValid(imageUrl: bigImageAlt) { [weak self] (imageData) in
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self?.imageView.image = imageData
+                        self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+                        self?.createFrameWithImage()
+                        self?.activateImageViewContraints()
+                    }
+                }
+            }
+        }
     }
 }
