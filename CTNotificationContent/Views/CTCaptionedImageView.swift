@@ -146,24 +146,36 @@ class CTCaptionedImageView : UIView {
 
 extension UIColor {
     public convenience init?(hex: String) {
-        let red, green, blue: CGFloat
+        let red, green, blue, alpha: CGFloat
 
-        if hex.hasPrefix("#") {
-            let start = hex.index(hex.startIndex, offsetBy: 1)
-            let hexColor = String(hex[start...])
-            if hexColor.count == 6 {
-                let scanner = Scanner(string: hexColor)
-                var hexNumber: UInt64 = 0
+        var hexString = hex
+        if hexString.hasPrefix("#") {
+            hexString.remove(at: hexString.startIndex)
+        }
 
-                if scanner.scanHexInt64(&hexNumber) {
-                    red = CGFloat((hexNumber & 0xff0000) >> 16) / 255
-                    green = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
-                    blue = CGFloat((hexNumber & 0x0000ff) >> 0) / 255
+        // Must be 6 or 8 characters
+        guard hexString.count == 6 || hexString.count == 8 else {
+            return nil
+        }
 
-                    self.init(red: red, green: green, blue: blue, alpha: 1.0)
-                    return
-                }
+        let scanner = Scanner(string: hexString)
+        var hexNumber: UInt64 = 0
+
+        if scanner.scanHexInt64(&hexNumber) {
+            if hexString.count == 8 {
+                red = CGFloat((hexNumber & 0xFF000000) >> 24) / 255
+                green = CGFloat((hexNumber & 0x00FF0000) >> 16) / 255
+                blue = CGFloat((hexNumber & 0x0000FF00) >> 8) / 255
+                alpha = CGFloat(hexNumber & 0x000000FF) / 255
+            } else {
+                red = CGFloat((hexNumber & 0xFF0000) >> 16) / 255
+                green = CGFloat((hexNumber & 0x00FF00) >> 8) / 255
+                blue = CGFloat(hexNumber & 0x0000FF) / 255
+                alpha = 1.0
             }
+
+            self.init(red: red, green: green, blue: blue, alpha: alpha)
+            return
         }
 
         return nil
