@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 1.2.0 (19 Feb, 2026)
+-----------------------------------------------
+- Adds support to display GIFs in `Basic`, `Timer`, `Zero Bezel` and `Rating` templates.
+- Adds support for transparency of title, message and background color.
+
 Version 1.1.0 (27 June, 2025)
 -----------------------------------------------
 - Adds Accessibility support for all Push Templates.
