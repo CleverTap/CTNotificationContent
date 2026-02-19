@@ -97,6 +97,7 @@ import UserNotificationsUI
 
         if templateType == TemplateConstants.kTemplateBasic {
             var basicImageDetails: (url: String, description: String?) = ("", nil)
+            var basicGifDetails: (url: String, description: String?) = ("", nil)
             if let url = jsonContent.pt_big_img, !url.isEmpty {
                 basicImageDetails = (url: url, description: jsonContent.pt_big_img_alt_text)
             }else if isFromProductDisplay{
@@ -109,15 +110,29 @@ import UserNotificationsUI
                     basicImageDetails = (url: url, description: jsonContent.pt_img3_alt_text)
                 }
             }
+            if let gifURL = jsonContent.pt_gif, !gifURL.isEmpty {
+                basicGifDetails = (url: gifURL, description: jsonContent.pt_big_img_alt_text)
+            }
 
-            CTUtiltiy.checkImageUrlValid(imageUrl: basicImageDetails.url) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: basicImageDetails.description ?? CTAccessibility.kDefaultImageDescription)
-                        let itemView = CTCaptionedImageView(components: itemComponents)
-                        self?.itemViews.append(itemView)
+            CTUtiltiy.checkImageUrlValid(imageUrl: basicGifDetails.url) { [weak self] (gifData) in
+                if gifData == nil {
+                    CTUtiltiy.checkImageUrlValid(imageUrl: basicImageDetails.url) { [weak self] (imageData) in
+                        DispatchQueue.main.async {
+                            if imageData != nil {
+                                let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicImageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: basicImageDetails.description ?? CTAccessibility.kDefaultImageDescription)
+                                let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: true)
+                                self?.itemViews.append(itemView)
+                            }
+                            self?.setUpConstraints()
+                        }
                     }
-                    self?.setUpConstraints()
+                } else {
+                    DispatchQueue.main.async {
+                        let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: basicGifDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: basicGifDetails.description ?? CTAccessibility.kDefaultImageDescription)
+                        let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: true)
+                        self?.itemViews.append(itemView)
+                        self?.setUpConstraints()
+                    }
                 }
             }
         } else if templateType == TemplateConstants.kTemplateAutoCarousel || templateType == TemplateConstants.kTemplateManualCarousel {
@@ -141,7 +156,7 @@ import UserNotificationsUI
                     DispatchQueue.main.async {
                         if imageData != nil {
                             let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: imageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: imageDetails.description ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
-                            let itemView = CTCaptionedImageView(components: itemComponents)
+                            let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                             self?.itemViews.append(itemView)
                             imageIndex = imageIndex + 1
                         }
@@ -277,7 +292,7 @@ import UserNotificationsUI
     
     func createDefaultAlertView() {
         let itemComponents = CaptionedImageViewComponents(caption: templateCaption, subcaption: templateSubcaption, imageUrl: "", actionUrl: deeplinkURL, bgColor: bgColor, captionColor: captionColor, subcaptionColor: subcaptionColor, bgColorDark: bgColorDark, captionColorDark: captionColorDark, subcaptionColorDark: subcaptionColorDark, imageDescription: "")
-        let itemView = CTCaptionedImageView(components: itemComponents)
+        let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
         itemViews.append(itemView)
     }
     

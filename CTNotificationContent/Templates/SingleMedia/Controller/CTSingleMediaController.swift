@@ -104,10 +104,10 @@ import AVFoundation
             DispatchQueue.main.async {
                 if imageData != nil {
                     let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self!.mediaDescription)
-                    self?.currentItemView = CTCaptionedImageView(components: itemComponents)
+                    self?.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                 } else {
                     let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
-                    self?.currentItemView = CTCaptionedImageView(components: itemComponents)
+                    self?.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                     self?.createFrameWithoutImage()
                 }
                 self?.setUpConstraints()
@@ -115,7 +115,7 @@ import AVFoundation
         }
         
         let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: mediaDescription)
-        currentItemView = CTCaptionedImageView(components: itemComponents)
+        currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
         
     }
     

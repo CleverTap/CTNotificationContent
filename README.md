@@ -271,6 +271,7 @@ pt_msg_summary | Required | Message line when Notification is expanded
 pt_bg | Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
 pt_big_img | Optional | Image
+pt_gif | Optional | GIF
 pt_big_img_alt_text | Optional | Alt Text for Image
 pt_dl1 | Optional | One Deep Link
 pt_title_clr | Optional | Title Color in HEX
@@ -337,8 +338,10 @@ pt_msg_alt | Optional | Message to show after timer expires
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_dl1 | Required | Deep Link
 pt_big_img | Optional | Image
+pt_gif | Optional | GIF
 pt_big_img_alt_text | Optional | Alt Text for Image
 pt_big_img_alt | Optional | Image to show when timer expires
+pt_gif_alt | Optional | GIF to show when timer expires
 pt_big_img_alt_alt_text | Optional | Alt Text for Image to show when timer expires
 pt_bg |Optional | Background Color in HEX
 pt_bg_dark | Optional | Background Color for dark mode in HEX
@@ -362,6 +365,7 @@ pt_json | Optional | Above keys in JSON format
   pt_msg_summary | Optional | Message line when Notification is expanded
   pt_subtitle | Optional | Subtitle
   pt_big_img | Required | Image
+  pt_gif | Optional | GIF
   pt_big_img_alt_text | Optional | Alt Text for Image
   pt_dl1 | Required | Deep Link
   pt_title_clr | Optional | Title Color in HEX
@@ -377,6 +381,7 @@ pt_id | Required  | Value - `pt_rating`
 pt_title | Required  | Title
 pt_msg | Required  | Message
 pt_big_img | Optional | Image
+pt_gif | Optional | GIF
 pt_big_img_alt_text | Optional | Alt Text for Image
 pt_msg_summary | Optional | Message line when Notification is expanded
 pt_subtitle | Optional | Subtitle

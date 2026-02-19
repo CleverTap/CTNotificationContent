@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60001A1B2C3D4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D4E5F60002A1B2C3D4 /* SDWebImage */; };
 		0B0115BE2CAFFD8C00985815 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0115BD2CAFFD8900985815 /* Extensions.swift */; };
 		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
 		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
@@ -95,6 +96,7 @@
 			files = (
 				525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */,
 				525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */,
+				A1B2C3D4E5F60001A1B2C3D4 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +426,9 @@
 			dependencies = (
 			);
 			name = CTNotificationContent;
+			packageProductDependencies = (
+				A1B2C3D4E5F60002A1B2C3D4 /* SDWebImage */,
+			);
 			productName = CTNotificationContent;
 			productReference = 525715E91E67B8C0000E455B /* CTNotificationContent.framework */;
 			productType = "com.apple.product-type.framework";
@@ -454,6 +459,9 @@
 				Base,
 			);
 			mainGroup = 525715DF1E67B8C0000E455B;
+			packageReferences = (
+				A1B2C3D4E5F60003A1B2C3D4 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 525715EA1E67B8C0000E455B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -709,6 +717,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1B2C3D4E5F60003A1B2C3D4 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D4E5F60002A1B2C3D4 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D4E5F60003A1B2C3D4 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 525715E01E67B8C0000E455B /* Project object */;
 }
