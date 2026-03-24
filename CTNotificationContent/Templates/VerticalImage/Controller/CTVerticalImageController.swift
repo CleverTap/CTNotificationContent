@@ -449,6 +449,10 @@ import SDWebImage
     @objc private func ctaButtonTapped() {
         if !buttonDeeplink.isEmpty, let url = URL(string: buttonDeeplink) {
             getParentViewController().open(url)
+        } else {
+            if #available(iOS 12.0, *) {
+                extensionContext?.performNotificationDefaultAction()
+            }
         }
     }
 
