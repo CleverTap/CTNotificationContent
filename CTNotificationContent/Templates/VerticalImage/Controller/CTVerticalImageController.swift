@@ -45,10 +45,10 @@ import SDWebImage
     var text1ColorDark: String = ConstantKeys.kHexDarkGrayColor
     var text2Color: String = ConstantKeys.kHexLightGrayColor
     var text2ColorDark: String = ConstantKeys.kHexDarkGrayColor
-    var btnBgColor: String = ""
-    var btnBgColorDark: String = ""
+    var btnBgColor: String = ConstantKeys.kHexLightGrayColor
+    var btnBgColorDark: String = ConstantKeys.kHexDarkGrayColor
     var btnTextColor: String = ConstantKeys.kHexWhiteColor
-    var btnTextColorDark: String = ConstantKeys.kHexWhiteColor
+    var btnTextColorDark: String = ConstantKeys.kHexBlackColor
 
     // MARK: - Private State
     var jsonContent: VerticalImageProperties? = nil
@@ -81,7 +81,7 @@ import SDWebImage
     private var messageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14.0)
-        label.numberOfLines = 3
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
