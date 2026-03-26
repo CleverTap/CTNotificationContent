@@ -237,7 +237,7 @@ import SDWebImage
            let clr1 = json.pt_btn_grad_clr1, !clr1.isEmpty,
            let clr2 = json.pt_btn_grad_clr2, !clr2.isEmpty {
             // Gradient layer is applied in viewDidLayoutSubviews once bounds are known
-            gradientButtonParams = (clr1: clr1, clr2: clr2, dir: json.pt_btn_grad_dir ?? "left_right")
+            gradientButtonParams = (clr1: clr1, clr2: clr2, dir: json.pt_btn_grad_dir ?? "90")
         } else {
             // Solid button — store bg color for dark mode updates
             if let clr = json.pt_btn_clr, !clr.isEmpty {
@@ -473,22 +473,18 @@ import SDWebImage
         let c2 = UIColor(hex: params.clr2) ?? .clear
         gradLayer.colors = [c1.cgColor, c2.cgColor]
 
-        switch params.dir {
-        case "right_left":
-            gradLayer.startPoint = CGPoint(x: 1, y: 0.5);  gradLayer.endPoint = CGPoint(x: 0, y: 0.5)
-        case "top_bottom":
-            gradLayer.startPoint = CGPoint(x: 0.5, y: 0);  gradLayer.endPoint = CGPoint(x: 0.5, y: 1)
-        case "bottom_top":
-            gradLayer.startPoint = CGPoint(x: 0.5, y: 1);  gradLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        case "diagonal_tl_br":
-            gradLayer.startPoint = CGPoint(x: 0, y: 0);    gradLayer.endPoint = CGPoint(x: 1, y: 1)
-        case "diagonal_bl_tr":
-            gradLayer.startPoint = CGPoint(x: 0, y: 1);    gradLayer.endPoint = CGPoint(x: 1, y: 0)
-        case "radial":
-            gradLayer.type = .radial
-            gradLayer.startPoint = CGPoint(x: 0.5, y: 0.5); gradLayer.endPoint = CGPoint(x: 1, y: 1)
-        default: // "left_right"
-            gradLayer.startPoint = CGPoint(x: 0, y: 0.5);  gradLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        // Parse degree-based direction values like "15", "45", "90", etc.
+        // Follows CSS linear-gradient convention: 0 = bottom-to-top, 90 = left-to-right.
+        if let degrees = Double(params.dir.trimmingCharacters(in: .whitespaces)) {
+            let radians = degrees * .pi / 180.0
+            let endX = 0.5 + 0.5 * sin(radians)
+            let endY = 0.5 - 0.5 * cos(radians)
+            gradLayer.startPoint = CGPoint(x: 1.0 - endX, y: 1.0 - endY)
+            gradLayer.endPoint   = CGPoint(x: endX, y: endY)
+        } else {
+            // Fallback: default to left-to-right (90 equivalent)
+            gradLayer.startPoint = CGPoint(x: 0, y: 0.5)
+            gradLayer.endPoint   = CGPoint(x: 1, y: 0.5)
         }
 
         ctaButton.layer.insertSublayer(gradLayer, at: 0)
