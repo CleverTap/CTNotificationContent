@@ -233,7 +233,7 @@ import SDWebImage
             btnTextColorDark = textClr
         }
 
-        if btnStyle == "gradient",
+        if btnStyle == "gradient_linear",
            let clr1 = json.pt_btn_grad_clr1, !clr1.isEmpty,
            let clr2 = json.pt_btn_grad_clr2, !clr2.isEmpty {
             // Gradient layer is applied in viewDidLayoutSubviews once bounds are known
