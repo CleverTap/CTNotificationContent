@@ -108,8 +108,9 @@ import SDWebImage
     private var ctaButton: UIButton = {
         let button = UIButton(type: .custom)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
-        button.layer.cornerRadius = 8.0
+        button.layer.cornerRadius = 0.0
         button.layer.masksToBounds = true
+        button.backgroundColor = .clear
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isHidden = true
         return button
@@ -233,6 +234,9 @@ import SDWebImage
             btnTextColorDark = textClr
         }
 
+        // Apply corner radius (rectangular by default)
+        ctaButton.layer.cornerRadius = CGFloat(json.pt_btn_border_radius?.value ?? 0.0)
+
         if btnStyle == "gradient_linear",
            let clr1 = json.pt_btn_grad_clr1, !clr1.isEmpty,
            let clr2 = json.pt_btn_grad_clr2, !clr2.isEmpty {
@@ -244,10 +248,12 @@ import SDWebImage
                 btnBgColor = clr
                 btnBgColorDark = clr
             }
-            if let borderClr = json.pt_btn_border_clr, !borderClr.isEmpty {
-                ctaButton.layer.borderColor = UIColor(hex: borderClr)?.cgColor
-                ctaButton.layer.borderWidth = 1.0
-            }
+        }
+
+        // Border applies to all button styles; only shown when border color is provided
+        if let borderClr = json.pt_btn_border_clr, !borderClr.isEmpty {
+            ctaButton.layer.borderColor = UIColor(hex: borderClr)?.cgColor
+            ctaButton.layer.borderWidth = CGFloat(json.pt_btn_border_width?.value ?? 1.0)
         }
     }
 
