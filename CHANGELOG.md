@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 1.3.0 (17 April, 2026)
+-----------------------------------------------
+- **Image with CTA:** Adds a new `Vertical Image` push notification template - support images and GIF.
+
 Version 1.2.0 (19 Feb, 2026)
 -----------------------------------------------
 - Adds support to display GIFs in `Basic`, `Timer`, `Zero Bezel` and `Rating` templates.
