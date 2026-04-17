@@ -966,6 +966,790 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "CTNotificationContent",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "SDWebImage",
+        "printedName": "SDWebImage",
+        "declKind": "Import",
+        "moduleName": "CTNotificationContent"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CTVerticalImageController",
+        "printedName": "CTVerticalImageController",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "data",
+            "printedName": "data",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(py)data",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC4dataSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)data",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC4dataSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)setData:",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC4dataSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTVerticalImageControllerC4dataSSvM",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC4dataSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "templateCaption",
+            "printedName": "templateCaption",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(py)templateCaption",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC15templateCaptionSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)templateCaption",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC15templateCaptionSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)setTemplateCaption:",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC15templateCaptionSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTVerticalImageControllerC15templateCaptionSSvM",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC15templateCaptionSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "templateSubcaption",
+            "printedName": "templateSubcaption",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(py)templateSubcaption",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC18templateSubcaptionSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)templateSubcaption",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC18templateSubcaptionSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)setTemplateSubcaption:",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC18templateSubcaptionSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTVerticalImageControllerC18templateSubcaptionSSvM",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC18templateSubcaptionSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "deeplinkURL",
+            "printedName": "deeplinkURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(py)deeplinkURL",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC11deeplinkURLSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)deeplinkURL",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC11deeplinkURLSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)setDeeplinkURL:",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC11deeplinkURLSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTVerticalImageControllerC11deeplinkURLSSvM",
+                "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC11deeplinkURLSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLoad",
+            "printedName": "viewDidLoad()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)viewDidLoad",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC11viewDidLoadyyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "viewDidLoad",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLayoutSubviews",
+            "printedName": "viewDidLayoutSubviews()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)viewDidLayoutSubviews",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC21viewDidLayoutSubviewsyyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "viewDidLayoutSubviews",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "traitCollectionDidChange",
+            "printedName": "traitCollectionDidChange(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UITraitCollection?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UITraitCollection",
+                    "printedName": "UIKit.UITraitCollection",
+                    "usr": "c:objc(cs)UITraitCollection"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)traitCollectionDidChange:",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC24traitCollectionDidChangeyySo07UITraitG0CSgF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "traitCollectionDidChange:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleAction",
+            "printedName": "handleAction(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UNNotificationContentExtensionResponseOption",
+                "printedName": "UserNotificationsUI.UNNotificationContentExtensionResponseOption",
+                "usr": "c:@E@UNNotificationContentExtensionResponseOption"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)handleAction:",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC12handleActionySo014UNNotificationB23ExtensionResponseOptionVSSF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "handleAction:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getDeeplinkUrl",
+            "printedName": "getDeeplinkUrl()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)getDeeplinkUrl",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC14getDeeplinkUrlSSSgyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "getDeeplinkUrl",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(nibName:bundle:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CTVerticalImageController",
+                "printedName": "CTNotificationContent.CTVerticalImageController",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Bundle?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bundle",
+                    "printedName": "Foundation.Bundle",
+                    "usr": "c:objc(cs)NSBundle"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)initWithNibName:bundle:",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithNibName:bundle:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CTNotificationContent.CTVerticalImageController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CTVerticalImageController",
+                    "printedName": "CTNotificationContent.CTVerticalImageController",
+                    "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController(im)initWithCoder:",
+            "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Required"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CTNotificationContent@objc(cs)CTVerticalImageController",
+        "mangledName": "$s21CTNotificationContent25CTVerticalImageControllerC",
+        "moduleName": "CTNotificationContent",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)BaseCTNotificationContentViewController",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "CTNotificationContent.BaseCTNotificationContentViewController",
+          "UIKit.UIViewController",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CTNotificationContent",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -10241,6 +11025,265 @@
       "offset": 5395,
       "length": 1,
       "value": "5"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "StringLiteral",
+      "offset": 883,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "StringLiteral",
+      "offset": 933,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "StringLiteral",
+      "offset": 986,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "StringLiteral",
+      "offset": 1032,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1165,
+      "length": 4,
+      "value": "0.38"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1269,
+      "length": 3,
+      "value": "4.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1275,
+      "length": 3,
+      "value": "3.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1320,
+      "length": 4,
+      "value": "10.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1367,
+      "length": 4,
+      "value": "10.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1413,
+      "length": 3,
+      "value": "8.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1458,
+      "length": 4,
+      "value": "44.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1505,
+      "length": 3,
+      "value": "8.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "StringLiteral",
+      "offset": 2541,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2669,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2938,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 2982,
+      "length": 3,
+      "value": "8.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3029,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3096,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 3257,
+      "length": 4,
+      "value": "18.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3293,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3353,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 3508,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3544,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3604,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 3757,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3793,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3820,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3883,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 4036,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4072,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4099,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4162,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 4400,
+      "length": 4,
+      "value": "16.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "FloatLiteral",
+      "offset": 4461,
+      "length": 3,
+      "value": "0.0"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4502,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4606,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4638,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/nishant.kumar\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",

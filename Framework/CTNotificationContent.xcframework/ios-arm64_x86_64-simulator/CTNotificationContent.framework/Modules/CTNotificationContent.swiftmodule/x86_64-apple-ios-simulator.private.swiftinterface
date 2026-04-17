@@ -46,6 +46,28 @@ extension UIKit.UIColor {
   @objc override dynamic public init()
   @objc deinit
 }
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor @preconcurrency public class CTVerticalImageController : CTNotificationContent.BaseCTNotificationContentViewController {
+  @objc @_Concurrency.MainActor @preconcurrency public var data: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency public var templateCaption: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency public var templateSubcaption: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency public var deeplinkURL: Swift.String
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLayoutSubviews()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  #endif
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func handleAction(_ action: Swift.String) -> UserNotificationsUI.UNNotificationContentExtensionResponseOption
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func getDeeplinkUrl() -> Swift.String!
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  #endif
+  @objc deinit
+}
 @objc @_Concurrency.MainActor @preconcurrency public class CTProductDisplayLinearViewController : CTNotificationContent.BaseCTNotificationContentViewController, UIKit.UIGestureRecognizerDelegate {
   @objc @_Concurrency.MainActor @preconcurrency public var data: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency public var templateCaption: Swift.String
