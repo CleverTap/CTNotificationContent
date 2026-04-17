@@ -465,6 +465,21 @@ SWIFT_CLASS("_TtC21CTNotificationContent9CTUtiltiy")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+SWIFT_CLASS("_TtC21CTNotificationContent25CTVerticalImageController")
+@interface CTVerticalImageController : BaseCTNotificationContentViewController
+@property (nonatomic, copy) NSString * _Nonnull data;
+@property (nonatomic, copy) NSString * _Nonnull templateCaption;
+@property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
+@property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+- (void)viewDidLoad;
+- (void)viewDidLayoutSubviews;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
+- (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 SWIFT_CLASS("_TtC21CTNotificationContent17CTVideoPlayerView")
 @interface CTVideoPlayerView : UIView
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layerClass;)
