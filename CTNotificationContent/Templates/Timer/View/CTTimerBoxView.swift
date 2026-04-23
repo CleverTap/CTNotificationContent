@@ -86,17 +86,23 @@ class CTTimerBoxView: UIView {
             grad.cornerRadius = layer.cornerRadius
             grad.colors = [c1.cgColor, c2.cgColor]
 
-            // CSS linear-gradient angle convention: 0 = bottom-to-top, 90 = left-to-right.
-            let angleStr = properties.pt_timer_bg_gradient_angle ?? "90"
-            if let degrees = Double(angleStr.trimmingCharacters(in: .whitespaces)) {
-                let radians = degrees * .pi / 180.0
-                let endX = 0.5 + 0.5 * sin(radians)
-                let endY = 0.5 - 0.5 * cos(radians)
-                grad.startPoint = CGPoint(x: 1.0 - endX, y: 1.0 - endY)
-                grad.endPoint   = CGPoint(x: endX, y: endY)
+            let gradientType = properties.pt_timer_bg_gradient_type?.lowercased() ?? "linear"
+            if gradientType == "radial" {
+                grad.type = .radial
+                grad.startPoint = CGPoint(x: 0.5, y: 0.5)
+                grad.endPoint   = CGPoint(x: 1.0, y: 1.0)
             } else {
-                grad.startPoint = CGPoint(x: 0, y: 0.5)
-                grad.endPoint   = CGPoint(x: 1, y: 0.5)
+                let angleStr = properties.pt_timer_bg_gradient_angle ?? "90"
+                if let degrees = Double(angleStr.trimmingCharacters(in: .whitespaces)) {
+                    let radians = degrees * .pi / 180.0
+                    let endX = 0.5 + 0.5 * sin(radians)
+                    let endY = 0.5 - 0.5 * cos(radians)
+                    grad.startPoint = CGPoint(x: 1.0 - endX, y: 1.0 - endY)
+                    grad.endPoint   = CGPoint(x: endX, y: endY)
+                } else {
+                    grad.startPoint = CGPoint(x: 0, y: 0.5)
+                    grad.endPoint   = CGPoint(x: 1, y: 0.5)
+                }
             }
 
             layer.insertSublayer(grad, at: 0)

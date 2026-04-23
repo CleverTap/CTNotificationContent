@@ -40,6 +40,9 @@ struct TimerTemplateProperties: Decodable {
     let pt_timer_bg_gradient_end_dark: String?
     let pt_timer_bg_gradient_angle: String?
 
+    // Timer box gradient type ("linear" | "radial", default "linear")
+    let pt_timer_bg_gradient_type: String?
+
     // Timer box border
     let pt_timer_border_color: String?
     let pt_timer_border_color_dark: String?
@@ -56,6 +59,7 @@ struct TimerTemplateProperties: Decodable {
         case pt_timer_bg_gradient_start, pt_timer_bg_gradient_end
         case pt_timer_bg_gradient_start_dark, pt_timer_bg_gradient_end_dark
         case pt_timer_bg_gradient_angle
+        case pt_timer_bg_gradient_type
         case pt_timer_border_color, pt_timer_border_color_dark
         case pt_timer_border_width, pt_timer_border_radius
         case pt_timer_text_clr, pt_timer_text_clr_dark
@@ -92,6 +96,7 @@ struct TimerTemplateProperties: Decodable {
         pt_timer_bg_gradient_start_dark = try container.decodeIfPresent(String.self, forKey: .pt_timer_bg_gradient_start_dark)
         pt_timer_bg_gradient_end_dark = try container.decodeIfPresent(String.self, forKey: .pt_timer_bg_gradient_end_dark)
         pt_timer_bg_gradient_angle = try container.decodeIfPresent(String.self, forKey: .pt_timer_bg_gradient_angle)
+        pt_timer_bg_gradient_type = try container.decodeIfPresent(String.self, forKey: .pt_timer_bg_gradient_type)
         pt_timer_border_color = try container.decodeIfPresent(String.self, forKey: .pt_timer_border_color)
         pt_timer_border_color_dark = try container.decodeIfPresent(String.self, forKey: .pt_timer_border_color_dark)
         pt_timer_border_width = try container.decodeIfPresent(String.self, forKey: .pt_timer_border_width)
