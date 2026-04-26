@@ -46,6 +46,8 @@
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
+		58614E9C2F9A3F7A000D1C8A /* CTIconListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58614E992F9A3F7A000D1C8A /* CTIconListModel.swift */; };
+		58614E9D2F9A3F7A000D1C8A /* CTIconListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58614E972F9A3F7A000D1C8A /* CTIconListViewController.swift */; };
 		A1B2C3D4E5F60001A1B2C3D4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D4E5F60002A1B2C3D4 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +93,8 @@
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		525715F61E67B990000E455B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		58614E972F9A3F7A000D1C8A /* CTIconListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTIconListViewController.swift; sourceTree = "<group>"; };
+		58614E992F9A3F7A000D1C8A /* CTIconListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTIconListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,7 @@
 		32DFD82928BCCCBB00E72588 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				58614E9B2F9A3F7A000D1C8A /* IconList */,
 				48D6ACB92F9248BF00A17777 /* VerticalImage */,
 				4E6CACE528FE826800FD7E97 /* WebView */,
 				3270BFE928E4D89C003528ED /* Rating */,
@@ -426,6 +431,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		58614E982F9A3F7A000D1C8A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				58614E972F9A3F7A000D1C8A /* CTIconListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		58614E9A2F9A3F7A000D1C8A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				58614E992F9A3F7A000D1C8A /* CTIconListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		58614E9B2F9A3F7A000D1C8A /* IconList */ = {
+			isa = PBXGroup;
+			children = (
+				58614E982F9A3F7A000D1C8A /* Controller */,
+				58614E9A2F9A3F7A000D1C8A /* Model */,
+			);
+			path = IconList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -542,6 +572,8 @@
 				4E6CACEB28FE826800FD7E97 /* WebViewProperties.swift in Sources */,
 				4E6CACEA28FE826800FD7E97 /* CTWebViewController.swift in Sources */,
 				32DFD84828BCCCBB00E72588 /* CTTimerTemplateController.swift in Sources */,
+				58614E9C2F9A3F7A000D1C8A /* CTIconListModel.swift in Sources */,
+				58614E9D2F9A3F7A000D1C8A /* CTIconListViewController.swift in Sources */,
 				488F31AE2817000200AE3AC8 /* CTVideoPlayerView.swift in Sources */,
 				32DFD84E28BCCCBB00E72588 /* ContentSliderProperties.swift in Sources */,
 				32DFD84C28BCCCBB00E72588 /* CarouselProperties.swift in Sources */,

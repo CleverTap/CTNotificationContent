@@ -20,7 +20,8 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeWebView = 7,
     CTNotificationContentTypeProductDisplay = 8,
     CTNotificationContentTypeRating = 9,
-    CTNotificationContentTypeVerticalImage = 10
+    CTNotificationContentTypeVerticalImage = 10,
+    CTNotificationContentTypeIconList = 11
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -39,6 +40,7 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
 static NSString * const kTemplateRating = @"pt_rating";
 static NSString * const kTemplateVerticalImage = @"pt_vertical_img";
+static NSString * const kTemplateIconList = @"pt_icon_list";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -160,6 +162,11 @@ BOOL isFromProductDisplay = false;
             [self setupContentController:contentController];
         }
             break;
+        case CTNotificationContentTypeIconList: {
+            CTIconListViewController *contentController = [[CTIconListViewController alloc] init];
+            [self setupContentController:contentController];
+        }
+            break;
         default:
             break;
     }
@@ -210,6 +217,8 @@ BOOL isFromProductDisplay = false;
                 self.contentType = CTNotificationContentTypeRating;
             }else if ([content[kTemplateId] isEqualToString:kTemplateVerticalImage]) {
                 self.contentType = CTNotificationContentTypeVerticalImage;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateIconList]) {
+                self.contentType = CTNotificationContentTypeIconList;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;
