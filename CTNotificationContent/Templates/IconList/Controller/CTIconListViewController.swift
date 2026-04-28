@@ -168,6 +168,7 @@ private var deepLinkKey: UInt8 = 0
     }
 
     private func applyCircularStyle() {
+        stackView.layoutIfNeeded()
         for wrapper in stackView.arrangedSubviews {
             guard let container = wrapper.subviews.first else { continue }
             container.layer.cornerRadius = container.bounds.width / 2
