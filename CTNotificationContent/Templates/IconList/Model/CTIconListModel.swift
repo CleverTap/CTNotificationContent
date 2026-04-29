@@ -7,6 +7,14 @@ struct CTIconListModel: Decodable {
     let pt_small_icon_clr: String?
     let pt_small_icon_clr_dark: String?
 
+    let pt_title: String?
+    let pt_title_clr: String?
+    let pt_title_clr_dark: String?
+    let pt_msg: String?
+    let pt_msg_clr: String?
+    let pt_msg_clr_dark: String?
+    let pt_gif: String?
+
     let pt_img1: String?
     let pt_img2: String?
     let pt_img3: String?

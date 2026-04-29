@@ -26,15 +26,47 @@ private var deepLinkKey: UInt8 = 0
     private var cachedBorderColor: UIColor = .white
     private var cachedBgColor: UIColor?
 
+    private var titleColor: String     = "#000000"
+    private var titleColorDark: String = "#FFFFFF"
+    private var msgColor: String       = "#000000"
+    private var msgColorDark: String   = "#FFFFFF"
+
     private var lastLayoutSize: CGSize = .zero
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16.0)
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let messageLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     // Layout constants
     private let kHorizontalPadding: CGFloat = 16.0
     private let kVerticalPadding: CGFloat   = 10.0
+    private let kLabelSpacing: CGFloat      = 4.0
     private let kIconSpacing: CGFloat       = 10.0
     private let kRowHeight: CGFloat         = 100.0
     private let kShadowInset: CGFloat       = 3.0
     private let kBorderWidth: CGFloat       = 2.5
+    private let kGifHeight: CGFloat         = 180.0
+
+    private let gifImageView: SDAnimatedImageView = {
+        let iv = SDAnimatedImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 12.0
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
 
     // MARK: - Lifecycle
 
@@ -47,6 +79,11 @@ private var deepLinkKey: UInt8 = 0
         if let bgDark = model?.pt_bg_dark,             !bgDark.isEmpty { bgColorDark      = bgDark }
         if let border = model?.pt_small_icon_clr,      !border.isEmpty { borderColor      = border }
         if let bdDark = model?.pt_small_icon_clr_dark, !bdDark.isEmpty { borderColorDark  = bdDark }
+
+        if let tc  = model?.pt_title_clr,      !tc.isEmpty  { titleColor     = tc }
+        if let tcd = model?.pt_title_clr_dark, !tcd.isEmpty { titleColorDark = tcd }
+        if let mc  = model?.pt_msg_clr,        !mc.isEmpty  { msgColor       = mc }
+        if let mcd = model?.pt_msg_clr_dark,   !mcd.isEmpty { msgColorDark   = mcd }
 
         rebuildColorCache()
         setupIconRow()
@@ -83,6 +120,9 @@ private var deepLinkKey: UInt8 = 0
     // MARK: - Row Setup
 
     private func setupIconRow() {
+        let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
+        let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
+
         stackView.axis         = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment    = .center
@@ -90,14 +130,67 @@ private var deepLinkKey: UInt8 = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor,           constant:  kVerticalPadding),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
-        ])
+        var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
+        var totalHeight: CGFloat = kRowHeight + kVerticalPadding
 
-        preferredContentSize = CGSize(width: view.bounds.width, height: kRowHeight)
+        if let title = titleText {
+            titleLabel.text = title
+            view.addSubview(titleLabel)
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: kVerticalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            ])
+            topAnchor = titleLabel.bottomAnchor
+            totalHeight += kVerticalPadding + 20
+        }
+
+        if let msg = msgText {
+            messageLabel.text = msg
+            view.addSubview(messageLabel)
+            NSLayoutConstraint.activate([
+                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? kLabelSpacing : kVerticalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            ])
+            topAnchor = messageLabel.bottomAnchor
+            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + 34
+        }
+
+        let hasGif = !(model?.pt_gif ?? "").isEmpty
+
+        if hasGif {
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor, constant: kVerticalPadding),
+                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                stackView.heightAnchor.constraint(equalToConstant: kRowHeight - kVerticalPadding),
+            ])
+
+            view.addSubview(gifImageView)
+            NSLayoutConstraint.activate([
+                gifImageView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: kVerticalPadding),
+                gifImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                gifImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                gifImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
+                gifImageView.heightAnchor.constraint(equalToConstant: kGifHeight),
+            ])
+
+            if let gifURL = URL(string: model?.pt_gif ?? "") {
+                gifImageView.sd_setImage(with: gifURL)
+            }
+
+            totalHeight += kGifHeight + kVerticalPadding
+        } else {
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor, constant: kVerticalPadding),
+                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
+            ])
+        }
+
+        preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
 
         for item in (model?.iconItems ?? []).prefix(5) {
             let wrapper = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink)
@@ -219,6 +312,9 @@ private var deepLinkKey: UInt8 = 0
 
     func applyTheme() {
         view.backgroundColor = cachedBgColor
+
+        titleLabel.textColor   = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
+        messageLabel.textColor = UIColor(hex: isDarkMode ? msgColorDark   : msgColor)
 
         let borderCGColor = cachedBorderColor.cgColor
         for wrapper in stackView.arrangedSubviews {
