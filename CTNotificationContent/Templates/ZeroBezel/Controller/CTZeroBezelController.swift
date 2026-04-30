@@ -16,8 +16,8 @@ import SDWebImage
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
     
-    var captionColor: String = ConstantKeys.kHexBlackColor
-    var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
+    var captionColor: String = ConstantKeys.kHexWhiteColor
+    var subcaptionColor: String = ConstantKeys.kHexWhiteColor
     
     // Dark mode colors
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
@@ -53,6 +53,19 @@ import SDWebImage
         bigImageView.isAccessibilityElement = true
         bigImageView.translatesAutoresizingMaskIntoConstraints = false
         return bigImageView
+    }()
+    private let scrimView: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.isUserInteractionEnabled = false
+        return v
+    }()
+    private let scrimLayer: CAGradientLayer = {
+        let g = CAGradientLayer()
+        g.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
+        g.startPoint = CGPoint(x: 0.5, y: 0)
+        g.endPoint = CGPoint(x: 0.5, y: 1)
+        return g
     }()
     
     @objc public override func viewDidLoad() {
@@ -100,6 +113,8 @@ import SDWebImage
     func createView() {
         createFrameWithoutImage()
         contentView.addSubview(bigImageView)
+        contentView.addSubview(scrimView)
+        scrimView.layer.addSublayer(scrimLayer)
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(titleLabel)
         
@@ -161,8 +176,18 @@ import SDWebImage
 
     }
     
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrimLayer.frame = scrimView.bounds
+    }
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            scrimView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            scrimView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            scrimView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            scrimView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),
+
             titleLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
