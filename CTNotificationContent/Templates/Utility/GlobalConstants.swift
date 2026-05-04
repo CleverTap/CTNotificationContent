@@ -2,6 +2,7 @@ enum TemplateConstants {
     static let kTemplateBasic: String = "pt_basic"
     static let kTemplateAutoCarousel: String = "pt_carousel"
     static let kTemplateManualCarousel: String = "pt_manual_carousel"
+    static let kTemplateFiveIcons: String = "pt_five_icons"
 }
 
 enum Constraints {
