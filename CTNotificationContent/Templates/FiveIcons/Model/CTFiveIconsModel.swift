@@ -1,6 +1,6 @@
 import Foundation
 
-struct CTIconListModel: Decodable {
+struct CTFiveIconsModel: Decodable {
     let pt_id: String?
     let pt_bg: String?
     let pt_bg_dark: String?
@@ -13,7 +13,6 @@ struct CTIconListModel: Decodable {
     let pt_msg: String?
     let pt_msg_clr: String?
     let pt_msg_clr_dark: String?
-    let pt_gif: String?
 
     let pt_img1: String?
     let pt_img2: String?

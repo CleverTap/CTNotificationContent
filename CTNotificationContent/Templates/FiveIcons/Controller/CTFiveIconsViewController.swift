@@ -5,16 +5,16 @@ import ObjectiveC
 
 private var deepLinkKey: UInt8 = 0
 
-// MARK: - CTIconListViewController
+// MARK: - CTFiveIconsViewController
 
-@objc public class CTIconListViewController: BaseCTNotificationContentViewController {
+@objc public class CTFiveIconsViewController: BaseCTNotificationContentViewController {
 
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
 
-    private var model: CTIconListModel?
+    private var model: CTFiveIconsModel?
     private var stackView: UIStackView = UIStackView()
 
     // Payload-driven colours
@@ -57,16 +57,6 @@ private var deepLinkKey: UInt8 = 0
     private let kRowHeight: CGFloat         = 100.0
     private let kShadowInset: CGFloat       = 3.0
     private let kBorderWidth: CGFloat       = 2.5
-    private let kGifHeight: CGFloat         = 180.0
-
-    private let gifImageView: SDAnimatedImageView = {
-        let iv = SDAnimatedImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.layer.cornerRadius = 12.0
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
 
     // MARK: - Lifecycle
 
@@ -157,38 +147,13 @@ private var deepLinkKey: UInt8 = 0
             totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + 34
         }
 
-        let hasGif = !(model?.pt_gif ?? "").isEmpty
-
-        if hasGif {
-            NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: topAnchor, constant: kVerticalPadding),
-                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-                stackView.heightAnchor.constraint(equalToConstant: kRowHeight - kVerticalPadding),
-            ])
-
-            view.addSubview(gifImageView)
-            NSLayoutConstraint.activate([
-                gifImageView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: kVerticalPadding),
-                gifImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                gifImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-                gifImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
-                gifImageView.heightAnchor.constraint(equalToConstant: kGifHeight),
-            ])
-
-            if let gifURL = URL(string: model?.pt_gif ?? "") {
-                gifImageView.sd_setImage(with: gifURL)
-            }
-
-            totalHeight += kGifHeight + kVerticalPadding
-        } else {
-            NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: topAnchor, constant: kVerticalPadding),
-                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-                stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
-            ])
-        }
+        let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kLabelSpacing : kVerticalPadding
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
+        ])
 
         preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
 

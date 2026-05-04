@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, CTNotificationContentType) {
     CTNotificationContentTypeProductDisplay = 8,
     CTNotificationContentTypeRating = 9,
     CTNotificationContentTypeVerticalImage = 10,
-    CTNotificationContentTypeIconList = 11
+    CTNotificationContentTypeFiveIcons = 11
 };
 
 static NSString * const kTemplateId = @"pt_id";
@@ -40,7 +40,7 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
 static NSString * const kTemplateRating = @"pt_rating";
 static NSString * const kTemplateVerticalImage = @"pt_vertical_img";
-static NSString * const kTemplateIconList = @"pt_icon_list";
+static NSString * const kTemplateFiveIcons = @"pt_five_icons";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -162,8 +162,8 @@ BOOL isFromProductDisplay = false;
             [self setupContentController:contentController];
         }
             break;
-        case CTNotificationContentTypeIconList: {
-            CTIconListViewController *contentController = [[CTIconListViewController alloc] init];
+        case CTNotificationContentTypeFiveIcons: {
+            CTFiveIconsViewController *contentController = [[CTFiveIconsViewController alloc] init];
             [self setupContentController:contentController];
         }
             break;
@@ -217,8 +217,8 @@ BOOL isFromProductDisplay = false;
                 self.contentType = CTNotificationContentTypeRating;
             }else if ([content[kTemplateId] isEqualToString:kTemplateVerticalImage]) {
                 self.contentType = CTNotificationContentTypeVerticalImage;
-            }else if ([content[kTemplateId] isEqualToString:kTemplateIconList]) {
-                self.contentType = CTNotificationContentTypeIconList;
+            }else if ([content[kTemplateId] isEqualToString:kTemplateFiveIcons]) {
+                self.contentType = CTNotificationContentTypeFiveIcons;
             } else {
                 // Invalid pt_id value fallback to basic.
                 self.contentType = CTNotificationContentTypeBasicTemplate;
