@@ -127,6 +127,7 @@ BOOL isFromProductDisplay = false;
             break;
         case CTNotificationContentTypeTimerTemplate: {
             CTTimerTemplateController *contentController = [[CTTimerTemplateController alloc] init];
+            [contentController setNotificationDeliveryDate:notification.date];
             [self setupContentController:contentController];
         }
             break;

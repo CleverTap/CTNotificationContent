@@ -8,7 +8,8 @@ import SDWebImage
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
-    
+    @objc public var notificationDeliveryDate: Date?
+
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
@@ -104,13 +105,15 @@ import SDWebImage
             return
         }
         if let threshold = jsonContent.pt_timer_threshold {
-            thresholdSeconds = threshold
-        } else {
-            if let endTime = jsonContent.pt_timer_end {
-                let date = NSDate()
-                let currentTime = date.timeIntervalSince1970
-                thresholdSeconds = endTime - Int(currentTime)
+            if let deliveredAt = notificationDeliveryDate {
+                let elapsed = Int(Date().timeIntervalSince(deliveredAt))
+                thresholdSeconds = max(0, threshold - elapsed)
+            } else {
+                thresholdSeconds = threshold
             }
+        } else if let endTime = jsonContent.pt_timer_end {
+            let currentTime = Date().timeIntervalSince1970
+            thresholdSeconds = endTime - Int(currentTime)
         }
 
         if let title = jsonContent.pt_title, !title.isEmpty {
