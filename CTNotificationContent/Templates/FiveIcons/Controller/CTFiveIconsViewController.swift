@@ -112,16 +112,14 @@ private var deepLinkKey: UInt8 = 0
     private func setupIconRow() {
         let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
         let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
+        let icons     = Array((model?.iconItems ?? []).prefix(5))
+        let hasIcons  = !icons.isEmpty
 
-        stackView.axis         = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment    = .center
-        stackView.spacing      = kIconSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(stackView)
+        let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
+        let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
-        var totalHeight: CGFloat = kRowHeight + kVerticalPadding
+        var totalHeight: CGFloat = hasIcons ? (kRowHeight + kVerticalPadding) : 0
 
         if let title = titleText {
             titleLabel.text = title
@@ -132,7 +130,8 @@ private var deepLinkKey: UInt8 = 0
                 titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
-            totalHeight += kVerticalPadding + 20
+            let titleHeight = hasIcons ? 20 : ceil(titleLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += kVerticalPadding + titleHeight
         }
 
         if let msg = msgText {
@@ -144,24 +143,39 @@ private var deepLinkKey: UInt8 = 0
                 messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
-            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + 34
+            let msgHeight = hasIcons ? 34 : ceil(messageLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + msgHeight
         }
 
-        let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kLabelSpacing : kVerticalPadding
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
-        ])
+        if hasIcons {
+            stackView.axis         = .horizontal
+            stackView.distribution = .fillEqually
+            stackView.alignment    = .center
+            stackView.spacing      = kIconSpacing
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(stackView)
+
+            let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kLabelSpacing : kVerticalPadding
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
+                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
+            ])
+
+            for item in icons {
+                let wrapper = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink)
+                stackView.addArrangedSubview(wrapper)
+                wrapper.heightAnchor.constraint(equalTo: wrapper.widthAnchor).isActive = true
+            }
+        } else if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
+            lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -kVerticalPadding).isActive = true
+            totalHeight += kVerticalPadding
+        } else {
+            totalHeight = kVerticalPadding * 2
+        }
 
         preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
-
-        for item in (model?.iconItems ?? []).prefix(5) {
-            let wrapper = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink)
-            stackView.addArrangedSubview(wrapper)
-            wrapper.heightAnchor.constraint(equalTo: wrapper.widthAnchor).isActive = true
-        }
     }
 
     // MARK: - Icon View Factory
