@@ -118,8 +118,18 @@ private var deepLinkKey: UInt8 = 0
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
+        let iconSize: CGFloat = {
+            guard hasIcons else { return 0 }
+            let n = CGFloat(icons.count)
+            let computed = (availableTextWidth - (n - 1) * kIconSpacing) / n
+            return max(min(computed, kRowHeight), 0)
+        }()
+
+        let kIconRowTopSpacing: CGFloat    = 8.0
+        let kIconRowBottomPadding: CGFloat = 4.0
+
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
-        var totalHeight: CGFloat = hasIcons ? (kRowHeight + kVerticalPadding) : 0
+        var totalHeight: CGFloat = hasIcons ? (iconSize + kIconRowBottomPadding) : 0
 
         if let title = titleText {
             titleLabel.text = title
@@ -149,24 +159,28 @@ private var deepLinkKey: UInt8 = 0
 
         if hasIcons {
             stackView.axis         = .horizontal
-            stackView.distribution = .fillEqually
+            stackView.distribution = .equalSpacing
             stackView.alignment    = .center
             stackView.spacing      = kIconSpacing
             stackView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(stackView)
 
-            let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kLabelSpacing : kVerticalPadding
+            let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kIconRowTopSpacing : kVerticalPadding
+            totalHeight += stackTopInset
             NSLayoutConstraint.activate([
                 stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
                 stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
                 stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-                stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,     constant: -kVerticalPadding),
+                stackView.heightAnchor.constraint(equalToConstant: iconSize),
             ])
 
             for item in icons {
                 let wrapper = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink)
                 stackView.addArrangedSubview(wrapper)
-                wrapper.heightAnchor.constraint(equalTo: wrapper.widthAnchor).isActive = true
+                NSLayoutConstraint.activate([
+                    wrapper.widthAnchor.constraint(equalToConstant: iconSize),
+                    wrapper.heightAnchor.constraint(equalTo: wrapper.widthAnchor),
+                ])
             }
         } else if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
             lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -kVerticalPadding).isActive = true
