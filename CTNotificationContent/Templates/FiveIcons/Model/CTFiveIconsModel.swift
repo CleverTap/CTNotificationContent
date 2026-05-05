@@ -4,8 +4,6 @@ struct CTFiveIconsModel: Decodable {
     let pt_id: String?
     let pt_bg: String?
     let pt_bg_dark: String?
-    let pt_small_icon_clr: String?
-    let pt_small_icon_clr_dark: String?
 
     let pt_title: String?
     let pt_title_clr: String?
