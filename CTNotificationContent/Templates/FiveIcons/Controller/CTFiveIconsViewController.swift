@@ -49,8 +49,6 @@ private var deepLinkKey: UInt8 = 0
     private let kVerticalPadding: CGFloat   = 10.0
     private let kLabelSpacing: CGFloat      = 4.0
     private let kIconSpacing: CGFloat       = 10.0
-    private let kRowHeight: CGFloat         = 100.0
-    private let kShadowInset: CGFloat       = 3.0
 
     // MARK: - Lifecycle
 
@@ -105,7 +103,8 @@ private var deepLinkKey: UInt8 = 0
             guard hasIcons else { return 0 }
             let n = CGFloat(icons.count)
             let computed = (availableTextWidth - (n - 1) * kIconSpacing) / n
-            return max(min(computed, kRowHeight), 0)
+            let cap = (availableTextWidth - 4 * kIconSpacing) / 4
+            return max(min(computed, cap), 0)
         }()
 
         let kIconRowTopSpacing: CGFloat    = 8.0
@@ -158,12 +157,9 @@ private var deepLinkKey: UInt8 = 0
             ])
 
             for item in icons {
-                let wrapper = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink, size: iconSize)
-                stackView.addArrangedSubview(wrapper)
-                NSLayoutConstraint.activate([
-                    wrapper.widthAnchor.constraint(equalToConstant: iconSize),
-                    wrapper.heightAnchor.constraint(equalTo: wrapper.widthAnchor),
-                ])
+                let imageView = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink, size: iconSize)
+                stackView.addArrangedSubview(imageView)
+                imageView.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
             }
         } else if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
             lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -kVerticalPadding).isActive = true
@@ -177,85 +173,36 @@ private var deepLinkKey: UInt8 = 0
 
     // MARK: - Icon View Factory
 
-    private func makeIconView(imageURL: String, deepLink: String?, size: CGFloat) -> UIView {
-
-        let containerDiameter = max(size - 2 * kShadowInset, 0)
-        let containerFrame    = CGRect(x: kShadowInset, y: kShadowInset,
-                                       width: containerDiameter, height: containerDiameter)
-
-        let wrapper = UIView()
-        wrapper.translatesAutoresizingMaskIntoConstraints = false
-        wrapper.backgroundColor     = .clear
-        wrapper.layer.shadowColor   = UIColor.black.cgColor
-        wrapper.layer.shadowOpacity = 0.18
-        wrapper.layer.shadowRadius  = 5
-        wrapper.layer.shadowOffset  = CGSize(width: 0, height: 2)
-        wrapper.layer.shadowPath    = UIBezierPath(ovalIn: containerFrame).cgPath
-
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.clipsToBounds     = true
-        container.backgroundColor   = .clear
-        container.layer.cornerRadius = containerDiameter / 2
+    private func makeIconView(imageURL: String, deepLink: String?, size: CGFloat) -> UIImageView {
 
         let imageView = UIImageView()
-        imageView.contentMode  = .scaleAspectFill
-        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        container.addSubview(imageView)
-        wrapper.addSubview(container)
-
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-
-            container.topAnchor.constraint(equalTo: wrapper.topAnchor,            constant:  kShadowInset),
-            container.bottomAnchor.constraint(equalTo: wrapper.bottomAnchor,      constant: -kShadowInset),
-            container.leadingAnchor.constraint(equalTo: wrapper.leadingAnchor,     constant:  kShadowInset),
-            container.trailingAnchor.constraint(equalTo: wrapper.trailingAnchor,   constant: -kShadowInset),
-        ])
-
-        let targetSize = CGSize(width: containerDiameter, height: containerDiameter)
-        let transformer = SDImageResizingTransformer(size: targetSize, scaleMode: .aspectFill)
+        let maxWidth = size * 2
+        let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: size)
+        widthConstraint.isActive = true
 
         imageView.sd_setImage(
             with: URL(string: imageURL),
-            placeholderImage: makePlaceholderImage(),
-            options: [.retryFailed, .progressiveLoad],
-            context: [.imageTransformer: transformer]
-        )
+            placeholderImage: nil,
+            options: [.retryFailed, .progressiveLoad]
+        ) { image, _, _, _ in
+            guard let image = image, image.size.height > 0 else { return }
+            let aspect = image.size.width / image.size.height
+            let nativeWidth = size * aspect
+            widthConstraint.constant = min(nativeWidth, maxWidth)
+        }
 
         if let dl = deepLink, !dl.isEmpty {
-            objc_setAssociatedObject(wrapper, &deepLinkKey, dl, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            wrapper.isUserInteractionEnabled = true
-            wrapper.addGestureRecognizer(
+            objc_setAssociatedObject(imageView, &deepLinkKey, dl, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(
                 UITapGestureRecognizer(target: self, action: #selector(handleIconTap(_:)))
             )
         }
 
-        return wrapper
-    }
-
-    private func makePlaceholderImage() -> UIImage {
-        let side: CGFloat = 60
-        let size = CGSize(width: side, height: side)
-        return UIGraphicsImageRenderer(size: size).image { _ in
-            UIColor(white: 0.90, alpha: 1).setFill()
-            UIBezierPath(ovalIn: CGRect(origin: .zero, size: size)).fill()
-
-            if #available(iOS 13.0, *),
-               let symbol = UIImage(systemName: "photo")?
-                   .withTintColor(UIColor(white: 0.55, alpha: 1), renderingMode: .alwaysOriginal) {
-                let iconW: CGFloat = 26
-                let iconH: CGFloat = 22
-                symbol.draw(in: CGRect(x: (side - iconW) / 2,
-                                       y: (side - iconH) / 2,
-                                       width: iconW, height: iconH))
-            }
-        }
+        return imageView
     }
 
     // MARK: - Actions
