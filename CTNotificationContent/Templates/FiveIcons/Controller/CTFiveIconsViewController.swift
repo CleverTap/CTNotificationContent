@@ -59,15 +59,14 @@ private var deepLinkKey: UInt8 = 0
 
         if let bg     = model?.pt_bg,                  !bg.isEmpty     { bgColor          = bg }
         if let bgDark = model?.pt_bg_dark,             !bgDark.isEmpty { bgColorDark      = bgDark }
-
         if let tc  = model?.pt_title_clr,      !tc.isEmpty  { titleColor     = tc }
         if let tcd = model?.pt_title_clr_dark, !tcd.isEmpty { titleColorDark = tcd }
         if let mc  = model?.pt_msg_clr,        !mc.isEmpty  { msgColor       = mc }
         if let mcd = model?.pt_msg_clr_dark,   !mcd.isEmpty { msgColorDark   = mcd }
 
         rebuildColorCache()
-        setupIconRow()
         applyTheme()
+        prepareAndRenderRow()
 
         if #available(iOS 17.0, *) {
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, _: UITraitCollection) in
@@ -90,28 +89,81 @@ private var deepLinkKey: UInt8 = 0
 
     // MARK: - Row Setup
 
-    private func setupIconRow() {
+    private typealias IconItem = (imageURL: String, deepLink: String?)
+    private typealias ValidatedIcon = (item: IconItem, image: UIImage)
+
+    private let kPrefetchTimeout: TimeInterval = 3.5
+    private let kMinIcons = 3
+    private let kMaxIcons = 5
+
+    private func prepareAndRenderRow() {
+        let icons = Array((model?.iconItems ?? []).prefix(kMaxIcons))
+        guard icons.count >= kMinIcons else {
+            renderTextOnly()
+            return
+        }
+        prefetchIcons(icons, timeout: kPrefetchTimeout) { [weak self] validated in
+            guard let self = self else { return }
+            if validated.count >= self.kMinIcons {
+                self.setupIconRow(validated: validated)
+            } else {
+                self.renderTextOnly()
+            }
+        }
+    }
+
+    private func prefetchIcons(
+        _ items: [IconItem],
+        timeout: TimeInterval,
+        completion: @escaping ([ValidatedIcon]) -> Void
+    ) {
+        var slots = [UIImage?](repeating: nil, count: items.count)
+        var settled = 0
+        var didFinish = false
+        let lock = NSLock()
+
+        func finish() {
+            lock.lock()
+            if didFinish { lock.unlock(); return }
+            didFinish = true
+            let snapshot = slots
+            lock.unlock()
+            let validated: [ValidatedIcon] = zip(items, snapshot).compactMap { pair in
+                guard let img = pair.1 else { return nil }
+                return (pair.0, img)
+            }
+            DispatchQueue.main.async { completion(validated) }
+        }
+
+        for (idx, it) in items.enumerated() {
+            guard let url = URL(string: it.imageURL) else {
+                lock.lock(); settled += 1; let done = settled == items.count; lock.unlock()
+                if done { finish() }
+                continue
+            }
+            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed], progress: nil) { image, _, _, _, finished, _ in
+                guard finished else { return }
+                lock.lock()
+                slots[idx] = image
+                settled += 1
+                let done = settled == items.count
+                lock.unlock()
+                if done { finish() }
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) { finish() }
+    }
+
+    private func renderTextOnly() {
         let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
         let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
-        let icons     = Array((model?.iconItems ?? []).prefix(5))
-        let hasIcons  = !icons.isEmpty
 
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
-        let iconSize: CGFloat = {
-            guard hasIcons else { return 0 }
-            let n = CGFloat(icons.count)
-            let computed = (availableTextWidth - (n - 1) * kIconSpacing) / n
-            let cap = (availableTextWidth - 4 * kIconSpacing) / 4
-            return max(min(computed, cap), 0)
-        }()
-
-        let kIconRowTopSpacing: CGFloat    = 8.0
-        let kIconRowBottomPadding: CGFloat = 4.0
-
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
-        var totalHeight: CGFloat = hasIcons ? (iconSize + kIconRowBottomPadding) : 0
+        var totalHeight: CGFloat = 0
 
         if let title = titleText {
             titleLabel.text = title
@@ -122,8 +174,7 @@ private var deepLinkKey: UInt8 = 0
                 titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
-            let titleHeight = hasIcons ? 20 : ceil(titleLabel.sizeThatFits(labelFittingSize).height)
-            totalHeight += kVerticalPadding + titleHeight
+            totalHeight += kVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
         }
 
         if let msg = msgText {
@@ -135,33 +186,10 @@ private var deepLinkKey: UInt8 = 0
                 messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
-            let msgHeight = hasIcons ? 34 : ceil(messageLabel.sizeThatFits(labelFittingSize).height)
-            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + msgHeight
+            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
         }
 
-        if hasIcons {
-            stackView.axis         = .horizontal
-            stackView.distribution = .equalSpacing
-            stackView.alignment    = .center
-            stackView.spacing      = kIconSpacing
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(stackView)
-
-            let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kIconRowTopSpacing : kVerticalPadding
-            totalHeight += stackTopInset
-            NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
-                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
-                stackView.heightAnchor.constraint(equalToConstant: iconSize),
-            ])
-
-            for item in icons {
-                let imageView = makeIconView(imageURL: item.imageURL, deepLink: item.deepLink, size: iconSize)
-                stackView.addArrangedSubview(imageView)
-                imageView.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
-            }
-        } else if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
+        if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
             lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -kVerticalPadding).isActive = true
             totalHeight += kVerticalPadding
         } else {
@@ -171,28 +199,94 @@ private var deepLinkKey: UInt8 = 0
         preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
     }
 
+    private func setupIconRow(validated: [ValidatedIcon]) {
+        let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
+        let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
+
+        let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
+
+        let n = CGFloat(validated.count)
+        let cellWidth: CGFloat = max((availableTextWidth - (n - 1) * kIconSpacing) / n, 0)
+
+        let cellHeights: [CGFloat] = validated.map { entry in
+            let img = entry.image
+            guard img.size.width > 0 else { return 0 }
+            return cellWidth * (img.size.height / img.size.width)
+        }
+        let rowHeight = cellHeights.max() ?? 0
+
+        let kIconRowTopSpacing: CGFloat    = 8.0
+        let kIconRowBottomPadding: CGFloat = 4.0
+
+        var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
+        var totalHeight: CGFloat = rowHeight + kIconRowBottomPadding
+
+        if let title = titleText {
+            titleLabel.text = title
+            view.addSubview(titleLabel)
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: kVerticalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            ])
+            topAnchor = titleLabel.bottomAnchor
+            totalHeight += kVerticalPadding + 20
+        }
+
+        if let msg = msgText {
+            messageLabel.text = msg
+            view.addSubview(messageLabel)
+            NSLayoutConstraint.activate([
+                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? kLabelSpacing : kVerticalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            ])
+            topAnchor = messageLabel.bottomAnchor
+            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + 34
+        }
+
+        stackView.axis         = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.alignment    = .bottom
+        stackView.spacing      = kIconSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+
+        let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kIconRowTopSpacing : kVerticalPadding
+        totalHeight += stackTopInset
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            stackView.heightAnchor.constraint(equalToConstant: rowHeight),
+        ])
+
+        for (idx, entry) in validated.enumerated() {
+            let imageView = makeIconView(
+                image: entry.image,
+                deepLink: entry.item.deepLink,
+                cellWidth: cellWidth,
+                cellHeight: cellHeights[idx]
+            )
+            stackView.addArrangedSubview(imageView)
+        }
+
+        preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
+    }
+
     // MARK: - Icon View Factory
 
-    private func makeIconView(imageURL: String, deepLink: String?, size: CGFloat) -> UIImageView {
+    private func makeIconView(image: UIImage, deepLink: String?, cellWidth: CGFloat, cellHeight: CGFloat) -> UIImageView {
 
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = image
 
-        let maxWidth = size * 2
-        let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: size)
-        widthConstraint.isActive = true
-
-        imageView.sd_setImage(
-            with: URL(string: imageURL),
-            placeholderImage: nil,
-            options: [.retryFailed, .progressiveLoad]
-        ) { image, _, _, _ in
-            guard let image = image, image.size.height > 0 else { return }
-            let aspect = image.size.width / image.size.height
-            let nativeWidth = size * aspect
-            widthConstraint.constant = min(nativeWidth, maxWidth)
-        }
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: cellWidth),
+            imageView.heightAnchor.constraint(equalToConstant: cellHeight),
+        ])
 
         if let dl = deepLink, !dl.isEmpty {
             objc_setAssociatedObject(imageView, &deepLinkKey, dl, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
