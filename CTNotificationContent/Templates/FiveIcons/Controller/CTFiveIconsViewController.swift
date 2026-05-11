@@ -247,7 +247,7 @@ private var deepLinkKey: UInt8 = 0
 
         stackView.axis         = .horizontal
         stackView.distribution = .equalSpacing
-        stackView.alignment    = .bottom
+        stackView.alignment    = .center
         stackView.spacing      = kIconSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
