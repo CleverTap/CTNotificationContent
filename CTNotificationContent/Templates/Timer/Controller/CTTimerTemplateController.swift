@@ -83,13 +83,12 @@ import SDWebImage
     }
 
     private func hasRichTimerStyling(_ props: TimerTemplateProperties) -> Bool {
-        return props.pt_timer_bg != nil || props.pt_timer_bg_dark != nil
-            || props.pt_timer_bg_gradient_start != nil || props.pt_timer_bg_gradient_end != nil
-            || props.pt_timer_bg_gradient_start_dark != nil || props.pt_timer_bg_gradient_end_dark != nil
-            || props.pt_timer_bg_gradient_angle != nil
-            || props.pt_timer_border_color != nil || props.pt_timer_border_color_dark != nil
-            || props.pt_timer_border_width != nil || props.pt_timer_border_radius != nil
-            || props.pt_timer_text_clr != nil || props.pt_timer_text_clr_dark != nil
+        return props.pt_chrono_bg_clr != nil
+            || props.pt_chrono_grad_clr1 != nil || props.pt_chrono_grad_clr2 != nil
+            || props.pt_chrono_grad_dir != nil
+            || props.pt_chrono_style != nil
+            || props.pt_chrono_border_clr != nil
+            || props.pt_chrono_border_width != nil || props.pt_chrono_border_radius != nil
     }
 
     @objc public override func viewDidLoad() {
