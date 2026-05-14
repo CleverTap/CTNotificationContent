@@ -62,13 +62,18 @@ class CTTimerBoxView: UIView {
             layer.borderColor = UIColor(hex: hex)?.cgColor
         }
 
-        // Timer text color
-        let textClrHex = isDarkMode
-            ? (properties.pt_chrono_title_clr_dark ?? properties.pt_chrono_title_clr)
-            : properties.pt_chrono_title_clr
-        if let hex = textClrHex {
-            timerLabel.textColor = UIColor(hex: hex)
-        }
+        // Timer text color — falls back to the title color so the timer is
+        // never left at the lazy-init UIColor.black against a dark backdrop.
+        let textClrHex: String = isDarkMode
+            ? (properties.pt_chrono_title_clr_dark
+                ?? properties.pt_chrono_title_clr
+                ?? properties.pt_title_clr_dark
+                ?? properties.pt_title_clr
+                ?? ConstantKeys.kHexWhiteColor)
+            : (properties.pt_chrono_title_clr
+                ?? properties.pt_title_clr
+                ?? ConstantKeys.kHexBlackColor)
+        timerLabel.textColor = UIColor(hex: textClrHex)
 
         let style = properties.pt_chrono_style?.lowercased() ?? "solid"
         let isGradient = style == "gradient_linear" || style == "gradient_radial"
