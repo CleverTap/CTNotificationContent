@@ -213,15 +213,19 @@ import SDWebImage
     }
 
     func setupConstraints() {
+        let timerLabelWidth: CGFloat = thresholdSeconds >= 3600
+            ? Constraints.kTimerLabelWidthWithHours
+            : Constraints.kTimerLabelWidth
+
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -timerLabelWidth),
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
-            
+
             subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -timerLabelWidth),
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
             
