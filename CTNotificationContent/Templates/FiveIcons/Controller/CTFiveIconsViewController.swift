@@ -155,9 +155,19 @@ private var deepLinkKey: UInt8 = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + timeout) { finish() }
     }
 
+    private func resolvedTitle() -> String? {
+        if let t = model?.pt_title, !t.isEmpty { return t }
+        return templateCaption.isEmpty ? nil : templateCaption
+    }
+
+    private func resolvedMessage() -> String? {
+        if let m = model?.pt_msg, !m.isEmpty { return m }
+        return templateSubcaption.isEmpty ? nil : templateSubcaption
+    }
+
     private func renderTextOnly() {
-        let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
-        let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
+        let titleText = resolvedTitle()
+        let msgText   = resolvedMessage()
 
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
@@ -200,8 +210,8 @@ private var deepLinkKey: UInt8 = 0
     }
 
     private func setupIconRow(validated: [ValidatedIcon]) {
-        let titleText = model?.pt_title.flatMap { $0.isEmpty ? nil : $0 }
-        let msgText   = model?.pt_msg.flatMap   { $0.isEmpty ? nil : $0 }
+        let titleText = resolvedTitle()
+        let msgText   = resolvedMessage()
 
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
 
