@@ -33,6 +33,7 @@ struct TimerTemplateProperties: Decodable {
 
     // Timer box background
     let pt_chrono_bg_clr: String?
+    let pt_chrono_bg_clr_dark: String?
     let pt_chrono_grad_clr1: String?
     let pt_chrono_grad_clr2: String?
     let pt_chrono_grad_dir: String?
@@ -42,16 +43,17 @@ struct TimerTemplateProperties: Decodable {
 
     // Timer box border
     let pt_chrono_border_clr: String?
+    let pt_chrono_border_clr_dark: String?
     let pt_chrono_border_width: String?
     let pt_chrono_border_radius: String?
 
     enum CodingKeys: String, CodingKey {
         case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_bg_dark, pt_chrono_title_clr, pt_chrono_title_clr_dark, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_title_clr_dark, pt_msg_clr, pt_msg_clr_dark, pt_big_img_alt_text, pt_big_img_alt_alt_text, pt_gif, pt_gif_alt
-        case pt_chrono_bg_clr
+        case pt_chrono_bg_clr, pt_chrono_bg_clr_dark
         case pt_chrono_grad_clr1, pt_chrono_grad_clr2
         case pt_chrono_grad_dir
         case pt_chrono_style
-        case pt_chrono_border_clr
+        case pt_chrono_border_clr, pt_chrono_border_clr_dark
         case pt_chrono_border_width, pt_chrono_border_radius
     }
 
@@ -80,11 +82,13 @@ struct TimerTemplateProperties: Decodable {
         pt_gif_alt = try container.decodeIfPresent(String.self, forKey: .pt_gif_alt)
 
         pt_chrono_bg_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_bg_clr)
+        pt_chrono_bg_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_bg_clr_dark)
         pt_chrono_grad_clr1 = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_clr1)
         pt_chrono_grad_clr2 = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_clr2)
         pt_chrono_grad_dir = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_dir)
         pt_chrono_style = try container.decodeIfPresent(String.self, forKey: .pt_chrono_style)
         pt_chrono_border_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_clr)
+        pt_chrono_border_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_clr_dark)
         pt_chrono_border_width = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_width)
         pt_chrono_border_radius = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_radius)
 

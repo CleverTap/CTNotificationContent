@@ -55,7 +55,10 @@ class CTTimerBoxView: UIView {
         }
 
         // Border color
-        if let hex = properties.pt_chrono_border_clr {
+        let borderClrHex = isDarkMode
+            ? (properties.pt_chrono_border_clr_dark ?? properties.pt_chrono_border_clr)
+            : properties.pt_chrono_border_clr
+        if let hex = borderClrHex {
             layer.borderColor = UIColor(hex: hex)?.cgColor
         }
 
@@ -105,7 +108,10 @@ class CTTimerBoxView: UIView {
             gradientLayer?.removeFromSuperlayer()
             gradientLayer = nil
 
-            if let hex = properties.pt_chrono_bg_clr {
+            let bgClrHex = isDarkMode
+                ? (properties.pt_chrono_bg_clr_dark ?? properties.pt_chrono_bg_clr)
+                : properties.pt_chrono_bg_clr
+            if let hex = bgClrHex {
                 backgroundColor = UIColor(hex: hex)
             }
         }
