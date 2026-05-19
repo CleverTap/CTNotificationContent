@@ -42,15 +42,13 @@ class CTTimerBoxView: UIView {
 
     func applyStyle(properties: TimerTemplateProperties, isDarkMode: Bool) {
         // Corner radius
-        if let radiusStr = properties.pt_chrono_border_radius,
-           let radius = Double(radiusStr) {
+        if let radius = properties.pt_chrono_border_radius?.value {
             layer.cornerRadius = CGFloat(radius)
             clipsToBounds = true
         }
 
         // Border width
-        if let widthStr = properties.pt_chrono_border_width,
-           let width = Double(widthStr) {
+        if let width = properties.pt_chrono_border_width?.value {
             layer.borderWidth = CGFloat(width)
         }
 
