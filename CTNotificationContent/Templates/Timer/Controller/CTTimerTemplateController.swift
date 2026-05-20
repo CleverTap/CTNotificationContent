@@ -57,6 +57,8 @@ import SDWebImage
     }()
     private var timerBoxView: CTTimerBoxView?
     private var timerLabel: UILabel?
+    private var captionTrailingConstraint: NSLayoutConstraint?
+    private var subcaptionTrailingConstraint: NSLayoutConstraint?
 
     private enum CTTimerStyleCapability {
         static var supportsRichTimerBox: Bool {
@@ -73,6 +75,13 @@ import SDWebImage
     private func hideTimerDisplay() {
         timerBoxView?.isHidden = true
         timerLabel?.isHidden = true
+    }
+
+    private func showTimerForExpandedState() {
+        timerBoxView?.isHidden = false
+        timerLabel?.isHidden = false
+        captionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
+        subcaptionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
     }
 
     private func isDarkMode() -> Bool {
@@ -138,6 +147,7 @@ import SDWebImage
             timerLabel = label
             contentView.addSubview(label)
         }
+        hideTimerDisplay()
         
         captionLabel.setHTMLText(templateCaption)
         subcaptionLabel.setHTMLText(templateSubcaption)
@@ -261,15 +271,20 @@ import SDWebImage
 
     func setupConstraints() {
         let activeTimerView: UIView = timerBoxView ?? timerLabel!
+        let captionTrailing = captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
+        let subcaptionTrailing = subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
+        captionTrailingConstraint = captionTrailing
+        subcaptionTrailingConstraint = subcaptionTrailing
+
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            captionTrailing,
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
 
             subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            subcaptionTrailing,
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
 
@@ -348,6 +363,10 @@ import SDWebImage
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+
+        if thresholdSeconds > 0 {
+            showTimerForExpandedState()
+        }
     }
     
     func activateImageViewContraints() {
