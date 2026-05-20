@@ -157,13 +157,13 @@ private var deepLinkKey: UInt8 = 0
     }
 
     private func resolvedTitle() -> String? {
-        if let t = model?.pt_title, !t.isEmpty { return t }
-        return templateCaption.isEmpty ? nil : templateCaption
+        guard let t = model?.pt_title, !t.isEmpty else { return nil }
+        return t
     }
 
     private func resolvedMessage() -> String? {
-        if let m = model?.pt_msg, !m.isEmpty { return m }
-        return templateSubcaption.isEmpty ? nil : templateSubcaption
+        guard let m = model?.pt_msg, !m.isEmpty else { return nil }
+        return m
     }
 
     private func renderTextOnly() {
@@ -226,11 +226,15 @@ private var deepLinkKey: UInt8 = 0
         }
         let rowHeight = cellHeights.max() ?? 0
 
-        let kIconRowTopSpacing: CGFloat    = 8.0
-        let kIconRowBottomPadding: CGFloat = 4.0
+        let kIconRowTopSpacing: CGFloat        = 8.0
+        let kIconRowBottomPadding: CGFloat     = 4.0
+        let kIconRowNoTextVerticalPad: CGFloat = 24.0
+
+        let hasText = (titleText != nil) || (msgText != nil)
+        let bottomPad: CGFloat = hasText ? kIconRowBottomPadding : kIconRowNoTextVerticalPad
 
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
-        var totalHeight: CGFloat = rowHeight + kIconRowBottomPadding
+        var totalHeight: CGFloat = rowHeight + bottomPad
 
         if let title = titleText {
             titleLabel.text = title
@@ -263,7 +267,7 @@ private var deepLinkKey: UInt8 = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
-        let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kIconRowTopSpacing : kVerticalPadding
+        let stackTopInset: CGFloat = hasText ? kIconRowTopSpacing : kIconRowNoTextVerticalPad
         totalHeight += stackTopInset
         let extraHorizontalInset: CGFloat = (validated.count == 3) ? kThreeIconExtraHorizontalInset : 0
         NSLayoutConstraint.activate([
