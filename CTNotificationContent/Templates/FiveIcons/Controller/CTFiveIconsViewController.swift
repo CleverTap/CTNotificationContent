@@ -49,6 +49,7 @@ private var deepLinkKey: UInt8 = 0
     private let kVerticalPadding: CGFloat   = 10.0
     private let kLabelSpacing: CGFloat      = 4.0
     private let kIconSpacing: CGFloat       = 10.0
+    private let kThreeIconExtraHorizontalInset: CGFloat = 40.0
 
     // MARK: - Lifecycle
 
@@ -215,8 +216,8 @@ private var deepLinkKey: UInt8 = 0
 
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
 
-        let n = CGFloat(validated.count)
-        let cellWidth: CGFloat = max((availableTextWidth - (n - 1) * kIconSpacing) / n, 0)
+        let maxIconCount: CGFloat = 5
+        let cellWidth: CGFloat = max((availableTextWidth - (maxIconCount - 1) * kIconSpacing) / maxIconCount, 0)
 
         let cellHeights: [CGFloat] = validated.map { entry in
             let img = entry.image
@@ -264,10 +265,11 @@ private var deepLinkKey: UInt8 = 0
 
         let stackTopInset: CGFloat = (titleText != nil || msgText != nil) ? kIconRowTopSpacing : kVerticalPadding
         totalHeight += stackTopInset
+        let extraHorizontalInset: CGFloat = (validated.count == 3) ? kThreeIconExtraHorizontalInset : 0
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding + extraHorizontalInset),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(kHorizontalPadding + extraHorizontalInset)),
             stackView.heightAnchor.constraint(equalToConstant: rowHeight),
         ])
 
