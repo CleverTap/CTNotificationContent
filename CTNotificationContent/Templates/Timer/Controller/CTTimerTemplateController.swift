@@ -76,6 +76,16 @@ import SDWebImage
         subcaptionTrailingConstraint?.constant = -reservedWidth
     }
 
+    private func updateTimerWidthIfNeeded(showHours: Bool) {
+        let newWidth = showHours ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
+        guard captionTrailingConstraint?.constant != -newWidth else { return }
+        captionTrailingConstraint?.constant = -newWidth
+        subcaptionTrailingConstraint?.constant = -newWidth
+        UIView.animate(withDuration: 0.25) {
+            self.contentView.layoutIfNeeded()
+        }
+    }
+
     private func isDarkMode() -> Bool {
         if #available(iOS 12.0, *) {
             return traitCollection.userInterfaceStyle == .dark
@@ -264,8 +274,8 @@ import SDWebImage
         if thresholdSeconds > 0 {
             if hr < 1 {
                 setTimerText(String(format: "%02i:%02i", min, sec))
-            }
-            else {
+                updateTimerWidthIfNeeded(showHours: false)
+            } else {
                 setTimerText(String(format: "%02i:%02i:%02i", hr, min, sec))
             }
             thresholdSeconds -= 1
