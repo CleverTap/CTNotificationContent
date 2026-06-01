@@ -13,13 +13,10 @@ import SDWebImage
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
-    var timerColor: String = ConstantKeys.kHexBlackColor
-    
     // Dark mode colors
     var bgColorDark: String = ConstantKeys.kDefaultColorDark
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
-    var timerColorDark: String = ConstantKeys.kHexWhiteColor
     
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
@@ -56,30 +53,19 @@ import SDWebImage
         return subcaptionLabel
     }()
     private var timerBoxView: CTTimerBoxView?
-    private var timerLabel: UILabel?
     private var captionTrailingConstraint: NSLayoutConstraint?
     private var subcaptionTrailingConstraint: NSLayoutConstraint?
 
-    private enum CTTimerStyleCapability {
-        static var supportsRichTimerBox: Bool {
-            if #available(iOS 13.0, *) { return true }
-            return false
-        }
-    }
-
     private func setTimerText(_ text: String) {
         timerBoxView?.timerLabel.text = text
-        timerLabel?.text = text
     }
 
     private func hideTimerDisplay() {
         timerBoxView?.isHidden = true
-        timerLabel?.isHidden = true
     }
 
     private func showTimerForExpandedState() {
         timerBoxView?.isHidden = false
-        timerLabel?.isHidden = false
         captionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
         subcaptionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
     }
@@ -89,15 +75,6 @@ import SDWebImage
             return traitCollection.userInterfaceStyle == .dark
         }
         return false
-    }
-
-    private func hasRichTimerStyling(_ props: TimerTemplateProperties) -> Bool {
-        return props.pt_chrono_bg_clr != nil
-            || props.pt_chrono_grad_clr1 != nil || props.pt_chrono_grad_clr2 != nil
-            || props.pt_chrono_grad_dir != nil
-            || props.pt_chrono_style != nil
-            || props.pt_chrono_border_clr != nil
-            || props.pt_chrono_border_width != nil || props.pt_chrono_border_radius != nil
     }
 
     @objc public override func viewDidLoad() {
@@ -132,21 +109,9 @@ import SDWebImage
         contentView.addSubview(captionLabel)
         contentView.addSubview(subcaptionLabel)
 
-        if CTTimerStyleCapability.supportsRichTimerBox,
-           let props = jsonContent, hasRichTimerStyling(props) {
-            let box = CTTimerBoxView()
-            timerBoxView = box
-            contentView.addSubview(box)
-        } else {
-            let label = UILabel()
-            label.textAlignment = .center
-            label.adjustsFontSizeToFitWidth = false
-            label.font = UIFont.boldSystemFont(ofSize: 18.0)
-            label.textColor = UIColor.black
-            label.translatesAutoresizingMaskIntoConstraints = false
-            timerLabel = label
-            contentView.addSubview(label)
-        }
+        let box = CTTimerBoxView()
+        timerBoxView = box
+        contentView.addSubview(box)
         hideTimerDisplay()
         
         captionLabel.setHTMLText(templateCaption)
@@ -183,10 +148,6 @@ import SDWebImage
         if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
             subcaptionColor = msgColor
         }
-        if let timerClr = jsonContent.pt_chrono_title_clr, !timerClr.isEmpty {
-            timerColor = timerClr
-        }
-
         // Handle dark mode colors
         if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
             bgColorDark = bgDark
@@ -197,10 +158,6 @@ import SDWebImage
         if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
             subcaptionColorDark = msgColorDark
         }
-        if let timerClrDark = jsonContent.pt_chrono_title_clr_dark, !timerClrDark.isEmpty {
-            timerColorDark = timerClrDark
-        }
-        
         if let action = jsonContent.pt_dl1, !action.isEmpty {
             deeplinkURL = action
         }
@@ -262,7 +219,6 @@ import SDWebImage
         imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         captionLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         subcaptionLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
-        timerLabel?.textColor = UIColor(hex: isDarkMode ? timerColorDark : timerColor)
 
         if let box = timerBoxView, let props = jsonContent {
             box.applyStyle(properties: props, isDarkMode: isDarkMode)
@@ -270,7 +226,7 @@ import SDWebImage
     }
 
     func setupConstraints() {
-        let activeTimerView: UIView = timerBoxView ?? timerLabel!
+        let activeTimerView: UIView = timerBoxView!
         let captionTrailing = captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
         let subcaptionTrailing = subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
         captionTrailingConstraint = captionTrailing
