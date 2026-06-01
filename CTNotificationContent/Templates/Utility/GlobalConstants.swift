@@ -9,7 +9,7 @@ enum Constraints {
     static let kSubCaptionHeight: CGFloat = 20.0
     static let kSubCaptionTopPadding: CGFloat = 8.0
     static let kBottomPadding: CGFloat = 18.0
-    static let kCaptionLeftPadding: CGFloat = 10.0
+    static let kCaptionLeftPadding: CGFloat = 16.0
     static let kCaptionTopPadding: CGFloat = 8.0
     static let kImageBorderWidth: CGFloat = 1.0
     static let kImageLayerBorderWidth: CGFloat = 0.4
