@@ -2,6 +2,11 @@ import UIKit
 
 class CTTimerBoxView: UIView {
 
+    private enum TimerBorderStyleMaxCap {
+        static let maxRadius: CGFloat = 20
+        static let maxWidth: CGFloat  = 10
+    }
+
     var timerLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -43,13 +48,13 @@ class CTTimerBoxView: UIView {
     func applyStyle(properties: TimerTemplateProperties, isDarkMode: Bool) {
         // Corner radius
         if let radius = properties.pt_chrono_border_radius?.value {
-            layer.cornerRadius = CGFloat(radius)
+            layer.cornerRadius = min(CGFloat(radius), TimerBorderStyleMaxCap.maxRadius)
             clipsToBounds = true
         }
 
         // Border width
         if let width = properties.pt_chrono_border_width?.value {
-            layer.borderWidth = CGFloat(width)
+            layer.borderWidth = min(CGFloat(width), TimerBorderStyleMaxCap.maxWidth)
         }
 
         // Border color
