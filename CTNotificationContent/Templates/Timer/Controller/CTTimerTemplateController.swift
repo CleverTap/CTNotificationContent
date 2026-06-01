@@ -56,6 +56,11 @@ import SDWebImage
     private var captionTrailingConstraint: NSLayoutConstraint?
     private var subcaptionTrailingConstraint: NSLayoutConstraint?
 
+    private func setTruncatingHTMLText(_ text: String, on label: UILabel) {
+        label.setHTMLText(text)
+        label.lineBreakMode = .byTruncatingTail
+    }
+
     private func setTimerText(_ text: String) {
         timerBoxView?.timerLabel.text = text
     }
@@ -65,9 +70,10 @@ import SDWebImage
     }
 
     private func showTimerForExpandedState() {
+        let reservedWidth = thresholdSeconds > 3600 ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
         timerBoxView?.isHidden = false
-        captionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
-        subcaptionTrailingConstraint?.constant = -Constraints.kTimerLabelWidth
+        captionTrailingConstraint?.constant = -reservedWidth
+        subcaptionTrailingConstraint?.constant = -reservedWidth
     }
 
     private func isDarkMode() -> Bool {
@@ -114,8 +120,8 @@ import SDWebImage
         contentView.addSubview(box)
         hideTimerDisplay()
         
-        captionLabel.setHTMLText(templateCaption)
-        subcaptionLabel.setHTMLText(templateSubcaption)
+        setTruncatingHTMLText(templateCaption, on: captionLabel)
+        setTruncatingHTMLText(templateSubcaption, on: subcaptionLabel)
 
         guard let jsonContent = jsonContent else {
             return
@@ -131,13 +137,13 @@ import SDWebImage
         }
 
         if let title = jsonContent.pt_title, !title.isEmpty {
-            captionLabel.setHTMLText(title)
+            setTruncatingHTMLText(title, on: captionLabel)
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty {
-            subcaptionLabel.setHTMLText(msg)
+            setTruncatingHTMLText(msg, on: subcaptionLabel)
         }
         if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
-            subcaptionLabel.setHTMLText(msgSummary)
+            setTruncatingHTMLText(msgSummary, on: subcaptionLabel)
         }
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
@@ -273,10 +279,10 @@ import SDWebImage
     func updateViewForExpiredTime() {
         if let jsonContent = jsonContent {
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
-                captionLabel.setHTMLText(title)
+                setTruncatingHTMLText(title, on: captionLabel)
             }
             if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
-                subcaptionLabel.setHTMLText(msg)
+                setTruncatingHTMLText(msg, on: subcaptionLabel)
             }
             if let bigImgAlt = jsonContent.pt_big_img_alt, !bigImgAlt.isEmpty {
                 bigImageAlt = bigImgAlt
