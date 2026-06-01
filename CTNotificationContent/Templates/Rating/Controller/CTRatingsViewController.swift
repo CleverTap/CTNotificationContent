@@ -191,7 +191,7 @@ import SDWebImage
     }
     func viewWithoutImageandRating(){
         let viewWidth = view.frame.size.width
-        let viewHeight = CTUtiltiy.getCaptionHeight()
+        let viewHeight = Constraints.kCaptionLeftPadding + Constraints.kCaptionHeight + Constraints.kSubCaptionTopPadding + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
@@ -431,13 +431,13 @@ import SDWebImage
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constraints.kCaptionLeftPadding),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
             titleLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
 
-            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            subTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constraints.kSubCaptionTopPadding),
+            subTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
             subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
             subTitleLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight)])
     }
