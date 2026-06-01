@@ -23,4 +23,18 @@ extension UILabel {
             self.text = htmlText
         }
     }
+
+    // UILabel.textColor is ignored when attributedText has explicit foreground color
+    // attributes (as HTML-parsed strings always do). This method applies the color
+    // directly to the attributed string so it takes effect.
+    func setTextColor(_ color: UIColor?) {
+        guard let color = color else { return }
+        guard let attributed = attributedText else {
+            textColor = color
+            return
+        }
+        let mutable = NSMutableAttributedString(attributedString: attributed)
+        mutable.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: mutable.length))
+        attributedText = mutable
+    }
 }

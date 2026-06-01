@@ -21,7 +21,7 @@ import SDWebImage
     
     // Dark mode colors
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
-    var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
+    var subcaptionColorDark: String = ConstantKeys.kHexWhiteColor
 
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
@@ -248,8 +248,8 @@ import SDWebImage
             isDarkMode = false
         }
 
-        self.titleLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
-        self.subTitleLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
+        self.titleLabel.setTextColor(UIColor(hex: isDarkMode ? captionColorDark : captionColor))
+        self.subTitleLabel.setTextColor(UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor))
     }
     
     func showImageView() {
