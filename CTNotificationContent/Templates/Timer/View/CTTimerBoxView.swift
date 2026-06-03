@@ -2,9 +2,7 @@ import UIKit
 
 class CTTimerBoxView: UIView {
 
-    private enum TimerBorderStyleMaxCap {
-        static let maxRadius: CGFloat = 25
-    }
+    private static let maxCornerRadius: CGFloat = 25
 
     var timerLabel: UILabel = {
         let label = UILabel()
@@ -47,7 +45,7 @@ class CTTimerBoxView: UIView {
     func applyStyle(properties: TimerTemplateProperties, isDarkMode: Bool) {
         // Corner radius
         if let radius = properties.pt_chrono_border_radius?.value {
-            layer.cornerRadius = min(CGFloat(radius), TimerBorderStyleMaxCap.maxRadius)
+            layer.cornerRadius = min(CGFloat(radius), CTTimerBoxView.maxCornerRadius)
             clipsToBounds = true
         }
 
