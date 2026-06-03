@@ -3,8 +3,7 @@ import UIKit
 class CTTimerBoxView: UIView {
 
     private enum TimerBorderStyleMaxCap {
-        static let maxRadius: CGFloat = 20
-        static let maxWidth: CGFloat  = 10
+        static let maxRadius: CGFloat = 25
     }
 
     var timerLabel: UILabel = {
@@ -54,7 +53,7 @@ class CTTimerBoxView: UIView {
 
         // Border width
         if let width = properties.pt_chrono_border_width?.value {
-            layer.borderWidth = min(CGFloat(width), TimerBorderStyleMaxCap.maxWidth)
+            layer.borderWidth = min(CGFloat(width), Constraints.kTimerBorderMaxWidth)
         }
 
         // Border color

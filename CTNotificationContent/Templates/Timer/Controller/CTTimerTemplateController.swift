@@ -70,15 +70,22 @@ import SDWebImage
         timerBoxView?.isHidden = true
     }
 
+    private func timerReservedWidth(showHours: Bool) -> CGFloat {
+        let base = showHours ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
+        let borderWidth = jsonContent?.pt_chrono_border_width
+            .map { min(CGFloat($0.value), Constraints.kTimerBorderMaxWidth) } ?? 0
+        return base + 2 * borderWidth
+    }
+
     private func showTimerForExpandedState() {
-        let reservedWidth = thresholdSeconds > 3600 ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
+        let reservedWidth = timerReservedWidth(showHours: thresholdSeconds > 3600)
         timerBoxView?.isHidden = false
         captionTrailingConstraint?.constant = -reservedWidth
         subcaptionTrailingConstraint?.constant = -reservedWidth
     }
 
     private func updateTimerWidthIfNeeded(showHours: Bool) {
-        let newWidth = showHours ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
+        let newWidth = timerReservedWidth(showHours: showHours)
         guard captionTrailingConstraint?.constant != -newWidth else { return }
         captionTrailingConstraint?.constant = -newWidth
         subcaptionTrailingConstraint?.constant = -newWidth
@@ -263,10 +270,10 @@ import SDWebImage
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
 
-            activeTimerView.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
-            activeTimerView.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
+            activeTimerView.centerYAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() / 2)),
+            activeTimerView.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kTimerHorizontalGap),
             activeTimerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            activeTimerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding)
+            activeTimerView.heightAnchor.constraint(equalToConstant: Constraints.kTimerBoxHeight)
         ])
     }
 
