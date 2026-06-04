@@ -6,6 +6,7 @@ Version 1.4.0 (4 June, 2026)
   - Adds timer box background styling via `pt_chrono_bg_clr` / `pt_chrono_bg_clr_dark` with support for solid color, linear gradient, and radial gradient (`pt_chrono_style`, `pt_chrono_grad_clr1`, `pt_chrono_grad_clr2`, `pt_chrono_grad_dir`).
   - Adds timer box border customisation via `pt_chrono_border_clr` / `pt_chrono_border_clr_dark`, `pt_chrono_border_width`, and `pt_chrono_border_radius`.
   - Fixed timer state persistence: the countdown correctly reflects elapsed time since notification delivery when the notification is expanded.
+  - Improved visual consistency in Rating and Zero Bezel templates and padding in templates.
 
 Version 1.3.0 (17 April, 2026)
 -----------------------------------------------
