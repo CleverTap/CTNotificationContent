@@ -68,6 +68,8 @@ import SDWebImage
 
     private func hideTimerDisplay() {
         timerBoxView?.isHidden = true
+        captionTrailingConstraint?.constant = -Constraints.kCaptionLeftPadding
+        subcaptionTrailingConstraint?.constant = -Constraints.kCaptionLeftPadding
     }
 
     private func timerReservedWidth(showHours: Bool) -> CGFloat {
@@ -75,13 +77,6 @@ import SDWebImage
         let borderWidth = jsonContent?.pt_chrono_border_width
             .map { min(CGFloat($0.value), Constraints.kTimerBorderMaxWidth) } ?? 0
         return base + 2 * borderWidth
-    }
-
-    private func showTimerForExpandedState() {
-        let reservedWidth = timerReservedWidth(showHours: thresholdSeconds > 3600)
-        timerBoxView?.isHidden = false
-        captionTrailingConstraint?.constant = -reservedWidth
-        subcaptionTrailingConstraint?.constant = -reservedWidth
     }
 
     private func updateTimerWidthIfNeeded(showHours: Bool) {
@@ -136,8 +131,7 @@ import SDWebImage
         let box = CTTimerBoxView()
         timerBoxView = box
         contentView.addSubview(box)
-        hideTimerDisplay()
-        
+
         setTruncatingHTMLText(templateCaption, on: captionLabel)
         setTruncatingHTMLText(templateSubcaption, on: subcaptionLabel)
 
@@ -194,6 +188,10 @@ import SDWebImage
             bigImageAltText = bigImgAlt
         }
         
+        if thresholdSeconds <= 0 {
+            hideTimerDisplay()
+        }
+
         updateInterfaceColors()
 
         if let box = timerBoxView {
@@ -253,8 +251,11 @@ import SDWebImage
 
     func setupConstraints() {
         let activeTimerView: UIView = timerBoxView!
-        let captionTrailing = captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
-        let subcaptionTrailing = subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding)
+        let initialTrailingConstant: CGFloat = thresholdSeconds > 0
+            ? -timerReservedWidth(showHours: thresholdSeconds > 3600)
+            : -Constraints.kCaptionLeftPadding
+        let captionTrailing = captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: initialTrailingConstant)
+        let subcaptionTrailing = subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: initialTrailingConstant)
         captionTrailingConstraint = captionTrailing
         subcaptionTrailingConstraint = subcaptionTrailing
 
@@ -287,6 +288,7 @@ import SDWebImage
                 updateTimerWidthIfNeeded(showHours: false)
             } else {
                 setTimerText(String(format: "%02i:%02i:%02i", hr, min, sec))
+                updateTimerWidthIfNeeded(showHours: true)
             }
             thresholdSeconds -= 1
         } else {
@@ -345,10 +347,6 @@ import SDWebImage
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
-
-        if thresholdSeconds > 0 {
-            showTimerForExpandedState()
-        }
     }
     
     func activateImageViewContraints() {
@@ -378,16 +376,14 @@ import SDWebImage
     }
     
     func showImageView() {
-        if bigImage != "" {
-            CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.imageView.image = imageData
-                        self?.imageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    }
-                }
+        guard bigImage != "" else { return }
+        CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self, imageData != nil else { return }
+                self.imageView.image = imageData
+                self.imageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.activateImageViewContraints()
+                self.createFrameWithImage()
             }
         }
     }
