@@ -30,9 +30,31 @@ struct TimerTemplateProperties: Decodable {
     let pt_big_img_alt_alt_text: String?
     let pt_gif: String?
     let pt_gif_alt: String?
-    
+
+    // Timer box background
+    let pt_chrono_bg_clr: String?
+    let pt_chrono_bg_clr_dark: String?
+    let pt_chrono_grad_clr1: String?
+    let pt_chrono_grad_clr2: String?
+    let pt_chrono_grad_dir: String?
+
+    // Timer box style ("solid" | "gradient_linear" | "gradient_radial", default "solid")
+    let pt_chrono_style: String?
+
+    // Timer box border
+    let pt_chrono_border_clr: String?
+    let pt_chrono_border_clr_dark: String?
+    let pt_chrono_border_width: FlexibleDouble?
+    let pt_chrono_border_radius: FlexibleDouble?
+
     enum CodingKeys: String, CodingKey {
         case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_bg_dark, pt_chrono_title_clr, pt_chrono_title_clr_dark, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_title_clr_dark, pt_msg_clr, pt_msg_clr_dark, pt_big_img_alt_text, pt_big_img_alt_alt_text, pt_gif, pt_gif_alt
+        case pt_chrono_bg_clr, pt_chrono_bg_clr_dark
+        case pt_chrono_grad_clr1, pt_chrono_grad_clr2
+        case pt_chrono_grad_dir
+        case pt_chrono_style
+        case pt_chrono_border_clr, pt_chrono_border_clr_dark
+        case pt_chrono_border_width, pt_chrono_border_radius
     }
 
     init(from decoder: Decoder) throws {
@@ -58,7 +80,18 @@ struct TimerTemplateProperties: Decodable {
         pt_big_img_alt_alt_text = try container.decodeIfPresent(String.self, forKey: .pt_big_img_alt_alt_text)
         pt_gif = try container.decodeIfPresent(String.self, forKey: .pt_gif)
         pt_gif_alt = try container.decodeIfPresent(String.self, forKey: .pt_gif_alt)
-        
+
+        pt_chrono_bg_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_bg_clr)
+        pt_chrono_bg_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_bg_clr_dark)
+        pt_chrono_grad_clr1 = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_clr1)
+        pt_chrono_grad_clr2 = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_clr2)
+        pt_chrono_grad_dir = try container.decodeIfPresent(String.self, forKey: .pt_chrono_grad_dir)
+        pt_chrono_style = try container.decodeIfPresent(String.self, forKey: .pt_chrono_style)
+        pt_chrono_border_clr = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_clr)
+        pt_chrono_border_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_clr_dark)
+        pt_chrono_border_width = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_chrono_border_width)
+        pt_chrono_border_radius = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_chrono_border_radius)
+
         // Value for pt_timer_threshold and pt_timer_end key can be Int or String if received from JSON data or individual keys respectively, so checked for both case if present or else nil.
         var thresholdValue: Int? = nil
         do {

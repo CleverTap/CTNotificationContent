@@ -442,12 +442,21 @@ SWIFT_CLASS("_TtC21CTNotificationContent23CTSingleMediaController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+SWIFT_CLASS("_TtC21CTNotificationContent14CTTimerBoxView")
+@interface CTTimerBoxView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+@end
+
+@class NSDate;
 SWIFT_CLASS("_TtC21CTNotificationContent25CTTimerTemplateController")
 @interface CTTimerTemplateController : BaseCTNotificationContentViewController
 @property (nonatomic, copy) NSString * _Nonnull data;
 @property (nonatomic, copy) NSString * _Nonnull templateCaption;
 @property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
+@property (nonatomic, copy) NSDate * _Nullable notificationDeliveryDate;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
@@ -515,6 +524,7 @@ SWIFT_CLASS("_TtC21CTNotificationContent21CTZeroBezelController")
 @property (nonatomic, copy) NSString * _Nonnull templateSubcaption;
 @property (nonatomic, copy) NSString * _Nonnull deeplinkURL;
 - (void)viewDidLoad;
+- (void)viewDidLayoutSubviews;
 - (UNNotificationContentExtensionResponseOption)handleAction:(NSString * _Nonnull)action SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Null_unspecified)getDeeplinkUrl SWIFT_WARN_UNUSED_RESULT;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;

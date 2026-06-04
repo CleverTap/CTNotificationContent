@@ -46,6 +46,7 @@
 		525715EE1E67B8C0000E455B /* CTNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 525715EC1E67B8C0000E455B /* CTNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		525715F71E67B990000E455B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F51E67B990000E455B /* UserNotifications.framework */; };
 		525715F81E67B990000E455B /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525715F61E67B990000E455B /* UserNotificationsUI.framework */; };
+		58614E962F98B4BA000D1C8A /* CTTimerBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58614E942F98B4BA000D1C8A /* CTTimerBoxView.swift */; };
 		A1B2C3D4E5F60001A1B2C3D4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D4E5F60002A1B2C3D4 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		525715EC1E67B8C0000E455B /* CTNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTNotificationContent.h; sourceTree = "<group>"; };
 		525715F51E67B990000E455B /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		525715F61E67B990000E455B /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		58614E942F98B4BA000D1C8A /* CTTimerBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTTimerBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 		32DFD82F28BCCCBB00E72588 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				58614E952F98B4BA000D1C8A /* View */,
 				32DFD83028BCCCBB00E72588 /* Controller */,
 				32DFD83228BCCCBB00E72588 /* Model */,
 			);
@@ -426,6 +429,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		58614E952F98B4BA000D1C8A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				58614E942F98B4BA000D1C8A /* CTTimerBoxView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -548,6 +559,7 @@
 				3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */,
 				32DFD84628BCCCBB00E72588 /* CTZeroBezelController.swift in Sources */,
 				488F31C12817012500AE3AC8 /* CTNotificationViewController.m in Sources */,
+				58614E962F98B4BA000D1C8A /* CTTimerBoxView.swift in Sources */,
 				32DFD84B28BCCCBB00E72588 /* CTCarouselController.swift in Sources */,
 				3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */,
 			);

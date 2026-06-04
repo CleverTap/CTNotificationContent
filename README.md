@@ -349,11 +349,23 @@ pt_chrono_title_clr | Optional | Color for timer text in HEX
 pt_chrono_title_clr_dark | Optional | Color for timer text for dark mode in HEX
 pt_timer_threshold | Required | Timer duration in seconds. Will be given higher priority. 
 pt_timer_end | Optional | Epoch Timestamp to countdown to (for example, $D_1595871380 or 1595871380). Not needed if pt_timer_threshold is specified.
+pt_chrono_bg_clr | Optional | Timer box background color in HEX (light mode)
+pt_chrono_bg_clr_dark | Optional | Timer box background color in HEX (dark mode)
+pt_chrono_style | Optional | Timer box background style: `solid` (default), `gradient_linear`, or `gradient_radial`
+pt_chrono_grad_clr1 | Optional | Gradient start color in HEX (used when `pt_chrono_style` is a gradient type)
+pt_chrono_grad_clr2 | Optional | Gradient end color in HEX (used when `pt_chrono_style` is a gradient type)
+pt_chrono_grad_dir | Optional | Linear gradient direction in degrees (default `90`). Only applies to `gradient_linear` style
+pt_chrono_border_clr | Optional | Timer box border color in HEX (light mode)
+pt_chrono_border_clr_dark | Optional | Timer box border color in HEX (dark mode)
+pt_chrono_border_width | Optional | Timer box border width in points (numeric or string, max 10)
+pt_chrono_border_radius | Optional | Timer box corner radius in points (numeric or string, max 25)
 pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
 pt_json | Optional | Above keys in JSON format
+
+> **Timer State Persistence:** The countdown correctly reflects elapsed time since notification delivery when the notification is expanded. To enable this, set the `notificationDeliveryDate` property on `CTTimerTemplateController` to the notification's delivery timestamp.
 
 ### Zero Bezel Template
  
