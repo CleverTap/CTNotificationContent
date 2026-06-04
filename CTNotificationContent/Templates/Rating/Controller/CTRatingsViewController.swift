@@ -166,9 +166,13 @@ import SDWebImage
     func viewWithoutImage(){
         contentView.addSubview(starStackView)
         activateStarStackViewContraints()
-        
+
         let viewWidth = view.frame.size.width
-        let viewHeight = CTUtiltiy.getCaptionHeight() + 50
+        let captionAreaHeight: CGFloat = Constraints.kCaptionLeftPadding
+            + Constraints.kCaptionHeight
+            + Constraints.kSubCaptionTopPadding
+            + Constraints.kSubCaptionHeight
+        let viewHeight = captionAreaHeight + 66  // 16pt gap + 30pt stars + 20pt bottom padding
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
