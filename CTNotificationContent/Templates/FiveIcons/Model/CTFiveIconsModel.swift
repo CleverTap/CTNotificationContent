@@ -1,7 +1,6 @@
 import Foundation
 
 struct CTFiveIconsModel: Decodable {
-    let pt_id: String?
     let pt_bg: String?
     let pt_bg_dark: String?
 

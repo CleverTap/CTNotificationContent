@@ -77,6 +77,14 @@ private var deepLinkKey: UInt8 = 0
         }
     }
 
+    @objc public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if pendingTextOnlyRender {
+            pendingTextOnlyRender = false
+            renderTextOnly()
+        }
+    }
+
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 17.0, *) { return }
@@ -96,11 +104,12 @@ private var deepLinkKey: UInt8 = 0
     private let kPrefetchTimeout: TimeInterval = 3.5
     private let kMinIcons = 3
     private let kMaxIcons = 5
+    private var pendingTextOnlyRender = false
 
     private func prepareAndRenderRow() {
         let icons = Array((model?.iconItems ?? []).prefix(kMaxIcons))
         guard icons.count >= kMinIcons else {
-            renderTextOnly()
+            pendingTextOnlyRender = true
             return
         }
         prefetchIcons(icons, timeout: kPrefetchTimeout) { [weak self] validated in
@@ -136,13 +145,19 @@ private var deepLinkKey: UInt8 = 0
             DispatchQueue.main.async { completion(validated) }
         }
 
+        let maxIconCount: CGFloat = 5
+        let screenWidth = UIScreen.main.bounds.width
+        let approxCellWidth = max((screenWidth - 2 * kHorizontalPadding - (maxIconCount - 1) * kIconSpacing) / maxIconCount, 1)
+        let px = approxCellWidth * UIScreen.main.scale
+        let ctx: [SDWebImageContextOption: Any] = [.imageThumbnailPixelSize: CGSize(width: px, height: px)]
+
         for (idx, it) in items.enumerated() {
             guard let url = URL(string: it.imageURL) else {
                 lock.lock(); settled += 1; let done = settled == items.count; lock.unlock()
                 if done { finish() }
                 continue
             }
-            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed], progress: nil) { image, _, _, _, finished, _ in
+            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed, .scaleDownLargeImages], context: ctx, progress: nil) { image, _, _, _, finished, _ in
                 guard finished else { return }
                 lock.lock()
                 slots[idx] = image
@@ -215,6 +230,7 @@ private var deepLinkKey: UInt8 = 0
         let msgText   = resolvedMessage()
 
         let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
+        let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
         let maxIconCount: CGFloat = 5
         let cellWidth: CGFloat = max((availableTextWidth - (maxIconCount - 1) * kIconSpacing) / maxIconCount, 0)
@@ -245,7 +261,7 @@ private var deepLinkKey: UInt8 = 0
                 titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
-            totalHeight += kVerticalPadding + 20
+            totalHeight += kVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
         }
 
         if let msg = msgText {
@@ -257,7 +273,7 @@ private var deepLinkKey: UInt8 = 0
                 messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
-            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + 34
+            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
         }
 
         stackView.axis         = .horizontal
@@ -321,7 +337,7 @@ private var deepLinkKey: UInt8 = 0
         guard let tappedView = gesture.view,
               let urlString = objc_getAssociatedObject(tappedView, &deepLinkKey) as? String,
               let url = URL(string: urlString) else { return }
-        extensionContext?.open(url, completionHandler: nil)
+        getParentViewController().open(url)
     }
 
     private var isDarkMode: Bool {
