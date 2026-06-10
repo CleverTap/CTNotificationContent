@@ -1,9 +1,5 @@
 import UIKit
 import SDWebImage
-import ObjectiveC
-
-
-private var deepLinkKey: UInt8 = 0
 
 // MARK: - CTFiveIconsViewController
 
@@ -16,6 +12,7 @@ private var deepLinkKey: UInt8 = 0
 
     private var model: CTFiveIconsModel?
     private var stackView: UIStackView = UIStackView()
+    private var iconDeepLinks: [String?] = []
 
     // Payload-driven colours
     private var bgColor: String = ConstantKeys.kDefaultColor
@@ -282,9 +279,12 @@ private var deepLinkKey: UInt8 = 0
             stackView.heightAnchor.constraint(equalToConstant: rowHeight),
         ])
 
+        iconDeepLinks = validated.map { $0.item.deepLink }
+
         for (idx, entry) in validated.enumerated() {
             let imageView = makeIconView(
                 image: entry.image,
+                index: idx,
                 deepLink: entry.item.deepLink,
                 cellWidth: cellWidth,
                 cellHeight: cellHeights[idx]
@@ -297,12 +297,13 @@ private var deepLinkKey: UInt8 = 0
 
     // MARK: - Icon View Factory
 
-    private func makeIconView(image: UIImage, deepLink: String?, cellWidth: CGFloat, cellHeight: CGFloat) -> UIImageView {
+    private func makeIconView(image: UIImage, index: Int, deepLink: String?, cellWidth: CGFloat, cellHeight: CGFloat) -> UIImageView {
 
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = image
+        imageView.tag = index
 
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: cellWidth),
@@ -310,7 +311,6 @@ private var deepLinkKey: UInt8 = 0
         ])
 
         if let dl = deepLink, !dl.isEmpty {
-            objc_setAssociatedObject(imageView, &deepLinkKey, dl, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(
                 UITapGestureRecognizer(target: self, action: #selector(handleIconTap(_:)))
@@ -323,8 +323,9 @@ private var deepLinkKey: UInt8 = 0
     // MARK: - Actions
 
     @objc private func handleIconTap(_ gesture: UITapGestureRecognizer) {
-        guard let tappedView = gesture.view,
-              let urlString = objc_getAssociatedObject(tappedView, &deepLinkKey) as? String,
+        guard let tag = gesture.view?.tag,
+              tag < iconDeepLinks.count,
+              let urlString = iconDeepLinks[tag],
               let url = URL(string: urlString) else { return }
         getParentViewController().open(url)
     }
