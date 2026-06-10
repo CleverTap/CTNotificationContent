@@ -162,18 +162,24 @@ import SDWebImage
     }
 
     private func resolvedTitle() -> String? {
-        guard let title = model?.pt_title, !title.isEmpty else { return nil }
-        return title
+        if let title = model?.pt_title, !title.isEmpty { return title }
+        return templateCaption.isEmpty ? nil : templateCaption
     }
 
     private func resolvedMessage() -> String? {
-        guard let message = model?.pt_msg, !message.isEmpty else { return nil }
-        return message
+        if let msg = model?.pt_msg, !msg.isEmpty { return msg }
+        return templateSubcaption.isEmpty ? nil : templateSubcaption
     }
-
+    
     private func renderTextOnly() {
-        let titleText = resolvedTitle()
-        let msgText   = resolvedMessage()
+        let titleText: String? = {
+            if let title = model?.pt_title, !title.isEmpty { return title }
+            return templateCaption.isEmpty ? nil : templateCaption
+        }()
+        let msgText: String? = {
+            if let message = model?.pt_msg, !message.isEmpty { return message }
+            return templateSubcaption.isEmpty ? nil : templateSubcaption
+        }()
 
         let availableTextWidth = max(view.bounds.width - 2 * Constraints.kFiveIconsHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
