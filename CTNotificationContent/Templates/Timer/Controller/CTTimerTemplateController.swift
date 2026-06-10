@@ -3,22 +3,21 @@ import UserNotificationsUI
 import SDWebImage
 
 @objc public class CTTimerTemplateController: BaseCTNotificationContentViewController {
+    
     var contentView: UIView = UIView(frame: .zero)
     @objc public var data: String = ""
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
-    
+    @objc public var notificationDeliveryDate: Date?
+
     var bgColor: String = ConstantKeys.kDefaultColor
     var captionColor: String = ConstantKeys.kHexBlackColor
     var subcaptionColor: String = ConstantKeys.kHexLightGrayColor
-    var timerColor: String = ConstantKeys.kHexBlackColor
-    
     // Dark mode colors
     var bgColorDark: String = ConstantKeys.kDefaultColorDark
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexDarkGrayColor
-    var timerColorDark: String = ConstantKeys.kHexWhiteColor
     
     var jsonContent: TimerTemplateProperties? = nil
     var timer: Timer = Timer()
@@ -54,16 +53,49 @@ import SDWebImage
         subcaptionLabel.translatesAutoresizingMaskIntoConstraints = false
         return subcaptionLabel
     }()
-    private var timerLabel: UILabel = {
-        let timerLabel = UILabel()
-        timerLabel.textAlignment = .center
-        timerLabel.adjustsFontSizeToFitWidth = false
-        timerLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
-        timerLabel.textColor = UIColor.black
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        return timerLabel
-    }()
-    
+    private var timerBoxView: CTTimerBoxView?
+    private var captionTrailingConstraint: NSLayoutConstraint?
+    private var subcaptionTrailingConstraint: NSLayoutConstraint?
+
+    private func setTruncatingHTMLText(_ text: String, on label: UILabel) {
+        label.setHTMLText(text)
+        label.lineBreakMode = .byTruncatingTail
+    }
+
+    private func setTimerText(_ text: String) {
+        timerBoxView?.timerLabel.text = text
+    }
+
+    private func hideTimerDisplay() {
+        timerBoxView?.isHidden = true
+        captionTrailingConstraint?.constant = -Constraints.kCaptionLeftPadding
+        subcaptionTrailingConstraint?.constant = -Constraints.kCaptionLeftPadding
+    }
+
+    private func timerReservedWidth(showHours: Bool) -> CGFloat {
+        let base = showHours ? Constraints.kTimerLabelWidthWithHours : Constraints.kTimerLabelWidth
+        let borderWidth = jsonContent?.pt_chrono_border_width
+            .map { min(CGFloat($0.value), Constraints.kTimerBorderMaxWidth) } ?? 0
+        return base + 2 * borderWidth
+    }
+
+    private func updateTimerWidthIfNeeded(showHours: Bool) {
+        let newWidth = timerReservedWidth(showHours: showHours)
+        guard captionTrailingConstraint?.constant != -newWidth else { return }
+        captionTrailingConstraint?.constant = -newWidth
+        subcaptionTrailingConstraint?.constant = -newWidth
+        UIView.animate(withDuration: 0.25) {
+            self.contentView.layoutIfNeeded()
+        }
+    }
+
+    private func isDarkMode() -> Bool {
+        if #available(iOS 12.0, *) {
+            return traitCollection.userInterfaceStyle == .dark
+        }
+        return false
+    }
+
     @objc public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -95,32 +127,37 @@ import SDWebImage
         contentView.addSubview(imageView)
         contentView.addSubview(captionLabel)
         contentView.addSubview(subcaptionLabel)
-        contentView.addSubview(timerLabel)
-        
-        captionLabel.setHTMLText(templateCaption)
-        subcaptionLabel.setHTMLText(templateSubcaption)
+
+        let box = CTTimerBoxView()
+        timerBoxView = box
+        contentView.addSubview(box)
+
+        setTruncatingHTMLText(templateCaption, on: captionLabel)
+        setTruncatingHTMLText(templateSubcaption, on: subcaptionLabel)
 
         guard let jsonContent = jsonContent else {
             return
         }
         if let threshold = jsonContent.pt_timer_threshold {
-            thresholdSeconds = threshold
-        } else {
-            if let endTime = jsonContent.pt_timer_end {
-                let date = NSDate()
-                let currentTime = date.timeIntervalSince1970
-                thresholdSeconds = endTime - Int(currentTime)
+            if let deliveredAt = notificationDeliveryDate {
+                let elapsed = Int(Date().timeIntervalSince(deliveredAt))
+                thresholdSeconds = max(0, threshold - elapsed)
+            } else {
+                thresholdSeconds = threshold
             }
+        } else if let endTime = jsonContent.pt_timer_end {
+            let currentTime = Date().timeIntervalSince1970
+            thresholdSeconds = endTime - Int(currentTime)
         }
 
         if let title = jsonContent.pt_title, !title.isEmpty {
-            captionLabel.setHTMLText(title)
+            setTruncatingHTMLText(title, on: captionLabel)
         }
         if let msg = jsonContent.pt_msg, !msg.isEmpty {
-            subcaptionLabel.setHTMLText(msg)
+            setTruncatingHTMLText(msg, on: subcaptionLabel)
         }
         if let msgSummary = jsonContent.pt_msg_summary, !msgSummary.isEmpty {
-            subcaptionLabel.setHTMLText(msgSummary)
+            setTruncatingHTMLText(msgSummary, on: subcaptionLabel)
         }
         if let bg = jsonContent.pt_bg, !bg.isEmpty {
             bgColor = bg
@@ -131,10 +168,6 @@ import SDWebImage
         if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
             subcaptionColor = msgColor
         }
-        if let timerClr = jsonContent.pt_chrono_title_clr, !timerClr.isEmpty {
-            timerColor = timerClr
-        }
-
         // Handle dark mode colors
         if let bgDark = jsonContent.pt_bg_dark, !bgDark.isEmpty {
             bgColorDark = bgDark
@@ -145,10 +178,6 @@ import SDWebImage
         if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
             subcaptionColorDark = msgColorDark
         }
-        if let timerClrDark = jsonContent.pt_chrono_title_clr_dark, !timerClrDark.isEmpty {
-            timerColorDark = timerClrDark
-        }
-        
         if let action = jsonContent.pt_dl1, !action.isEmpty {
             deeplinkURL = action
         }
@@ -159,8 +188,16 @@ import SDWebImage
             bigImageAltText = bigImgAlt
         }
         
+        if thresholdSeconds <= 0 {
+            hideTimerDisplay()
+        }
+
         updateInterfaceColors()
-        
+
+        if let box = timerBoxView {
+            box.applyStyle(properties: jsonContent, isDarkMode: isDarkMode())
+        }
+
         // Handle image loading
         // Load image only if timer is not ended.
         if thresholdSeconds > 0 {
@@ -206,27 +243,38 @@ import SDWebImage
         imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         captionLabel.textColor = UIColor(hex: isDarkMode ? captionColorDark : captionColor)
         subcaptionLabel.textColor = UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor)
-        timerLabel.textColor = UIColor(hex: isDarkMode ? timerColorDark : timerColor)
+
+        if let box = timerBoxView, let props = jsonContent {
+            box.applyStyle(properties: props, isDarkMode: isDarkMode)
+        }
     }
 
     func setupConstraints() {
+        let activeTimerView: UIView = timerBoxView!
+        let initialTrailingConstant: CGFloat = thresholdSeconds > 0
+            ? -timerReservedWidth(showHours: thresholdSeconds > 3600)
+            : -Constraints.kCaptionLeftPadding
+        let captionTrailing = captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: initialTrailingConstant)
+        let subcaptionTrailing = subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: initialTrailingConstant)
+        captionTrailingConstraint = captionTrailing
+        subcaptionTrailingConstraint = subcaptionTrailing
+
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
             captionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            captionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            captionTrailing,
             captionLabel.heightAnchor.constraint(equalToConstant: Constraints.kCaptionHeight),
-            
+
             subcaptionLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(Constraints.kSubCaptionHeight + Constraints.kSubCaptionTopPadding)),
             subcaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constraints.kCaptionLeftPadding),
-            subcaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kTimerLabelWidth),
+            subcaptionTrailing,
             subcaptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
             subcaptionLabel.heightAnchor.constraint(equalToConstant: Constraints.kSubCaptionHeight),
-            
-            timerLabel.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CTUtiltiy.getCaptionHeight()),
-            timerLabel.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kCaptionLeftPadding),
-            timerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
-            timerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constraints.kSubCaptionTopPadding),
-            timerLabel.heightAnchor.constraint(equalToConstant: CTUtiltiy.getCaptionHeight())
+
+            activeTimerView.centerYAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() / 2)),
+            activeTimerView.leadingAnchor.constraint(equalTo: captionLabel.trailingAnchor, constant: Constraints.kTimerHorizontalGap),
+            activeTimerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constraints.kCaptionLeftPadding),
+            activeTimerView.heightAnchor.constraint(equalToConstant: Constraints.kTimerBoxHeight)
         ])
     }
 
@@ -236,15 +284,16 @@ import SDWebImage
         let sec = thresholdSeconds % 60
         if thresholdSeconds > 0 {
             if hr < 1 {
-                self.timerLabel.text = String(format: "%02i:%02i", min, sec)
-            }
-            else {
-                self.timerLabel.text = String(format: "%02i:%02i:%02i", hr, min, sec)
+                setTimerText(String(format: "%02i:%02i", min, sec))
+                updateTimerWidthIfNeeded(showHours: false)
+            } else {
+                setTimerText(String(format: "%02i:%02i:%02i", hr, min, sec))
+                updateTimerWidthIfNeeded(showHours: true)
             }
             thresholdSeconds -= 1
         } else {
             timer.invalidate()
-            self.timerLabel.isHidden = true
+            hideTimerDisplay()
             updateViewForExpiredTime()
         }
     }
@@ -252,10 +301,10 @@ import SDWebImage
     func updateViewForExpiredTime() {
         if let jsonContent = jsonContent {
             if let title = jsonContent.pt_title_alt, !title.isEmpty {
-                captionLabel.setHTMLText(title)
+                setTruncatingHTMLText(title, on: captionLabel)
             }
             if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
-                subcaptionLabel.setHTMLText(msg)
+                setTruncatingHTMLText(msg, on: subcaptionLabel)
             }
             if let bigImgAlt = jsonContent.pt_big_img_alt, !bigImgAlt.isEmpty {
                 bigImageAlt = bigImgAlt
@@ -327,16 +376,14 @@ import SDWebImage
     }
     
     func showImageView() {
-        if bigImage != "" {
-            CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.imageView.image = imageData
-                        self?.imageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    }
-                }
+        guard bigImage != "" else { return }
+        CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self, imageData != nil else { return }
+                self.imageView.image = imageData
+                self.imageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.activateImageViewContraints()
+                self.createFrameWithImage()
             }
         }
     }

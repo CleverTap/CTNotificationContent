@@ -10,12 +10,16 @@ enum Constraints {
     static let kSubCaptionHeight: CGFloat = 20.0
     static let kSubCaptionTopPadding: CGFloat = 8.0
     static let kBottomPadding: CGFloat = 18.0
-    static let kCaptionLeftPadding: CGFloat = 10.0
+    static let kCaptionLeftPadding: CGFloat = 16.0
     static let kCaptionTopPadding: CGFloat = 8.0
     static let kImageBorderWidth: CGFloat = 1.0
     static let kImageLayerBorderWidth: CGFloat = 0.4
     static let kPageControlViewHeight: CGFloat = 20.0
     static let kTimerLabelWidth: CGFloat = 100.0
+    static let kTimerLabelWidthWithHours: CGFloat = 120.0
+    static let kTimerBoxHeight: CGFloat = 50.0
+    static let kTimerBorderMaxWidth: CGFloat = 10.0
+    static let kTimerHorizontalGap: CGFloat = 4.0
     static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait
 
