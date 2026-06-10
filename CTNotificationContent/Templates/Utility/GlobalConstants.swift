@@ -18,6 +18,16 @@ enum Constraints {
     static let kTimerLabelWidth: CGFloat = 100.0
     static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait
+
+    // FiveIcons template
+    static let kFiveIconsHorizontalPadding: CGFloat   = 16.0
+    static let kFiveIconsVerticalPadding: CGFloat     = 10.0
+    static let kFiveIconsLabelSpacing: CGFloat        = 4.0
+    static let kFiveIconsIconSpacing: CGFloat         = 10.0
+    static let kFiveIconsThreeIconHInset: CGFloat     = 40.0
+    static let kFiveIconsRowTopSpacing: CGFloat       = 8.0
+    static let kFiveIconsRowBottomPadding: CGFloat    = 10.0
+    static let kFiveIconsNoTextVerticalPad: CGFloat   = 24.0
 }
 
 enum ConstantKeys {

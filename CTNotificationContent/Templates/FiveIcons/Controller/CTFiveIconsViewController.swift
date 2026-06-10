@@ -23,10 +23,10 @@ private var deepLinkKey: UInt8 = 0
 
     private var cachedBgColor: UIColor?
 
-    private var titleColor: String     = "#000000"
-    private var titleColorDark: String = "#FFFFFF"
-    private var msgColor: String       = "#000000"
-    private var msgColorDark: String   = "#FFFFFF"
+    private var titleColor: String     = ConstantKeys.kHexBlackColor
+    private var titleColorDark: String = ConstantKeys.kHexWhiteColor
+    private var msgColor: String       = ConstantKeys.kHexBlackColor
+    private var msgColorDark: String   = ConstantKeys.kHexWhiteColor
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -44,13 +44,6 @@ private var deepLinkKey: UInt8 = 0
         return label
     }()
 
-    // Layout constants
-    private let kHorizontalPadding: CGFloat = 16.0
-    private let kVerticalPadding: CGFloat   = 10.0
-    private let kLabelSpacing: CGFloat      = 4.0
-    private let kIconSpacing: CGFloat       = 10.0
-    private let kThreeIconExtraHorizontalInset: CGFloat = 40.0
-
     // MARK: - Lifecycle
 
     @objc public override func viewDidLoad() {
@@ -60,10 +53,10 @@ private var deepLinkKey: UInt8 = 0
 
         if let bg     = model?.pt_bg,                  !bg.isEmpty     { bgColor          = bg }
         if let bgDark = model?.pt_bg_dark,             !bgDark.isEmpty { bgColorDark      = bgDark }
-        if let tc  = model?.pt_title_clr,      !tc.isEmpty  { titleColor     = tc }
-        if let tcd = model?.pt_title_clr_dark, !tcd.isEmpty { titleColorDark = tcd }
-        if let mc  = model?.pt_msg_clr,        !mc.isEmpty  { msgColor       = mc }
-        if let mcd = model?.pt_msg_clr_dark,   !mcd.isEmpty { msgColorDark   = mcd }
+        if let titleColorValue     = model?.pt_title_clr,      !titleColorValue.isEmpty     { titleColor     = titleColorValue }
+        if let titleColorDarkValue = model?.pt_title_clr_dark, !titleColorDarkValue.isEmpty { titleColorDark = titleColorDarkValue }
+        if let msgColorValue       = model?.pt_msg_clr,        !msgColorValue.isEmpty       { msgColor       = msgColorValue }
+        if let msgColorDarkValue   = model?.pt_msg_clr_dark,   !msgColorDarkValue.isEmpty   { msgColorDark   = msgColorDarkValue }
 
         rebuildColorCache()
         applyTheme()
@@ -147,7 +140,7 @@ private var deepLinkKey: UInt8 = 0
 
         let maxIconCount: CGFloat = 5
         let screenWidth = UIScreen.main.bounds.width
-        let approxCellWidth = max((screenWidth - 2 * kHorizontalPadding - (maxIconCount - 1) * kIconSpacing) / maxIconCount, 1)
+        let approxCellWidth = max((screenWidth - 2 * Constraints.kFiveIconsHorizontalPadding - (maxIconCount - 1) * Constraints.kFiveIconsIconSpacing) / maxIconCount, 1)
         let px = approxCellWidth * UIScreen.main.scale
         let ctx: [SDWebImageContextOption: Any] = [.imageThumbnailPixelSize: CGSize(width: px, height: px)]
 
@@ -172,20 +165,20 @@ private var deepLinkKey: UInt8 = 0
     }
 
     private func resolvedTitle() -> String? {
-        guard let t = model?.pt_title, !t.isEmpty else { return nil }
-        return t
+        guard let title = model?.pt_title, !title.isEmpty else { return nil }
+        return title
     }
 
     private func resolvedMessage() -> String? {
-        guard let m = model?.pt_msg, !m.isEmpty else { return nil }
-        return m
+        guard let message = model?.pt_msg, !message.isEmpty else { return nil }
+        return message
     }
 
     private func renderTextOnly() {
         let titleText = resolvedTitle()
         let msgText   = resolvedMessage()
 
-        let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
+        let availableTextWidth = max(view.bounds.width - 2 * Constraints.kFiveIconsHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
@@ -195,31 +188,31 @@ private var deepLinkKey: UInt8 = 0
             titleLabel.text = title
             view.addSubview(titleLabel)
             NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: kVerticalPadding),
-                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Constraints.kFiveIconsVerticalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
-            totalHeight += kVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += Constraints.kFiveIconsVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
         }
 
         if let msg = msgText {
             messageLabel.text = msg
             view.addSubview(messageLabel)
             NSLayoutConstraint.activate([
-                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? kLabelSpacing : kVerticalPadding),
-                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
-            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += (titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
         }
 
         if let lastLabel = msgText != nil ? messageLabel : (titleText != nil ? titleLabel : nil) {
-            lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -kVerticalPadding).isActive = true
-            totalHeight += kVerticalPadding
+            lastLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constraints.kFiveIconsVerticalPadding).isActive = true
+            totalHeight += Constraints.kFiveIconsVerticalPadding
         } else {
-            totalHeight = kVerticalPadding * 2
+            totalHeight = Constraints.kFiveIconsVerticalPadding * 2
         }
 
         preferredContentSize = CGSize(width: view.bounds.width, height: totalHeight)
@@ -229,11 +222,11 @@ private var deepLinkKey: UInt8 = 0
         let titleText = resolvedTitle()
         let msgText   = resolvedMessage()
 
-        let availableTextWidth = max(view.bounds.width - 2 * kHorizontalPadding, 1)
+        let availableTextWidth = max(view.bounds.width - 2 * Constraints.kFiveIconsHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
         let maxIconCount: CGFloat = 5
-        let cellWidth: CGFloat = max((availableTextWidth - (maxIconCount - 1) * kIconSpacing) / maxIconCount, 0)
+        let cellWidth: CGFloat = max((availableTextWidth - (maxIconCount - 1) * Constraints.kFiveIconsIconSpacing) / maxIconCount, 0)
 
         let cellHeights: [CGFloat] = validated.map { entry in
             let img = entry.image
@@ -242,12 +235,8 @@ private var deepLinkKey: UInt8 = 0
         }
         let rowHeight = cellHeights.max() ?? 0
 
-        let kIconRowTopSpacing: CGFloat        = 8.0
-        let kIconRowBottomPadding: CGFloat     = 4.0
-        let kIconRowNoTextVerticalPad: CGFloat = 24.0
-
         let hasText = (titleText != nil) || (msgText != nil)
-        let bottomPad: CGFloat = hasText ? kIconRowBottomPadding : kIconRowNoTextVerticalPad
+        let bottomPad: CGFloat = hasText ? Constraints.kFiveIconsRowBottomPadding : Constraints.kFiveIconsNoTextVerticalPad
 
         var topAnchor: NSLayoutYAxisAnchor = view.topAnchor
         var totalHeight: CGFloat = rowHeight + bottomPad
@@ -256,40 +245,40 @@ private var deepLinkKey: UInt8 = 0
             titleLabel.text = title
             view.addSubview(titleLabel)
             NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: kVerticalPadding),
-                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Constraints.kFiveIconsVerticalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
-            totalHeight += kVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += Constraints.kFiveIconsVerticalPadding + ceil(titleLabel.sizeThatFits(labelFittingSize).height)
         }
 
         if let msg = msgText {
             messageLabel.text = msg
             view.addSubview(messageLabel)
             NSLayoutConstraint.activate([
-                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? kLabelSpacing : kVerticalPadding),
-                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding),
-                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -kHorizontalPadding),
+                messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
-            totalHeight += (titleText != nil ? kLabelSpacing : kVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
+            totalHeight += (titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
         }
 
         stackView.axis         = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment    = .center
-        stackView.spacing      = kIconSpacing
+        stackView.spacing      = Constraints.kFiveIconsIconSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
-        let stackTopInset: CGFloat = hasText ? kIconRowTopSpacing : kIconRowNoTextVerticalPad
+        let stackTopInset: CGFloat = hasText ? Constraints.kFiveIconsRowTopSpacing : Constraints.kFiveIconsNoTextVerticalPad
         totalHeight += stackTopInset
-        let extraHorizontalInset: CGFloat = (validated.count == 3) ? kThreeIconExtraHorizontalInset : 0
+        let extraHorizontalInset: CGFloat = (validated.count == 3) ? Constraints.kFiveIconsThreeIconHInset : 0
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  kHorizontalPadding + extraHorizontalInset),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(kHorizontalPadding + extraHorizontalInset)),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding + extraHorizontalInset),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(Constraints.kFiveIconsHorizontalPadding + extraHorizontalInset)),
             stackView.heightAnchor.constraint(equalToConstant: rowHeight),
         ])
 
