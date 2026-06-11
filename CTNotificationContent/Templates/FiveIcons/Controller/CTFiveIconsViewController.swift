@@ -50,10 +50,10 @@ import SDWebImage
 
         if let bg     = model?.pt_bg,                  !bg.isEmpty     { bgColor          = bg }
         if let bgDark = model?.pt_bg_dark,             !bgDark.isEmpty { bgColorDark      = bgDark }
-        if let titleColorValue     = model?.pt_title_clr,      !titleColorValue.isEmpty     { titleColor     = titleColorValue }
-        if let titleColorDarkValue = model?.pt_title_clr_dark, !titleColorDarkValue.isEmpty { titleColorDark = titleColorDarkValue }
-        if let msgColorValue       = model?.pt_msg_clr,        !msgColorValue.isEmpty       { msgColor       = msgColorValue }
-        if let msgColorDarkValue   = model?.pt_msg_clr_dark,   !msgColorDarkValue.isEmpty   { msgColorDark   = msgColorDarkValue }
+        if let titleClrValue     = model?.pt_title_clr,      !titleClrValue.isEmpty     { titleColor     = titleClrValue }
+        if let titleClrDarkValue = model?.pt_title_clr_dark, !titleClrDarkValue.isEmpty { titleColorDark = titleClrDarkValue }
+        if let msgClrValue       = model?.pt_msg_clr,        !msgClrValue.isEmpty       { msgColor       = msgClrValue }
+        if let msgClrDarkValue   = model?.pt_msg_clr_dark,   !msgClrDarkValue.isEmpty   { msgColorDark   = msgClrDarkValue }
 
         rebuildColorCache()
         applyTheme()
@@ -118,47 +118,36 @@ import SDWebImage
         completion: @escaping ([ValidatedIcon]) -> Void
     ) {
         var slots = [UIImage?](repeating: nil, count: items.count)
-        var settled = 0
         var didFinish = false
-        let lock = NSLock()
+        let group = DispatchGroup()
 
         func finish() {
-            lock.lock()
-            if didFinish { lock.unlock(); return }
+            guard !didFinish else { return }
             didFinish = true
-            let snapshot = slots
-            lock.unlock()
-            let validated: [ValidatedIcon] = zip(items, snapshot).compactMap { pair in
-                guard let img = pair.1 else { return nil }
-                return (pair.0, img)
+            let validated: [ValidatedIcon] = zip(items, slots).compactMap { item, image in
+                image.map { (item, $0) }
             }
-            DispatchQueue.main.async { completion(validated) }
+            completion(validated)
         }
 
         let maxIconCount: CGFloat = 5
         let screenWidth = UIScreen.main.bounds.width
         let approxCellWidth = max((screenWidth - 2 * Constraints.kFiveIconsHorizontalPadding - (maxIconCount - 1) * Constraints.kFiveIconsIconSpacing) / maxIconCount, 1)
-        let px = approxCellWidth * UIScreen.main.scale
-        let ctx: [SDWebImageContextOption: Any] = [.imageThumbnailPixelSize: CGSize(width: px, height: px)]
+        let thumbnailPixelSize = approxCellWidth * UIScreen.main.scale
+        let thumbnailContext: [SDWebImageContextOption: Any] = [.imageThumbnailPixelSize: CGSize(width: thumbnailPixelSize, height: thumbnailPixelSize)]
 
-        for (idx, it) in items.enumerated() {
-            guard let url = URL(string: it.imageURL) else {
-                lock.lock(); settled += 1; let done = settled == items.count; lock.unlock()
-                if done { finish() }
-                continue
-            }
-            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed, .scaleDownLargeImages], context: ctx, progress: nil) { image, _, _, _, finished, _ in
+        for (index, item) in items.enumerated() {
+            guard let url = URL(string: item.imageURL) else { continue }
+            group.enter()
+            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed, .scaleDownLargeImages], context: thumbnailContext, progress: nil) { image, _, _, _, finished, _ in
                 guard finished else { return }
-                lock.lock()
-                slots[idx] = image
-                settled += 1
-                let done = settled == items.count
-                lock.unlock()
-                if done { finish() }
+                slots[index] = image
+                group.leave()
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) { finish() }
+        group.notify(queue: .main, execute: finish)
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeout, execute: finish)
     }
 
     private func resolvedTitle() -> String? {
@@ -357,6 +346,12 @@ import SDWebImage
     // MARK: - BaseCTNotificationContentViewController
 
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
+        if action == ConstantKeys.kAction3 {
+            if !deeplinkURL.isEmpty, let url = URL(string: deeplinkURL) {
+                getParentViewController().open(url)
+            }
+            return .dismiss
+        }
         return .doNotDismiss
     }
 
