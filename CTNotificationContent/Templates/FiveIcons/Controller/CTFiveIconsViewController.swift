@@ -1,5 +1,4 @@
 import UIKit
-import SDWebImage
 
 // MARK: - CTFiveIconsViewController
 
@@ -91,7 +90,6 @@ import SDWebImage
     private typealias IconItem = (imageURL: String, deepLink: String?)
     private typealias ValidatedIcon = (item: IconItem, image: UIImage)
 
-    private let kPrefetchTimeout: TimeInterval = 3.5
     private let kMinIcons = 3
     private let kMaxIcons = 5
     private var pendingTextOnlyRender = false
@@ -102,7 +100,7 @@ import SDWebImage
             pendingTextOnlyRender = true
             return
         }
-        prefetchIcons(icons, timeout: kPrefetchTimeout) { [weak self] validated in
+        prefetchIcons(icons) { [weak self] validated in
             guard let self = self else { return }
             if validated.count >= self.kMinIcons {
                 self.setupIconRow(validated: validated)
@@ -114,40 +112,25 @@ import SDWebImage
 
     private func prefetchIcons(
         _ items: [IconItem],
-        timeout: TimeInterval,
         completion: @escaping ([ValidatedIcon]) -> Void
     ) {
         var slots = [UIImage?](repeating: nil, count: items.count)
-        var didFinish = false
         let group = DispatchGroup()
 
-        func finish() {
-            guard !didFinish else { return }
-            didFinish = true
-            let validated: [ValidatedIcon] = zip(items, slots).compactMap { item, image in
-                image.map { (item, $0) }
-            }
-            completion(validated)
-        }
-
-        let maxIconCount: CGFloat = 5
-        let screenWidth = UIScreen.main.bounds.width
-        let approxCellWidth = max((screenWidth - 2 * Constraints.kFiveIconsHorizontalPadding - (maxIconCount - 1) * Constraints.kFiveIconsIconSpacing) / maxIconCount, 1)
-        let thumbnailPixelSize = approxCellWidth * UIScreen.main.scale
-        let thumbnailContext: [SDWebImageContextOption: Any] = [.imageThumbnailPixelSize: CGSize(width: thumbnailPixelSize, height: thumbnailPixelSize)]
-
         for (index, item) in items.enumerated() {
-            guard let url = URL(string: item.imageURL) else { continue }
             group.enter()
-            SDWebImageManager.shared.loadImage(with: url, options: [.retryFailed, .scaleDownLargeImages], context: thumbnailContext, progress: nil) { image, _, _, _, finished, _ in
-                guard finished else { return }
+            CTUtiltiy.checkImageUrlValid(imageUrl: item.imageURL) { image in
                 slots[index] = image
                 group.leave()
             }
         }
 
-        group.notify(queue: .main, execute: finish)
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeout, execute: finish)
+        group.notify(queue: .main) {
+            let validated: [ValidatedIcon] = zip(items, slots).compactMap { item, image in
+                image.map { (item, $0) }
+            }
+            completion(validated)
+        }
     }
 
     private func resolvedTitle() -> String? {
