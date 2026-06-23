@@ -133,14 +133,16 @@ import UIKit
         }
     }
 
+    // Used only in the images-loaded path. APS title/body must not bleed in here;
+    // that fallback belongs exclusively to renderTextOnly() (images-failed path).
     private func resolvedTitle() -> String? {
         if let title = model?.pt_title, !title.isEmpty { return title }
-        return templateCaption.isEmpty ? nil : templateCaption
+        return nil
     }
 
     private func resolvedMessage() -> String? {
         if let msg = model?.pt_msg, !msg.isEmpty { return msg }
-        return templateSubcaption.isEmpty ? nil : templateSubcaption
+        return nil
     }
     
     private func renderTextOnly() {
