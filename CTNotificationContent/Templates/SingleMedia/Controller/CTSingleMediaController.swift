@@ -85,13 +85,19 @@ import AVFoundation
 
             playPauseButton.setImage(pauseImage, for: .normal)
             playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped(_:)), for: .touchUpInside)
+            playPauseButton.accessibilityLabel = "Pause"
+            playPauseButton.accessibilityHint = "Pauses the video"
+            playPauseButton.accessibilityTraits = .button
+            playPauseButton.accessibilityIdentifier = CTAccessibility.kSingleMediaPlayPauseButtonIdentifier
             playPauseButton.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(playPauseButton)
             contentView.bringSubviewToFront(playPauseButton)
-            
+
             NSLayoutConstraint.activate([
                 playPauseButton.centerXAnchor.constraint(equalTo: videoPlayerView.centerXAnchor),
-                playPauseButton.centerYAnchor.constraint(equalTo: videoPlayerView.centerYAnchor)
+                playPauseButton.centerYAnchor.constraint(equalTo: videoPlayerView.centerYAnchor),
+                playPauseButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44.0),
+                playPauseButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0)
             ])
         } else {
             // Video url is invalid.
@@ -188,10 +194,14 @@ import AVFoundation
         if isPlaying {
             videoPlayerView.player?.pause()
             playPauseButton.setImage(playImage, for: .normal)
+            playPauseButton.accessibilityLabel = "Play"
+            playPauseButton.accessibilityHint = "Plays the video"
             isPlaying = false
         } else {
             videoPlayerView.player?.play()
             playPauseButton.setImage(pauseImage, for: .normal)
+            playPauseButton.accessibilityLabel = "Pause"
+            playPauseButton.accessibilityHint = "Pauses the video"
             isPlaying = true
         }
     }
