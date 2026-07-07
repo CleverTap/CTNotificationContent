@@ -46,9 +46,25 @@ enum ConstantKeys {
 }
 
 enum CTAccessibility {
+    // Default accessibility labels
     static let kDefaultImageDescription: String = "Notification Image"
     static let kDefaultSmallImage1Description: String = "Notification Image 1"
     static let kDefaultSmallImage2Description: String = "Notification Image 2"
     static let kDefaultSmallImage3Description: String = "Notification Image 3"
+
+    // Accessibility identifiers (for UI testing)
+    static let kCarouselNextButtonIdentifier: String = "ct_carousel_next_button"
+    static let kCarouselPreviousButtonIdentifier: String = "ct_carousel_previous_button"
+    static let kSingleMediaPlayPauseButtonIdentifier: String = "ct_single_media_play_pause_button"
+    static let kRatingStar1Identifier: String = "ct_rating_star_1"
+    static let kRatingStar2Identifier: String = "ct_rating_star_2"
+    static let kRatingStar3Identifier: String = "ct_rating_star_3"
+    static let kRatingStar4Identifier: String = "ct_rating_star_4"
+    static let kRatingStar5Identifier: String = "ct_rating_star_5"
+    static let kProductDisplayBuyButtonIdentifier: String = "ct_product_display_buy_button"
+    static let kProductDisplaySmallImage1Identifier: String = "ct_product_display_small_image_1"
+    static let kProductDisplaySmallImage2Identifier: String = "ct_product_display_small_image_2"
+    static let kProductDisplaySmallImage3Identifier: String = "ct_product_display_small_image_3"
+    static let kVerticalImageCTAButtonIdentifier: String = "ct_vertical_image_cta_button"
 }
 
