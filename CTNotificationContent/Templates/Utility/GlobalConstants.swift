@@ -61,5 +61,13 @@ enum CTAccessibility {
     static let kDefaultSmallImage1Description: String = "Notification Image 1"
     static let kDefaultSmallImage2Description: String = "Notification Image 2"
     static let kDefaultSmallImage3Description: String = "Notification Image 3"
+    
+    
+    // Five Icons accessibility labels for imgs
+    static let kDefaultIcon1Description: String = "Notification Icon 1"
+    static let kDefaultIcon2Description: String = "Notification Icon 2"
+    static let kDefaultIcon3Description: String = "Notification Icon 3"
+    static let kDefaultIcon4Description: String = "Notification Icon 4"
+    static let kDefaultIcon5Description: String = "Notification Icon 5"
 }
 

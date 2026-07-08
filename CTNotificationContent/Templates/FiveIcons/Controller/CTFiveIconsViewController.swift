@@ -290,8 +290,19 @@ import UIKit
             imageView.heightAnchor.constraint(equalToConstant: cellHeight),
         ])
 
+        let iconDescriptions = [
+            CTAccessibility.kDefaultIcon1Description,
+            CTAccessibility.kDefaultIcon2Description,
+            CTAccessibility.kDefaultIcon3Description,
+            CTAccessibility.kDefaultIcon4Description,
+            CTAccessibility.kDefaultIcon5Description
+        ]
+        imageView.isAccessibilityElement = true
+        imageView.accessibilityLabel = index < iconDescriptions.count ? iconDescriptions[index] : CTAccessibility.kDefaultIcon1Description
+
         if let dl = deepLink, !dl.isEmpty {
             imageView.isUserInteractionEnabled = true
+            imageView.accessibilityTraits = .button
             imageView.addGestureRecognizer(
                 UITapGestureRecognizer(target: self, action: #selector(handleIconTap(_:)))
             )
