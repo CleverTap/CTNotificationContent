@@ -88,19 +88,20 @@ import UIKit
     // MARK: - Row Setup
 
     private typealias IconItem = (imageURL: String, deepLink: String?)
-    private typealias ValidatedIcon = (item: IconItem, image: UIImage)
+    private typealias ValidatedIcon = (item: IconItem, image: UIImage, altText: String?)
 
     private let kMinIcons = 3
     private let kMaxIcons = 5
     private var pendingTextOnlyRender = false
 
     private func prepareAndRenderRow() {
-        let icons = Array((model?.iconItems ?? []).prefix(kMaxIcons))
+        let icons    = Array((model?.iconItems    ?? []).prefix(kMaxIcons))
+        let altTexts = Array((model?.iconAltTexts ?? []).prefix(kMaxIcons))
         guard icons.count >= kMinIcons else {
             pendingTextOnlyRender = true
             return
         }
-        prefetchIcons(icons) { [weak self] validated in
+        prefetchIcons(icons, altTexts: altTexts) { [weak self] validated in
             guard let self = self else { return }
             if validated.count >= self.kMinIcons {
                 self.setupIconRow(validated: validated)
@@ -112,6 +113,7 @@ import UIKit
 
     private func prefetchIcons(
         _ items: [IconItem],
+        altTexts: [String?],
         completion: @escaping ([ValidatedIcon]) -> Void
     ) {
         var slots = [UIImage?](repeating: nil, count: items.count)
@@ -126,8 +128,9 @@ import UIKit
         }
 
         group.notify(queue: .main) {
-            let validated: [ValidatedIcon] = zip(items, slots).compactMap { item, image in
-                image.map { (item, $0) }
+            let validated: [ValidatedIcon] = zip(zip(items, slots), altTexts).compactMap { pair, alt in
+                let (item, image) = pair
+                return image.map { (item, $0, alt) }
             }
             completion(validated)
         }
@@ -266,6 +269,7 @@ import UIKit
                 image: entry.image,
                 index: idx,
                 deepLink: entry.item.deepLink,
+                altText: entry.altText,
                 cellWidth: cellWidth,
                 cellHeight: cellHeights[idx]
             )
@@ -277,7 +281,7 @@ import UIKit
 
     // MARK: - Icon View Factory
 
-    private func makeIconView(image: UIImage, index: Int, deepLink: String?, cellWidth: CGFloat, cellHeight: CGFloat) -> UIImageView {
+    private func makeIconView(image: UIImage, index: Int, deepLink: String?, altText: String?, cellWidth: CGFloat, cellHeight: CGFloat) -> UIImageView {
 
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -297,8 +301,9 @@ import UIKit
             CTAccessibility.kDefaultIcon4Description,
             CTAccessibility.kDefaultIcon5Description
         ]
+        let fallback = index < iconDescriptions.count ? iconDescriptions[index] : CTAccessibility.kDefaultIcon1Description
         imageView.isAccessibilityElement = true
-        imageView.accessibilityLabel = index < iconDescriptions.count ? iconDescriptions[index] : CTAccessibility.kDefaultIcon1Description
+        imageView.accessibilityLabel = altText.flatMap { $0.isEmpty ? nil : $0 } ?? fallback
 
         if let dl = deepLink, !dl.isEmpty {
             imageView.isUserInteractionEnabled = true
