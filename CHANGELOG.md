@@ -1,6 +1,6 @@
 Change Log
 ==========
-Version 1.5.0 (27 July, 2026)
+Version 1.5.0 (28 July, 2026)
 -----------------------------------------------
 - **Accessibility Enhancements:**
   - Adds accessibility identifiers and labels for Carousel template buttons.
