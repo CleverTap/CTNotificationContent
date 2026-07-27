@@ -1,5 +1,13 @@
 Change Log
 ==========
+Version 1.5.0 (27 July, 2026)
+-----------------------------------------------
+- **Accessibility Improvements:**
+  - Adds accessibility identifiers and labels for Carousel template buttons (next/previous navigation).
+  - Adds accessibility label for the play/pause button in auto-advance templates.
+  - Adds accessibility labels for Rating template star buttons.
+  - Adds accessibility labels for Product Display template action buttons.
+
 Version 1.4.0 (4 June, 2026)
 -----------------------------------------------
 - **Timer Template Enhancements:**
