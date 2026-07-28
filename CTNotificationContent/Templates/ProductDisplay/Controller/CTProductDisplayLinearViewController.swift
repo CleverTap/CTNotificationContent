@@ -56,16 +56,22 @@ import UserNotificationsUI
         let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(self.smallImageAction))
         tapGR1.delegate = self
         smallImageBtn1.tag = 1
+        smallImageBtn1.isAccessibilityElement = true
+        smallImageBtn1.accessibilityTraits = .button
         smallImageBtn1.addGestureRecognizer(tapGR1)
-        
+
         let tapGR2 = UITapGestureRecognizer(target: self, action: #selector(self.smallImageAction))
         tapGR2.delegate = self
         smallImageBtn2.tag = 2
+        smallImageBtn2.isAccessibilityElement = true
+        smallImageBtn2.accessibilityTraits = .button
         smallImageBtn2.addGestureRecognizer(tapGR2)
 
         let tapGR3 = UITapGestureRecognizer(target: self, action: #selector(self.smallImageAction))
         tapGR3.delegate = self
         smallImageBtn3.tag = 3
+        smallImageBtn3.isAccessibilityElement = true
+        smallImageBtn3.accessibilityTraits = .button
         smallImageBtn3.addGestureRecognizer(tapGR3)
     }
 
