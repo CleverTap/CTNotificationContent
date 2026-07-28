@@ -26,16 +26,16 @@ import UIKit
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16.0)
-        label.numberOfLines = 1
+        label.font = UIFont.boldSystemFont(ofSize: Constraints.kFiveIconsTitleFontSize)
+        label.numberOfLines = Constraints.kFiveIconsTitleNumberOfLines
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let messageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14.0)
-        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: Constraints.kFiveIconsMessageFontSize)
+        label.numberOfLines = Constraints.kFiveIconsMessageNumberOfLines
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -90,8 +90,8 @@ import UIKit
     private typealias IconItem = (imageURL: String, deepLink: String?)
     private typealias ValidatedIcon = (item: IconItem, image: UIImage, altText: String?)
 
-    private let kMinIcons = 3
-    private let kMaxIcons = 5
+    private let kMinIcons = Constraints.kFiveIconsMinIcons
+    private let kMaxIcons = Constraints.kFiveIconsMaxIcons
     private var pendingTextOnlyRender = false
 
     private func prepareAndRenderRow() {
@@ -117,13 +117,16 @@ import UIKit
         completion: @escaping ([ValidatedIcon]) -> Void
     ) {
         var slots = [UIImage?](repeating: nil, count: items.count)
+        let serialQueue = DispatchQueue(label: "com.clevertap.fiveicons.prefetch")
         let group = DispatchGroup()
 
         for (index, item) in items.enumerated() {
             group.enter()
             CTUtiltiy.checkImageUrlValid(imageUrl: item.imageURL) { image in
-                slots[index] = image
-                group.leave()
+                serialQueue.async {
+                    slots[index] = image
+                    group.leave()
+                }
             }
         }
 
@@ -136,8 +139,6 @@ import UIKit
         }
     }
 
-    // Used only in the images-loaded path. APS title/body must not bleed in here;
-    // that fallback belongs exclusively to renderTextOnly() (images-failed path).
     private func resolvedTitle() -> String? {
         if let title = model?.pt_title, !title.isEmpty { return title }
         return nil
@@ -323,6 +324,7 @@ import UIKit
               tag < iconDeepLinks.count,
               let urlString = iconDeepLinks[tag],
               let url = URL(string: urlString) else { return }
+        getParentViewController().userDidPerformAction(ConstantKeys.kOpenedContentUrlAction, withProperties: ["deepLink": urlString])
         getParentViewController().open(url)
     }
 
@@ -337,7 +339,7 @@ import UIKit
         cachedBgColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
     }
 
-    func applyTheme() {
+    private func applyTheme() {
         view.backgroundColor = cachedBgColor
 
         titleLabel.textColor   = UIColor(hex: isDarkMode ? titleColorDark : titleColor)

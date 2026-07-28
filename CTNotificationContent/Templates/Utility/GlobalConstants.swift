@@ -24,6 +24,12 @@ enum Constraints {
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait
 
     // FiveIcons template
+    static let kFiveIconsMinIcons: Int                = 3
+    static let kFiveIconsMaxIcons: Int                = 5
+    static let kFiveIconsTitleFontSize: CGFloat        = 16.0
+    static let kFiveIconsMessageFontSize: CGFloat      = 14.0
+    static let kFiveIconsTitleNumberOfLines: Int        = 1
+    static let kFiveIconsMessageNumberOfLines: Int     = 2
     static let kFiveIconsHorizontalPadding: CGFloat   = 16.0
     static let kFiveIconsVerticalPadding: CGFloat     = 10.0
     static let kFiveIconsLabelSpacing: CGFloat        = 4.0
