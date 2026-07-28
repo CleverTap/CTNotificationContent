@@ -78,55 +78,65 @@ import SDWebImage
         oneStarImageView.layer.masksToBounds = true
         oneStarImageView.isAccessibilityElement = true
         oneStarImageView.accessibilityLabel = "Rating 1 Star"
+        oneStarImageView.accessibilityHint = "Double tap to rate 1 star"
         oneStarImageView.accessibilityTraits = .button
+        oneStarImageView.accessibilityIdentifier = CTAccessibility.kRatingStar1Identifier
         oneStarImageView.translatesAutoresizingMaskIntoConstraints = false
         oneStarImageView.tag = 1
         return oneStarImageView
     }()
-    
+
     private var twoStarImageView: UIImageView = {
         let twoStarImageView = UIImageView()
         twoStarImageView.contentMode = .scaleAspectFit
         twoStarImageView.layer.masksToBounds = true
         twoStarImageView.isAccessibilityElement = true
-        twoStarImageView.accessibilityLabel = "Rating 2 Star"
+        twoStarImageView.accessibilityLabel = "Rating 2 Stars"
+        twoStarImageView.accessibilityHint = "Double tap to rate 2 stars"
         twoStarImageView.accessibilityTraits = .button
+        twoStarImageView.accessibilityIdentifier = CTAccessibility.kRatingStar2Identifier
         twoStarImageView.translatesAutoresizingMaskIntoConstraints = false
         twoStarImageView.tag = 2
         return twoStarImageView
     }()
-    
+
     private var threeStarImageView: UIImageView = {
         let threeStarImageView = UIImageView()
         threeStarImageView.contentMode = .scaleAspectFit
         threeStarImageView.layer.masksToBounds = true
         threeStarImageView.isAccessibilityElement = true
-        threeStarImageView.accessibilityLabel = "Rating 3 Star"
+        threeStarImageView.accessibilityLabel = "Rating 3 Stars"
+        threeStarImageView.accessibilityHint = "Double tap to rate 3 stars"
         threeStarImageView.accessibilityTraits = .button
+        threeStarImageView.accessibilityIdentifier = CTAccessibility.kRatingStar3Identifier
         threeStarImageView.translatesAutoresizingMaskIntoConstraints = false
         threeStarImageView.tag = 3
         return threeStarImageView
     }()
-    
+
     private var fourStarImageView: UIImageView = {
         let fourStarImageView = UIImageView()
         fourStarImageView.contentMode = .scaleAspectFit
         fourStarImageView.layer.masksToBounds = true
         fourStarImageView.isAccessibilityElement = true
-        fourStarImageView.accessibilityLabel = "Rating 4 Star"
+        fourStarImageView.accessibilityLabel = "Rating 4 Stars"
+        fourStarImageView.accessibilityHint = "Double tap to rate 4 stars"
         fourStarImageView.accessibilityTraits = .button
+        fourStarImageView.accessibilityIdentifier = CTAccessibility.kRatingStar4Identifier
         fourStarImageView.translatesAutoresizingMaskIntoConstraints = false
         fourStarImageView.tag = 4
         return fourStarImageView
     }()
-    
+
     private var fiveStarImageView: UIImageView = {
         let fiveStarImageView = UIImageView()
         fiveStarImageView.contentMode = .scaleAspectFit
         fiveStarImageView.layer.masksToBounds = true
         fiveStarImageView.isAccessibilityElement = true
-        fiveStarImageView.accessibilityLabel = "Rating 5 Star"
+        fiveStarImageView.accessibilityLabel = "Rating 5 Stars"
+        fiveStarImageView.accessibilityHint = "Double tap to rate 5 stars"
         fiveStarImageView.accessibilityTraits = .button
+        fiveStarImageView.accessibilityIdentifier = CTAccessibility.kRatingStar5Identifier
         fiveStarImageView.translatesAutoresizingMaskIntoConstraints = false
         fiveStarImageView.tag = 5
         return fiveStarImageView
@@ -172,7 +182,7 @@ import SDWebImage
             + Constraints.kCaptionHeight
             + Constraints.kSubCaptionTopPadding
             + Constraints.kSubCaptionHeight
-        let viewHeight = captionAreaHeight + 66  // 16pt gap + 30pt stars + 20pt bottom padding
+        let viewHeight = captionAreaHeight + 80  // 16pt gap + 44pt stars + 20pt bottom padding
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
@@ -204,12 +214,12 @@ import SDWebImage
     func viewWithImageandRating(){
         contentView.addSubview(bigImageView)
         contentView.addSubview(starStackView)
-        imageViewBottomContraint = 70.0
+        imageViewBottomContraint = 84.0
         activateImageViewContraints()
         activateStarStackViewContraints()
 
         let viewWidth = view.frame.size.width
-        let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight() + 44 // padding
+        let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight() + 58 // 44pt stars + 20pt bottom + 20pt gap above stars - getCaptionHeight overlap
         
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
@@ -460,21 +470,21 @@ import SDWebImage
             starStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             starStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
             starStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            starStackView.heightAnchor.constraint(equalToConstant: 30),
-            
-            oneStarImageView.heightAnchor.constraint(equalToConstant: 30),
+            starStackView.heightAnchor.constraint(equalToConstant: 44),
+
+            oneStarImageView.heightAnchor.constraint(equalToConstant: 44),
             oneStarImageView.widthAnchor.constraint(equalToConstant: 50),
-            
-            twoStarImageView.heightAnchor.constraint(equalToConstant: 30),
+
+            twoStarImageView.heightAnchor.constraint(equalToConstant: 44),
             twoStarImageView.widthAnchor.constraint(equalToConstant: 50),
-            
-            threeStarImageView.heightAnchor.constraint(equalToConstant: 30),
+
+            threeStarImageView.heightAnchor.constraint(equalToConstant: 44),
             threeStarImageView.widthAnchor.constraint(equalToConstant: 50),
-            
-            fourStarImageView.heightAnchor.constraint(equalToConstant: 30),
+
+            fourStarImageView.heightAnchor.constraint(equalToConstant: 44),
             fourStarImageView.widthAnchor.constraint(equalToConstant: 50),
-            
-            fiveStarImageView.heightAnchor.constraint(equalToConstant: 30),
+
+            fiveStarImageView.heightAnchor.constraint(equalToConstant: 44),
             fiveStarImageView.widthAnchor.constraint(equalToConstant: 50)
             
         ])

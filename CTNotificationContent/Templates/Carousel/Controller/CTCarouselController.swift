@@ -242,10 +242,18 @@ import UserNotificationsUI
                 nextButtonImage = UIImage(named: "ct_next_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
                 nextButton.setImage(nextButtonImage, for: .normal)
                 nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        
+                nextButton.accessibilityLabel = "Next image"
+                nextButton.accessibilityHint = "Shows the next image in the carousel"
+                nextButton.accessibilityTraits = .button
+                nextButton.accessibilityIdentifier = CTAccessibility.kCarouselNextButtonIdentifier
+
                 previousButtonImage = UIImage(named: "ct_previous_button", in: Bundle(for: type(of: self)), compatibleWith: nil)!
                 previousButton.setImage(previousButtonImage, for: .normal)
                 previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
+                previousButton.accessibilityLabel = "Previous image"
+                previousButton.accessibilityHint = "Shows the previous image in the carousel"
+                previousButton.accessibilityTraits = .button
+                previousButton.accessibilityIdentifier = CTAccessibility.kCarouselPreviousButtonIdentifier
 
                 contentView.addSubview(nextButton)
                 contentView.addSubview(previousButton)
