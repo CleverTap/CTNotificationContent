@@ -24,6 +24,11 @@ struct VerticalImageProperties: Decodable {
     let pt_gif: String?
     let pt_scale_type: String?
 
+    // MARK: - Expanded Image
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_clr: String?
+    let pt_img_border_width: FlexibleDouble?
+
     // MARK: - Expanded Text Overlays
     let pt_text1: String?
     let pt_text1_clr: String?

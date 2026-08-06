@@ -64,7 +64,6 @@ import SDWebImage
         let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 8.0
         imageView.isAccessibilityElement = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -156,6 +155,8 @@ import SDWebImage
 
         guard let json = jsonContent else { return }
 
+        configureImageStyle(json: json)
+
         // Resolve title and message from payload or system notification fields
         if let title = json.pt_title, !title.isEmpty { templateCaption = title }
         if let msg = json.pt_msg, !msg.isEmpty { templateSubcaption = msg }
@@ -216,6 +217,17 @@ import SDWebImage
         }
 
         updateInterfaceColors()
+    }
+
+    private func configureImageStyle(json: VerticalImageProperties) {
+        // Corner radius — default 8.0 preserves prior behavior when key is absent
+        bigImageView.layer.cornerRadius = CGFloat(json.pt_img_corner_radius?.value ?? 8.0)
+
+        // Border — only shown when a border color is provided
+        if let borderColor = json.pt_img_border_clr, !borderColor.isEmpty {
+            bigImageView.layer.borderColor = UIColor(hex: borderColor)?.cgColor
+            bigImageView.layer.borderWidth = CGFloat(json.pt_img_border_width?.value ?? 1.0)
+        }
     }
 
     private func configureButton(json: VerticalImageProperties) {
