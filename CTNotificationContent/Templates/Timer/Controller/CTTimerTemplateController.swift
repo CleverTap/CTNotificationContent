@@ -26,6 +26,9 @@ import SDWebImage
     var bigImageAltText: String? = nil
     var bigImageAlt: String = ""
     var bigImageAltAltText: String? = nil
+    var imgCornerRadius: CGFloat = 0
+    var imgBorderWidth: CGFloat = 0
+    var imgBorderClr: String = ""
     private var imageView: SDAnimatedImageView = {
         let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
@@ -187,7 +190,10 @@ import SDWebImage
         if let bigImgAlt = jsonContent.pt_big_img_alt_text, !bigImgAlt.isEmpty {
             bigImageAltText = bigImgAlt
         }
-        
+        imgCornerRadius = CGFloat(jsonContent.pt_img_corner_radius?.value ?? 0)
+        imgBorderWidth = CGFloat(jsonContent.pt_img_border_width?.value ?? 0)
+        imgBorderClr = jsonContent.pt_img_border_clr ?? ""
+
         if thresholdSeconds <= 0 {
             hideTimerDisplay()
         }
@@ -205,6 +211,9 @@ import SDWebImage
                 self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
                     if image != nil {
                         self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                        if let strongSelf = self {
+                            CTUtiltiy.applyImageStyling(to: strongSelf.imageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                        }
                         self?.activateImageViewContraints()
                         self?.createFrameWithImage()
                     } else {
@@ -382,6 +391,7 @@ import SDWebImage
                 guard let self, imageData != nil else { return }
                 self.imageView.image = imageData
                 self.imageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                CTUtiltiy.applyImageStyling(to: self.imageView, cornerRadius: self.imgCornerRadius, borderWidth: self.imgBorderWidth, borderClr: self.imgBorderClr.isEmpty ? nil : self.imgBorderClr)
                 self.activateImageViewContraints()
                 self.createFrameWithImage()
             }
@@ -392,6 +402,9 @@ import SDWebImage
         self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
             if image != nil {
                 self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+                if let strongSelf = self {
+                    CTUtiltiy.applyImageStyling(to: strongSelf.imageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                }
                 self?.createFrameWithImage()
                 self?.activateImageViewContraints()
             } else {
@@ -399,7 +412,7 @@ import SDWebImage
             }
         })
     }
-    
+
     func showAltImageView() {
         if bigImageAlt != "" {
             // Load expired image, if available.
@@ -408,6 +421,9 @@ import SDWebImage
                     if imageData != nil {
                         self?.imageView.image = imageData
                         self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+                        if let strongSelf = self {
+                            CTUtiltiy.applyImageStyling(to: strongSelf.imageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                        }
                         self?.createFrameWithImage()
                         self?.activateImageViewContraints()
                     }

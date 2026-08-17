@@ -18,6 +18,8 @@ enum Constraints {
     static let kTimerLabelWidthWithHours: CGFloat = 120.0
     static let kTimerBoxHeight: CGFloat = 50.0
     static let kTimerBorderMaxWidth: CGFloat = 10.0
+    static let kImageCornerRadiusMax: CGFloat = 32.0
+    static let kImageBorderWidthMax: CGFloat = 8.0
     static let kTimerHorizontalGap: CGFloat = 4.0
     static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait

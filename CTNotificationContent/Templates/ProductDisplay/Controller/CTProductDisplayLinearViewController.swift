@@ -118,7 +118,15 @@ import UserNotificationsUI
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
         
         self.deeplink = jsonContent.pt_dl1
-        
+
+        let imgCornerRadius = CGFloat(Double(jsonContent.pt_img_corner_radius ?? "0") ?? 0)
+        let imgBorderWidth = CGFloat(Double(jsonContent.pt_img_border_width ?? "0") ?? 0)
+        let imgBorderClr = jsonContent.pt_img_border_clr
+        CTUtiltiy.applyImageStyling(to: bigImageView, cornerRadius: imgCornerRadius, borderWidth: imgBorderWidth, borderClr: imgBorderClr)
+        CTUtiltiy.applyImageStyling(to: smallImageBtn1, cornerRadius: imgCornerRadius, borderWidth: imgBorderWidth, borderClr: imgBorderClr)
+        CTUtiltiy.applyImageStyling(to: smallImageBtn2, cornerRadius: imgCornerRadius, borderWidth: imgBorderWidth, borderClr: imgBorderClr)
+        CTUtiltiy.applyImageStyling(to: smallImageBtn3, cornerRadius: imgCornerRadius, borderWidth: imgBorderWidth, borderClr: imgBorderClr)
+
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img1) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {

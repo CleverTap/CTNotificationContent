@@ -12,6 +12,9 @@ import AVFoundation
     @objc public var mediaURL: String = ""
     @objc public var mediaDescription: String = CTAccessibility.kDefaultImageDescription
     @objc public var deeplinkURL: String = ""
+    @objc public var imgCornerRadius: CGFloat = 0
+    @objc public var imgBorderWidth: CGFloat = 0
+    @objc public var imgBorderClr: String = ""
     var player:AVPlayer?
     var videoPlayerView: CTVideoPlayerView = CTVideoPlayerView(frame: .zero)
     private var captionLabel: UILabel = {
@@ -109,7 +112,7 @@ import AVFoundation
         CTUtiltiy.checkImageUrlValid(imageUrl: mediaURL) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 if imageData != nil {
-                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self!.mediaDescription)
+                    let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: self!.mediaURL, actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self!.mediaDescription, imgCornerRadius: self!.imgCornerRadius, imgBorderWidth: self!.imgBorderWidth, imgBorderClr: self!.imgBorderClr)
                     self?.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                 } else {
                     let itemComponents = CaptionedImageViewComponents(caption: self!.caption, subcaption: self!.subCaption, imageUrl: "", actionUrl: self!.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
@@ -119,10 +122,10 @@ import AVFoundation
                 self?.setUpConstraints()
             }
         }
-        
-        let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: mediaDescription)
+
+        let itemComponents = CaptionedImageViewComponents(caption: caption, subcaption: subCaption, imageUrl: mediaURL, actionUrl: deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: mediaDescription, imgCornerRadius: imgCornerRadius, imgBorderWidth: imgBorderWidth, imgBorderClr: imgBorderClr)
         currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
-        
+
     }
     
     func setUpConstraints() {
