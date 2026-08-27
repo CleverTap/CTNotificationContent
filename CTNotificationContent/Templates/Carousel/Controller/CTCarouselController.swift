@@ -136,35 +136,33 @@ import UserNotificationsUI
                 }
             }
         } else if templateType == TemplateConstants.kTemplateAutoCarousel || templateType == TemplateConstants.kTemplateManualCarousel {
-            // Add non empty image urls.
-            var imageUrls = [(url: String, description: String?)]()
+            var imageUrls = [(url: String, description: String?, deeplink: String)]()
             if let url = jsonContent.pt_img1, !url.isEmpty {
-                imageUrls.append((url: url, description: jsonContent.pt_img1_alt_text))
+                imageUrls.append((url: url, description: jsonContent.pt_img1_alt_text, deeplink: resolveDeeplink(jsonContent.pt_dl1, fallback: actionUrl)))
             }
             if let url = jsonContent.pt_img2, !url.isEmpty {
-                imageUrls.append((url: url, description: jsonContent.pt_img2_alt_text))
+                imageUrls.append((url: url, description: jsonContent.pt_img2_alt_text, deeplink: resolveDeeplink(jsonContent.pt_dl2, fallback: actionUrl)))
             }
             if let url = jsonContent.pt_img3, !url.isEmpty {
-                imageUrls.append((url: url, description: jsonContent.pt_img3_alt_text))
+                imageUrls.append((url: url, description: jsonContent.pt_img3_alt_text, deeplink: resolveDeeplink(jsonContent.pt_dl3, fallback: actionUrl)))
             }
-            
+
             let dispatchGroup = DispatchGroup()
-            var imageIndex = 1
-            for (_,imageDetails) in imageUrls.enumerated() {
+            var orderedItemViews = [Int: CTCaptionedImageView]()
+            for (index, imageDetails) in imageUrls.enumerated() {
                 dispatchGroup.enter()
                 CTUtiltiy.checkImageUrlValid(imageUrl: imageDetails.url) { [weak self] (imageData) in
                     DispatchQueue.main.async {
                         if imageData != nil {
-                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: imageDetails.url, actionUrl: actionUrl, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: imageDetails.description ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
-                            let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
-                            self?.itemViews.append(itemView)
-                            imageIndex = imageIndex + 1
+                            let itemComponents = CaptionedImageViewComponents(caption: self!.templateCaption, subcaption: self!.templateSubcaption, imageUrl: imageDetails.url, actionUrl: imageDetails.deeplink, bgColor: self!.bgColor, captionColor: self!.captionColor, subcaptionColor: self!.subcaptionColor, bgColorDark: self!.bgColorDark, captionColorDark: self!.captionColorDark, subcaptionColorDark: self!.subcaptionColorDark, imageDescription: imageDetails.description ?? "\(CTAccessibility.kDefaultImageDescription) \(index + 1)")
+                            orderedItemViews[index] = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                         }
                         dispatchGroup.leave()
                     }
                 }
             }
             dispatchGroup.notify(queue: .main) {
+                self.itemViews = (0..<imageUrls.count).compactMap { orderedItemViews[$0] }
                 self.setUpConstraints()
             }
         }
@@ -400,6 +398,11 @@ import UserNotificationsUI
     
     @objc public override func getDeeplinkUrl() -> String! {
         let deeplink = itemViews[currentItemIndex].components.actionUrl
+        return deeplink
+    }
+
+    private func resolveDeeplink(_ deeplink: String?, fallback: String) -> String {
+        guard let deeplink = deeplink, !deeplink.isEmpty else { return fallback }
         return deeplink
     }
 }
