@@ -19,10 +19,10 @@ import UIKit
 
     private var cachedBgColor: UIColor?
 
-    private var titleColor: String     = ConstantKeys.kHexBlackColor
+    private var titleColor: String = ConstantKeys.kHexBlackColor
     private var titleColorDark: String = ConstantKeys.kHexWhiteColor
-    private var msgColor: String       = ConstantKeys.kHexBlackColor
-    private var msgColorDark: String   = ConstantKeys.kHexWhiteColor
+    private var msgColor: String = ConstantKeys.kHexBlackColor
+    private var msgColorDark: String = ConstantKeys.kHexWhiteColor
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -47,12 +47,7 @@ import UIKit
 
         model = CTUtiltiy.loadContentData(data: data)
 
-        if let bg     = model?.pt_bg,                  !bg.isEmpty     { bgColor          = bg }
-        if let bgDark = model?.pt_bg_dark,             !bgDark.isEmpty { bgColorDark      = bgDark }
-        if let titleClrValue     = model?.pt_title_clr,      !titleClrValue.isEmpty     { titleColor     = titleClrValue }
-        if let titleClrDarkValue = model?.pt_title_clr_dark, !titleClrDarkValue.isEmpty { titleColorDark = titleClrDarkValue }
-        if let msgClrValue       = model?.pt_msg_clr,        !msgClrValue.isEmpty       { msgColor       = msgClrValue }
-        if let msgClrDarkValue   = model?.pt_msg_clr_dark,   !msgClrDarkValue.isEmpty   { msgColorDark   = msgClrDarkValue }
+        applyPayloadColors()
 
         rebuildColorCache()
         applyTheme()
@@ -95,8 +90,10 @@ import UIKit
     private var pendingTextOnlyRender = false
 
     private func prepareAndRenderRow() {
-        let icons    = Array((model?.iconItems    ?? []).prefix(kMaxIcons))
+        
+        let icons = Array((model?.iconItems ?? []).prefix(kMaxIcons))
         let altTexts = Array((model?.iconAltTexts ?? []).prefix(kMaxIcons))
+        
         guard icons.count >= kMinIcons else {
             pendingTextOnlyRender = true
             return
@@ -150,10 +147,12 @@ import UIKit
     }
     
     private func renderTextOnly() {
+        
         let titleText: String? = {
             if let title = model?.pt_title, !title.isEmpty { return title }
             return templateCaption.isEmpty ? nil : templateCaption
         }()
+        
         let msgText: String? = {
             if let message = model?.pt_msg, !message.isEmpty { return message }
             return templateSubcaption.isEmpty ? nil : templateSubcaption
@@ -170,7 +169,7 @@ import UIKit
             view.addSubview(titleLabel)
             NSLayoutConstraint.activate([
                 titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Constraints.kFiveIconsVerticalPadding),
-                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constraints.kFiveIconsHorizontalPadding),
                 titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
@@ -182,7 +181,7 @@ import UIKit
             view.addSubview(messageLabel)
             NSLayoutConstraint.activate([
                 messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding),
-                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constraints.kFiveIconsHorizontalPadding),
                 messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
@@ -201,12 +200,13 @@ import UIKit
 
     private func setupIconRow(validated: [ValidatedIcon]) {
         let titleText = resolvedTitle()
-        let msgText   = resolvedMessage()
+        let msgText = resolvedMessage()
 
         let availableTextWidth = max(view.bounds.width - 2 * Constraints.kFiveIconsHorizontalPadding, 1)
         let labelFittingSize = CGSize(width: availableTextWidth, height: .greatestFiniteMagnitude)
 
-        let maxIconCount: CGFloat = 5
+        let maxIconCount: CGFloat = CGFloat(Constraints.kFiveIconsMaxIcons)
+        
         let cellWidth: CGFloat = max((availableTextWidth - (maxIconCount - 1) * Constraints.kFiveIconsIconSpacing) / maxIconCount, 0)
 
         let cellHeights: [CGFloat] = validated.map { entry in
@@ -227,7 +227,7 @@ import UIKit
             view.addSubview(titleLabel)
             NSLayoutConstraint.activate([
                 titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: Constraints.kFiveIconsVerticalPadding),
-                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constraints.kFiveIconsHorizontalPadding),
                 titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = titleLabel.bottomAnchor
@@ -239,17 +239,17 @@ import UIKit
             view.addSubview(messageLabel)
             NSLayoutConstraint.activate([
                 messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding),
-                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding),
+                messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constraints.kFiveIconsHorizontalPadding),
                 messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constraints.kFiveIconsHorizontalPadding),
             ])
             topAnchor = messageLabel.bottomAnchor
             totalHeight += (titleText != nil ? Constraints.kFiveIconsLabelSpacing : Constraints.kFiveIconsVerticalPadding) + ceil(messageLabel.sizeThatFits(labelFittingSize).height)
         }
 
-        stackView.axis         = .horizontal
+        stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
-        stackView.alignment    = .center
-        stackView.spacing      = Constraints.kFiveIconsIconSpacing
+        stackView.alignment = .center
+        stackView.spacing = Constraints.kFiveIconsIconSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
 
@@ -258,7 +258,7 @@ import UIKit
         let extraHorizontalInset: CGFloat = (validated.count == 3) ? Constraints.kFiveIconsThreeIconHInset : 0
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: stackTopInset),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,   constant:  Constraints.kFiveIconsHorizontalPadding + extraHorizontalInset),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constraints.kFiveIconsHorizontalPadding + extraHorizontalInset),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(Constraints.kFiveIconsHorizontalPadding + extraHorizontalInset)),
             stackView.heightAnchor.constraint(equalToConstant: rowHeight),
         ])
@@ -324,8 +324,16 @@ import UIKit
               tag < iconDeepLinks.count,
               let urlString = iconDeepLinks[tag],
               let url = URL(string: urlString) else { return }
-        getParentViewController().userDidPerformAction(ConstantKeys.kOpenedContentUrlAction, withProperties: ["deepLink": urlString])
         getParentViewController().open(url)
+    }
+
+    private func applyPayloadColors() {
+        if let bg = model?.pt_bg, !bg.isEmpty { bgColor = bg }
+        if let bgDark = model?.pt_bg_dark, !bgDark.isEmpty { bgColorDark = bgDark }
+        if let titleClr = model?.pt_title_clr, !titleClr.isEmpty { titleColor = titleClr }
+        if let titleClrDark = model?.pt_title_clr_dark, !titleClrDark.isEmpty { titleColorDark = titleClrDark }
+        if let msgClr = model?.pt_msg_clr, !msgClr.isEmpty { msgColor = msgClr }
+        if let msgClrDark = model?.pt_msg_clr_dark, !msgClrDark.isEmpty { msgColorDark = msgClrDark }
     }
 
     private var isDarkMode: Bool {
@@ -342,8 +350,8 @@ import UIKit
     private func applyTheme() {
         view.backgroundColor = cachedBgColor
 
-        titleLabel.textColor   = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
-        messageLabel.textColor = UIColor(hex: isDarkMode ? msgColorDark   : msgColor)
+        titleLabel.textColor = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
+        messageLabel.textColor = UIColor(hex: isDarkMode ? msgColorDark : msgColor)
     }
 
     // MARK: - BaseCTNotificationContentViewController
