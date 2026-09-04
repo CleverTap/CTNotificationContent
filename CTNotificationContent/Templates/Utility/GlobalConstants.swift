@@ -2,6 +2,7 @@ enum TemplateConstants {
     static let kTemplateBasic: String = "pt_basic"
     static let kTemplateAutoCarousel: String = "pt_carousel"
     static let kTemplateManualCarousel: String = "pt_manual_carousel"
+    static let kTemplateFiveIcons: String = "pt_five_icons"
 }
 
 enum Constraints {
@@ -21,6 +22,22 @@ enum Constraints {
     static let kTimerHorizontalGap: CGFloat = 4.0
     static let kLandscapeMultiplier: CGFloat = 0.5625 // 16:9 in landscape
     static let kPortraitMultiplier: CGFloat = 1.777 // 16:9 in portrait
+
+    // FiveIcons template
+    static let kFiveIconsMinIcons: Int                = 3
+    static let kFiveIconsMaxIcons: Int                = 5
+    static let kFiveIconsTitleFontSize: CGFloat        = 16.0
+    static let kFiveIconsMessageFontSize: CGFloat      = 14.0
+    static let kFiveIconsTitleNumberOfLines: Int        = 1
+    static let kFiveIconsMessageNumberOfLines: Int     = 2
+    static let kFiveIconsHorizontalPadding: CGFloat   = 16.0
+    static let kFiveIconsVerticalPadding: CGFloat     = 10.0
+    static let kFiveIconsLabelSpacing: CGFloat        = 4.0
+    static let kFiveIconsIconSpacing: CGFloat         = 10.0
+    static let kFiveIconsThreeIconHInset: CGFloat     = 40.0
+    static let kFiveIconsRowTopSpacing: CGFloat       = 8.0
+    static let kFiveIconsRowBottomPadding: CGFloat    = 10.0
+    static let kFiveIconsNoTextVerticalPad: CGFloat   = 24.0
 }
 
 enum ConstantKeys {
@@ -51,6 +68,13 @@ enum CTAccessibility {
     static let kDefaultSmallImage1Description: String = "Notification Image 1"
     static let kDefaultSmallImage2Description: String = "Notification Image 2"
     static let kDefaultSmallImage3Description: String = "Notification Image 3"
+
+    // Five Icons accessibility labels for imgs
+    static let kDefaultIcon1Description: String = "Notification Icon 1"
+    static let kDefaultIcon2Description: String = "Notification Icon 2"
+    static let kDefaultIcon3Description: String = "Notification Icon 3"
+    static let kDefaultIcon4Description: String = "Notification Icon 4"
+    static let kDefaultIcon5Description: String = "Notification Icon 5"
 
     // Accessibility identifiers (for UI testing)
     static let kCarouselNextButtonIdentifier: String = "ct_carousel_next_button"
