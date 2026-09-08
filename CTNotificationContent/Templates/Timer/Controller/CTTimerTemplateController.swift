@@ -136,19 +136,26 @@ import SDWebImage
         setTruncatingHTMLText(templateSubcaption, on: subcaptionLabel)
 
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering caption only")
             return
         }
         if let threshold = jsonContent.pt_timer_threshold {
             if let deliveredAt = notificationDeliveryDate {
                 let elapsed = Int(Date().timeIntervalSince(deliveredAt))
                 thresholdSeconds = max(0, threshold - elapsed)
+                CTContentLog.info("Using pt_timer_threshold=\(threshold), deliveredAt=\(Int(deliveredAt.timeIntervalSince1970)), elapsed=\(elapsed)")
             } else {
                 thresholdSeconds = threshold
+                CTContentLog.error("Nil notificationDeliveryDate, using pt_timer_threshold=\(threshold) without subtracting elapsed time")
             }
         } else if let endTime = jsonContent.pt_timer_end {
             let currentTime = Date().timeIntervalSince1970
             thresholdSeconds = endTime - Int(currentTime)
+            CTContentLog.info("Using pt_timer_end=\(endTime), now=\(Int(currentTime))")
+        } else {
+            CTContentLog.error("Missing pt_timer_threshold and pt_timer_end, starting at 0, rendering expired state")
         }
+        CTContentLog.info("Timer controller started, secondsLeft=\(thresholdSeconds)")
 
         if let title = jsonContent.pt_title, !title.isEmpty {
             setTruncatingHTMLText(title, on: captionLabel)
@@ -202,18 +209,29 @@ import SDWebImage
         // Load image only if timer is not ended.
         if thresholdSeconds > 0 {
             if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
-                    if image != nil {
-                        self?.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    } else {
-                        self?.showImageView()
+                CTContentLog.info("Loading gif, url=\(gif)")
+                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                    guard let self = self else {
+                        CTContentLog.error("Controller deallocated before gif arrived")
+                        return
                     }
+                    guard image != nil else {
+                        CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        self.showImageView()
+                        return
+                    }
+                    self.imageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self.activateImageViewContraints()
+                    self.createFrameWithImage()
                 })
             } else {
+                if let gif = jsonContent.pt_gif, !gif.isEmpty {
+                    CTContentLog.error("Gif url parse failed, falling back to still image, url=\(gif)")
+                }
                 self.showImageView()
             }
+        } else {
+            CTContentLog.info("Timer already expired, skipping running state image load")
         }
     }
     
@@ -250,7 +268,10 @@ import SDWebImage
     }
 
     func setupConstraints() {
-        let activeTimerView: UIView = timerBoxView!
+        guard let activeTimerView: UIView = timerBoxView else {
+            CTContentLog.error("Nil timer box view, skipping timer layout")
+            return
+        }
         let initialTrailingConstant: CGFloat = thresholdSeconds > 0
             ? -timerReservedWidth(showHours: thresholdSeconds > 3600)
             : -Constraints.kCaptionLeftPadding
@@ -299,33 +320,49 @@ import SDWebImage
     }
     
     func updateViewForExpiredTime() {
-        if let jsonContent = jsonContent {
-            if let title = jsonContent.pt_title_alt, !title.isEmpty {
-                setTruncatingHTMLText(title, on: captionLabel)
-            }
-            if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
-                setTruncatingHTMLText(msg, on: subcaptionLabel)
-            }
-            if let bigImgAlt = jsonContent.pt_big_img_alt, !bigImgAlt.isEmpty {
-                bigImageAlt = bigImgAlt
-            }
-            if let bigImgAltAlt = jsonContent.pt_big_img_alt_alt_text, !bigImgAltAlt.isEmpty {
-                bigImageAltAltText = bigImgAltAlt
-            }
-            if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty, let url = URL(string: gifAlt) {
-                CTUtiltiy.checkImageUrlValid(imageUrl: gifAlt) { [weak self] (imageData) in
-                    if imageData != nil {
-                        self?.showAltGifView(url)
-                    } else {
-                        self?.showAltImageView()
-                    }
-                }
-            } else {
-                self.showAltImageView()
-            }
-            
-            updateInterfaceColors()
+        guard let jsonContent = jsonContent else {
+            CTContentLog.error("Timer expired but payload data is nil, leaving view unchanged")
+            return
         }
+        CTContentLog.info("Timer expired, rendering expired texts and image")
+        if let title = jsonContent.pt_title_alt, !title.isEmpty {
+            setTruncatingHTMLText(title, on: captionLabel)
+        }
+        if let msg = jsonContent.pt_msg_alt, !msg.isEmpty {
+            setTruncatingHTMLText(msg, on: subcaptionLabel)
+        }
+        if let bigImgAlt = jsonContent.pt_big_img_alt, !bigImgAlt.isEmpty {
+            bigImageAlt = bigImgAlt
+        }
+        if let bigImgAltAlt = jsonContent.pt_big_img_alt_alt_text, !bigImgAltAlt.isEmpty {
+            bigImageAltAltText = bigImgAltAlt
+        }
+        if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty, let url = URL(string: gifAlt) {
+            CTContentLog.info("Loading expired gif, url=\(gifAlt)")
+            CTUtiltiy.checkImageUrlValid(imageUrl: gifAlt) { [weak self] (imageData) in
+                // The callback runs off the main thread. Every view call below
+                // has to be made on the main thread.
+                DispatchQueue.main.async {
+                    guard let self = self else {
+                        CTContentLog.error("Controller deallocated before expired gif was checked")
+                        return
+                    }
+                    guard imageData != nil else {
+                        CTContentLog.error("Expired gif unreachable, falling back to expired still image, url=\(gifAlt)")
+                        self.showAltImageView()
+                        return
+                    }
+                    self.showAltGifView(url)
+                }
+            }
+        } else {
+            if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty {
+                CTContentLog.error("Expired gif url parse failed, falling back to expired still image, url=\(gifAlt)")
+            }
+            self.showAltImageView()
+        }
+
+        updateInterfaceColors()
     }
     
     func createFrameWithoutImage() {
@@ -361,10 +398,13 @@ import SDWebImage
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if !deeplinkURL.isEmpty {
-                if let url = URL(string: deeplinkURL) {
-                    getParentViewController().open(url)
-                }
+            if deeplinkURL.isEmpty {
+                CTContentLog.info("No deeplink, dismissing")
+            } else if let url = URL(string: deeplinkURL) {
+                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
             }
             return .dismiss
         }
@@ -376,10 +416,21 @@ import SDWebImage
     }
     
     func showImageView() {
-        guard bigImage != "" else { return }
+        guard !bigImage.isEmpty else {
+            CTContentLog.info("Missing pt_big_img, rendering caption only")
+            return
+        }
         CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
             DispatchQueue.main.async {
-                guard let self, imageData != nil else { return }
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before image arrived")
+                    return
+                }
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(self.bigImage)")
+                    return
+                }
+                CTContentLog.info("Image rendered, url=\(self.bigImage)")
                 self.imageView.image = imageData
                 self.imageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                 self.activateImageViewContraints()
@@ -387,31 +438,46 @@ import SDWebImage
             }
         }
     }
-    
+
     func showAltGifView(_ url: URL) {
-        self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
-            if image != nil {
-                self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
-                self?.createFrameWithImage()
-                self?.activateImageViewContraints()
-            } else {
-                self?.showAltImageView()
+        self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+            guard let self = self else {
+                CTContentLog.error("Controller deallocated before expired gif arrived")
+                return
             }
+            guard image != nil else {
+                CTContentLog.error("Expired gif load failed, falling back to expired still image, url=\(url.absoluteString), error=\(error?.localizedDescription ?? "nil image, no error")")
+                self.showAltImageView()
+                return
+            }
+            CTContentLog.info("Expired gif rendered")
+            self.imageView.accessibilityLabel = self.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+            self.createFrameWithImage()
+            self.activateImageViewContraints()
         })
     }
-    
+
     func showAltImageView() {
-        if bigImageAlt != "" {
-            // Load expired image, if available.
-            CTUtiltiy.checkImageUrlValid(imageUrl: bigImageAlt) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.imageView.image = imageData
-                        self?.imageView.accessibilityLabel = self?.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.createFrameWithImage()
-                        self?.activateImageViewContraints()
-                    }
+        guard !bigImageAlt.isEmpty else {
+            CTContentLog.info("Missing pt_big_img_alt, keeping image already on screen")
+            return
+        }
+        // Load expired image, if available.
+        CTUtiltiy.checkImageUrlValid(imageUrl: bigImageAlt) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before expired image arrived")
+                    return
                 }
+                guard imageData != nil else {
+                    CTContentLog.error("Expired image load failed, keeping image already on screen, url=\(self.bigImageAlt)")
+                    return
+                }
+                CTContentLog.info("Expired image rendered, url=\(self.bigImageAlt)")
+                self.imageView.image = imageData
+                self.imageView.accessibilityLabel = self.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
+                self.createFrameWithImage()
+                self.activateImageViewContraints()
             }
         }
     }

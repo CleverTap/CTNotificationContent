@@ -27,6 +27,7 @@
 		32DFD84F28BCCCBB00E72588 /* CTSingleMediaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84128BCCCBB00E72588 /* CTSingleMediaController.swift */; };
 		32DFD85028BCCCBB00E72588 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */; };
 		32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84528BCCCBB00E72588 /* CTUtility.swift */; };
+		AC10AA0228BCCCBB00E72588 /* CTNotificationContentLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC10AA0128BCCCBB00E72588 /* CTNotificationContentLogger.swift */; };
 		32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0628D87FDD00F1395D /* ct_star_outline.png */; };
 		32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0728D87FDD00F1395D /* ct_star_filled.png */; };
 		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
@@ -71,6 +72,7 @@
 		32DFD84128BCCCBB00E72588 /* CTSingleMediaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTSingleMediaController.swift; sourceTree = "<group>"; };
 		32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		32DFD84528BCCCBB00E72588 /* CTUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTUtility.swift; sourceTree = "<group>"; };
+		AC10AA0128BCCCBB00E72588 /* CTNotificationContentLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTNotificationContentLogger.swift; sourceTree = "<group>"; };
 		32E55C0628D87FDD00F1395D /* ct_star_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_outline.png; sourceTree = "<group>"; };
 		32E55C0728D87FDD00F1395D /* ct_star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_star_filled.png; sourceTree = "<group>"; };
 		488F31A22816FFF300AE3AC8 /* ct_next_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ct_next_button.png; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				0B0115BD2CAFFD8900985815 /* Extensions.swift */,
 				32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */,
 				32DFD84528BCCCBB00E72588 /* CTUtility.swift */,
+				AC10AA0128BCCCBB00E72588 /* CTNotificationContentLogger.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				488F31AF2817000200AE3AC8 /* CTCaptionedImageView.swift in Sources */,
 				32C575EE28F744E600BF0A3F /* CTRatingsViewController.swift in Sources */,
 				32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */,
+				AC10AA0228BCCCBB00E72588 /* CTNotificationContentLogger.swift in Sources */,
 				48D6ACBA2F9248BF00A17777 /* VerticalImageProperties.swift in Sources */,
 				48D6ACBB2F9248BF00A17777 /* CTVerticalImageController.swift in Sources */,
 				32DFD84928BCCCBB00E72588 /* TimerTemplateProperties.swift in Sources */,
