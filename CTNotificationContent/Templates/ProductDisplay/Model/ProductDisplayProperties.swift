@@ -45,4 +45,7 @@ import Foundation
     @objc public let pt_img1_alt_text: String?
     @objc public let pt_img2_alt_text: String?
     @objc public let pt_img3_alt_text: String?
+    @objc public let pt_img_corner_radius: String?
+    @objc public let pt_img_border_width: String?
+    @objc public let pt_img_border_clr: String?
 }

@@ -47,6 +47,11 @@ struct TimerTemplateProperties: Decodable {
     let pt_chrono_border_width: FlexibleDouble?
     let pt_chrono_border_radius: FlexibleDouble?
 
+    // Image styling
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_width: FlexibleDouble?
+    let pt_img_border_clr: String?
+
     enum CodingKeys: String, CodingKey {
         case pt_title, pt_title_alt, pt_msg, pt_msg_alt, pt_msg_summary, pt_dl1, pt_big_img, pt_big_img_alt, pt_bg, pt_bg_dark, pt_chrono_title_clr, pt_chrono_title_clr_dark, pt_timer_threshold, pt_timer_end, pt_title_clr, pt_title_clr_dark, pt_msg_clr, pt_msg_clr_dark, pt_big_img_alt_text, pt_big_img_alt_alt_text, pt_gif, pt_gif_alt
         case pt_chrono_bg_clr, pt_chrono_bg_clr_dark
@@ -55,6 +60,7 @@ struct TimerTemplateProperties: Decodable {
         case pt_chrono_style
         case pt_chrono_border_clr, pt_chrono_border_clr_dark
         case pt_chrono_border_width, pt_chrono_border_radius
+        case pt_img_corner_radius, pt_img_border_width, pt_img_border_clr
     }
 
     init(from decoder: Decoder) throws {
@@ -91,6 +97,10 @@ struct TimerTemplateProperties: Decodable {
         pt_chrono_border_clr_dark = try container.decodeIfPresent(String.self, forKey: .pt_chrono_border_clr_dark)
         pt_chrono_border_width = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_chrono_border_width)
         pt_chrono_border_radius = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_chrono_border_radius)
+
+        pt_img_corner_radius = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_img_corner_radius)
+        pt_img_border_width = try container.decodeIfPresent(FlexibleDouble.self, forKey: .pt_img_border_width)
+        pt_img_border_clr = try container.decodeIfPresent(String.self, forKey: .pt_img_border_clr)
 
         // Value for pt_timer_threshold and pt_timer_end key can be Int or String if received from JSON data or individual keys respectively, so checked for both case if present or else nil.
         var thresholdValue: Int? = nil

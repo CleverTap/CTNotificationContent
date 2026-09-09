@@ -39,6 +39,9 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
 static NSString * const kTemplateRating = @"pt_rating";
 static NSString * const kTemplateVerticalImage = @"pt_vertical_img";
+static NSString * const kImgCornerRadius = @"pt_img_corner_radius";
+static NSString * const kImgBorderWidth = @"pt_img_border_width";
+static NSString * const kImgBorderClr = @"pt_img_border_clr";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -74,6 +77,15 @@ BOOL isFromProductDisplay = false;
             if (_content[kDeeplinkURL] != nil) {
                 [contentController setDeeplinkURL:_content[kDeeplinkURL]];
             }
+            if (_content[kImgCornerRadius] != nil) {
+                [contentController setImgCornerRadius:MIN(MAX([_content[kImgCornerRadius] floatValue], 0), 32.0)];
+            }
+            if (_content[kImgBorderWidth] != nil) {
+                [contentController setImgBorderWidth:MIN(MAX([_content[kImgBorderWidth] floatValue], 0), 8.0)];
+            }
+            if (_content[kImgBorderClr] != nil) {
+                [contentController setImgBorderClr:_content[kImgBorderClr]];
+            }
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;
             [self.view addSubview:contentController.view];
@@ -91,6 +103,15 @@ BOOL isFromProductDisplay = false;
             }
             if (_content[kDeeplinkURL] != nil) {
                 [contentController setDeeplinkURL:_content[kDeeplinkURL]];
+            }
+            if (_content[kImgCornerRadius] != nil) {
+                [contentController setImgCornerRadius:MIN(MAX([_content[kImgCornerRadius] floatValue], 0), 32.0)];
+            }
+            if (_content[kImgBorderWidth] != nil) {
+                [contentController setImgBorderWidth:MIN(MAX([_content[kImgBorderWidth] floatValue], 0), 8.0)];
+            }
+            if (_content[kImgBorderClr] != nil) {
+                [contentController setImgBorderClr:_content[kImgBorderClr]];
             }
             [self addChildViewController:contentController];
             contentController.view.frame = self.view.frame;

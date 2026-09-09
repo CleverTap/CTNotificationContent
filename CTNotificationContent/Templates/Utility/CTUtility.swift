@@ -65,6 +65,33 @@
         }        
     }
     
+    /// Applies pt_img_corner_radius and pt_img_border_width/clr to any UIView
+    /// whose layer supports these properties (UIImageView, SDAnimatedImageView).
+    /// Absent/zero values produce no layer change - legacy render path is untouched.
+    static func applyImageStyling(
+        to view: UIView,
+        cornerRadius: CGFloat,
+        borderWidth: CGFloat,
+        borderClr: String?
+    ) {
+        let clampedRadius = min(max(cornerRadius, 0), Constraints.kImageCornerRadiusMax)
+        let clampedWidth = min(max(borderWidth, 0), Constraints.kImageBorderWidthMax)
+
+        if clampedRadius > 0 {
+            view.layer.cornerRadius = clampedRadius
+            view.clipsToBounds = true
+        }
+
+        if clampedWidth > 0 {
+            view.layer.borderWidth = clampedWidth
+            view.clipsToBounds = true
+            let hex = (borderClr != nil && !borderClr!.isEmpty) ? borderClr! : "#00000000"
+            if let color = UIColor(hex: hex) {
+                view.layer.borderColor = color.cgColor
+            }
+        }
+    }
+
     //Get controller type between vertical and linear, for product display template
     @objc public static func getControllerType(jsonString: String) -> BaseCTNotificationContentViewController{
         let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)

@@ -27,6 +27,9 @@ import SDWebImage
     var templateBigImage:String = ""
     var bigImageAltText:String? = nil
     var templateDl1:String = ""
+    var imgCornerRadius: CGFloat = 0
+    var imgBorderWidth: CGFloat = 0
+    var imgBorderClr: String = ""
     
     private var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -140,7 +143,10 @@ import SDWebImage
         if let bigImageAlt = jsonContent.pt_big_img_alt_text, !bigImageAlt.isEmpty{
             bigImageAltText = bigImageAlt
         }
-        
+        imgCornerRadius = CGFloat(jsonContent.pt_img_corner_radius?.value ?? 0)
+        imgBorderWidth = CGFloat(jsonContent.pt_img_border_width?.value ?? 0)
+        imgBorderClr = jsonContent.pt_img_border_clr ?? ""
+
         self.titleLabel.setHTMLText(templateCaption)
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
@@ -148,6 +154,9 @@ import SDWebImage
             self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
                 if image != nil {
                     self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    if let strongSelf = self {
+                        CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                    }
                     self?.activateImageViewContraints()
                     self?.createFrameWithImage()
                 } else {
@@ -259,6 +268,9 @@ import SDWebImage
                     if imageData != nil {
                         self?.bigImageView.image = imageData
                         self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                        if let strongSelf = self {
+                            CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                        }
                         self?.activateImageViewContraints()
                         self?.createFrameWithImage()
                     }
