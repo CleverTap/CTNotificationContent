@@ -154,7 +154,11 @@ import SDWebImage
         contentView.addSubview(text2Label)
         contentView.addSubview(ctaButton)
 
-        guard let json = jsonContent else { return }
+        guard let json = jsonContent else {
+            CTContentLog.error("Nil payload data, view left empty")
+            return
+        }
+        CTContentLog.info("Vertical image controller started")
 
         // Resolve title and message from payload or system notification fields
         if let title = json.pt_title, !title.isEmpty { templateCaption = title }
@@ -200,18 +204,27 @@ import SDWebImage
 
         // Load image — GIF takes priority over static image
         if let gif = json.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-            bigImageView.sd_setImage(with: url) { [weak self] (image, _, _, _) in
+            CTContentLog.info("Loading gif, url=\(gif)")
+            bigImageView.sd_setImage(with: url) { [weak self] (image, error, _, _) in
                 DispatchQueue.main.async {
-                    if image != nil {
-                        self?.bigImageView.accessibilityLabel = json.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                        self?.configureScaleType(json.pt_scale_type)
-                        self?.setFrameWithImage()
-                    } else {
-                        self?.loadStaticImage()
+                    guard let self = self else {
+                        CTContentLog.error("Controller deallocated before gif arrived")
+                        return
                     }
+                    guard image != nil else {
+                        CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        self.loadStaticImage()
+                        return
+                    }
+                    self.bigImageView.accessibilityLabel = json.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self.configureScaleType(json.pt_scale_type)
+                    self.setFrameWithImage()
                 }
             }
         } else {
+            if let gif = json.pt_gif, !gif.isEmpty {
+                CTContentLog.error("Gif url parse failed, falling back to still image, url=\(gif)")
+            }
             loadStaticImage()
         }
 
@@ -292,21 +305,27 @@ import SDWebImage
 
     func loadStaticImage() {
         guard let imgUrl = jsonContent?.pt_big_img, !imgUrl.isEmpty else {
+            CTContentLog.info("Missing pt_big_img, rendering texts only")
             showFallbackTextView()
             return
         }
 
         CTUtiltiy.checkImageUrlValid(imageUrl: imgUrl) { [weak self] (imageData) in
             DispatchQueue.main.async {
-                guard let self = self else { return }
-                if let imageData = imageData {
-                    self.bigImageView.image = imageData
-                    self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                    self.configureScaleType(self.jsonContent?.pt_scale_type)
-                    self.setFrameWithImage()
-                } else {
-                    self.showFallbackTextView()
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before image arrived")
+                    return
                 }
+                guard let imageData = imageData else {
+                    CTContentLog.error("Image load failed, rendering texts only, url=\(imgUrl)")
+                    self.showFallbackTextView()
+                    return
+                }
+                CTContentLog.info("Image rendered, url=\(imgUrl)")
+                self.bigImageView.image = imageData
+                self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.configureScaleType(self.jsonContent?.pt_scale_type)
+                self.setFrameWithImage()
             }
         }
     }
@@ -454,12 +473,24 @@ import SDWebImage
 
     @objc private func ctaButtonTapped() {
         if !buttonDeeplink.isEmpty, let url = URL(string: buttonDeeplink) {
-            getParentViewController().open(url)
-        } else {
-            if #available(iOS 12.0, *) {
-                extensionContext?.performNotificationDefaultAction()
-            }
+            CTContentLog.info("CTA button tapped, opening deeplink, url=\(buttonDeeplink)")
+            getParentViewController()?.open(url)
+            return
         }
+        if buttonDeeplink.isEmpty {
+            CTContentLog.info("CTA button has no deeplink, performing notification default action")
+        } else {
+            CTContentLog.error("CTA button deeplink parse failed, performing notification default action, url=\(buttonDeeplink)")
+        }
+        guard #available(iOS 12.0, *) else {
+            CTContentLog.error("Notification default action requires iOS 12 or later, ignoring")
+            return
+        }
+        guard let context = extensionContext else {
+            CTContentLog.error("Nil extensionContext, cannot perform notification default action")
+            return
+        }
+        context.performNotificationDefaultAction()
     }
 
     private func applyGradientIfNeeded() {
@@ -534,8 +565,13 @@ import SDWebImage
 
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
-            if !deeplinkURL.isEmpty, let url = URL(string: deeplinkURL) {
-                getParentViewController().open(url)
+            if deeplinkURL.isEmpty {
+                CTContentLog.info("No deeplink, dismissing")
+            } else if let url = URL(string: deeplinkURL) {
+                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
             }
             return .dismiss
         }

@@ -227,6 +227,16 @@ import SDWebImage
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
     }
     
+    /// Star icon from the SDK bundle. Returns nil when the asset is missing.
+    private func starImage(filled: Bool) -> UIImage? {
+        let name = filled ? "ct_star_filled" : "ct_star_outline"
+        guard let image = UIImage(named: name, in: Bundle(for: type(of: self)), compatibleWith: nil) else {
+            CTContentLog.error("Missing bundle asset \(name), star slot left empty")
+            return nil
+        }
+        return image
+    }
+
     func addGestureReconizerToImageView(){
         let tapGR1 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
         tapGR1.delegate = self
@@ -244,7 +254,7 @@ import SDWebImage
         threeStarImageView.addGestureRecognizer(tapGR3)
         
         let tapGR4 = UITapGestureRecognizer(target: self, action: #selector(selectStar))
-        tapGR3.delegate = self
+        tapGR4.delegate = self
         fourStarImageView.isUserInteractionEnabled = true
         fourStarImageView.addGestureRecognizer(tapGR4)
         
@@ -259,59 +269,67 @@ import SDWebImage
         var deepLink:String?
         switch sender.view?.tag{
         case 1:
-            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            twoStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            oneStarImageView.image = starImage(filled: true)
+            twoStarImageView.image = starImage(filled: false)
+            threeStarImageView.image = starImage(filled: false)
+            fourStarImageView.image = starImage(filled: false)
+            fiveStarImageView.image = starImage(filled: false)
             deepLink = jsonContent?.pt_dl1
             break
         case 2:
-            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            oneStarImageView.image = starImage(filled: true)
+            twoStarImageView.image = starImage(filled: true)
+            threeStarImageView.image = starImage(filled: false)
+            fourStarImageView.image = starImage(filled: false)
+            fiveStarImageView.image = starImage(filled: false)
             deepLink = jsonContent?.pt_dl2
             break
         case 3:
-            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            oneStarImageView.image = starImage(filled: true)
+            twoStarImageView.image = starImage(filled: true)
+            threeStarImageView.image = starImage(filled: true)
+            fourStarImageView.image = starImage(filled: false)
+            fiveStarImageView.image = starImage(filled: false)
             deepLink = jsonContent?.pt_dl3
             break
         case 4:
-            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            oneStarImageView.image = starImage(filled: true)
+            twoStarImageView.image = starImage(filled: true)
+            threeStarImageView.image = starImage(filled: true)
+            fourStarImageView.image = starImage(filled: true)
+            fiveStarImageView.image = starImage(filled: false)
             deepLink = jsonContent?.pt_dl4
             break
         case 5:
-            oneStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            twoStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            threeStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fourStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
-            fiveStarImageView.image = UIImage(named: "ct_star_filled", in: Bundle(for: type(of: self)), compatibleWith: nil)
+            oneStarImageView.image = starImage(filled: true)
+            twoStarImageView.image = starImage(filled: true)
+            threeStarImageView.image = starImage(filled: true)
+            fourStarImageView.image = starImage(filled: true)
+            fiveStarImageView.image = starImage(filled: true)
             deepLink = jsonContent?.pt_dl5
             break
         default:
+            CTContentLog.error("Tap on star with unknown tag=\(sender.view?.tag ?? -1), ignoring")
             break
         }
-        
-        if let url = deepLink{
-            if let url = URL(string: url){
-                getParentViewController().open(url)
+
+        let rating = sender.view?.tag ?? 0
+        // The star's own deeplink is used. The first star's deeplink is the
+        // fallback when the tapped star has none.
+        var target = deepLink ?? ""
+        if target.isEmpty {
+            target = jsonContent?.pt_dl1 ?? ""
+            if !target.isEmpty {
+                CTContentLog.info("No deeplink for star \(rating), falling back to star 1 deeplink")
             }
-        }else{
-            if let url = jsonContent?.pt_dl1{
-                if let url = URL(string: url){
-                    getParentViewController().open(url)
-                }
-            }
+        }
+        if target.isEmpty {
+            CTContentLog.info("Tap on star \(rating), no deeplink, ignoring")
+        } else if let url = URL(string: target) {
+            CTContentLog.info("Tap on star \(rating), opening deeplink, url=\(target)")
+            getParentViewController()?.open(url)
+        } else {
+            CTContentLog.error("Deeplink parse failed for star \(rating), url=\(target)")
         }
     }
     
@@ -321,11 +339,11 @@ import SDWebImage
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(titleLabel)
         
-        oneStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        twoStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        threeStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fourStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
-        fiveStarImageView.image = UIImage(named: "ct_star_outline", in: Bundle(for: type(of: self)), compatibleWith: nil)
+        oneStarImageView.image = starImage(filled: false)
+        twoStarImageView.image = starImage(filled: false)
+        threeStarImageView.image = starImage(filled: false)
+        fourStarImageView.image = starImage(filled: false)
+        fiveStarImageView.image = starImage(filled: false)
 
         starStackView.addArrangedSubview(oneStarImageView)
         starStackView.addArrangedSubview(twoStarImageView)
@@ -334,9 +352,11 @@ import SDWebImage
         starStackView.addArrangedSubview(fiveStarImageView)
         
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering caption and empty stars only")
             return
         }
-        
+        CTContentLog.info("Rating controller started")
+
         if let title = jsonContent.pt_title, !title.isEmpty{
             templateCaption = title
         }
@@ -367,19 +387,28 @@ import SDWebImage
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
         if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
-                if image != nil {
-                    self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                    self?.updateUI()
-                } else {
-                    self?.showImageView()
+            CTContentLog.info("Loading gif, url=\(gif)")
+            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before gif arrived")
+                    return
                 }
+                guard image != nil else {
+                    CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                    self.showImageView()
+                    return
+                }
+                self.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                self.updateUI()
             })
         } else {
+            if let gif = jsonContent.pt_gif, !gif.isEmpty {
+                CTContentLog.error("Gif url parse failed, falling back to still image, url=\(gif)")
+            }
             self.showImageView()
         }
-        
-        if let bg = jsonContent.pt_bg,!bgColor.isEmpty{
+
+        if let bg = jsonContent.pt_bg, !bg.isEmpty{
             bgColor = bg
         }
         if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
@@ -497,10 +526,13 @@ import SDWebImage
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if !deeplinkURL.isEmpty {
-                if let url = URL(string: deeplinkURL) {
-                    getParentViewController().open(url)
-                }
+            if deeplinkURL.isEmpty {
+                CTContentLog.info("No deeplink, dismissing")
+            } else if let url = URL(string: deeplinkURL) {
+                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
             }
             return .dismiss
         }
@@ -512,26 +544,32 @@ import SDWebImage
     }
     
     func showImageView() {
-        if templateBigImage != "" {
-            CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.bigImageView.image = imageData
-                        self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.updateUI()
-                    }else{
-                        //handle when image url is invalid
-                        self?.templateBigImage = ""
-                        self?.templateBigGif = ""
-                        self?.updateUI()
-                    }
-                }
-            }
-        } else {
-            //handle when image is not provided
-            templateBigImage = ""
+        guard !templateBigImage.isEmpty else {
+            CTContentLog.info("Missing pt_big_img, rendering without image")
             templateBigGif = ""
             self.updateUI()
+            return
+        }
+        CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before image arrived")
+                    return
+                }
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed, rendering without image, url=\(self.templateBigImage)")
+                    // The layout is picked from these two values, so they are
+                    // cleared before the layout is chosen again.
+                    self.templateBigImage = ""
+                    self.templateBigGif = ""
+                    self.updateUI()
+                    return
+                }
+                CTContentLog.info("Image rendered, url=\(self.templateBigImage)")
+                self.bigImageView.image = imageData
+                self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.updateUI()
+            }
         }
     }
 }

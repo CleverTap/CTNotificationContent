@@ -26,6 +26,7 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Template Types](#template-types)
 - [Template Keys](#template-keys)
 - [Sample App](#sample-app)
+- [Debug Logs](#debug-logs)
 - [Changelog](#changelog)
 
 # 🎉 Installation #
@@ -468,6 +469,44 @@ pt_json | Optional  | Above keys in JSON format
 - See [an example Objective-C project here](./Example).
 
 - See [an example SwiftPM project here](./ExampleSwiftPM).
+
+# Debug Logs #
+
+[(Back to top)](#table-of-contents)
+
+The SDK writes logs to the unified logging system. Logging is always on. There is nothing to enable in code and nothing to configure in the payload. The logs are present in release builds too.
+
+A Notification Content Extension runs in its own process, so `print` output does not reach the Xcode console unless you attach to that process. The commands below do not need Xcode.
+
+Connect the device to a Mac and run:
+
+```sh
+log stream --predicate 'subsystem == "com.clevertap.sdk"'
+```
+
+To read logs the device already recorded, instead of watching new ones:
+
+```sh
+log show --predicate 'subsystem == "com.clevertap.sdk"' --last 30m
+```
+
+The subsystem is shared with the CleverTap iOS SDK, so both commands show logs from both SDKs. To see only this SDK, add the category:
+
+```sh
+log stream --predicate 'subsystem == "com.clevertap.sdk" AND category == "CTNotificationContent"'
+```
+
+Every line looks like this:
+
+```
+[CleverTap][NotificationContent] CTCarouselController.showNext(): Paging to index=2/4
+```
+
+`[CleverTap]` is the prefix the CleverTap iOS SDK also uses. `[NotificationContent]` marks the lines that come from this SDK. The part before the colon is the type and the function the line came from.
+
+You can also use Console.app instead of the commands above. Select the device in the sidebar, then put `subsystem:com.clevertap.sdk` in the search field. Choose **Action > All Messages**. The **Errors and Faults** view hides these logs.
+
+When you report a problem to CleverTap, please attach the output of the `log show` command above.
 
 # Changelog #
 

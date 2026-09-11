@@ -75,6 +75,7 @@ import SDWebImage
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
         
+        CTContentLog.info("Zero bezel controller started")
         jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
         setupConstraints()
@@ -119,9 +120,10 @@ import SDWebImage
         contentView.addSubview(titleLabel)
         
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering caption only")
             return
         }
-        
+
         if let title = jsonContent.pt_title, !title.isEmpty{
             templateCaption = title
         }
@@ -145,13 +147,20 @@ import SDWebImage
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
         if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+            CTContentLog.info("Loading gif, url=\(gif)")
+            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before gif arrived")
+                    return
+                }
                 if image != nil {
-                    self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                    self?.activateImageViewContraints()
-                    self?.createFrameWithImage()
+                    CTContentLog.info("Gif rendered, url=\(gif)")
+                    self.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self.activateImageViewContraints()
+                    self.createFrameWithImage()
                 } else {
-                    self?.showImageView()
+                    CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                    self.showImageView()
                 }
             })
         } else {
@@ -212,10 +221,13 @@ import SDWebImage
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if !deeplinkURL.isEmpty {
-                if let url = URL(string: deeplinkURL) {
-                    getParentViewController().open(url)
-                }
+            if deeplinkURL.isEmpty {
+                CTContentLog.info("No deeplink, dismissing")
+            } else if let url = URL(string: deeplinkURL) {
+                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
             }
             return .dismiss
         }
@@ -253,16 +265,25 @@ import SDWebImage
     }
     
     func showImageView() {
-        if templateBigImage != "" {
-            CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.bigImageView.image = imageData
-                        self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    }
+        guard templateBigImage != "" else {
+            CTContentLog.error("Missing pt_big_img, rendering caption only")
+            return
+        }
+        CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    CTContentLog.error("Controller deallocated before image arrived")
+                    return
                 }
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(self.templateBigImage)")
+                    return
+                }
+                CTContentLog.info("Image rendered, url=\(self.templateBigImage)")
+                self.bigImageView.image = imageData
+                self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.activateImageViewContraints()
+                self.createFrameWithImage()
             }
         }
     }

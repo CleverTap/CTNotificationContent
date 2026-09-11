@@ -2,6 +2,12 @@ enum TemplateConstants {
     static let kTemplateBasic: String = "pt_basic"
     static let kTemplateAutoCarousel: String = "pt_carousel"
     static let kTemplateManualCarousel: String = "pt_manual_carousel"
+    static let kTemplateTimer: String = "pt_timer"
+    static let kTemplateZeroBezel: String = "pt_zero_bezel"
+    static let kTemplateWebView: String = "pt_web_view"
+    static let kTemplateProductDisplay: String = "pt_product_display"
+    static let kTemplateRating: String = "pt_rating"
+    static let kTemplateVerticalImage: String = "pt_vertical_img"
 }
 
 enum Constraints {
