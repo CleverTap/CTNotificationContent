@@ -15,6 +15,8 @@
     [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
 #define CTContentLogError(fmt, ...) \
     [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+#define CTContentLogDebug(fmt, ...) \
+    [CTNotificationContentLogger logDebug:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
 
 /// Name of a response option, for the logs. The raw values are 0, 1 and 2.
 /// A name tells the reader what the extension asked the system to do.
@@ -316,6 +318,10 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
     }
     CTContentLogInfo(@"Resolved template from pt_id=%@", templateId);
     [CTUtiltiy logPayloadCheckForTemplate:templateId jsonString:self.jsonString ?: @""];
+
+    // The whole payload. This is the one thing that explains most reports, but
+    // it is long and it can hold customer data. So it needs the debug level.
+    CTContentLogDebug(@"Payload json=%@", self.jsonString ?: @"");
 }
 
 - (NSString *)createJSONData:(NSDictionary *)content {

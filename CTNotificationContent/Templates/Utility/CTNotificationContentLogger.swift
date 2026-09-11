@@ -26,6 +26,32 @@ public final class CTContentLog: NSObject {
 
     private static let log = OSLog(subsystem: subsystem, category: category)
 
+    /// Controls the extra lines from `debug`. Zero keeps them off.
+    ///
+    /// `info` and `error` never look at this value. Those two are always on.
+    /// The whole point of this SDK's logs is a client who already hit a bug
+    /// and cannot be asked to turn anything on and try again.
+    ///
+    /// This matches `CTLogger` in the CleverTap iOS SDK. There an info line
+    /// passes on any level, and a debug line needs a level above zero.
+    private static var debugLevel: Int32 = 0
+
+    /// Turns the extra `debug` lines on. Pass 1 or more.
+    ///
+    /// Call this inside the notification content extension, not in the
+    /// `AppDelegate` of the app. The extension is a separate process with its
+    /// own copy of this value. A call in the app cannot reach it. The right
+    /// place is your `CTNotificationViewController` subclass, before
+    /// `super.viewDidLoad()`.
+    @objc public static func setDebugLevel(_ level: Int32) {
+        debugLevel = level
+        emit("Debug level set to \(level)", location: "CTContentLog.setDebugLevel")
+    }
+
+    @objc public static func getDebugLevel() -> Int32 {
+        return debugLevel
+    }
+
     /// Every line goes out at `.default`, including the ones from `error`.
     ///
     /// The system keeps `.info` and `.debug` messages in memory only. They are
@@ -39,6 +65,16 @@ public final class CTContentLog: NSObject {
     }
 
     static func error(_ message: String, file: String = #fileID, function: String = #function) {
+        emit(message, location: callSite(file, function))
+    }
+
+    /// Detail that is too noisy to write on every push.
+    ///
+    /// Nothing is written unless `setDebugLevel` was called with 1 or more.
+    /// Use this for whole payloads, for layout numbers, and for anything that
+    /// repeats many times in one render.
+    static func debug(_ message: String, file: String = #fileID, function: String = #function) {
+        guard debugLevel > 0 else { return }
         emit(message, location: callSite(file, function))
     }
 
@@ -64,6 +100,12 @@ public final class CTContentLog: NSObject {
 
     @objc(logError:from:)
     public static func logError(_ message: String, from location: String) {
+        emit(message, location: location)
+    }
+
+    @objc(logDebug:from:)
+    public static func logDebug(_ message: String, from location: String) {
+        guard debugLevel > 0 else { return }
         emit(message, location: location)
     }
 }

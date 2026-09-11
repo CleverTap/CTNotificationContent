@@ -303,6 +303,9 @@ import SDWebImage
         let hr = thresholdSeconds / 3600
         let min = thresholdSeconds / 60 % 60
         let sec = thresholdSeconds % 60
+        // One line per second. That is too much for the normal logs. It shows
+        // whether the countdown really runs, and at what speed.
+        CTContentLog.debug("Tick, secondsLeft=\(thresholdSeconds)")
         if thresholdSeconds > 0 {
             if hr < 1 {
                 setTimerText(String(format: "%02i:%02i", min, sec))
