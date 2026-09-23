@@ -34,6 +34,13 @@ import SDWebImage
     private let kButtonHeight: CGFloat = 44.0
     private let kButtonPadding: CGFloat = 8.0
 
+    private var imageHeight: CGFloat {
+        return view.frame.size.width * kImageWidthRatio * kImageAspectRatio
+    }
+    private var rootHeight: CGFloat {
+        return kOuterPadding + imageHeight + kOuterPadding
+    }
+
     // MARK: - Color State
     var bgColor: String = ConstantKeys.kDefaultColor
     var bgColorDark: String = ConstantKeys.kDefaultColorDark
@@ -382,7 +389,7 @@ import SDWebImage
         let cornerRadius = CGFloat(jsonContent?.pt_img_corner_radius?.value ?? 8.0)
         let borderWidth = CGFloat(jsonContent?.pt_img_border_width?.value ?? 0)
         let borderClr = jsonContent?.pt_img_border_clr
-        CTUtiltiy.applyImageStyling(to: bigImageView, cornerRadius: cornerRadius, borderWidth: borderWidth, borderClr: borderClr)
+        CTUtiltiy.applyImageStyling(to: bigImageView, cornerRadius: cornerRadius, borderWidth: borderWidth, borderClr: borderClr, imageHeight: imageHeight, rootHeight: rootHeight)
     }
 
     func configureScaleType(_ scaleType: String?) {

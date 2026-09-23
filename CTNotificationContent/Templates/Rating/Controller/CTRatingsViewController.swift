@@ -34,6 +34,10 @@ import SDWebImage
     var imgCornerRadius: CGFloat = 0
     var imgBorderWidth: CGFloat = 0
     var imgBorderClr: String = ""
+    var imageHeight: CGFloat {
+        return view.frame.size.width * Constraints.kLandscapeMultiplier
+    }
+    var rootHeight: CGFloat = 0
 
     private var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -190,21 +194,23 @@ import SDWebImage
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        rootHeight = viewHeight
     }
     func viewWithoutRating(){
         contentView.addSubview(bigImageView)
         imageViewBottomContraint = 20.0
         self.activateImageViewContraints()
-        
+
         let viewWidth = view.frame.size.width
         var viewHeight = viewWidth + getCaptionHeight() - 50
         // For view in Landscape
         viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight()
-        
+
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        rootHeight = viewHeight
     }
     func viewWithoutImageandRating(){
         let viewWidth = view.frame.size.width
@@ -213,6 +219,7 @@ import SDWebImage
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        rootHeight = viewHeight
     }
     func viewWithImageandRating(){
         contentView.addSubview(bigImageView)
@@ -223,11 +230,12 @@ import SDWebImage
 
         let viewWidth = view.frame.size.width
         let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + getCaptionHeight() + 58 // 44pt stars + 20pt bottom + 20pt gap above stars - getCaptionHeight overlap
-        
+
         let frame: CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
         view.frame = frame
         contentView.frame = frame
         preferredContentSize = CGSize(width: viewWidth, height: viewHeight)
+        rootHeight = viewHeight
     }
     
     func addGestureReconizerToImageView(){
@@ -377,7 +385,7 @@ import SDWebImage
                 if image != nil {
                     self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                     if let strongSelf = self {
-                        CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                        CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr, imageHeight: strongSelf.imageHeight, rootHeight: strongSelf.rootHeight)
                     }
                     self?.updateUI()
                 } else {
@@ -528,7 +536,7 @@ import SDWebImage
                         self?.bigImageView.image = imageData
                         self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                         if let strongSelf = self {
-                            CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                            CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr, imageHeight: strongSelf.imageHeight, rootHeight: strongSelf.rootHeight)
                         }
                         self?.updateUI()
                     }else{

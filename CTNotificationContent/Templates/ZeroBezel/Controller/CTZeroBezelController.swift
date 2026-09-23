@@ -23,6 +23,12 @@ import SDWebImage
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexWhiteColor
 
+    var imageHeight: CGFloat {
+        return view.frame.size.width * Constraints.kLandscapeMultiplier
+    }
+    var rootHeight: CGFloat {
+        return imageHeight + CTUtiltiy.getCaptionHeight()
+    }
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var bigImageAltText:String? = nil
@@ -155,7 +161,7 @@ import SDWebImage
                 if image != nil {
                     self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                     if let strongSelf = self {
-                        CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                        CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr, imageHeight: strongSelf.imageHeight, rootHeight: strongSelf.rootHeight)
                     }
                     self?.activateImageViewContraints()
                     self?.createFrameWithImage()
@@ -269,7 +275,7 @@ import SDWebImage
                         self?.bigImageView.image = imageData
                         self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                         if let strongSelf = self {
-                            CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr)
+                            CTUtiltiy.applyImageStyling(to: strongSelf.bigImageView, cornerRadius: strongSelf.imgCornerRadius, borderWidth: strongSelf.imgBorderWidth, borderClr: strongSelf.imgBorderClr.isEmpty ? nil : strongSelf.imgBorderClr, imageHeight: strongSelf.imageHeight, rootHeight: strongSelf.rootHeight)
                         }
                         self?.activateImageViewContraints()
                         self?.createFrameWithImage()

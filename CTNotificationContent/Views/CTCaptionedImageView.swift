@@ -16,6 +16,8 @@ struct CaptionedImageViewComponents {
     var imgCornerRadius: CGFloat = 0
     var imgBorderWidth: CGFloat = 0
     var imgBorderClr: String = ""
+    var imageHeight: CGFloat = 0
+    var rootHeight: CGFloat = 0
 }
 
 class CTCaptionedImageView : UIView {
@@ -129,7 +131,9 @@ class CTCaptionedImageView : UIView {
             to: imageView,
             cornerRadius: components.imgCornerRadius,
             borderWidth: components.imgBorderWidth,
-            borderClr: components.imgBorderClr.isEmpty ? nil : components.imgBorderClr
+            borderClr: components.imgBorderClr.isEmpty ? nil : components.imgBorderClr,
+            imageHeight: components.imageHeight,
+            rootHeight: components.rootHeight
         )
     }
 

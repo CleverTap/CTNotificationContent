@@ -65,25 +65,32 @@
         }        
     }
     
-    /// Applies pt_img_corner_radius and pt_img_border_width/clr to any UIView
-    /// whose layer supports these properties (UIImageView, SDAnimatedImageView).
-    /// Absent/zero values produce no layer change - legacy render path is untouched.
+    static func resolveBorderRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        return rootHeight * value / 100.0
+    }
+
+    static func resolveBorderWidth(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        return rootHeight * value / 1000.0
+    }
+
     static func applyImageStyling(
         to view: UIView,
         cornerRadius: CGFloat,
         borderWidth: CGFloat,
-        borderClr: String?
+        borderClr: String?,
+        imageHeight: CGFloat,
+        rootHeight: CGFloat
     ) {
-        let clampedRadius = min(max(cornerRadius, 0), Constraints.kImageCornerRadiusMax)
-        let clampedWidth = min(max(borderWidth, 0), Constraints.kImageBorderWidthMax)
+        let resolvedRadius = resolveBorderRadius(cornerRadius, rootHeight: imageHeight)
+        let resolvedWidth = resolveBorderWidth(borderWidth, rootHeight: rootHeight)
 
-        if clampedRadius > 0 {
-            view.layer.cornerRadius = clampedRadius
+        if resolvedRadius > 0 {
+            view.layer.cornerRadius = resolvedRadius
             view.clipsToBounds = true
         }
 
-        if clampedWidth > 0 {
-            view.layer.borderWidth = clampedWidth
+        if resolvedWidth > 0 {
+            view.layer.borderWidth = resolvedWidth
             view.clipsToBounds = true
             let hex = (borderClr != nil && !borderClr!.isEmpty) ? borderClr! : "#00000000"
             if let color = UIColor(hex: hex) {
