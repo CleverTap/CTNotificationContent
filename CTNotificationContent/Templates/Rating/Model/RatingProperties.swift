@@ -27,4 +27,7 @@ struct RatingProperties: Decodable {
     let pt_msg_clr_dark: String?
     let pt_big_img_alt_text: String?
     let pt_gif: String?
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_width: FlexibleDouble?
+    let pt_img_border_clr: String?
 }

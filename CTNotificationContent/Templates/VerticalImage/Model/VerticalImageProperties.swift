@@ -45,6 +45,10 @@ struct VerticalImageProperties: Decodable {
     let pt_btn_border_radius: FlexibleDouble?
     let pt_btn_border_width: FlexibleDouble?
 
+    // Image styling
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_width: FlexibleDouble?
+    let pt_img_border_clr: String?
 }
 
 /// Decodes a numeric value that may arrive as an Int, Double, or numeric String.

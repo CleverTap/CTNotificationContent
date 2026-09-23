@@ -65,6 +65,40 @@
         }        
     }
     
+    static func resolveBorderRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        return rootHeight * value / 100.0
+    }
+
+    static func resolveBorderWidth(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        return rootHeight * value / 1000.0
+    }
+
+    static func applyImageStyling(
+        to view: UIView,
+        cornerRadius: CGFloat,
+        borderWidth: CGFloat,
+        borderClr: String?,
+        imageHeight: CGFloat,
+        rootHeight: CGFloat
+    ) {
+        let resolvedRadius = resolveBorderRadius(cornerRadius, rootHeight: imageHeight)
+        let resolvedWidth = resolveBorderWidth(borderWidth, rootHeight: rootHeight)
+
+        if resolvedRadius > 0 {
+            view.layer.cornerRadius = resolvedRadius
+            view.clipsToBounds = true
+        }
+
+        if resolvedWidth > 0 {
+            view.layer.borderWidth = resolvedWidth
+            view.clipsToBounds = true
+            let hex = (borderClr != nil && !borderClr!.isEmpty) ? borderClr! : "#00000000"
+            if let color = UIColor(hex: hex) {
+                view.layer.borderColor = color.cgColor
+            }
+        }
+    }
+
     //Get controller type between vertical and linear, for product display template
     @objc public static func getControllerType(jsonString: String) -> BaseCTNotificationContentViewController{
         let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)

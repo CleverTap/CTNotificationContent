@@ -24,6 +24,9 @@ fileprivate enum Constants {
     @objc public var templateCaption: String = ""
     @objc public var templateSubcaption: String = ""
     @objc public var deeplinkURL: String = ""
+    @objc public var imgCornerRadius: CGFloat = 0
+    @objc public var imgBorderWidth: CGFloat = 0
+    @objc public var imgBorderClr: String = ""
     var jsonContent: ContentSliderProperties? = nil
     
     @objc public override func viewDidLoad() {
@@ -67,7 +70,7 @@ fileprivate enum Constants {
                             action = self!.deeplinkURL
                         }
                         
-                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.imgAltText ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)")
+                        let itemComponents = CaptionedImageViewComponents(caption: title, subcaption: subTiltle, imageUrl: item.imageUrl, actionUrl: action, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: item.imgAltText ?? "\(CTAccessibility.kDefaultImageDescription) \(imageIndex)", imgCornerRadius: self!.imgCornerRadius, imgBorderWidth: self!.imgBorderWidth, imgBorderClr: self!.imgBorderClr)
                         let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                         self?.itemViews.append(itemView)
                         imageIndex = imageIndex + 1

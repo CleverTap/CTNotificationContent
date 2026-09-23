@@ -13,6 +13,11 @@ struct CaptionedImageViewComponents {
     var captionColorDark: String = ""
     var subcaptionColorDark: String = ""
     var imageDescription: String = ""
+    var imgCornerRadius: CGFloat = 0
+    var imgBorderWidth: CGFloat = 0
+    var imgBorderClr: String = ""
+    var imageHeight: CGFloat = 0
+    var rootHeight: CGFloat = 0
 }
 
 class CTCaptionedImageView : UIView {
@@ -72,6 +77,7 @@ class CTCaptionedImageView : UIView {
                 self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
                     if image != nil {
                         self?.imageView.accessibilityLabel = self?.components.imageDescription
+                        self?.applyImageStyling()
                         self?.activateImageViewContraints()
                     }
                 })
@@ -82,6 +88,7 @@ class CTCaptionedImageView : UIView {
                     if imageData != nil {
                         self?.imageView.image = imageData
                         self?.imageView.accessibilityLabel = self?.components.imageDescription
+                        self?.applyImageStyling()
                         self?.activateImageViewContraints()
                     }
                 }
@@ -119,6 +126,17 @@ class CTCaptionedImageView : UIView {
         subcaptionLabel.textColor = UIColor(hex: isDarkMode ? components.subcaptionColorDark : components.subcaptionColor)
     }
     
+    private func applyImageStyling() {
+        CTUtiltiy.applyImageStyling(
+            to: imageView,
+            cornerRadius: components.imgCornerRadius,
+            borderWidth: components.imgBorderWidth,
+            borderClr: components.imgBorderClr.isEmpty ? nil : components.imgBorderClr,
+            imageHeight: components.imageHeight,
+            rootHeight: components.rootHeight
+        )
+    }
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             captionLabel.topAnchor.constraint(equalTo: bottomAnchor, constant: -(CTUtiltiy.getCaptionHeight() - Constraints.kCaptionTopPadding)),
