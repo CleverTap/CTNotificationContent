@@ -94,8 +94,6 @@ struct FlexibleDouble: Decodable {
         return rootHeight * value / 1000.0
     }
 
-    static let kDefaultBorderColor = "#00000000"
-
     static func applyImageStyling(
         to view: UIView,
         cornerRadius: CGFloat,

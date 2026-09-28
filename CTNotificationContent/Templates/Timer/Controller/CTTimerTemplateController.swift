@@ -34,7 +34,7 @@ import SDWebImage
     var bigImageAltAltText: String? = nil
     var imgCornerRadius: CGFloat = 0
     var imgBorderWidth: CGFloat = 0
-    var imgBorderClr: String = CTUtiltiy.kDefaultBorderColor
+    var imgBorderClr: String = ConstantKeys.kDefaultBorderColor
     private var imageView: SDAnimatedImageView = {
         let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
@@ -198,7 +198,7 @@ import SDWebImage
         }
         imgCornerRadius = CGFloat(jsonContent.pt_img_corner_radius?.value ?? 0)
         imgBorderWidth = CGFloat(jsonContent.pt_img_border_width?.value ?? 0)
-        imgBorderClr = jsonContent.pt_img_border_clr ?? CTUtiltiy.kDefaultBorderColor
+        imgBorderClr = jsonContent.pt_img_border_clr ?? ConstantKeys.kDefaultBorderColor
 
         if thresholdSeconds <= 0 {
             hideTimerDisplay()

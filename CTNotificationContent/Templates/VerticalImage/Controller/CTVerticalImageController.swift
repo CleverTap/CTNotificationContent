@@ -388,7 +388,7 @@ import SDWebImage
         // Default to 8.0 when key is absent to preserve the existing Vertical Image look.
         let cornerRadius = CGFloat(jsonContent?.pt_img_corner_radius?.value ?? 8.0)
         let borderWidth = CGFloat(jsonContent?.pt_img_border_width?.value ?? 0)
-        let borderClr = jsonContent?.pt_img_border_clr ?? CTUtiltiy.kDefaultBorderColor
+        let borderClr = jsonContent?.pt_img_border_clr ?? ConstantKeys.kDefaultBorderColor
         CTUtiltiy.applyImageStyling(to: bigImageView, cornerRadius: cornerRadius, borderWidth: borderWidth, borderClr: borderClr, imageHeight: imageHeight, rootHeight: rootHeight)
     }
 

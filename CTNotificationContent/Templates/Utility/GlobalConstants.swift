@@ -33,7 +33,8 @@ enum ConstantKeys {
     static let kDefaultColorDark: String = "#1C1C1E" // Dark mode background
     static let kHexWhiteColor: String = "#FFFFFF"    // Dark mode primary text
     static let kHexDarkGrayColor: String = "#AEAEB2" // Dark mode secondary text
-    
+    static let kDefaultBorderColor: String = "#00000000"
+
     static let kAction1: String = "action_1" // Maps to Show Previous
     static let kAction2: String = "action_2" // Maps to Show Next
     static let kAction3: String = "action_3" // Maps to open the attached deeplink

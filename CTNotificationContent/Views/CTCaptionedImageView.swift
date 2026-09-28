@@ -15,7 +15,7 @@ struct CaptionedImageViewComponents {
     var imageDescription: String = ""
     var imgCornerRadius: CGFloat = 0
     var imgBorderWidth: CGFloat = 0
-    var imgBorderClr: String = CTUtiltiy.kDefaultBorderColor
+    var imgBorderClr: String = ConstantKeys.kDefaultBorderColor
     var imageHeight: CGFloat = 0
     var rootHeight: CGFloat = 0
 }
