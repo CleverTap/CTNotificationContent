@@ -40,7 +40,7 @@ static NSString * const kTemplateWebView = @"pt_web_view";
 static NSString * const kTemplateProductDisplay = @"pt_product_display";
 static NSString * const kTemplateRating = @"pt_rating";
 static NSString * const kTemplateVerticalImage = @"pt_vertical_img";
-static NSString * const kTemplateFiveIcons = @"pt_five_icons";
+static NSString * const kTemplateFiveIcons = @"pt_icons";
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 

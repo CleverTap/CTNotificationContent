@@ -2,7 +2,7 @@ enum TemplateConstants {
     static let kTemplateBasic: String = "pt_basic"
     static let kTemplateAutoCarousel: String = "pt_carousel"
     static let kTemplateManualCarousel: String = "pt_manual_carousel"
-    static let kTemplateFiveIcons: String = "pt_five_icons"
+    static let kTemplateFiveIcons: String = "pt_icons"
 }
 
 enum Constraints {
@@ -27,16 +27,16 @@ enum Constraints {
     static let kFiveIconsMinIcons: Int                = 3
     static let kFiveIconsMaxIcons: Int                = 5
     static let kFiveIconsTitleFontSize: CGFloat        = 16.0
-    static let kFiveIconsMessageFontSize: CGFloat      = 14.0
+    static let kFiveIconsMessageFontSize: CGFloat      = 12.0
     static let kFiveIconsTitleNumberOfLines: Int        = 1
     static let kFiveIconsMessageNumberOfLines: Int     = 2
     static let kFiveIconsHorizontalPadding: CGFloat   = 16.0
-    static let kFiveIconsVerticalPadding: CGFloat     = 10.0
-    static let kFiveIconsLabelSpacing: CGFloat        = 4.0
+    static let kFiveIconsVerticalPadding: CGFloat     = 14.0
+    static let kFiveIconsLabelSpacing: CGFloat        = 8.0
     static let kFiveIconsIconSpacing: CGFloat         = 10.0
     static let kFiveIconsThreeIconHInset: CGFloat     = 40.0
-    static let kFiveIconsRowTopSpacing: CGFloat       = 8.0
-    static let kFiveIconsRowBottomPadding: CGFloat    = 10.0
+    static let kFiveIconsRowTopSpacing: CGFloat       = 14.0
+    static let kFiveIconsRowBottomPadding: CGFloat    = 14.0
     static let kFiveIconsNoTextVerticalPad: CGFloat   = 24.0
 }
 
