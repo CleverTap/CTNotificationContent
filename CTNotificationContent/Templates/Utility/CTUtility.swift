@@ -1,3 +1,24 @@
+struct FlexibleDouble: Decodable {
+    let value: Double
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let intVal = try? container.decode(Int.self) {
+            value = Double(intVal)
+        } else if let doubleVal = try? container.decode(Double.self) {
+            value = doubleVal
+        } else if let strVal = try? container.decode(String.self), let parsed = Double(strVal) {
+            value = parsed
+        } else {
+            throw DecodingError.typeMismatch(
+                Double.self,
+                .init(codingPath: decoder.codingPath,
+                      debugDescription: "Expected Int, Double, or numeric String")
+            )
+        }
+    }
+}
+
 @objc public class CTUtiltiy: NSObject {
     static func checkImageUrlValid(imageUrl: String, completionBlock: @escaping (UIImage?) -> Void) -> Void {
         if let url = URL(string: imageUrl) {
@@ -73,11 +94,13 @@
         return rootHeight * value / 1000.0
     }
 
+    static let kDefaultBorderColor = "#00000000"
+
     static func applyImageStyling(
         to view: UIView,
         cornerRadius: CGFloat,
         borderWidth: CGFloat,
-        borderClr: String?,
+        borderClr: String,
         imageHeight: CGFloat,
         rootHeight: CGFloat
     ) {
@@ -92,8 +115,7 @@
         if resolvedWidth > 0 {
             view.layer.borderWidth = resolvedWidth
             view.clipsToBounds = true
-            let hex = (borderClr != nil && !borderClr!.isEmpty) ? borderClr! : "#00000000"
-            if let color = UIColor(hex: hex) {
+            if let color = UIColor(hex: borderClr) {
                 view.layer.borderColor = color.cgColor
             }
         }

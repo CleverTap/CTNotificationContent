@@ -103,7 +103,7 @@ import UserNotificationsUI
 
         let imgCornerRadius = CGFloat(jsonContent.pt_img_corner_radius?.value ?? 0)
         let imgBorderWidth = CGFloat(jsonContent.pt_img_border_width?.value ?? 0)
-        let imgBorderClr = jsonContent.pt_img_border_clr ?? ""
+        let imgBorderClr = jsonContent.pt_img_border_clr ?? CTUtiltiy.kDefaultBorderColor
 
         if templateType == TemplateConstants.kTemplateBasic {
             var basicImageDetails: (url: String, description: String?) = ("", nil)
