@@ -65,7 +65,7 @@
         }        
     }
     
-    static func resolveBorderRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+    static func resolveCornerRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
         return rootHeight * value / 100.0
     }
 
@@ -81,7 +81,7 @@
         imageHeight: CGFloat,
         rootHeight: CGFloat
     ) {
-        let resolvedRadius = resolveBorderRadius(cornerRadius, rootHeight: imageHeight)
+        let resolvedRadius = resolveCornerRadius(cornerRadius, rootHeight: imageHeight)
         let resolvedWidth = resolveBorderWidth(borderWidth, rootHeight: rootHeight)
 
         if resolvedRadius > 0 {
