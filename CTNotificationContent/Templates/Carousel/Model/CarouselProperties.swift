@@ -12,6 +12,8 @@ struct CarouselProperties: Decodable {
     let pt_msg: String?
     let pt_msg_summary: String?
     let pt_dl1: String?
+    let pt_dl2: String?
+    let pt_dl3: String?
     let pt_big_img: String?
     let pt_img1: String?
     let pt_img2: String?

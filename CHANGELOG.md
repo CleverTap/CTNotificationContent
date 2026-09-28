@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 1.5.1 (27 August, 2026)
+-----------------------------------------------
+- **Bug Fixes:**
+  - Fixed per-page deep links in `pt_carousel` and `pt_manual_carousel` templates so `pt_dl2` and `pt_dl3` are honoured and each page opens its own deep link instead of always falling back to `pt_dl1`.
+
 Version 1.5.0 (28 July, 2026)
 -----------------------------------------------
 - **Accessibility Enhancements:**
