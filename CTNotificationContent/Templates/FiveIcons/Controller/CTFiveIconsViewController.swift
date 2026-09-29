@@ -360,6 +360,10 @@ import UIKit
         if action == ConstantKeys.kAction3 {
             if !deeplinkURL.isEmpty, let url = URL(string: deeplinkURL) {
                 getParentViewController().open(url)
+            } else {
+                if #available(iOS 12.0, *) {
+                    extensionContext?.performNotificationDefaultAction()
+                }
             }
             return .dismiss
         }
