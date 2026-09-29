@@ -14,6 +14,16 @@ Package Manager and CocoaPods. Pick the section that matches your setup.
 SPM does not automatically attach the content extension to your app target, so
 the library may never get linked into the app.
 
+If you get an error like this at launch, follow the steps below:
+
+```
+dyld: Library not loaded: @rpath/YourLibrary.framework/YourLibrary
+  Referenced from: .../YourApp.app/YourApp
+  Reason: image not found
+```
+
+![The custom content extension UI not appearing when the library is not linked to the app target](images/spm-not-added.gif)
+
 1. Open Xcode and select your **app target**.
 2. Go to **General → Frameworks, Libraries, and Embedded Content**.
 3. Confirm `CTNotificationContent` is listed there.
