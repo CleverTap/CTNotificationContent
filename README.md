@@ -23,6 +23,7 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Installation](#installation)
 - [Setup](#setup)
 - [Dashboard Usage](#dashboard-usage)
+- [Troubleshooting](#troubleshooting)
 - [Template Types](#template-types)
 - [Template Keys](#template-keys)
 - [Sample App](#sample-app)
@@ -115,6 +116,12 @@ While creating a Push Notification campaign on CleverTap, just follow the steps 
 ![Dashboard Custom Key individual](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeysIndividual.png)
 ![Dashboard Custom Key JSON](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeyValue.png)
 4. Send a test push and schedule!
+
+# Troubleshooting
+
+[(Back to top)](#table-of-contents)
+
+If you encounter issues while rendering a template, refer to the [Debug Guide](docs/CTNotificationContent-Debug-Guide.md) for common problems and their resolutions.
 
 # Template Types
 
@@ -211,8 +218,6 @@ WebView template lets you load a remote https URL.
 ![WebView Template](https://github.com/CleverTap/CTNotificationContent/blob/master/images/WebView.gif)
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
-
-Facing issues with a template? Refer to the [Debug Guide](docs/CTNotificationContent-Debug-Guide.md) for troubleshooting.
 
 # Template Keys
 
