@@ -288,7 +288,9 @@ pt_id | Required | Value - `pt_carousel`
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
-pt_dl1 | Required | Deep Link
+pt_dl1 | Required | Deep Link for first image
+pt_dl2 | Optional | Deep Link for second image (defaults to pt_dl1)
+pt_dl3 | Optional | Deep Link for third image (defaults to pt_dl1)
 pt_img1 | Required | Image One
 pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
@@ -311,7 +313,9 @@ pt_id | Required | Value - `pt_manual_carousel`
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
-pt_dl1 | Required | Deep Link One
+pt_dl1 | Required | Deep Link for first image
+pt_dl2 | Optional | Deep Link for second image (defaults to pt_dl1)
+pt_dl3 | Optional | Deep Link for third image (defaults to pt_dl1)
 pt_img1 | Required | Image One
 pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
