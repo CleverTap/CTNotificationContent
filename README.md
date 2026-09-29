@@ -212,6 +212,8 @@ WebView template lets you load a remote https URL.
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
+Facing issues with a template? Refer to the [Debug Guide](docs/CTNotificationContent-Debug-Guide.md) for troubleshooting.
+
 # Template Keys
 
 [(Back to top)](#table-of-contents)
