@@ -47,14 +47,14 @@ dependency state:
 
 ## 2. Confirm the content extension actually runs
 
-Use Xcode's debugger to verify the extension process is created when a
-notification expands.
+Use Xcode's debugger to verify the extension process is created, and that your
+code actually runs, when a notification expands.
 
-1. Trigger a push notification for the first time and expand it.
-2. In Xcode, go to **Debug → Attach to Process** and attach to the content
-   extension.
-3. Trigger another push notification and expand it.
-4. Check in Xcode whether the content extension process appears.
+1. Trigger a push notification and expand it. This starts the extension process.
+2. In Xcode, check whether the content extension process appears.
+3. Go to **Debug → Attach to Process** and attach to that content extension.
+4. Add a breakpoint in your subclass, trigger and expand another notification,
+   and confirm the breakpoint is hit - this proves the call reaches your class.
 
 If the content extension still does not show up as a process:
 
