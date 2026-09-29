@@ -212,6 +212,10 @@ WebView template lets you load a remote https URL.
 
 **Note:** If any image can't be downloaded, the template falls back to basic template with caption and sub caption only.
 
+### Icons Template
+
+The Icons template displays a row of 3 to 5 tappable icons. Each icon can open its own deep link. If fewer than 3 icons can be loaded, the notification falls back to a text-only layout showing the title and message.
+
 # Template Keys
 
 [(Back to top)](#table-of-contents)
@@ -459,6 +463,38 @@ pt_dl1 | Required  | Deep Link
 pt_url | Required  | URL to load
 pt_orientation | Optional  | Value - `landscape` or `portrait`
 pt_json | Optional  | Above keys in JSON format
+
+### Icons Template
+
+Requires at least 3 icons (`pt_img1` to `pt_img3`); `pt_img4` and `pt_img5` are optional, for a maximum of 5. If fewer than 3 icons can be loaded, the template falls back to a text-only layout with the title and message.
+
+Icons Template Keys | Required | Description
+ ---:|:---:|:--- 
+pt_id | Required | Value - `pt_icons`
+pt_img1 | Required | Icon One
+pt_img2 | Required | Icon Two
+pt_img3 | Required | Icon Three
+pt_img4 | Optional | Icon Four
+pt_img5 | Optional | Icon Five
+pt_dl1 | Optional | Deep Link for first icon
+pt_dl2 | Optional | Deep Link for second icon
+pt_dl3 | Optional | Deep Link for third icon
+pt_dl4 | Optional | Deep Link for fourth icon
+pt_dl5 | Optional | Deep Link for fifth icon
+pt_img1_alt_text | Optional | Alt Text for first icon
+pt_img2_alt_text | Optional | Alt Text for second icon
+pt_img3_alt_text | Optional | Alt Text for third icon
+pt_img4_alt_text | Optional | Alt Text for fourth icon
+pt_img5_alt_text | Optional | Alt Text for fifth icon
+pt_title | Optional | Title
+pt_msg | Optional | Message
+pt_bg | Optional | Background Color in HEX
+pt_bg_dark | Optional | Background Color for dark mode in HEX
+pt_title_clr | Optional | Title Color in HEX
+pt_title_clr_dark | Optional | Title Color for dark mode in HEX
+pt_msg_clr | Optional | Message Color in HEX
+pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_json | Optional | Above keys in JSON format
 
 # Sample App #
 
