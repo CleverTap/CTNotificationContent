@@ -285,6 +285,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Auto Carousel Template
@@ -310,6 +313,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Manual Carousel Template
@@ -335,6 +341,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Timer Template
@@ -374,6 +383,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 > **Timer State Persistence:** The countdown correctly reflects elapsed time since notification delivery when the notification is expanded. To enable this, set the `notificationDeliveryDate` property on `CTTimerTemplateController` to the notification's delivery timestamp.
@@ -421,6 +433,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Product Catalog Template
