@@ -27,7 +27,7 @@ dyld: Library not loaded: @rpath/YourLibrary.framework/YourLibrary
 1. Open Xcode and select your **app target**.
 2. Go to **General → Frameworks, Libraries, and Embedded Content**.
 3. Confirm `CTNotificationContent` is listed there.
-4. If it is missing, add it to the app target and build again.
+4. If it is missing, ensure it is added to both the app target and the content extension target, then rebuild.
 
 ![Frameworks, Libraries, and Embedded Content in the app target's General tab](images/frameworks-embedded-content.png)
 
