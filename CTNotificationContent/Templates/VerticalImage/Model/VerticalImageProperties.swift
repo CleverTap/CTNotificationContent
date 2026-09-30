@@ -45,26 +45,8 @@ struct VerticalImageProperties: Decodable {
     let pt_btn_border_radius: FlexibleDouble?
     let pt_btn_border_width: FlexibleDouble?
 
-}
-
-/// Decodes a numeric value that may arrive as an Int, Double, or numeric String.
-struct FlexibleDouble: Decodable {
-    let value: Double
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let intVal = try? container.decode(Int.self) {
-            value = Double(intVal)
-        } else if let doubleVal = try? container.decode(Double.self) {
-            value = doubleVal
-        } else if let strVal = try? container.decode(String.self), let parsed = Double(strVal) {
-            value = parsed
-        } else {
-            throw DecodingError.typeMismatch(
-                Double.self,
-                .init(codingPath: decoder.codingPath,
-                      debugDescription: "Expected Int, Double, or numeric String")
-            )
-        }
-    }
+    // Image styling
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_width: FlexibleDouble?
+    let pt_img_border_clr: String?
 }

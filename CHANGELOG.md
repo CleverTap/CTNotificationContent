@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 1.6.0 (30 September, 2026)
+-----------------------------------------------
+- **Icons Template:** Adds a new `Icons` push notification template (`pt_icons`) that displays a row of 3 to 5 tappable icons, each with its own optional deep link and alt text. Falls back to a title/message text layout when fewer than 3 icons can be loaded.
+- **Image Border & Corner Radius:** Adds image corner radius and border customisation via `pt_img_corner_radius`, `pt_img_border_width`, and `pt_img_border_clr` in the Basic, Auto Carousel, Manual Carousel, Timer, Rating, and Vertical Image templates.
+
 Version 1.5.1 (27 August, 2026)
 -----------------------------------------------
 - **Bug Fixes:**

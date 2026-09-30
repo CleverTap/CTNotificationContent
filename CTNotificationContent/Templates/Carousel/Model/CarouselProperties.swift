@@ -29,4 +29,7 @@ struct CarouselProperties: Decodable {
     let pt_img2_alt_text: String?
     let pt_img3_alt_text: String?
     let pt_gif: String?
+    let pt_img_corner_radius: FlexibleDouble?
+    let pt_img_border_width: FlexibleDouble?
+    let pt_img_border_clr: String?
 }

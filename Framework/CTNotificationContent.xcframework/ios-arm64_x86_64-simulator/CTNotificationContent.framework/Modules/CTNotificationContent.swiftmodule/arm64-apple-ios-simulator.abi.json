@@ -7980,6 +7980,777 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CTNotificationContent"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "CTNotificationContent"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CTFiveIconsViewController",
+        "printedName": "CTFiveIconsViewController",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "data",
+            "printedName": "data",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(py)data",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC4dataSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)data",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC4dataSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)setData:",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC4dataSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTFiveIconsViewControllerC4dataSSvM",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC4dataSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "templateCaption",
+            "printedName": "templateCaption",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(py)templateCaption",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC15templateCaptionSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)templateCaption",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC15templateCaptionSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)setTemplateCaption:",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC15templateCaptionSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTFiveIconsViewControllerC15templateCaptionSSvM",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC15templateCaptionSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "templateSubcaption",
+            "printedName": "templateSubcaption",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(py)templateSubcaption",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC18templateSubcaptionSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)templateSubcaption",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC18templateSubcaptionSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)setTemplateSubcaption:",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC18templateSubcaptionSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTFiveIconsViewControllerC18templateSubcaptionSSvM",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC18templateSubcaptionSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "deeplinkURL",
+            "printedName": "deeplinkURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(py)deeplinkURL",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC11deeplinkURLSSvp",
+            "moduleName": "CTNotificationContent",
+            "declAttributes": [
+              "HasInitialValue",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)deeplinkURL",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC11deeplinkURLSSvg",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)setDeeplinkURL:",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC11deeplinkURLSSvs",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:21CTNotificationContent25CTFiveIconsViewControllerC11deeplinkURLSSvM",
+                "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC11deeplinkURLSSvM",
+                "moduleName": "CTNotificationContent",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLoad",
+            "printedName": "viewDidLoad()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)viewDidLoad",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC11viewDidLoadyyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "viewDidLoad",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLayoutSubviews",
+            "printedName": "viewDidLayoutSubviews()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)viewDidLayoutSubviews",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC21viewDidLayoutSubviewsyyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "viewDidLayoutSubviews",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "traitCollectionDidChange",
+            "printedName": "traitCollectionDidChange(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UITraitCollection?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UITraitCollection",
+                    "printedName": "UIKit.UITraitCollection",
+                    "usr": "c:objc(cs)UITraitCollection"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)traitCollectionDidChange:",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC24traitCollectionDidChangeyySo07UITraitH0CSgF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "traitCollectionDidChange:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleAction",
+            "printedName": "handleAction(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UNNotificationContentExtensionResponseOption",
+                "printedName": "UserNotificationsUI.UNNotificationContentExtensionResponseOption",
+                "usr": "c:@E@UNNotificationContentExtensionResponseOption"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)handleAction:",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC12handleActionySo014UNNotificationB23ExtensionResponseOptionVSSF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "handleAction:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getDeeplinkUrl",
+            "printedName": "getDeeplinkUrl()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)getDeeplinkUrl",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC14getDeeplinkUrlSSSgyF",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "objc_name": "getDeeplinkUrl",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(nibName:bundle:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CTFiveIconsViewController",
+                "printedName": "CTNotificationContent.CTFiveIconsViewController",
+                "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Bundle?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bundle",
+                    "printedName": "Foundation.Bundle",
+                    "usr": "c:objc(cs)NSBundle"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)initWithNibName:bundle:",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithNibName:bundle:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CTNotificationContent.CTFiveIconsViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CTFiveIconsViewController",
+                    "printedName": "CTNotificationContent.CTFiveIconsViewController",
+                    "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController(im)initWithCoder:",
+            "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "CTNotificationContent",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Required"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CTNotificationContent@objc(cs)CTFiveIconsViewController",
+        "mangledName": "$s21CTNotificationContent25CTFiveIconsViewControllerC",
+        "moduleName": "CTNotificationContent",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)BaseCTNotificationContentViewController",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "CTNotificationContent.BaseCTNotificationContentViewController",
+          "UIKit.UIViewController",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "AVFoundation",
         "printedName": "AVFoundation",
         "declKind": "Import",
@@ -10796,71 +11567,99 @@
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
+      "kind": "IntegerLiteral",
+      "offset": 477,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
+      "kind": "IntegerLiteral",
+      "offset": 513,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
+      "kind": "IntegerLiteral",
+      "offset": 610,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
+      "kind": "IntegerLiteral",
+      "offset": 642,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 566,
+      "offset": 768,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 822,
+      "offset": 1024,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 870,
+      "offset": 1072,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 937,
+      "offset": 1139,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 1147,
+      "offset": 1349,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "FloatLiteral",
-      "offset": 1211,
+      "offset": 1413,
       "length": 4,
       "value": "16.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 1282,
+      "offset": 1484,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 1507,
+      "offset": 1709,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "FloatLiteral",
-      "offset": 1570,
+      "offset": 1772,
       "length": 4,
       "value": "12.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Views\/CTCaptionedImageView.swift",
       "kind": "BooleanLiteral",
-      "offset": 1644,
+      "offset": 1846,
       "length": 5,
       "value": "false"
     },
@@ -10922,295 +11721,316 @@
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1178,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1214,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1419,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1307,
+      "offset": 1585,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1369,
+      "offset": 1647,
       "length": 4,
       "value": "16.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1483,
+      "offset": 1761,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1698,
+      "offset": 1976,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1759,
+      "offset": 2037,
       "length": 4,
       "value": "12.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1883,
+      "offset": 2161,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2124,
+      "offset": 2402,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2175,
+      "offset": 2453,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2245,
+      "offset": 2523,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 2544,
+      "offset": 2822,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2648,
+      "offset": 2926,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2719,
+      "offset": 2997,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2965,
+      "offset": 3243,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3020,
+      "offset": 3298,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3071,
+      "offset": 3349,
       "length": 15,
       "value": "\"Rating 1 Star\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3132,
+      "offset": 3410,
       "length": 27,
       "value": "\"Double tap to rate 1 star\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3374,
+      "offset": 3652,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3411,
+      "offset": 3689,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3651,
+      "offset": 3929,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3706,
+      "offset": 3984,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3757,
+      "offset": 4035,
       "length": 16,
       "value": "\"Rating 2 Stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 3819,
+      "offset": 4097,
       "length": 28,
       "value": "\"Double tap to rate 2 stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4062,
+      "offset": 4340,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4099,
+      "offset": 4377,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4347,
+      "offset": 4625,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4404,
+      "offset": 4682,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4457,
+      "offset": 4735,
       "length": 16,
       "value": "\"Rating 3 Stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 4521,
+      "offset": 4799,
       "length": 28,
       "value": "\"Double tap to rate 3 stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4770,
+      "offset": 5048,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4809,
+      "offset": 5087,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 5055,
+      "offset": 5333,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 5111,
+      "offset": 5389,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 5163,
+      "offset": 5441,
       "length": 16,
       "value": "\"Rating 4 Stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 5226,
+      "offset": 5504,
       "length": 28,
       "value": "\"Double tap to rate 4 stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 5472,
+      "offset": 5750,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 5510,
+      "offset": 5788,
       "length": 1,
       "value": "4"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 5755,
+      "offset": 6033,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 5811,
+      "offset": 6089,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 5863,
+      "offset": 6141,
       "length": 16,
       "value": "\"Rating 5 Stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "StringLiteral",
-      "offset": 5926,
+      "offset": 6204,
       "length": 28,
       "value": "\"Double tap to rate 5 stars\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 6172,
+      "offset": 6450,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Rating\/Controller\/CTRatingsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 6210,
+      "offset": 6488,
       "length": 1,
       "value": "5"
     },
@@ -11301,175 +12121,168 @@
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "StringLiteral",
-      "offset": 2541,
+      "offset": 2766,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2669,
+      "offset": 2894,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2938,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
-      "kind": "FloatLiteral",
-      "offset": 2982,
-      "length": 3,
-      "value": "8.0"
-    },
-    {
-      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
-      "kind": "BooleanLiteral",
-      "offset": 3029,
+      "offset": 3163,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3096,
+      "offset": 3211,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3278,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 3257,
+      "offset": 3439,
       "length": 4,
       "value": "18.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3293,
+      "offset": 3475,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3353,
+      "offset": 3535,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 3508,
+      "offset": 3690,
       "length": 4,
       "value": "14.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3544,
+      "offset": 3726,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3604,
+      "offset": 3786,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 3757,
+      "offset": 3939,
       "length": 4,
       "value": "14.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "IntegerLiteral",
-      "offset": 3793,
+      "offset": 3975,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3820,
+      "offset": 4002,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 3883,
+      "offset": 4065,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 4036,
+      "offset": 4218,
       "length": 4,
       "value": "14.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "IntegerLiteral",
-      "offset": 4072,
+      "offset": 4254,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4099,
+      "offset": 4281,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4162,
+      "offset": 4344,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 4400,
+      "offset": 4582,
       "length": 4,
       "value": "16.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "FloatLiteral",
-      "offset": 4461,
+      "offset": 4643,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4502,
+      "offset": 4684,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4606,
+      "offset": 4788,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/VerticalImage\/Controller\/CTVerticalImageController.swift",
       "kind": "BooleanLiteral",
-      "offset": 4638,
+      "offset": 4820,
       "length": 4,
       "value": "true"
     },
@@ -11496,337 +12309,484 @@
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 251,
+      "length": 10,
+      "value": "\"pt_icons\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 270,
+      "offset": 325,
       "length": 4,
       "value": "18.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 319,
+      "offset": 374,
       "length": 4,
       "value": "20.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 372,
+      "offset": 427,
       "length": 3,
       "value": "8.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 417,
+      "offset": 472,
       "length": 4,
       "value": "18.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 468,
+      "offset": 523,
       "length": 4,
       "value": "16.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 518,
+      "offset": 573,
       "length": 3,
       "value": "8.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 566,
+      "offset": 621,
       "length": 3,
       "value": "1.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 619,
+      "offset": 674,
       "length": 3,
       "value": "0.4"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 672,
+      "offset": 727,
       "length": 4,
       "value": "20.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 720,
+      "offset": 775,
       "length": 5,
       "value": "100.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 778,
+      "offset": 833,
       "length": 5,
       "value": "120.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 826,
+      "offset": 881,
       "length": 4,
       "value": "50.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 878,
+      "offset": 933,
       "length": 4,
       "value": "10.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 929,
+      "offset": 984,
       "length": 3,
       "value": "4.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 980,
+      "offset": 1035,
       "length": 6,
       "value": "0.5625"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "FloatLiteral",
-      "offset": 1054,
+      "offset": 1109,
       "length": 5,
       "value": "1.777"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1218,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1276,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1335,
+      "length": 4,
+      "value": "16.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1397,
+      "length": 4,
+      "value": "12.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1460,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1519,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1577,
+      "length": 4,
+      "value": "16.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1638,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1699,
+      "length": 3,
+      "value": "8.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1759,
+      "length": 4,
+      "value": "10.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1820,
+      "length": 4,
+      "value": "40.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1881,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 1942,
+      "length": 4,
+      "value": "14.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "FloatLiteral",
+      "offset": 2003,
+      "length": 4,
+      "value": "24.0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1169,
+      "offset": 2097,
       "length": 9,
       "value": "\"#FFFFFF\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1244,
+      "offset": 2172,
       "length": 9,
       "value": "\"#000000\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1317,
+      "offset": 2245,
       "length": 9,
       "value": "\"#8E8E93\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1419,
+      "offset": 2347,
       "length": 9,
       "value": "\"#1C1C1E\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1493,
+      "offset": 2421,
       "length": 9,
       "value": "\"#FFFFFF\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1575,
+      "offset": 2503,
       "length": 9,
       "value": "\"#AEAEB2\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1652,
+      "offset": 2586,
+      "length": 11,
+      "value": "\"#00000000\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 2633,
       "length": 10,
       "value": "\"action_1\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1722,
+      "offset": 2703,
       "length": 10,
       "value": "\"action_2\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1788,
+      "offset": 2769,
       "length": 10,
       "value": "\"action_3\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1878,
+      "offset": 2859,
       "length": 7,
       "value": "\"video\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1927,
+      "offset": 2908,
       "length": 7,
       "value": "\"image\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 1976,
+      "offset": 2957,
       "length": 7,
       "value": "\"audio\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2031,
+      "offset": 3012,
       "length": 11,
       "value": "\"landscape\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2092,
+      "offset": 3073,
       "length": 20,
       "value": "\"CTOpenedContentUrl\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2161,
+      "offset": 3142,
       "length": 21,
       "value": "\"CTViewedContentItem\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2295,
+      "offset": 3276,
       "length": 20,
       "value": "\"Notification Image\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2372,
+      "offset": 3353,
       "length": 22,
       "value": "\"Notification Image 1\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2451,
+      "offset": 3432,
       "length": 22,
       "value": "\"Notification Image 2\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2530,
+      "offset": 3511,
       "length": 22,
       "value": "\"Notification Image 3\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2659,
+      "offset": 3633,
+      "length": 21,
+      "value": "\"Notification Icon 1\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 3705,
+      "length": 21,
+      "value": "\"Notification Icon 2\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 3777,
+      "length": 21,
+      "value": "\"Notification Icon 3\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 3849,
+      "length": 21,
+      "value": "\"Notification Icon 4\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 3921,
+      "length": 21,
+      "value": "\"Notification Icon 5\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
+      "kind": "StringLiteral",
+      "offset": 4049,
       "length": 25,
       "value": "\"ct_carousel_next_button\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2744,
+      "offset": 4134,
       "length": 29,
       "value": "\"ct_carousel_previous_button\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2837,
+      "offset": 4227,
       "length": 35,
       "value": "\"ct_single_media_play_pause_button\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2921,
+      "offset": 4311,
       "length": 18,
       "value": "\"ct_rating_star_1\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 2988,
+      "offset": 4378,
       "length": 18,
       "value": "\"ct_rating_star_2\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3055,
+      "offset": 4445,
       "length": 18,
       "value": "\"ct_rating_star_3\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3122,
+      "offset": 4512,
       "length": 18,
       "value": "\"ct_rating_star_4\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3189,
+      "offset": 4579,
       "length": 18,
       "value": "\"ct_rating_star_5\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3268,
+      "offset": 4658,
       "length": 31,
       "value": "\"ct_product_display_buy_button\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3362,
+      "offset": 4752,
       "length": 34,
       "value": "\"ct_product_display_small_image_1\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3459,
+      "offset": 4849,
       "length": 34,
       "value": "\"ct_product_display_small_image_2\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3556,
+      "offset": 4946,
       "length": 34,
       "value": "\"ct_product_display_small_image_3\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Utility\/GlobalConstants.swift",
       "kind": "StringLiteral",
-      "offset": 3650,
+      "offset": 5040,
       "length": 30,
       "value": "\"ct_vertical_image_cta_button\""
     },
@@ -12106,84 +13066,154 @@
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "IntegerLiteral",
-      "offset": 955,
+      "offset": 1158,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "StringLiteral",
-      "offset": 984,
+      "offset": 1187,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "StringLiteral",
-      "offset": 1056,
+      "offset": 1259,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1339,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1375,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1350,
+      "offset": 1690,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1398,
+      "offset": 1738,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1465,
+      "offset": 1805,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1675,
+      "offset": 2015,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "FloatLiteral",
-      "offset": 1739,
+      "offset": 2079,
       "length": 4,
       "value": "16.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1857,
+      "offset": 2197,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2082,
+      "offset": 2422,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "FloatLiteral",
-      "offset": 2145,
+      "offset": 2485,
       "length": 4,
       "value": "12.0"
     },
     {
       "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/Timer\/Controller\/CTTimerTemplateController.swift",
       "kind": "BooleanLiteral",
-      "offset": 2273,
+      "offset": 2613,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 177,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 227,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 280,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 326,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "Array",
+      "offset": 469,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1227,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1552,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/reshab\/Documents\/CTNotificationContent\/CTNotificationContent\/Templates\/FiveIcons\/Controller\/CTFiveIconsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3118,
       "length": 5,
       "value": "false"
     },

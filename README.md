@@ -23,6 +23,7 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Installation](#installation)
 - [Setup](#setup)
 - [Dashboard Usage](#dashboard-usage)
+- [Troubleshooting](#troubleshooting)
 - [Template Types](#template-types)
 - [Template Keys](#template-keys)
 - [Sample App](#sample-app)
@@ -54,7 +55,7 @@ Swift Package Manager is an Xcode tool that installs project dependencies. To us
 - In Xcode, navigate to **File -> Swift Package Manager -> Add Package Dependency.**
 - Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
 - On the next screen, Select an SDK version (by default, Xcode selects the latest stable version). Click **Next.**
-- Click **Finish** and ensure that the **CTNotificationContent** has been added to the appropriate target.
+- Click **Finish** and ensure that the **CTNotificationContent** has been added to the app target.
 
 # 🚀 Setup #
 
@@ -115,6 +116,12 @@ While creating a Push Notification campaign on CleverTap, just follow the steps 
 ![Dashboard Custom Key individual](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeysIndividual.png)
 ![Dashboard Custom Key JSON](https://github.com/CleverTap/CTNotificationContent/blob/master/images/dashboard_customKeyValue.png)
 4. Send a test push and schedule!
+
+# Troubleshooting
+
+[(Back to top)](#table-of-contents)
+
+If you encounter issues while rendering a template, refer to the [Debug Guide](docs/CTNotificationContent-Debug-Guide.md) for common problems and their resolutions.
 
 # Template Types
 
@@ -278,6 +285,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Auto Carousel Template
@@ -288,7 +298,9 @@ pt_id | Required | Value - `pt_carousel`
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
-pt_dl1 | Required | Deep Link
+pt_dl1 | Required | Deep Link for first image
+pt_dl2 | Optional | Deep Link for second image (defaults to pt_dl1)
+pt_dl3 | Optional | Deep Link for third image (defaults to pt_dl1)
 pt_img1 | Required | Image One
 pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
@@ -301,6 +313,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Manual Carousel Template
@@ -311,7 +326,9 @@ pt_id | Required | Value - `pt_manual_carousel`
 pt_title | Required | Title
 pt_msg | Required | Message
 pt_msg_summary | Optional | Message line when Notification is expanded
-pt_dl1 | Required | Deep Link One
+pt_dl1 | Required | Deep Link for first image
+pt_dl2 | Optional | Deep Link for second image (defaults to pt_dl1)
+pt_dl3 | Optional | Deep Link for third image (defaults to pt_dl1)
 pt_img1 | Required | Image One
 pt_img1_alt_text | Optional | Alt Text for Image One
 pt_img2 | Required | Image Two
@@ -324,6 +341,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Timer Template
@@ -363,6 +383,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 > **Timer State Persistence:** The countdown correctly reflects elapsed time since notification delivery when the notification is expanded. To enable this, set the `notificationDeliveryDate` property on `CTTimerTemplateController` to the notification's delivery timestamp.
@@ -410,6 +433,9 @@ pt_title_clr | Optional | Title Color in HEX
 pt_msg_clr | Optional | Message Color in HEX
 pt_title_clr_dark | Optional | Title Color for dark mode in HEX
 pt_msg_clr_dark | Optional | Message Color for dark mode in HEX
+pt_img_corner_radius | Optional | Image corner radius as a percentage of the image height (numeric or string)
+pt_img_border_width | Optional | Image border width as a percentage of the notification height, where `10` is 1% (numeric or string)
+pt_img_border_clr | Optional | Image border color in HEX. Applies only when `pt_img_border_width` is set
 pt_json | Optional | Above keys in JSON format
 
 ### Product Catalog Template
