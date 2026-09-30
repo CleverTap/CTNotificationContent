@@ -87,11 +87,13 @@ struct FlexibleDouble: Decodable {
     }
     
     static func resolveCornerRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        guard value > 0, rootHeight > 0 else { return 0 }
         return rootHeight * value / 100.0
     }
 
     static func resolveBorderWidth(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
-        return rootHeight * value / 1000.0
+        guard value > 0, rootHeight > 0 else { return 0 }
+        return max(1, rootHeight * value / 1000.0)
     }
 
     static func applyImageStyling(
