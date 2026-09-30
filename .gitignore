@@ -34,3 +34,7 @@ push.txt
 
 # Swift Package Manager
 Package.resolved
+
+# Build artifacts
+*.xcframework.zip
+*.xcarchive

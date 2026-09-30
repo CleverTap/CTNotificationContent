@@ -1,3 +1,24 @@
+struct FlexibleDouble: Decodable {
+    let value: Double
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let intVal = try? container.decode(Int.self) {
+            value = Double(intVal)
+        } else if let doubleVal = try? container.decode(Double.self) {
+            value = doubleVal
+        } else if let strVal = try? container.decode(String.self), let parsed = Double(strVal) {
+            value = parsed
+        } else {
+            throw DecodingError.typeMismatch(
+                Double.self,
+                .init(codingPath: decoder.codingPath,
+                      debugDescription: "Expected Int, Double, or numeric String")
+            )
+        }
+    }
+}
+
 @objc public class CTUtiltiy: NSObject {
     static func checkImageUrlValid(imageUrl: String, completionBlock: @escaping (UIImage?) -> Void) -> Void {
         if let url = URL(string: imageUrl) {
@@ -65,6 +86,41 @@
         }        
     }
     
+    static func resolveCornerRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        guard value > 0, rootHeight > 0 else { return 0 }
+        return rootHeight * value / 100.0
+    }
+
+    static func resolveBorderWidth(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
+        guard value > 0, rootHeight > 0 else { return 0 }
+        return max(1, rootHeight * value / 1000.0)
+    }
+
+    static func applyImageStyling(
+        to view: UIView,
+        cornerRadius: CGFloat,
+        borderWidth: CGFloat,
+        borderClr: String,
+        imageHeight: CGFloat,
+        rootHeight: CGFloat
+    ) {
+        let resolvedRadius = resolveCornerRadius(cornerRadius, rootHeight: imageHeight)
+        let resolvedWidth = resolveBorderWidth(borderWidth, rootHeight: rootHeight)
+
+        if resolvedRadius > 0 {
+            view.layer.cornerRadius = resolvedRadius
+            view.clipsToBounds = true
+        }
+
+        if resolvedWidth > 0 {
+            view.layer.borderWidth = resolvedWidth
+            view.clipsToBounds = true
+            if let color = UIColor(hex: borderClr) {
+                view.layer.borderColor = color.cgColor
+            }
+        }
+    }
+
     //Get controller type between vertical and linear, for product display template
     @objc public static func getControllerType(jsonString: String) -> BaseCTNotificationContentViewController{
         let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)
