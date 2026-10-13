@@ -65,7 +65,7 @@ struct FlexibleDouble: Decodable {
             do {
                 jsonContent = try JSONDecoder().decode(T.self, from: configData)
             } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
+                CTNotificationContentLogger.error("Failed to decode template data: \(error.localizedDescription)", caller: self)
                 jsonContent = nil
             }
         }

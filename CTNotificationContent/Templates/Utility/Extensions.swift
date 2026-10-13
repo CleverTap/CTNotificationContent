@@ -19,7 +19,7 @@ extension UILabel {
                                                           documentAttributes: nil)
             self.attributedText = attributedString
         } catch {
-            print("Error setting HTML text: \\(error.localizedDescription)")
+            CTNotificationContentLogger.error("Failed to set HTML text, showing plain text instead: \(error.localizedDescription)", caller: self)
             self.text = htmlText
         }
     }

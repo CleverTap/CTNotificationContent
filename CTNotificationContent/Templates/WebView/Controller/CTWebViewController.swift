@@ -104,10 +104,10 @@ import WebKit
 extension CTWebViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        print(error.localizedDescription)
+        CTNotificationContentLogger.error("Web view failed to start loading: \(error.localizedDescription)", caller: self)
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print(error.localizedDescription)
+        CTNotificationContentLogger.error("Web view failed to load: \(error.localizedDescription)", caller: self)
     }
 }

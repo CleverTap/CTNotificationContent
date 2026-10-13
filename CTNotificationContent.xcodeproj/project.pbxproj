@@ -29,6 +29,7 @@
 		32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84528BCCCBB00E72588 /* CTUtility.swift */; };
 		32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0628D87FDD00F1395D /* ct_star_outline.png */; };
 		32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0728D87FDD00F1395D /* ct_star_filled.png */; };
+		42CFE02ABF54116DB204C5F4 /* CTNotificationContentLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176089CF3BD37B5569901FFA /* CTNotificationContentLogger.swift */; };
 		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
 		488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A32816FFF300AE3AC8 /* ct_previous_button.png */; };
 		488F31AA2816FFF300AE3AC8 /* ct_play_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A52816FFF300AE3AC8 /* ct_play_button.png */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		0B0115BD2CAFFD8900985815 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		176089CF3BD37B5569901FFA /* CTNotificationContentLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CTNotificationContentLogger.swift; sourceTree = "<group>"; };
 		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
 		3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayLinearViewController.swift; sourceTree = "<group>"; };
 		3270BFD628E4D80E003528ED /* ProductDisplayProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDisplayProperties.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				0B0115BD2CAFFD8900985815 /* Extensions.swift */,
 				32DFD84428BCCCBB00E72588 /* GlobalConstants.swift */,
 				32DFD84528BCCCBB00E72588 /* CTUtility.swift */,
+				176089CF3BD37B5569901FFA /* CTNotificationContentLogger.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				58614E962F98B4BA000D1C8A /* CTTimerBoxView.swift in Sources */,
 				32DFD84B28BCCCBB00E72588 /* CTCarouselController.swift in Sources */,
 				3270BFF128E4D89C003528ED /* RatingProperties.swift in Sources */,
+				42CFE02ABF54116DB204C5F4 /* CTNotificationContentLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +656,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MARKETING_VERSION = 1.7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -707,6 +712,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MARKETING_VERSION = 1.7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CTNotificationContent"
-  s.version          = "1.6.0"
+  s.version          = File.read(File.join(__dir__, 'sdk-version.txt')).strip
   s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications"
   s.homepage         = "https://github.com/CleverTap/CTNotificationContent"
   s.license          = "MIT" 
