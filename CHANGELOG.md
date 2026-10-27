@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 1.7.0 (XX October, 2026)
+-----------------------------------------------
+- **SDK Version Tracking:** When the CleverTap iOS SDK is integrated in the Notification Content Extension, CTNotificationContent now registers its name and version with it via `setCustomSdkVersion:version:`, so the version is reported to CleverTap.
+
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
 - **Icons Template:** Adds a new `Icons` push notification template (`pt_icons`) that displays a row of 3 to 5 tappable icons, each with its own optional deep link and alt text. Falls back to a title/message text layout when fewer than 3 icons can be loaded.
