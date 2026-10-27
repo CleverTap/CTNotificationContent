@@ -43,16 +43,8 @@ static NSString * const kTemplateRating = @"pt_rating";
 static NSString * const kTemplateVerticalImage = @"pt_vertical_img";
 static NSString * const kTemplateFiveIcons = @"pt_icons";
 static NSString * const kCTNotificationContentSdkName = @"CTNotificationContent";
-static NSString * const kCTNotificationContentVersion = @"1.7.0";
-
-// Converts major.minor.patch to major * 10000 + minor * 100 + patch, the format CleverTap Core SDK expects.
-static int CTNotificationContentVersionCode(NSString *version) {
-    NSArray<NSString *> *parts = [version componentsSeparatedByString:@"."];
-    int major = parts.count > 0 ? parts[0].intValue : 0;
-    int minor = parts.count > 1 ? parts[1].intValue : 0;
-    int patch = parts.count > 2 ? parts[2].intValue : 0;
-    return major * 10000 + minor * 100 + patch;
-}
+// Version 1.7.0 as major * 10000 + minor * 100 + patch, the format CleverTap Core SDK expects.
+static int const kCTNotificationContentVersion = 10700;
 
 @interface CTNotificationViewController () <UNNotificationContentExtension>
 
@@ -292,9 +284,8 @@ BOOL isFromProductDisplay = false;
             NSLog(@"[CleverTap]: [CTNotificationContent]: CleverTap Core SDK does not support setCustomSdkVersion:version:, skipping SDK version registration");
             return;
         }
-        int versionCode = CTNotificationContentVersionCode(kCTNotificationContentVersion);
-        ((void (*)(id, SEL, NSString *, int))objc_msgSend)(cleverTap, setCustomSdkVersionSelector, kCTNotificationContentSdkName, versionCode);
-        NSLog(@"[CleverTap]: [CTNotificationContent]: Registered %@ %@ (%d) with CleverTap Core SDK", kCTNotificationContentSdkName, kCTNotificationContentVersion, versionCode);
+        ((void (*)(id, SEL, NSString *, int))objc_msgSend)(cleverTap, setCustomSdkVersionSelector, kCTNotificationContentSdkName, kCTNotificationContentVersion);
+        NSLog(@"[CleverTap]: [CTNotificationContent]: Registered %@ %d with CleverTap Core SDK", kCTNotificationContentSdkName, kCTNotificationContentVersion);
     });
 }
 
