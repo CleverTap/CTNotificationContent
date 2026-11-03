@@ -42,9 +42,12 @@ Xcode 27 refuses to build targets with a deployment target below iOS 15, which i
 [(Back to top)](#table-of-contents)
 ## [CocoaPods](http://cocoapods.org)
 
+CocoaPods trunk becomes read-only on 2 December 2026, and CleverTap releases published after that date go to our own specs repo instead. Add both source lines below to keep receiving updates. The `cdn.cocoapods.org` line still has to be there, otherwise dependencies such as `SDWebImage` stop resolving. Installs that are already pinned to a released version keep working either way.
+
 Your Podfile should look something like this:
 
-    source 'https://github.com/CocoaPods/Specs.git'
+    source 'https://github.com/CleverTap/podspecs.git'
+    source 'https://cdn.cocoapods.org/'
     platform :ios, '15.0'
 
     use_frameworks!
