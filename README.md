@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Platform](https://img.shields.io/cocoapods/p/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
-![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+![iOS 15.0+](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 [![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 
 
@@ -20,6 +20,7 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 [Custom push notification content interfaces](https://developer.apple.com/videos/play/wwdc2016/708/) are enabled in iOS 10 via a [Notification Content Extension](https://developer.apple.com/reference/usernotificationsui/unnotificationcontentextension), a separate and distinct binary embedded in your app bundle.
 
 # Table of contents
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Setup](#setup)
 - [Dashboard Usage](#dashboard-usage)
@@ -29,20 +30,41 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Sample App](#sample-app)
 - [Changelog](#changelog)
 
+# Requirements #
+[(Back to top)](#table-of-contents)
+
+- Xcode 27 or later
+- iOS 15.0 or later
+
+Xcode 27 refuses to build targets with a deployment target below iOS 15, which is why the minimum moved up from iOS 10. Note that this applies to your app target too: apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The sample apps in this repo show what that looks like. The content extension itself is unaffected, since extensions do not need a scene manifest.
+
 # 🎉 Installation #
 [(Back to top)](#table-of-contents)
 ## [CocoaPods](http://cocoapods.org)
 
+CocoaPods trunk becomes read-only on 2 December 2026, and CleverTap releases published after that date go to our own specs repo instead. Add both source lines below to keep receiving updates. The `cdn.cocoapods.org` line still has to be there, otherwise dependencies such as `SDWebImage` stop resolving. Installs that are already pinned to a released version keep working either way.
+
 Your Podfile should look something like this:
 
-    source 'https://github.com/CocoaPods/Specs.git'
-    platform :ios, '10.0'
+    source 'https://github.com/CleverTap/podspecs.git'
+    source 'https://cdn.cocoapods.org/'
+    platform :ios, '15.0'
 
     use_frameworks!
 
     target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do  
         pod 'CTNotificationContent'  
     end     
+
+    post_install do |installer|
+      installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
+      end
+    end
+
+The `post_install` hook is needed because `platform :ios, '15.0'` only sets a floor for pods that do not declare one themselves. Dependencies such as `SDWebImage` still ship a lower minimum, and Xcode 27 treats that as an error.
 
 Then run `pod install`
 
