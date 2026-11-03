@@ -708,8 +708,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/CTNotificationContent.git";
 			requirement = {
-				branch = "task/add-dark-mode-support";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
