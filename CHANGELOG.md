@@ -1,5 +1,12 @@
 Change Log
 ==========
+Version 1.6.1 (3 November, 2026)
+-----------------------------------------------
+- **Xcode 27 and iOS 27 support:** CTNotificationContent builds with Xcode 27 and runs on iOS 27.
+  - The minimum deployment target is now **iOS 15.0** (previously iOS 10.0). Xcode 27 does not build targets below that version.
+  - CocoaPods users may also need a `post_install` hook that raises every pod target to iOS 15, because dependencies such as `SDWebImage` carry their own lower minimums. See the [README](./README.md#cocoapods).
+  - Apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The three sample apps now use it. Notification content extensions are unaffected, since extensions do not need a scene manifest.
+
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
 - **Icons Template:** Adds a new `Icons` push notification template (`pt_icons`) that displays a row of 3 to 5 tappable icons, each with its own optional deep link and alt text. Falls back to a title/message text layout when fewer than 3 icons can be loaded.
