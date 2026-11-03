@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author           = { "CleverTap" => "http://www.clevertap.com" }
   s.source           = { :git => "https://github.com/CleverTap/CTNotificationContent.git", :tag => s.version.to_s }
   s.requires_arc = true
-  s.platform = :ios, '10.0'
+  s.platform = :ios, '15.0'
   s.ios.dependency    'SDWebImage', '~> 5.11'
   s.weak_frameworks = 'UserNotifications', 'UIKit'
   s.source_files = 'CTNotificationContent/**/*.{h,m,swift}'
