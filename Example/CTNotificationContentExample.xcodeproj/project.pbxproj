@@ -13,6 +13,7 @@
 		528AEEDF1E8096D7003A34B4 /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 528AEED71E8096D7003A34B4 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52F4CB471E67610A00CCC4A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CB461E67610A00CCC4A2 /* main.m */; };
 		52F4CB4A1E67610A00CCC4A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CB491E67610A00CCC4A2 /* AppDelegate.m */; };
+		52F4CBD21E67610A00CCC4A2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CBD11E67610A00CCC4A2 /* SceneDelegate.m */; };
 		52F4CB4D1E67610B00CCC4A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F4CB4C1E67610B00CCC4A2 /* ViewController.m */; };
 		52F4CB501E67610B00CCC4A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB4E1E67610B00CCC4A2 /* Main.storyboard */; };
 		52F4CB521E67610B00CCC4A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F4CB511E67610B00CCC4A2 /* Assets.xcassets */; };
@@ -68,6 +69,8 @@
 		52F4CB461E67610A00CCC4A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		52F4CB481E67610A00CCC4A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		52F4CB491E67610A00CCC4A2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		52F4CBD01E67610A00CCC4A2 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		52F4CBD11E67610A00CCC4A2 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		52F4CB4B1E67610B00CCC4A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		52F4CB4C1E67610B00CCC4A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		52F4CB4F1E67610B00CCC4A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 				52F4CB5F1E6764AB00CCC4A2 /* CTNotificationContentExample.entitlements */,
 				52F4CB481E67610A00CCC4A2 /* AppDelegate.h */,
 				52F4CB491E67610A00CCC4A2 /* AppDelegate.m */,
+				52F4CBD01E67610A00CCC4A2 /* SceneDelegate.h */,
+				52F4CBD11E67610A00CCC4A2 /* SceneDelegate.m */,
 				52F4CB4B1E67610B00CCC4A2 /* ViewController.h */,
 				52F4CB4C1E67610B00CCC4A2 /* ViewController.m */,
 				52F4CB4E1E67610B00CCC4A2 /* Main.storyboard */,
@@ -444,6 +449,7 @@
 			files = (
 				52F4CB4D1E67610B00CCC4A2 /* ViewController.m in Sources */,
 				52F4CB4A1E67610A00CCC4A2 /* AppDelegate.m in Sources */,
+				52F4CBD21E67610A00CCC4A2 /* SceneDelegate.m in Sources */,
 				52F4CB471E67610A00CCC4A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
