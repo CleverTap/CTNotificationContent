@@ -90,8 +90,8 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
     if ([value isKindOfClass:[NSNumber class]]) {
         return [value stringValue];
     }
-    [CTNotificationContentLogger logError:[NSString stringWithFormat:@"Expected NSString for key=%@, got %@, using empty string", key, NSStringFromClass([value class])]
-                                     from:@"CTContentStringValue"];
+    CTContentLogError(@"Expected NSString for key=%@, got %@, using empty string",
+                      key, NSStringFromClass([value class]));
     return @"";
 }
 

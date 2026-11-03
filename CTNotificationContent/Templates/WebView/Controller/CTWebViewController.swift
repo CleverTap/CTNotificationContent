@@ -39,7 +39,8 @@ import WebKit
     }
     
     func createView() {
-        
+
+        CTContentLog.info("Web view controller started")
         createFrameWithWebView()
         if let payloadURL = jsonContent?.pt_url, !payloadURL.isEmpty {
             webViewUrl = payloadURL
@@ -62,6 +63,7 @@ import WebKit
         }
 
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering web view without caption texts or deeplink")
             return
         }
         if let title = jsonContent.pt_title, !title.isEmpty{

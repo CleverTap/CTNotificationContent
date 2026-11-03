@@ -48,7 +48,7 @@ import AVFoundation
         CTContentLog.info("Single media controller started, mediaType=\(mediaType.isEmpty ? "nil" : mediaType), url=\(mediaURL)")
 
         if mediaType == ConstantKeys.kMediaTypeVideo || mediaType == ConstantKeys.kMediaTypeAudio {
-            CTContentLog.info("mediaType video and audio not supported yet, rendering caption only, url=\(mediaURL)")
+            CTContentLog.info("Unsupported mediaType=\(mediaType), video and audio are not supported yet, rendering caption only, url=\(mediaURL)")
             // TODO: Remove mediaURL = "" when video template is supported.
             mediaURL = ""
             createVideoView()

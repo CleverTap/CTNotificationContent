@@ -73,7 +73,10 @@ class CTCaptionedImageView : UIView {
                 return
             }
             self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
-                guard let self = self else { return }
+                guard let self = self else {
+                    CTContentLog.error("View deallocated before gif arrived")
+                    return
+                }
                 guard image != nil else {
                     CTContentLog.error("Gif load failed, rendering caption only, url=\(self.components.imageUrl), error=\(error?.localizedDescription ?? "nil image, no error")")
                     return
@@ -85,7 +88,10 @@ class CTCaptionedImageView : UIView {
         } else {
             CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
                 DispatchQueue.main.async {
-                    guard let self = self else { return }
+                    guard let self = self else {
+                        CTContentLog.error("View deallocated before image arrived")
+                        return
+                    }
                     guard let imageData = imageData else {
                         CTContentLog.error("Nil image data, rendering caption only, url=\(self.components.imageUrl)")
                         return

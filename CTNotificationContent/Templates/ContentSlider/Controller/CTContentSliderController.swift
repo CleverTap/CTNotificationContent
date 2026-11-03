@@ -200,6 +200,7 @@ fileprivate enum Constants {
     /// is shown, so the index is checked against items on its own.
     private var currentItemProperties: [String: String] {
         guard currentItemIndex >= 0, currentItemIndex < items.count else {
+            CTContentLog.debug("No item properties at index \(currentItemIndex)/\(items.count), reporting empty properties")
             return [:]
         }
         return items[currentItemIndex]

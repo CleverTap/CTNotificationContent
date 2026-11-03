@@ -79,7 +79,9 @@
             // localizedDescription on a DecodingError only says the data was not valid.
             // String(describing:) names the key that is missing or has the wrong type.
             CTContentLog.error("Decode failed for \(T.self), template will render its no data layout, error=\(String(describing: error))")
-            CTContentLog.error("Failed payload=\(data)")
+            // The whole payload. It can hold customer data, so it needs the
+            // debug level. The line above already names the offending key.
+            CTContentLog.debug("Failed payload=\(data)")
             return nil
         }
     }
@@ -152,7 +154,10 @@
     @objc(logPayloadCheckForTemplate:jsonString:)
     public static func logPayloadCheck(templateId: String, jsonString: String) {
         let requirements = payloadRequirements(for: templateId)
-        guard !requirements.isEmpty else { return }
+        guard !requirements.isEmpty else {
+            CTContentLog.info("No required key rules for template=\(templateId), skipping payload check")
+            return
+        }
 
         guard let jsonData = jsonString.data(using: .utf8),
               let payload = (try? JSONSerialization.jsonObject(with: jsonData)) as? [String: Any] else {
