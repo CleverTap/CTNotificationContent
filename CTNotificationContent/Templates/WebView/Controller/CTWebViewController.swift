@@ -39,23 +39,31 @@ import WebKit
     }
     
     func createView() {
-        
+
+        CTContentLog.info("Web view controller started")
         createFrameWithWebView()
         if let payloadURL = jsonContent?.pt_url, !payloadURL.isEmpty {
             webViewUrl = payloadURL
         }
-        let url = NSURL(string: webViewUrl)
-        let request = NSURLRequest(url: url! as URL)
+
         // init and load request in webview.
         webView = WKWebView(frame: contentView.frame)
         webView.navigationDelegate = self
-        webView.load(request as URLRequest)
         webView.translatesAutoresizingMaskIntoConstraints = false
-        
         contentView.addSubview(webView)
         activateWebViewContraints()
-        
+
+        if webViewUrl.isEmpty {
+            CTContentLog.error("Missing pt_url, web view left empty")
+        } else if let url = URL(string: webViewUrl) {
+            CTContentLog.info("Loading web view, url=\(webViewUrl)")
+            webView.load(URLRequest(url: url))
+        } else {
+            CTContentLog.error("Web view url parse failed, view left empty, url=\(webViewUrl)")
+        }
+
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering web view without caption texts or deeplink")
             return
         }
         if let title = jsonContent.pt_title, !title.isEmpty{
@@ -86,7 +94,7 @@ import WebKit
             // Maps to run the relevant deeplink
             if !deeplinkURL.isEmpty {
                 if let url = URL(string: deeplinkURL) {
-                    getParentViewController().open(url)
+                    getParentViewController()?.open(url)
                 }
             }
             return .dismiss
@@ -104,10 +112,14 @@ import WebKit
 extension CTWebViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        print(error.localizedDescription)
+        CTContentLog.error("Provisional navigation failed, url=\(webViewUrl), error=\(error.localizedDescription)")
     }
-    
+
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print(error.localizedDescription)
+        CTContentLog.error("Navigation failed, url=\(webViewUrl), error=\(error.localizedDescription)")
+    }
+
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        CTContentLog.info("Web view finished loading, url=\(webViewUrl)")
     }
 }
