@@ -1,5 +1,9 @@
 Change Log
 ==========
+Unreleased
+-----------------------------------------------
+- **CocoaPods Sunset Notice:** CocoaPods trunk becomes read-only on December 2, 2026. Add `source 'https://github.com/CleverTap/podspecs.git'` and `source 'https://cdn.cocoapods.org/'` to the top of your Podfile to keep receiving updates. Existing installs are unaffected.
+
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
 - **Icons Template:** Adds a new `Icons` push notification template (`pt_icons`) that displays a row of 3 to 5 tappable icons, each with its own optional deep link and alt text. Falls back to a title/message text layout when fewer than 3 icons can be loaded.
