@@ -25,7 +25,7 @@
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    completionHandler(UNNotificationPresentationOptionAlert);
+    completionHandler(UNNotificationPresentationOptionBanner | UNNotificationPresentationOptionList);
 }
 
 - (void)registerPush {
@@ -51,22 +51,6 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"APPDELEGATE: didReceiveRemoteNotification %@", userInfo);
-}
-
-- (BOOL)application:(UIApplication *)app
-            openURL:(NSURL *)url
-            options:(NSDictionary *)options {
-    
-    NSLog(@"APPDELEGATE: open url %@", url);
-    return YES;
-}
-
-- (void)openURL:(NSURL*)url options:(NSDictionary<NSString *, id> *)options
-completionHandler:(void (^ __nullable)(BOOL success))completion {
-    NSLog(@"APPDELEGATE: openURL:options:completionHandler %@", url);
-    if (completion) {
-        completion(YES);
-    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

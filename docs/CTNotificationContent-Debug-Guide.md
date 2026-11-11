@@ -45,6 +45,16 @@ dependency state:
 - Run `pod install`.
 - Rebuild and check whether the issue persists.
 
+If `pod install` resolves but never picks up a newer `CTNotificationContent`
+version, check your Podfile's sources. CocoaPods trunk becomes read-only on
+2 December 2026, and releases published after that date go to the CleverTap
+specs repo instead, so a Podfile that only reads from trunk will quietly stay
+on an older version. Both lines are needed - `cdn.cocoapods.org` still serves
+dependencies such as `SDWebImage`:
+
+    source 'https://github.com/CleverTap/podspecs.git'
+    source 'https://cdn.cocoapods.org/'
+
 ## 2. Confirm the content extension actually runs
 
 Use Xcode's debugger to verify the extension process is created, and that your

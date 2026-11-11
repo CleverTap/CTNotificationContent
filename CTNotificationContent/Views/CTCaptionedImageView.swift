@@ -73,24 +73,39 @@ class CTCaptionedImageView : UIView {
         addSubview(subcaptionLabel)
 
         if isGifSupported {
-            if let url = URL(string: components.imageUrl) {
-                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
-                    if image != nil {
-                        self?.imageView.accessibilityLabel = self?.components.imageDescription
-                        self?.applyImageStyling()
-                        self?.activateImageViewContraints()
-                    }
-                })
+            guard let url = URL(string: components.imageUrl) else {
+                CTContentLog.error("Gif url parse failed, rendering caption only, url=\(components.imageUrl)")
+                return
             }
+            self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                guard let self = self else {
+                    CTContentLog.error("View deallocated before gif arrived")
+                    return
+                }
+                guard image != nil else {
+                    CTContentLog.error("Gif load failed, rendering caption only, url=\(self.components.imageUrl), error=\(error?.localizedDescription ?? "nil image, no error")")
+                    return
+                }
+                CTContentLog.info("Gif loaded, url=\(self.components.imageUrl)")
+                self.imageView.accessibilityLabel = self.components.imageDescription
+                self.applyImageStyling()
+                self.activateImageViewContraints()
+            })
         } else {
             CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
                 DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.imageView.image = imageData
-                        self?.imageView.accessibilityLabel = self?.components.imageDescription
-                        self?.applyImageStyling()
-                        self?.activateImageViewContraints()
+                    guard let self = self else {
+                        CTContentLog.error("View deallocated before image arrived")
+                        return
                     }
+                    guard let imageData = imageData else {
+                        CTContentLog.error("Nil image data, rendering caption only, url=\(self.components.imageUrl)")
+                        return
+                    }
+                    self.imageView.image = imageData
+                    self.imageView.accessibilityLabel = self.components.imageDescription
+                    self.applyImageStyling()
+                    self.activateImageViewContraints()
                 }
             }
         }
@@ -173,6 +188,11 @@ extension UIColor {
 
         // Must be 6 or 8 characters
         guard hexString.count == 6 || hexString.count == 8 else {
+            if !hex.isEmpty {
+                // An empty value is normal. It means the payload left the colour
+                // out, and the view keeps its own default.
+                CTContentLog.error("Invalid hex color, expected 6 or 8 digits, using default, value=\(hex)")
+            }
             return nil
         }
 
@@ -196,6 +216,7 @@ extension UIColor {
             return
         }
 
+        CTContentLog.error("Hex color parse failed, using default, value=\(hex)")
         return nil
     }
 }

@@ -1,5 +1,13 @@
 Change Log
 ==========
+Version 1.7.0 (3 November, 2026)
+-----------------------------------------------
+- **CocoaPods sunset:** The podspec and README now carry a sunset notice. CocoaPods trunk becomes read-only on December 2, 2026, and CleverTap releases published after that date go to our own specs repo. Add `source 'https://github.com/CleverTap/podspecs.git'` and `source 'https://cdn.cocoapods.org/'` to the top of your Podfile to keep receiving updates. Existing installs are unaffected. The core SDK made the same change in [clevertap-ios-sdk 7.9.1](https://github.com/CleverTap/clevertap-ios-sdk/releases/tag/7.9.1).
+- **Xcode 27 and iOS 27 support:** CTNotificationContent builds with Xcode 27 and runs on iOS 27.
+  - The minimum deployment target is now **iOS 15.0** (previously iOS 10.0). Xcode 27 does not build targets below that version.
+  - CocoaPods users may also need a `post_install` hook that raises every pod target to iOS 15, because dependencies such as `SDWebImage` carry their own lower minimums. See the [README](./README.md#cocoapods).
+  - Apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The three sample apps now use it. Notification content extensions are unaffected, since extensions do not need a scene manifest.
+
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
 - **Icons Template:** Adds a new `Icons` push notification template (`pt_icons`) that displays a row of 3 to 5 tappable icons, each with its own optional deep link and alt text. Falls back to a title/message text layout when fewer than 3 icons can be loaded.

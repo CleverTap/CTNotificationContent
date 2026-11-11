@@ -10,8 +10,13 @@ import UIKit
 
 extension UILabel {
     func setHTMLText(_ htmlText: String) {
-        let modifiedFont = NSString(format: "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: \(self.font!.pointSize)\">%@</span>" as NSString, htmlText) as String
-        guard let data = modifiedFont.data(using: .unicode) else { return }
+        let pointSize = self.font?.pointSize ?? UIFont.systemFontSize
+        let modifiedFont = NSString(format: "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: \(pointSize)\">%@</span>" as NSString, htmlText) as String
+        guard let data = modifiedFont.data(using: .unicode) else {
+            CTContentLog.error("HTML to unicode data encode failed, rendering plain text, text=\(htmlText)")
+            self.text = htmlText
+            return
+        }
         do {
             let attributedString = try NSAttributedString(data: data,
                                                           options: [.documentType: NSAttributedString.DocumentType.html,
@@ -19,7 +24,7 @@ extension UILabel {
                                                           documentAttributes: nil)
             self.attributedText = attributedString
         } catch {
-            print("Error setting HTML text: \\(error.localizedDescription)")
+            CTContentLog.error("HTML parse failed, rendering plain text, text=\(htmlText), error=\(error.localizedDescription)")
             self.text = htmlText
         }
     }

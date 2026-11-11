@@ -9,7 +9,8 @@
 
 - (NSString *)getDeeplinkUrl;  // must override in subclass
 
-- (CTNotificationViewController *)getParentViewController;
+/// Returns nil when this controller is not attached to a CTNotificationViewController.
+- (nullable CTNotificationViewController *)getParentViewController;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 

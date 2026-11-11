@@ -324,7 +324,7 @@ import UIKit
               tag < iconDeepLinks.count,
               let urlString = iconDeepLinks[tag],
               let url = URL(string: urlString) else { return }
-        getParentViewController().open(url)
+        getParentViewController()?.open(url)
     }
 
     private func applyPayloadColors() {
@@ -359,7 +359,7 @@ import UIKit
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             if !deeplinkURL.isEmpty, let url = URL(string: deeplinkURL) {
-                getParentViewController().open(url)
+                getParentViewController()?.open(url)
             } else {
                 if #available(iOS 12.0, *) {
                     extensionContext?.performNotificationDefaultAction()
