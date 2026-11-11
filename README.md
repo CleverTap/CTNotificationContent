@@ -31,24 +31,7 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 
 # 🎉 Installation #
 [(Back to top)](#table-of-contents)
-## [CocoaPods](http://cocoapods.org)
-
-Your Podfile should look something like this:
-
-    source 'https://github.com/CocoaPods/Specs.git'
-    platform :ios, '10.0'
-
-    use_frameworks!
-
-    target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do  
-        pod 'CTNotificationContent'  
-    end     
-
-Then run `pod install`
-
-[See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
-
-## Swift Package Manager
+## Swift Package Manager (recommended)
 
 Swift Package Manager is an Xcode tool that installs project dependencies. To use it to install CTNotificationContent SDK, follow these steps:
 
@@ -56,6 +39,33 @@ Swift Package Manager is an Xcode tool that installs project dependencies. To us
 - Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
 - On the next screen, Select an SDK version (by default, Xcode selects the latest stable version). Click **Next.**
 - Click **Finish** and ensure that the **CTNotificationContent** has been added to the app target.
+
+## [CocoaPods](http://cocoapods.org)
+
+> **NOTICE: CocoaPods trunk becomes read-only on December 2, 2026.** After that date new
+> CleverTap versions are published to [our own specs repo](https://github.com/CleverTap/podspecs),
+> not to trunk. Add both source lines below to the top of your Podfile to keep receiving updates.
+> The `cdn.cocoapods.org` line is still needed so other pods (for example SDWebImage) resolve.
+> Existing installs are unaffected.
+
+Your Podfile should look something like this:
+
+```ruby
+source 'https://github.com/CleverTap/podspecs.git'
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do
+    pod 'CTNotificationContent'
+end
+```
+
+Then run `pod install`
+
+[See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
 
 # 🚀 Setup #
 

@@ -1,3 +1,5 @@
+source 'https://github.com/CleverTap/podspecs.git'
+source 'https://cdn.cocoapods.org/'
 
 platform :ios, '10.0'
 
