@@ -21,20 +21,10 @@ struct FlexibleDouble: Decodable {
 
 @objc public class CTUtiltiy: NSObject {
 
-    /// How long one image download may take.
-    ///
-    /// The system stops a notification content extension a few seconds after it
-    /// asks the extension to draw. The default request timeout is 60 seconds.
-    /// That is longer than the extension is alive. A download that hangs takes
-    /// the whole process down. Nothing is drawn and no line is written, because
-    /// the completion handler never runs. A shorter timeout turns that case into
-    /// an ordinary failure. The failure is logged. The template then draws its
-    /// caption only layout.
     private static let imageRequestTimeout: TimeInterval = 10
 
     static func checkImageUrlValid(imageUrl: String, completionBlock: @escaping (UIImage?) -> Void) -> Void {
         guard !imageUrl.isEmpty else {
-            // Not an error. Most templates make some images optional.
             CTContentLog.info("Empty image url, skipping download")
             completionBlock(nil)
             return
@@ -81,7 +71,7 @@ struct FlexibleDouble: Decodable {
     static func getCaptionHeight() -> CGFloat {
         return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
-    
+
     // Decoding data
     static func loadContentData<T>(data:String)->T? where T:Decodable{
         guard !data.isEmpty else {
@@ -97,25 +87,18 @@ struct FlexibleDouble: Decodable {
             CTContentLog.info("Decoded \(T.self)")
             return jsonContent
         } catch {
-            // localizedDescription on a DecodingError only says the data was not valid.
-            // String(describing:) names the key that is missing or has the wrong type.
             CTContentLog.error("Decode failed for \(T.self), template will render its no data layout, error=\(String(describing: error))")
-            // The whole payload. It can hold customer data, so it needs the
-            // debug level. The line above already names the offending key.
             CTContentLog.debug("Failed payload=\(data)")
             return nil
         }
     }
-    
+
     // Required keys check for product display template
     @objc public static func isRequiredKeysProvided(jsonString: String)->Bool{
         guard #available(iOS 12.0, *) else {
             CTContentLog.error("Product display requires iOS 12 or later, falling back to basic template")
             return false
         }
-        // Every required key is a non optional field on ProductDisplayProperties.
-        // A missing key makes the decode fail, so a nil result means a key is
-        // missing. loadContentData already logged which key it was.
         guard CTUtiltiy.loadContentData(data: jsonString) as ProductDisplayProperties? != nil else {
             CTContentLog.error("Product display payload missing a required key, falling back to basic template")
             return false
@@ -159,24 +142,12 @@ struct FlexibleDouble: Decodable {
         }
     }
 
-    /// One thing a template needs in its payload.
-    ///
-    /// The rule passes when any key in `keys` is present and not empty. Most
-    /// rules hold a single key. A rule holds more than one key when the
-    /// template can draw itself from either of them.
     private struct PayloadRequirement {
         let keys: [String]
-        /// What the user sees when the rule fails. Support reads this line
-        /// next to a screenshot, so it names the visible result.
         let effect: String
+        var minimum: Int = 1
     }
 
-    /// What each template needs before it can draw its full layout.
-    ///
-    /// Only keys whose absence changes what the user sees are listed here.
-    /// `pt_title` and `pt_msg` are not listed. The extension falls back to the
-    /// title and the body of the notification itself, so a payload without them
-    /// still draws text.
     private static func payloadRequirements(for templateId: String) -> [PayloadRequirement] {
         switch templateId {
         case TemplateConstants.kTemplateBasic:
@@ -194,19 +165,15 @@ struct FlexibleDouble: Decodable {
                     PayloadRequirement(keys: ["pt_default_dl"], effect: "a rating tap opens nothing")]
         case TemplateConstants.kTemplateVerticalImage:
             return [PayloadRequirement(keys: ["pt_big_img", "pt_gif"], effect: "texts only, no image")]
+        case TemplateConstants.kTemplateFiveIcons:
+            return [PayloadRequirement(keys: ["pt_img1", "pt_img2", "pt_img3", "pt_img4", "pt_img5"],
+                                       effect: "caption only, no icons",
+                                       minimum: Constraints.kFiveIconsMinIcons)]
         default:
-            // Product display is checked by isRequiredKeysProvided. Content
-            // slider and single media do not use this payload shape.
             return []
         }
     }
 
-    /// Reports the keys a template needs but did not get.
-    ///
-    /// The client sends us the payload of a push that drew nothing. This runs
-    /// before any drawing and before any download. It names every missing key
-    /// in one line, so the reader does not have to read the whole payload.
-    /// Nothing here changes what the template draws.
     @objc(logPayloadCheckForTemplate:jsonString:)
     public static func logPayloadCheck(templateId: String, jsonString: String) {
         let requirements = payloadRequirements(for: templateId)
@@ -221,10 +188,8 @@ struct FlexibleDouble: Decodable {
             return
         }
 
-        // Every rule is checked. A short circuit would name only the first
-        // missing key. One report should name all of them.
         let unmet = requirements.filter { requirement in
-            !requirement.keys.contains { hasValue(payload, $0) }
+            requirement.keys.filter { hasValue(payload, $0) }.count < requirement.minimum
         }
         guard !unmet.isEmpty else {
             CTContentLog.info("Required keys present, template=\(templateId)")
@@ -232,14 +197,17 @@ struct FlexibleDouble: Decodable {
         }
 
         let details = unmet.map { requirement -> String in
+            if requirement.minimum > 1 {
+                let present = requirement.keys.filter { hasValue(payload, $0) }.count
+                let names = requirement.keys.joined(separator: ", ")
+                return "at least \(requirement.minimum) of \(names), got \(present) -> \(requirement.effect)"
+            }
             let names = requirement.keys.joined(separator: " or ")
             return "\(names) -> \(requirement.effect)"
         }
         CTContentLog.error("Required keys missing, template=\(templateId), missing=[\(details.joined(separator: "; "))]")
     }
 
-    /// True when the payload carries something usable under this key.
-    /// A key set to null counts as missing. Text counts only when it is not empty.
     private static func hasValue(_ payload: [String: Any], _ key: String) -> Bool {
         guard let value = payload[key], !(value is NSNull) else {
             return false
