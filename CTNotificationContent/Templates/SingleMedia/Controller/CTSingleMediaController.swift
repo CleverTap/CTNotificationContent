@@ -123,11 +123,11 @@ import AVFoundation
         CTUtiltiy.checkImageUrlValid(imageUrl: mediaURL) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before image arrived")
+                    CTContentLog.debug("Controller deallocated before image arrived")
                     return
                 }
                 if imageData != nil {
-                    CTContentLog.info("Image rendered, url=\(self.mediaURL)")
+                    CTContentLog.debug("Image rendered, url=\(self.mediaURL)")
                     let itemComponents = CaptionedImageViewComponents(caption: self.caption, subcaption: self.subCaption, imageUrl: self.mediaURL, actionUrl: self.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self.mediaDescription)
                     self.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                 } else {
@@ -203,7 +203,7 @@ import AVFoundation
             if deeplinkURL.isEmpty {
                 CTContentLog.info("No deeplink, dismissing")
             } else if let url = URL(string: deeplinkURL) {
-                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
                 CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")

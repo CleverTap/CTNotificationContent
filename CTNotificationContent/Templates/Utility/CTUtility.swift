@@ -25,7 +25,7 @@ struct FlexibleDouble: Decodable {
 
     static func checkImageUrlValid(imageUrl: String, completionBlock: @escaping (UIImage?) -> Void) -> Void {
         guard !imageUrl.isEmpty else {
-            CTContentLog.info("Empty image url, skipping download")
+            CTContentLog.debug("Empty image url, skipping download")
             completionBlock(nil)
             return
         }
@@ -35,7 +35,7 @@ struct FlexibleDouble: Decodable {
             return
         }
 
-        CTContentLog.info("Downloading image, timeout=\(Int(imageRequestTimeout))s, url=\(imageUrl)")
+        CTContentLog.debug("Downloading image, timeout=\(Int(imageRequestTimeout))s, url=\(imageUrl)")
         let startedAt = Date()
         var request = URLRequest(url: url)
         request.timeoutInterval = imageRequestTimeout
@@ -62,7 +62,7 @@ struct FlexibleDouble: Decodable {
                 return
             }
 
-            CTContentLog.info("Image downloaded, url=\(imageUrl), elapsedMs=\(elapsedMs), bytes=\(data.count), size=\(Int(imageData.size.width))x\(Int(imageData.size.height))")
+            CTContentLog.debug("Image downloaded, url=\(imageUrl), elapsedMs=\(elapsedMs), bytes=\(data.count), size=\(Int(imageData.size.width))x\(Int(imageData.size.height))")
             completionBlock(imageData)
         }
         dataTask.resume()
@@ -84,7 +84,7 @@ struct FlexibleDouble: Decodable {
         }
         do {
             let jsonContent = try JSONDecoder().decode(T.self, from: configData)
-            CTContentLog.info("Decoded \(T.self)")
+            CTContentLog.debug("Decoded \(T.self)")
             return jsonContent
         } catch {
             CTContentLog.error("Decode failed for \(T.self), template will render its no data layout, error=\(String(describing: error))")
@@ -103,7 +103,7 @@ struct FlexibleDouble: Decodable {
             CTContentLog.error("Product display payload missing a required key, falling back to basic template")
             return false
         }
-        CTContentLog.info("Product display payload has all required keys")
+        CTContentLog.debug("Product display payload has all required keys")
         return true
     }
 
@@ -140,82 +140,6 @@ struct FlexibleDouble: Decodable {
                 view.layer.borderColor = color.cgColor
             }
         }
-    }
-
-    private struct PayloadRequirement {
-        let keys: [String]
-        let effect: String
-        var minimum: Int = 1
-    }
-
-    private static func payloadRequirements(for templateId: String) -> [PayloadRequirement] {
-        switch templateId {
-        case TemplateConstants.kTemplateBasic:
-            return [PayloadRequirement(keys: ["pt_big_img", "pt_gif"], effect: "caption only, no image")]
-        case TemplateConstants.kTemplateAutoCarousel, TemplateConstants.kTemplateManualCarousel:
-            return [PayloadRequirement(keys: ["pt_img1", "pt_img2", "pt_img3"], effect: "caption only, no slides")]
-        case TemplateConstants.kTemplateTimer:
-            return [PayloadRequirement(keys: ["pt_timer_threshold", "pt_timer_end"], effect: "timer starts at zero, expired state")]
-        case TemplateConstants.kTemplateZeroBezel:
-            return [PayloadRequirement(keys: ["pt_big_img", "pt_gif"], effect: "caption only, no image")]
-        case TemplateConstants.kTemplateWebView:
-            return [PayloadRequirement(keys: ["pt_url"], effect: "empty web view")]
-        case TemplateConstants.kTemplateRating:
-            return [PayloadRequirement(keys: ["pt_big_img", "pt_gif"], effect: "no image above the stars"),
-                    PayloadRequirement(keys: ["pt_default_dl"], effect: "a rating tap opens nothing")]
-        case TemplateConstants.kTemplateVerticalImage:
-            return [PayloadRequirement(keys: ["pt_big_img", "pt_gif"], effect: "texts only, no image")]
-        case TemplateConstants.kTemplateFiveIcons:
-            return [PayloadRequirement(keys: ["pt_img1", "pt_img2", "pt_img3", "pt_img4", "pt_img5"],
-                                       effect: "caption only, no icons",
-                                       minimum: Constraints.kFiveIconsMinIcons)]
-        default:
-            return []
-        }
-    }
-
-    @objc(logPayloadCheckForTemplate:jsonString:)
-    public static func logPayloadCheck(templateId: String, jsonString: String) {
-        let requirements = payloadRequirements(for: templateId)
-        guard !requirements.isEmpty else {
-            CTContentLog.info("No required key rules for template=\(templateId), skipping payload check")
-            return
-        }
-
-        guard let jsonData = jsonString.data(using: .utf8),
-              let payload = (try? JSONSerialization.jsonObject(with: jsonData)) as? [String: Any] else {
-            CTContentLog.error("Payload is not a json object, cannot check required keys, template=\(templateId)")
-            return
-        }
-
-        let unmet = requirements.filter { requirement in
-            requirement.keys.filter { hasValue(payload, $0) }.count < requirement.minimum
-        }
-        guard !unmet.isEmpty else {
-            CTContentLog.info("Required keys present, template=\(templateId)")
-            return
-        }
-
-        let details = unmet.map { requirement -> String in
-            if requirement.minimum > 1 {
-                let present = requirement.keys.filter { hasValue(payload, $0) }.count
-                let names = requirement.keys.joined(separator: ", ")
-                return "at least \(requirement.minimum) of \(names), got \(present) -> \(requirement.effect)"
-            }
-            let names = requirement.keys.joined(separator: " or ")
-            return "\(names) -> \(requirement.effect)"
-        }
-        CTContentLog.error("Required keys missing, template=\(templateId), missing=[\(details.joined(separator: "; "))]")
-    }
-
-    private static func hasValue(_ payload: [String: Any], _ key: String) -> Bool {
-        guard let value = payload[key], !(value is NSNull) else {
-            return false
-        }
-        if let text = value as? String {
-            return !text.isEmpty
-        }
-        return true
     }
 
     //Get controller type between vertical and linear, for product display template

@@ -131,16 +131,20 @@ import UserNotificationsUI
                     CTUtiltiy.checkImageUrlValid(imageUrl: basicImageDetails.url) { [weak self] (imageData) in
                         DispatchQueue.main.async {
                             guard let self = self else {
-                                CTContentLog.error("Controller deallocated before image arrived")
+                                CTContentLog.debug("Controller deallocated before image arrived")
                                 return
                             }
                             if imageData != nil {
                                 let itemComponents = CaptionedImageViewComponents(caption: self.templateCaption, subcaption: self.templateSubcaption, imageUrl: basicImageDetails.url, actionUrl: actionUrl, bgColor: self.bgColor, captionColor: self.captionColor, subcaptionColor: self.subcaptionColor, bgColorDark: self.bgColorDark, captionColorDark: self.captionColorDark, subcaptionColorDark: self.subcaptionColorDark, imageDescription: basicImageDetails.description ?? CTAccessibility.kDefaultImageDescription, imgCornerRadius: imgCornerRadius, imgBorderWidth: imgBorderWidth, imgBorderClr: imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)
                                 let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: true)
                                 self.itemViews.append(itemView)
-                                CTContentLog.info("Basic template rendering image, url=\(basicImageDetails.url)")
+                                CTContentLog.debug("Basic template rendering image, url=\(basicImageDetails.url)")
+                            } else if basicGifDetails.url.isEmpty && basicImageDetails.url.isEmpty {
+                                // A basic push with only a title and message is valid.
+                                CTContentLog.info("No image or gif in payload, rendering title and message")
                             } else {
-                                CTContentLog.error("Image load failed, rendering caption only")
+                                // checkImageUrlValid already logged why the download failed.
+                                CTContentLog.error("Image load failed, rendering title and message")
                             }
                             self.setUpConstraints()
                         }
@@ -148,13 +152,13 @@ import UserNotificationsUI
                 } else {
                     DispatchQueue.main.async {
                         guard let self = self else {
-                            CTContentLog.error("Controller deallocated before gif arrived")
+                            CTContentLog.debug("Controller deallocated before gif arrived")
                             return
                         }
                         let itemComponents = CaptionedImageViewComponents(caption: self.templateCaption, subcaption: self.templateSubcaption, imageUrl: basicGifDetails.url, actionUrl: actionUrl, bgColor: self.bgColor, captionColor: self.captionColor, subcaptionColor: self.subcaptionColor, bgColorDark: self.bgColorDark, captionColorDark: self.captionColorDark, subcaptionColorDark: self.subcaptionColorDark, imageDescription: basicGifDetails.description ?? CTAccessibility.kDefaultImageDescription, imgCornerRadius: imgCornerRadius, imgBorderWidth: imgBorderWidth, imgBorderClr: imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)
                         let itemView = CTCaptionedImageView(components: itemComponents, isGifSupported: true)
                         self.itemViews.append(itemView)
-                        CTContentLog.info("Basic template rendering gif, url=\(basicGifDetails.url)")
+                        CTContentLog.debug("Basic template rendering gif, url=\(basicGifDetails.url)")
                         self.setUpConstraints()
                     }
                 }
@@ -172,9 +176,9 @@ import UserNotificationsUI
             }
 
             if imageUrls.isEmpty {
-                CTContentLog.error("No image urls in payload, rendering caption only")
+                CTContentLog.info("No image urls in payload, rendering caption only")
             } else {
-                CTContentLog.info("Loading \(imageUrls.count) carousel images")
+                CTContentLog.debug("Loading \(imageUrls.count) carousel images")
             }
 
             let dispatchGroup = DispatchGroup()
@@ -185,7 +189,7 @@ import UserNotificationsUI
                     DispatchQueue.main.async {
                         defer { dispatchGroup.leave() }
                         guard let self = self else {
-                            CTContentLog.error("Controller deallocated before image \(index + 1) arrived")
+                            CTContentLog.debug("Controller deallocated before image \(index + 1) arrived")
                             return
                         }
                         guard imageData != nil else {
@@ -199,7 +203,7 @@ import UserNotificationsUI
             }
             dispatchGroup.notify(queue: .main) { [weak self] in
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before images arrived")
+                    CTContentLog.debug("Controller deallocated before images arrived")
                     return
                 }
                 self.itemViews = (0..<imageUrls.count).compactMap { orderedItemViews[$0] }
@@ -247,7 +251,7 @@ import UserNotificationsUI
             subView.superview?.removeFromSuperview()
         }
         guard !itemViews.isEmpty else {
-            CTContentLog.error("No item views to render")
+            CTContentLog.debug("No item views, default view already shown")
             return
         }
         // itemViews can shrink between two calls, so the index is brought back
@@ -392,7 +396,7 @@ import UserNotificationsUI
             CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(urlString)")
             return
         }
-        CTContentLog.info("Tap, opening deeplink, index=\(currentItemIndex), url=\(urlString)")
+        CTContentLog.debug("Tap, opening deeplink, index=\(currentItemIndex), url=\(urlString)")
         getParentViewController()?.open(url)
     }
     
@@ -414,7 +418,7 @@ import UserNotificationsUI
                 if urlString.isEmpty {
                     CTContentLog.info("No deeplink at index=\(currentItemIndex), dismissing")
                 } else if let url = URL(string: urlString) {
-                    CTContentLog.info("Opening deeplink, index=\(currentItemIndex), url=\(urlString)")
+                    CTContentLog.debug("Opening deeplink, index=\(currentItemIndex), url=\(urlString)")
                     getParentViewController()?.open(url)
                 } else {
                     CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(urlString)")
@@ -437,7 +441,7 @@ import UserNotificationsUI
     
     func moveSlider(direction: Int) {
         guard let _ = getParentViewController() else {
-            CTContentLog.info("Controller detached, stopping autoplay timer")
+            CTContentLog.debug("Controller detached, stopping autoplay timer")
             timer?.invalidate()
             timer = nil
             return
@@ -454,7 +458,7 @@ import UserNotificationsUI
         } else if currentItemIndex < 0 {
             currentItemIndex = itemViews.count - 1
         }
-        CTContentLog.info("Paging to index=\(currentItemIndex)/\(itemViews.count), direction=\(direction)")
+        CTContentLog.debug("Paging to index=\(currentItemIndex)/\(itemViews.count), direction=\(direction)")
 
         currentItemView = itemViews[currentItemIndex]
         contentView.addSubview(currentItemView)

@@ -85,7 +85,7 @@ import UserNotificationsUI
             CTContentLog.error("Buy button deeplink parse failed, url=\(deeplink)")
             return
         }
-        CTContentLog.info("Buy button tapped, opening deeplink, url=\(deeplink)")
+        CTContentLog.debug("Buy button tapped, opening deeplink, url=\(deeplink)")
         getParentViewController()?.open(url)
     }
     
@@ -256,7 +256,7 @@ import UserNotificationsUI
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
             if let url = URL(string: deeplink) {
-                CTContentLog.info("Opening product deeplink, url=\(deeplink)")
+                CTContentLog.debug("Opening product deeplink, url=\(deeplink)")
                 getParentViewController()?.open(url)
             } else {
                 CTContentLog.error("Product deeplink parse failed, url=\(deeplink)")

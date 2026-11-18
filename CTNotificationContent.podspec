@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "CTNotificationContent"
   s.version          = "1.7.0"
-  s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications"
+  s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS push notifications"
   s.description      = <<-DESC
                        A Notification Content Extension class to display custom content interfaces for iOS push notifications.
 

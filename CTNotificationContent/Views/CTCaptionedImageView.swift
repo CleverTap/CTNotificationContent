@@ -73,29 +73,33 @@ class CTCaptionedImageView : UIView {
         addSubview(subcaptionLabel)
 
         if isGifSupported {
-            guard let url = URL(string: components.imageUrl) else {
+            // No early return here. The caption, subcaption and colours are set
+            // after this if/else, and they must be set even when the gif is not.
+            if let url = URL(string: components.imageUrl) {
+                self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                    guard let self = self else {
+                        CTContentLog.debug("View deallocated before gif arrived")
+                        return
+                    }
+                    guard image != nil else {
+                        CTContentLog.error("Gif load failed, rendering caption only, url=\(self.components.imageUrl), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        return
+                    }
+                    CTContentLog.debug("Gif loaded, url=\(self.components.imageUrl)")
+                    self.imageView.accessibilityLabel = self.components.imageDescription
+                    self.applyImageStyling()
+                    self.activateImageViewContraints()
+                })
+            } else {
                 CTContentLog.error("Gif url parse failed, rendering caption only, url=\(components.imageUrl)")
-                return
             }
-            self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
-                guard let self = self else {
-                    CTContentLog.error("View deallocated before gif arrived")
-                    return
-                }
-                guard image != nil else {
-                    CTContentLog.error("Gif load failed, rendering caption only, url=\(self.components.imageUrl), error=\(error?.localizedDescription ?? "nil image, no error")")
-                    return
-                }
-                CTContentLog.info("Gif loaded, url=\(self.components.imageUrl)")
-                self.imageView.accessibilityLabel = self.components.imageDescription
-                self.applyImageStyling()
-                self.activateImageViewContraints()
-            })
-        } else {
+        } else if !components.imageUrl.isEmpty {
+            // An empty url is the text only view that templates fall back to.
+            // There is nothing to download, so there is nothing to log either.
             CTUtiltiy.checkImageUrlValid(imageUrl: components.imageUrl) { [weak self] (imageData) in
                 DispatchQueue.main.async {
                     guard let self = self else {
-                        CTContentLog.error("View deallocated before image arrived")
+                        CTContentLog.debug("View deallocated before image arrived")
                         return
                     }
                     guard let imageData = imageData else {

@@ -7,10 +7,26 @@
 #import "CTNotificationContent-Swift.h"
 #endif
 
+// Same macros as in CTNotificationViewController.m. A shared header would be
+// public under CocoaPods, which exposes every header the glob picks up.
 #define CTContentLogInfo(fmt, ...) \
-    [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
 #define CTContentLogError(fmt, ...) \
-    [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
+#define CTContentLogDebug(fmt, ...) \
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] > 0) { \
+            [CTNotificationContentLogger logDebug:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
 
 @interface BaseCTNotificationContentViewController ()
 
@@ -59,7 +75,7 @@
             [[self extensionContext] performNotificationDefaultAction];
             return;
         }
-        CTContentLogInfo(@"Tap, opening deeplink, url=%@", url);
+        CTContentLogDebug(@"Tap, opening deeplink, url=%@", url);
         [[self getParentViewController] openUrl:deeplink];
     } else {
         CTContentLogError(@"Tap handling requires iOS 12 or later, ignoring");

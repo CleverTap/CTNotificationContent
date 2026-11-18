@@ -337,7 +337,7 @@ import SDWebImage
         if target.isEmpty {
             CTContentLog.info("Tap on star \(rating), no deeplink, ignoring")
         } else if let url = URL(string: target) {
-            CTContentLog.info("Tap on star \(rating), opening deeplink, url=\(target)")
+            CTContentLog.debug("Tap on star \(rating), opening deeplink, url=\(target)")
             getParentViewController()?.open(url)
         } else {
             CTContentLog.error("Deeplink parse failed for star \(rating), url=\(target)")
@@ -401,10 +401,10 @@ import SDWebImage
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
         if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-            CTContentLog.info("Loading gif, url=\(gif)")
+            CTContentLog.debug("Loading gif, url=\(gif)")
             self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before gif arrived")
+                    CTContentLog.debug("Controller deallocated before gif arrived")
                     return
                 }
                 guard image != nil else {
@@ -544,7 +544,7 @@ import SDWebImage
             if deeplinkURL.isEmpty {
                 CTContentLog.info("No deeplink, dismissing")
             } else if let url = URL(string: deeplinkURL) {
-                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
                 CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
@@ -560,7 +560,7 @@ import SDWebImage
     
     func showImageView() {
         guard !templateBigImage.isEmpty else {
-            CTContentLog.info("Missing pt_big_img, rendering without image")
+            CTContentLog.info("No pt_big_img in payload, rendering without image")
             templateBigGif = ""
             self.updateUI()
             return
@@ -568,7 +568,7 @@ import SDWebImage
         CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before image arrived")
+                    CTContentLog.debug("Controller deallocated before image arrived")
                     return
                 }
                 guard imageData != nil else {
@@ -580,7 +580,7 @@ import SDWebImage
                     self.updateUI()
                     return
                 }
-                CTContentLog.info("Image rendered, url=\(self.templateBigImage)")
+                CTContentLog.debug("Image rendered, url=\(self.templateBigImage)")
                 self.bigImageView.image = imageData
                 self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                 CTUtiltiy.applyImageStyling(to: self.bigImageView, cornerRadius: self.imgCornerRadius, borderWidth: self.imgBorderWidth, borderClr: self.imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)

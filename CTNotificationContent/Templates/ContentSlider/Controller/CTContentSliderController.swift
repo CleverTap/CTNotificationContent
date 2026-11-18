@@ -48,7 +48,7 @@ fileprivate enum Constants {
         autoDismiss = jsonContent.autoDismiss
         showPaging = jsonContent.showsPaging
         autoPlay = jsonContent.autoPlay
-        CTContentLog.info("Loading \(jsonContent.items.count) items, orientation=\(orientation), autoPlay=\(autoPlay), paging=\(showPaging), autoDismiss=\(autoDismiss)")
+        CTContentLog.debug("Loading \(jsonContent.items.count) items, orientation=\(orientation), autoPlay=\(autoPlay), paging=\(showPaging), autoDismiss=\(autoDismiss)")
 
         // The downloads finish in any order, so each result is kept under its
         // own position. The arrays are filled in payload order at the end.
@@ -61,7 +61,7 @@ fileprivate enum Constants {
                 DispatchQueue.main.async {
                     defer { dispatchGroup.leave() }
                     guard let self = self else {
-                        CTContentLog.error("Controller deallocated before item \(index + 1) arrived")
+                        CTContentLog.debug("Controller deallocated before item \(index + 1) arrived")
                         return
                     }
                     guard imageData != nil else {
@@ -90,7 +90,7 @@ fileprivate enum Constants {
         }
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let self = self else {
-                CTContentLog.error("Controller deallocated before items arrived")
+                CTContentLog.debug("Controller deallocated before items arrived")
                 return
             }
             let positions = (0..<jsonContent.items.count).filter { orderedItemViews[$0] != nil }
@@ -115,7 +115,7 @@ fileprivate enum Constants {
         }
 
         guard !itemViews.isEmpty else {
-            CTContentLog.error("No item views to render")
+            CTContentLog.debug("No item views, default view already shown")
             return
         }
         // itemViews can shrink between two calls, so the index is brought back
@@ -223,7 +223,7 @@ fileprivate enum Constants {
                 if urlString.isEmpty {
                     CTContentLog.info("No deeplink for current item")
                 } else if let url = URL(string: urlString) {
-                    CTContentLog.info("Opening deeplink, url=\(urlString)")
+                    CTContentLog.debug("Opening deeplink, url=\(urlString)")
                     getParentViewController()?.open(url)
                 } else {
                     CTContentLog.error("Deeplink parse failed, url=\(urlString)")
@@ -246,7 +246,7 @@ fileprivate enum Constants {
     
     func moveSlider(direction: Int) {
         guard let _ = getParentViewController() else {
-            CTContentLog.info("Controller detached, stopping autoplay timer")
+            CTContentLog.debug("Controller detached, stopping autoplay timer")
             stopAutoPlay()
             return
         }

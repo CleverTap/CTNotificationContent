@@ -162,7 +162,7 @@ import SDWebImage
             thresholdSeconds = endTime - Int(currentTime)
             CTContentLog.info("Using pt_timer_end=\(endTime), now=\(Int(currentTime))")
         } else {
-            CTContentLog.error("Missing pt_timer_threshold and pt_timer_end, starting at 0, rendering expired state")
+            CTContentLog.error("No pt_timer_threshold or pt_timer_end in payload, starting at 0, rendering expired state")
         }
         CTContentLog.info("Timer controller started, secondsLeft=\(thresholdSeconds)")
 
@@ -221,10 +221,10 @@ import SDWebImage
         // Load image only if timer is not ended.
         if thresholdSeconds > 0 {
             if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-                CTContentLog.info("Loading gif, url=\(gif)")
+                CTContentLog.debug("Loading gif, url=\(gif)")
                 self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
                     guard let self = self else {
-                        CTContentLog.error("Controller deallocated before gif arrived")
+                        CTContentLog.debug("Controller deallocated before gif arrived")
                         return
                     }
                     guard image != nil else {
@@ -354,13 +354,13 @@ import SDWebImage
             bigImageAltAltText = bigImgAltAlt
         }
         if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty, let url = URL(string: gifAlt) {
-            CTContentLog.info("Loading expired gif, url=\(gifAlt)")
+            CTContentLog.debug("Loading expired gif, url=\(gifAlt)")
             CTUtiltiy.checkImageUrlValid(imageUrl: gifAlt) { [weak self] (imageData) in
                 // The callback runs off the main thread. Every view call below
                 // has to be made on the main thread.
                 DispatchQueue.main.async {
                     guard let self = self else {
-                        CTContentLog.error("Controller deallocated before expired gif was checked")
+                        CTContentLog.debug("Controller deallocated before expired gif was checked")
                         return
                     }
                     guard imageData != nil else {
@@ -417,7 +417,7 @@ import SDWebImage
             if deeplinkURL.isEmpty {
                 CTContentLog.info("No deeplink, dismissing")
             } else if let url = URL(string: deeplinkURL) {
-                CTContentLog.info("Opening deeplink, url=\(deeplinkURL)")
+                CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
                 CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
@@ -433,20 +433,20 @@ import SDWebImage
     
     func showImageView() {
         guard !bigImage.isEmpty else {
-            CTContentLog.info("Missing pt_big_img, rendering caption only")
+            CTContentLog.info("No pt_big_img in payload, rendering caption only")
             return
         }
         CTUtiltiy.checkImageUrlValid(imageUrl: bigImage) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before image arrived")
+                    CTContentLog.debug("Controller deallocated before image arrived")
                     return
                 }
                 guard imageData != nil else {
                     CTContentLog.error("Image load failed, rendering caption only, url=\(self.bigImage)")
                     return
                 }
-                CTContentLog.info("Image rendered, url=\(self.bigImage)")
+                CTContentLog.debug("Image rendered, url=\(self.bigImage)")
                 self.imageView.image = imageData
                 self.imageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                 CTUtiltiy.applyImageStyling(to: self.imageView, cornerRadius: self.imgCornerRadius, borderWidth: self.imgBorderWidth, borderClr: self.imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)
@@ -459,7 +459,7 @@ import SDWebImage
     func showAltGifView(_ url: URL) {
         self.imageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
             guard let self = self else {
-                CTContentLog.error("Controller deallocated before expired gif arrived")
+                CTContentLog.debug("Controller deallocated before expired gif arrived")
                 return
             }
             guard image != nil else {
@@ -467,7 +467,7 @@ import SDWebImage
                 self.showAltImageView()
                 return
             }
-            CTContentLog.info("Expired gif rendered")
+            CTContentLog.debug("Expired gif rendered")
             self.imageView.accessibilityLabel = self.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
             CTUtiltiy.applyImageStyling(to: self.imageView, cornerRadius: self.imgCornerRadius, borderWidth: self.imgBorderWidth, borderClr: self.imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)
             self.createFrameWithImage()
@@ -477,21 +477,21 @@ import SDWebImage
 
     func showAltImageView() {
         guard !bigImageAlt.isEmpty else {
-            CTContentLog.info("Missing pt_big_img_alt, keeping image already on screen")
+            CTContentLog.info("No pt_big_img_alt in payload, keeping image already on screen")
             return
         }
         // Load expired image, if available.
         CTUtiltiy.checkImageUrlValid(imageUrl: bigImageAlt) { [weak self] (imageData) in
             DispatchQueue.main.async {
                 guard let self = self else {
-                    CTContentLog.error("Controller deallocated before expired image arrived")
+                    CTContentLog.debug("Controller deallocated before expired image arrived")
                     return
                 }
                 guard imageData != nil else {
                     CTContentLog.error("Expired image load failed, keeping image already on screen, url=\(self.bigImageAlt)")
                     return
                 }
-                CTContentLog.info("Expired image rendered, url=\(self.bigImageAlt)")
+                CTContentLog.debug("Expired image rendered, url=\(self.bigImageAlt)")
                 self.imageView.image = imageData
                 self.imageView.accessibilityLabel = self.bigImageAltAltText ?? CTAccessibility.kDefaultImageDescription
                 CTUtiltiy.applyImageStyling(to: self.imageView, cornerRadius: self.imgCornerRadius, borderWidth: self.imgBorderWidth, borderClr: self.imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)

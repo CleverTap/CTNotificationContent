@@ -54,9 +54,9 @@ import WebKit
         activateWebViewContraints()
 
         if webViewUrl.isEmpty {
-            CTContentLog.error("Missing pt_url, web view left empty")
+            CTContentLog.error("No pt_url in payload, web view left empty")
         } else if let url = URL(string: webViewUrl) {
-            CTContentLog.info("Loading web view, url=\(webViewUrl)")
+            CTContentLog.debug("Loading web view, url=\(webViewUrl)")
             webView.load(URLRequest(url: url))
         } else {
             CTContentLog.error("Web view url parse failed, view left empty, url=\(webViewUrl)")
@@ -120,6 +120,6 @@ extension CTWebViewController: WKNavigationDelegate {
     }
 
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        CTContentLog.info("Web view finished loading, url=\(webViewUrl)")
+        CTContentLog.debug("Web view finished loading, url=\(webViewUrl)")
     }
 }

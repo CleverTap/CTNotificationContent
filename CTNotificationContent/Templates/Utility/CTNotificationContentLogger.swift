@@ -21,22 +21,28 @@ public final class CTContentLog: NSObject {
 
     /// Every line starts with this. `[CleverTap]` matches the prefix the
     /// CleverTap iOS SDK uses, so one text filter picks up both frameworks.
-    /// `[NotificationContent]` tells the two apart.
-    private static let prefix: String = "[CleverTap][NotificationContent]"
+    /// `[CTNotificationContent]` tells the two apart, and matches `category`.
+    private static let prefix: String = "[CleverTap][CTNotificationContent]"
 
     private static let log = OSLog(subsystem: subsystem, category: category)
 
-    /// Controls the extra lines from `debug`. Zero keeps them off.
+    /// The levels are the same as `CleverTapLogLevel` in the CleverTap iOS SDK.
     ///
-    /// `info` and `error` never look at this value. Those two are always on.
-    /// The whole point of this SDK's logs is a client who already hit a bug
-    /// and cannot be asked to turn anything on and try again.
+    /// - `-1` turns every line off.
+    /// - `0` is the default. It writes a short trail for each push, which
+    ///   template was picked, what it fell back to and why, plus every error.
+    ///   The trail leaves out payload contents and deeplink urls. An error
+    ///   line does include the value that failed, such as a bad deeplink.
+    /// - `1` adds the `debug` lines. Those hold the whole payload, deeplink
+    ///   urls, each image download, and anything that repeats during a render.
     ///
-    /// This matches `CTLogger` in the CleverTap iOS SDK. There an info line
-    /// passes on any level, and a debug line needs a level above zero.
+    /// The SDK does not check for a debug build itself. For SPM it ships as a
+    /// prebuilt binary, so a compile time flag inside the SDK would not follow
+    /// the app's build configuration. The app decides, for example by calling
+    /// `setDebugLevel(1)` inside `#if DEBUG`.
     private static var debugLevel: Int32 = 0
 
-    /// Turns the extra `debug` lines on. Pass 1 or more.
+    /// Sets the log level. Pass -1 for off, 0 for the default, 1 for verbose.
     ///
     /// Call this inside the notification content extension, not in the
     /// `AppDelegate` of the app. The extension is a separate process with its
@@ -45,7 +51,7 @@ public final class CTContentLog: NSObject {
     /// `super.viewDidLoad()`.
     @objc public static func setDebugLevel(_ level: Int32) {
         debugLevel = level
-        emit("Debug level set to \(level)", location: "CTContentLog.setDebugLevel")
+        info("Debug level set to \(level)")
     }
 
     @objc public static func getDebugLevel() -> Int32 {
@@ -60,22 +66,24 @@ public final class CTContentLog: NSObject {
     ///
     /// `CTLogger` in the CleverTap iOS SDK also sends every line at `.default`.
     /// One set of steps then works for both frameworks.
-    static func info(_ message: String, file: String = #fileID, function: String = #function) {
-        emit(message, location: callSite(file, function))
+    static func info(_ message: @autoclosure () -> String, file: String = #fileID, function: String = #function) {
+        guard debugLevel >= 0 else { return }
+        emit(message(), location: callSite(file, function))
     }
 
-    static func error(_ message: String, file: String = #fileID, function: String = #function) {
-        emit(message, location: callSite(file, function))
+    static func error(_ message: @autoclosure () -> String, file: String = #fileID, function: String = #function) {
+        guard debugLevel >= 0 else { return }
+        emit(message(), location: callSite(file, function))
     }
 
-    /// Detail that is too noisy to write on every push.
+    /// Detail that is too noisy, or too personal, to write on every push.
     ///
     /// Nothing is written unless `setDebugLevel` was called with 1 or more.
-    /// Use this for whole payloads, for layout numbers, and for anything that
-    /// repeats many times in one render.
-    static func debug(_ message: String, file: String = #fileID, function: String = #function) {
+    /// Use this for whole payloads, for deeplink urls, for layout numbers, and
+    /// for anything that repeats many times in one render.
+    static func debug(_ message: @autoclosure () -> String, file: String = #fileID, function: String = #function) {
         guard debugLevel > 0 else { return }
-        emit(message, location: callSite(file, function))
+        emit(message(), location: callSite(file, function))
     }
 
     private static func emit(_ message: String, location: String) {
@@ -95,11 +103,13 @@ public final class CTContentLog: NSObject {
     /// which fills in the call site on its own.
     @objc(logInfo:from:)
     public static func logInfo(_ message: String, from location: String) {
+        guard debugLevel >= 0 else { return }
         emit(message, location: location)
     }
 
     @objc(logError:from:)
     public static func logError(_ message: String, from location: String) {
+        guard debugLevel >= 0 else { return }
         emit(message, location: location)
     }
 

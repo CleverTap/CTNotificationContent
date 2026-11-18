@@ -13,7 +13,7 @@
 [![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 
 
-### A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications
+### A Notification Content Extension class to display custom content interfaces for iOS push notifications
 
 Starting with iOS 10 you can add custom content views to iOS push notifications.  This library provides a class to accomplish that.  It provides a default Image Slideshow view and is designed to be easily extensible to display additional view types. 
 
@@ -522,7 +522,39 @@ pt_json | Optional  | Above keys in JSON format
 
 [(Back to top)](#table-of-contents)
 
-The SDK writes logs to the unified logging system. Logging is always on. There is nothing to enable in code and nothing to configure in the payload. The logs are present in release builds too.
+The SDK writes logs to the unified logging system. The log levels are the same as the CleverTap iOS SDK's `CleverTapLogLevel`:
+
+| Level | What you get |
+|---|---|
+| `-1` | Nothing. |
+| `0` (default) | A short trail for each push: which template was picked, what it fell back to and why, and every error. The trail leaves out payload contents and deeplink urls. An error line does include the value that failed, for example a deeplink that would not open. |
+| `1` | Everything from `0`, plus the whole payload, deeplink urls, each image download, and layout details. |
+
+The default level is on in release builds too, so a problem that already happened on a device can still be read afterwards. The SDK does not switch levels by build configuration itself. Set the level in your Notification Content Extension, not in the app, because the extension runs in its own process and has its own copy of the setting. Call it before `super.viewDidLoad()`:
+
+```swift
+import CTNotificationContent
+
+class NotificationViewController: CTNotificationViewController {
+    override func viewDidLoad() {
+        #if DEBUG
+        CTContentLog.setDebugLevel(1)
+        #endif
+        super.viewDidLoad()
+    }
+}
+```
+
+```objc
+- (void)viewDidLoad {
+#ifdef DEBUG
+    [CTNotificationContentLogger setDebugLevel:1];
+#endif
+    [super viewDidLoad];
+}
+```
+
+To turn the logs off, for example in release builds, pass `-1` instead.
 
 A Notification Content Extension runs in its own process, so `print` output does not reach the Xcode console unless you attach to that process. The commands below do not need Xcode.
 
@@ -547,10 +579,10 @@ log stream --predicate 'subsystem == "com.clevertap.sdk" AND category == "CTNoti
 Every line looks like this:
 
 ```
-[CleverTap][NotificationContent] CTCarouselController.showNext(): Paging to index=2/4
+[CleverTap][CTNotificationContent] CTCarouselController.createView(): No image or gif in payload, rendering title and message
 ```
 
-`[CleverTap]` is the prefix the CleverTap iOS SDK also uses. `[NotificationContent]` marks the lines that come from this SDK. The part before the colon is the type and the function the line came from.
+`[CleverTap]` is the prefix the CleverTap iOS SDK also uses. `[CTNotificationContent]` marks the lines that come from this SDK, and matches the category above. The part before the colon is the type and the function the line came from.
 
 You can also use Console.app instead of the commands above. Select the device in the sidebar, then put `subsystem:com.clevertap.sdk` in the search field. Choose **Action > All Messages**. The **Errors and Faults** view hides these logs.
 

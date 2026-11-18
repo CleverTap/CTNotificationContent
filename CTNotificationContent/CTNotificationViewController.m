@@ -11,12 +11,26 @@
 
 // Short names for the logger. __PRETTY_FUNCTION__ gives the class and the
 // method, so the log line points at the exact place the message came from.
+// The level is checked before the message is formatted, so a line that is off
+// costs nothing. The same check is in CleverTapLogInfo and CleverTapLogDebug.
 #define CTContentLogInfo(fmt, ...) \
-    [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
 #define CTContentLogError(fmt, ...) \
-    [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
 #define CTContentLogDebug(fmt, ...) \
-    [CTNotificationContentLogger logDebug:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] > 0) { \
+            [CTNotificationContentLogger logDebug:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
 
 /// Name of a response option, for the logs. The raw values are 0, 1 and 2.
 /// A name tells the reader what the extension asked the system to do.
@@ -116,6 +130,9 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
     CTContentLogInfo(@"Received notification, id=%@, payloadKeys=[%@]",
                      notification.request.identifier,
                      [[_content allKeys] componentsJoinedByString:@", "]);
+    // The whole payload. This is the one thing that explains most reports, but
+    // it is long and it can hold customer data. So it needs the debug level.
+    CTContentLogDebug(@"Payload=%@", _content);
 
     [self updateContentType:_content];
 
@@ -233,12 +250,12 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
 
     self.view.frame = self.contentViewController.view.frame;
     self.preferredContentSize = self.contentViewController.preferredContentSize;
-    // A size of zero in either direction means the expanded view has no area on
-    // screen. The user then sees an empty space where the template should be.
+    // Templates that load images set their size later, so zero here is normal
+    // for them. A size that is still zero after that is reported as an error in
+    // preferredContentSizeDidChangeForChildContentContainer:.
     if (self.preferredContentSize.width <= 0 || self.preferredContentSize.height <= 0) {
-        CTContentLogError(@"Zero preferredContentSize, expanded view will not be visible, controller=%@, size=%@",
-                          NSStringFromClass([self.contentViewController class]),
-                          NSStringFromCGSize(self.preferredContentSize));
+        CTContentLogDebug(@"No preferredContentSize yet, waiting for controller=%@ to size itself",
+                          NSStringFromClass([self.contentViewController class]));
         return;
     }
     CTContentLogInfo(@"Content view ready, controller=%@, size=%@",
@@ -273,7 +290,7 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
                              kSingleMediaType, kSingleMediaURL);
             self.contentType = CTNotificationContentTypeSingleMedia;
         } else {
-            CTContentLogError(@"Missing key=%@ and no single media keys, falling back to basic template", kTemplateId);
+            CTContentLogInfo(@"No %@ in payload, falling back to basic template", kTemplateId);
             self.contentType = CTNotificationContentTypeBasicTemplate;
         }
         return;
@@ -289,7 +306,7 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
 
     id json = content[kJSON];
     if (json == nil) {
-        CTContentLogInfo(@"Missing key=%@, building json from flat payload keys", kJSON);
+        CTContentLogDebug(@"No %@ in payload, building json from flat payload keys", kJSON);
         self.jsonString = [self createJSONData:content];
     } else if (![json isKindOfClass:[NSString class]]) {
         CTContentLogError(@"Expected NSString for key=%@, got %@, building json from flat payload keys",
@@ -326,11 +343,6 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
         return;
     }
     CTContentLogInfo(@"Resolved template from pt_id=%@", templateId);
-    [CTUtiltiy logPayloadCheckForTemplate:templateId jsonString:self.jsonString ?: @""];
-
-    // The whole payload. This is the one thing that explains most reports, but
-    // it is long and it can hold customer data. So it needs the debug level.
-    CTContentLogDebug(@"Payload json=%@", self.jsonString ?: @"");
 }
 
 - (NSString *)createJSONData:(NSDictionary *)content {
@@ -341,6 +353,10 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
             CTContentLogError(@"Skipping non NSString payload key=%@", key);
             continue;
         }
+        // aps is the system part of every push, never a template key.
+        if ([key isEqualToString:@"aps"]) {
+            continue;
+        }
         id value = content[key];
         // The Swift models declare every field as text. A number is written as
         // text here so the decoder accepts it.
@@ -349,7 +365,9 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
         } else if ([value isKindOfClass:[NSNumber class]]) {
             json[key] = [value stringValue];
         } else {
-            CTContentLogError(@"Skipping key=%@, unsupported value type %@",
+            // Template keys are all text, so a nested value is some other key
+            // the app sent along. That is normal, not a failure.
+            CTContentLogDebug(@"Skipping key=%@, unsupported value type %@",
                               key, NSStringFromClass([value class]));
         }
     }
@@ -366,7 +384,7 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
         CTContentLogError(@"JSON is not valid UTF-8, template will render its no data layout");
         return @"";
     }
-    CTContentLogInfo(@"Built json from %lu payload keys", (unsigned long)json.count);
+    CTContentLogDebug(@"Built json from %lu payload keys", (unsigned long)json.count);
     return jsonString;
 }
 
@@ -381,7 +399,7 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
                           NSStringFromClass([self.contentViewController class]));
         return;
     }
-    CTContentLogInfo(@"Resized, size=%@", NSStringFromCGSize(self.preferredContentSize));
+    CTContentLogDebug(@"Resized, size=%@", NSStringFromCGSize(self.preferredContentSize));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -389,7 +407,8 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
 
     // The system stops an extension that keeps using memory after this warning.
     // A report that stops right here means the extension was stopped. Large
-    // images are the usual cause. The pixel sizes are in the download lines.
+    // images are the usual cause. The pixel sizes are in the download lines,
+    // which need debug level 1.
     CTContentLogError(@"Memory warning, the system may stop the extension");
 }
 
@@ -431,11 +450,12 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
         return;
     }
 
-    CTContentLogInfo(@"Opening url=%@", url.absoluteString);
+    // Deeplinks can carry user tokens, so the url itself needs the debug level.
+    CTContentLogDebug(@"Opening url=%@", url.absoluteString);
     [self.extensionContext openURL:url completionHandler:^(BOOL success) {
         // IF THE DEEP LINK DIDNT WORK, OPEN PARENT APP
         if (success) {
-            CTContentLogInfo(@"Opened url=%@", url.absoluteString);
+            CTContentLogDebug(@"Opened url=%@", url.absoluteString);
         } else {
             CTContentLogError(@"openURL failed for url=%@, performing notification default action", url.absoluteString);
             if (@available(iOS 12.0, *)) {
