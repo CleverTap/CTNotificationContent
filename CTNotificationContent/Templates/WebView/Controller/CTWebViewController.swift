@@ -59,7 +59,7 @@ import WebKit
             CTContentLog.debug("Loading web view, url=\(webViewUrl)")
             webView.load(URLRequest(url: url))
         } else {
-            CTContentLog.error("Web view url parse failed, view left empty, url=\(webViewUrl)")
+            CTContentLog.error("Web view url parse failed, view left empty, url=\(CTContentLog.loggableURL(webViewUrl))")
         }
 
         guard let jsonContent = jsonContent else {
@@ -112,11 +112,11 @@ import WebKit
 extension CTWebViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        CTContentLog.error("Provisional navigation failed, url=\(webViewUrl), error=\(error.localizedDescription)")
+        CTContentLog.error("Provisional navigation failed, url=\(CTContentLog.loggableURL(webViewUrl)), error=\(error.localizedDescription)")
     }
 
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        CTContentLog.error("Navigation failed, url=\(webViewUrl), error=\(error.localizedDescription)")
+        CTContentLog.error("Navigation failed, url=\(CTContentLog.loggableURL(webViewUrl)), error=\(error.localizedDescription)")
     }
 
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

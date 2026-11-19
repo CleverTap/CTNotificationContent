@@ -218,7 +218,7 @@ import SDWebImage
                         return
                     }
                     guard image != nil else {
-                        CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        CTContentLog.error("Gif load failed, falling back to still image, url=\(CTContentLog.loggableURL(gif)), error=\(error?.localizedDescription ?? "nil image, no error")")
                         self.loadStaticImage()
                         return
                     }
@@ -230,7 +230,7 @@ import SDWebImage
             }
         } else {
             if let gif = json.pt_gif, !gif.isEmpty {
-                CTContentLog.error("Gif url parse failed, falling back to still image, url=\(gif)")
+                CTContentLog.error("Gif url parse failed, falling back to still image, url=\(CTContentLog.loggableURL(gif))")
             }
             loadStaticImage()
         }
@@ -324,7 +324,7 @@ import SDWebImage
                     return
                 }
                 guard let imageData = imageData else {
-                    CTContentLog.error("Image load failed, rendering texts only, url=\(imgUrl)")
+                    CTContentLog.error("Image load failed, rendering texts only, url=\(CTContentLog.loggableURL(imgUrl))")
                     self.showFallbackTextView()
                     return
                 }
@@ -496,11 +496,7 @@ import SDWebImage
         if buttonDeeplink.isEmpty {
             CTContentLog.info("CTA button has no deeplink, performing notification default action")
         } else {
-            CTContentLog.error("CTA button deeplink parse failed, performing notification default action, url=\(buttonDeeplink)")
-        }
-        guard #available(iOS 12.0, *) else {
-            CTContentLog.error("Notification default action requires iOS 12 or later, ignoring")
-            return
+            CTContentLog.error("CTA button deeplink parse failed, performing notification default action, url=\(CTContentLog.loggableURL(buttonDeeplink))")
         }
         guard let context = extensionContext else {
             CTContentLog.error("Nil extensionContext, cannot perform notification default action")
@@ -547,20 +543,13 @@ import SDWebImage
 
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateInterfaceColors()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateInterfaceColors()
         }
     }
 
     func updateInterfaceColors() {
-        let isDarkMode: Bool
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
 
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         titleLabel.textColor = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
@@ -587,7 +576,7 @@ import SDWebImage
                 CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
-                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
+                CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(deeplinkURL))")
             }
             return .dismiss
         }

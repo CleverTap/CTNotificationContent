@@ -65,7 +65,7 @@ fileprivate enum Constants {
                         return
                     }
                     guard imageData != nil else {
-                        CTContentLog.error("Skipping item \(index + 1), image load failed, url=\(item.imageUrl)")
+                        CTContentLog.error("Skipping item \(index + 1), image load failed, url=\(CTContentLog.loggableURL(item.imageUrl))")
                         return
                     }
 
@@ -226,7 +226,7 @@ fileprivate enum Constants {
                     CTContentLog.debug("Opening deeplink, url=\(urlString)")
                     getParentViewController()?.open(url)
                 } else {
-                    CTContentLog.error("Deeplink parse failed, url=\(urlString)")
+                    CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(urlString))")
                 }
                 return (autoDismiss == 1) ? .dismiss : .doNotDismiss
             }

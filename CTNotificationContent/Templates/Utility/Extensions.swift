@@ -13,7 +13,7 @@ extension UILabel {
         let pointSize = self.font?.pointSize ?? UIFont.systemFontSize
         let modifiedFont = NSString(format: "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: \(pointSize)\">%@</span>" as NSString, htmlText) as String
         guard let data = modifiedFont.data(using: .unicode) else {
-            CTContentLog.error("HTML to unicode data encode failed, rendering plain text, text=\(htmlText)")
+            CTContentLog.error("HTML to unicode data encode failed, rendering plain text, length=\(htmlText.count)")
             self.text = htmlText
             return
         }
@@ -24,7 +24,7 @@ extension UILabel {
                                                           documentAttributes: nil)
             self.attributedText = attributedString
         } catch {
-            CTContentLog.error("HTML parse failed, rendering plain text, text=\(htmlText), error=\(error.localizedDescription)")
+            CTContentLog.error("HTML parse failed, rendering plain text, length=\(htmlText.count), error=\(error.localizedDescription)")
             self.text = htmlText
         }
     }

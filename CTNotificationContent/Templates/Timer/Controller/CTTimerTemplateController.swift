@@ -99,10 +99,7 @@ import SDWebImage
     }
 
     private func isDarkMode() -> Bool {
-        if #available(iOS 12.0, *) {
-            return traitCollection.userInterfaceStyle == .dark
-        }
-        return false
+        return traitCollection.userInterfaceStyle == .dark
     }
 
     @objc public override func viewDidLoad() {
@@ -228,7 +225,7 @@ import SDWebImage
                         return
                     }
                     guard image != nil else {
-                        CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        CTContentLog.error("Gif load failed, falling back to still image, url=\(CTContentLog.loggableURL(gif)), error=\(error?.localizedDescription ?? "nil image, no error")")
                         self.showImageView()
                         return
                     }
@@ -239,7 +236,7 @@ import SDWebImage
                 })
             } else {
                 if let gif = jsonContent.pt_gif, !gif.isEmpty {
-                    CTContentLog.error("Gif url parse failed, falling back to still image, url=\(gif)")
+                    CTContentLog.error("Gif url parse failed, falling back to still image, url=\(CTContentLog.loggableURL(gif))")
                 }
                 self.showImageView()
             }
@@ -252,23 +249,13 @@ import SDWebImage
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateInterfaceColors()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateInterfaceColors()
         }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
         
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         imageView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
@@ -364,7 +351,7 @@ import SDWebImage
                         return
                     }
                     guard imageData != nil else {
-                        CTContentLog.error("Expired gif unreachable, falling back to expired still image, url=\(gifAlt)")
+                        CTContentLog.error("Expired gif unreachable, falling back to expired still image, url=\(CTContentLog.loggableURL(gifAlt))")
                         self.showAltImageView()
                         return
                     }
@@ -373,7 +360,7 @@ import SDWebImage
             }
         } else {
             if let gifAlt = jsonContent.pt_gif_alt, !gifAlt.isEmpty {
-                CTContentLog.error("Expired gif url parse failed, falling back to expired still image, url=\(gifAlt)")
+                CTContentLog.error("Expired gif url parse failed, falling back to expired still image, url=\(CTContentLog.loggableURL(gifAlt))")
             }
             self.showAltImageView()
         }
@@ -420,7 +407,7 @@ import SDWebImage
                 CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
-                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
+                CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(deeplinkURL))")
             }
             return .dismiss
         }
@@ -443,7 +430,7 @@ import SDWebImage
                     return
                 }
                 guard imageData != nil else {
-                    CTContentLog.error("Image load failed, rendering caption only, url=\(self.bigImage)")
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(CTContentLog.loggableURL(self.bigImage))")
                     return
                 }
                 CTContentLog.debug("Image rendered, url=\(self.bigImage)")
@@ -463,7 +450,7 @@ import SDWebImage
                 return
             }
             guard image != nil else {
-                CTContentLog.error("Expired gif load failed, falling back to expired still image, url=\(url.absoluteString), error=\(error?.localizedDescription ?? "nil image, no error")")
+                CTContentLog.error("Expired gif load failed, falling back to expired still image, url=\(CTContentLog.loggableURL(url.absoluteString)), error=\(error?.localizedDescription ?? "nil image, no error")")
                 self.showAltImageView()
                 return
             }
@@ -488,7 +475,7 @@ import SDWebImage
                     return
                 }
                 guard imageData != nil else {
-                    CTContentLog.error("Expired image load failed, keeping image already on screen, url=\(self.bigImageAlt)")
+                    CTContentLog.error("Expired image load failed, keeping image already on screen, url=\(CTContentLog.loggableURL(self.bigImageAlt))")
                     return
                 }
                 CTContentLog.debug("Expired image rendered, url=\(self.bigImageAlt)")

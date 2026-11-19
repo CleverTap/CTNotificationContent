@@ -30,7 +30,7 @@ struct FlexibleDouble: Decodable {
             return
         }
         guard let url = URL(string: imageUrl) else {
-            CTContentLog.error("Image url parse failed, skipping download, url=\(imageUrl)")
+            CTContentLog.error("Image url parse failed, skipping download, url=\(CTContentLog.loggableURL(imageUrl))")
             completionBlock(nil)
             return
         }
@@ -42,22 +42,22 @@ struct FlexibleDouble: Decodable {
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let elapsedMs = Int(Date().timeIntervalSince(startedAt) * 1000)
             if let error = error {
-                CTContentLog.error("Image download failed, url=\(imageUrl), elapsedMs=\(elapsedMs), error=\(error.localizedDescription)")
+                CTContentLog.error("Image download failed, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs), error=\(error.localizedDescription)")
                 completionBlock(nil)
                 return
             }
             if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
-                CTContentLog.error("Image download returned HTTP \(httpResponse.statusCode), url=\(imageUrl), elapsedMs=\(elapsedMs)")
+                CTContentLog.error("Image download returned HTTP \(httpResponse.statusCode), url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs)")
                 completionBlock(nil)
                 return
             }
             guard let data = data, !data.isEmpty else {
-                CTContentLog.error("Image download returned empty body, url=\(imageUrl), elapsedMs=\(elapsedMs)")
+                CTContentLog.error("Image download returned empty body, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs)")
                 completionBlock(nil)
                 return
             }
             guard let imageData = UIImage(data: data) else {
-                CTContentLog.error("Image decode failed, url=\(imageUrl), elapsedMs=\(elapsedMs), bytes=\(data.count)")
+                CTContentLog.error("Image decode failed, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs), bytes=\(data.count)")
                 completionBlock(nil)
                 return
             }
@@ -95,10 +95,6 @@ struct FlexibleDouble: Decodable {
 
     // Required keys check for product display template
     @objc public static func isRequiredKeysProvided(jsonString: String)->Bool{
-        guard #available(iOS 12.0, *) else {
-            CTContentLog.error("Product display requires iOS 12 or later, falling back to basic template")
-            return false
-        }
         guard CTUtiltiy.loadContentData(data: jsonString) as ProductDisplayProperties? != nil else {
             CTContentLog.error("Product display payload missing a required key, falling back to basic template")
             return false

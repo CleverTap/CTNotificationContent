@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = "CTNotificationContent"
   s.version          = "1.7.0"
-  s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS push notifications"
+  s.summary          = "A Notification Content Extension class to display custom content interfaces for iOS 15 push notifications"
   s.description      = <<-DESC
-                       A Notification Content Extension class to display custom content interfaces for iOS push notifications.
+                       A Notification Content Extension class to display custom content interfaces for iOS 15 push notifications.
 
                        NOTICE: CocoaPods trunk becomes read-only on December 2, 2026. To keep
                        receiving CleverTap updates through CocoaPods, add these lines to your Podfile:

@@ -5,7 +5,9 @@ import os.log
 ///
 /// A notification content extension runs in its own process. Xcode is normally
 /// not attached to that process, so `print` output is lost. Logs written here
-/// can be read in Console.app, and they are also included in a sysdiagnose.
+/// can be read in Console.app.
+/// TODO(verify): whether a sysdiagnose includes these lines. Apple's sysdiagnose
+/// instructions PDF needs a developer login and was not read.
 ///
 /// The subsystem is shared with the CleverTap iOS SDK, so one filter shows
 /// logs from both. Filter on the category to see only this SDK.
@@ -31,10 +33,10 @@ public final class CTContentLog: NSObject {
     /// - `-1` turns every line off.
     /// - `0` is the default. It writes a short trail for each push, which
     ///   template was picked, what it fell back to and why, plus every error.
-    ///   The trail leaves out payload contents and deeplink urls. An error
-    ///   line does include the value that failed, such as a bad deeplink.
-    /// - `1` adds the `debug` lines. Those hold the whole payload, deeplink
-    ///   urls, each image download, and anything that repeats during a render.
+    ///   No line at this level holds payload values or notification text. A
+    ///   url shows only its scheme and host, see `loggableURL(_:)`.
+    /// - `1` adds the `debug` lines. Those hold the whole payload, full urls,
+    ///   each image download, and anything that repeats during a render.
     ///
     /// The SDK does not check for a debug build itself. For SPM it ships as a
     /// prebuilt binary, so a compile time flag inside the SDK would not follow
@@ -56,6 +58,34 @@ public final class CTContentLog: NSObject {
 
     @objc public static func getDebugLevel() -> Int32 {
         return debugLevel
+    }
+
+    /// A url as it may appear in a log line.
+    ///
+    /// Default level lines are kept on disk, and image urls and deeplinks can
+    /// hold user ids, emails, tokens or coupon codes in the path or the query.
+    /// So at the default level only the scheme and host are written. That is
+    /// still enough to tell http from https, or to spot a CDN that is down.
+    /// At level 1 the whole url is written.
+    ///
+    /// Use this for every url in an `info` or `error` line. A `debug` line can
+    /// print the url as it is, since it only runs at level 1.
+    @objc(loggableURL:)
+    public static func loggableURL(_ urlString: String) -> String {
+        if debugLevel > 0 {
+            return urlString
+        }
+        if urlString.isEmpty {
+            return "[empty]"
+        }
+        guard let components = URLComponents(string: urlString), let scheme = components.scheme else {
+            return "[unparseable, \(urlString.count) chars]"
+        }
+        // A url like mailto:name@example.com has no host. Its path is the
+        // personal part, so only the scheme is kept.
+        let schemeAndHost = components.host.map { "\(scheme)://\($0)" } ?? "\(scheme):"
+        let hasMore = !components.path.isEmpty || components.query != nil || components.fragment != nil
+        return hasMore ? "\(schemeAndHost) [rest hidden]" : schemeAndHost
     }
 
     /// Every line goes out at `.default`, including the ones from `error`.

@@ -45,13 +45,16 @@ import AVFoundation
 
         createFrameWithImage()
 
-        CTContentLog.info("Single media controller started, mediaType=\(mediaType.isEmpty ? "nil" : mediaType), url=\(mediaURL)")
+        CTContentLog.info("Single media controller started, mediaType=\(mediaType.isEmpty ? "nil" : mediaType), url=\(CTContentLog.loggableURL(mediaURL))")
 
         if mediaType == ConstantKeys.kMediaTypeVideo || mediaType == ConstantKeys.kMediaTypeAudio {
-            CTContentLog.info("Unsupported mediaType=\(mediaType), video and audio are not supported yet, rendering caption only, url=\(mediaURL)")
-            // TODO: Remove mediaURL = "" when video template is supported.
-            mediaURL = ""
-            createVideoView()
+            CTContentLog.info("Unsupported mediaType=\(mediaType), video and audio are not supported yet, rendering caption only, url=\(CTContentLog.loggableURL(mediaURL))")
+            // The caption only view, built directly. Going through createVideoView
+            // with an empty url gave the same view, but also logged a parse error
+            // for a url that was emptied on purpose.
+            // TODO: Call createVideoView() here when video and audio are supported.
+            createBasicCaptionView()
+            createFrameWithoutImage()
         } else {
             createImageView()
         }
@@ -61,7 +64,7 @@ import AVFoundation
         createBasicCaptionView()
 
         guard let urlToVideo = URL(string: mediaURL) else {
-            CTContentLog.error("Media url parse failed, rendering caption only, url=\(mediaURL)")
+            CTContentLog.error("Media url parse failed, rendering caption only, url=\(CTContentLog.loggableURL(mediaURL))")
             createFrameWithoutImage()
             return
         }
@@ -114,7 +117,7 @@ import AVFoundation
                 playPauseButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0)
             ])
         } else {
-            CTContentLog.error("Media is not playable, rendering caption only, url=\(mediaURL)")
+            CTContentLog.error("Media is not playable, rendering caption only, url=\(CTContentLog.loggableURL(mediaURL))")
             createFrameWithoutImage()
         }
     }
@@ -131,7 +134,7 @@ import AVFoundation
                     let itemComponents = CaptionedImageViewComponents(caption: self.caption, subcaption: self.subCaption, imageUrl: self.mediaURL, actionUrl: self.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, bgColorDark: ConstantKeys.kDefaultColorDark, captionColorDark: ConstantKeys.kHexWhiteColor, subcaptionColorDark: ConstantKeys.kHexDarkGrayColor, imageDescription: self.mediaDescription)
                     self.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                 } else {
-                    CTContentLog.error("Image load failed, rendering caption only, url=\(self.mediaURL)")
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(CTContentLog.loggableURL(self.mediaURL))")
                     let itemComponents = CaptionedImageViewComponents(caption: self.caption, subcaption: self.subCaption, imageUrl: "", actionUrl: self.deeplinkURL, bgColor: ConstantKeys.kDefaultColor, captionColor: ConstantKeys.kHexBlackColor, subcaptionColor: ConstantKeys.kHexLightGrayColor, imageDescription: "")
                     self.currentItemView = CTCaptionedImageView(components: itemComponents, isGifSupported: false)
                     self.createFrameWithoutImage()
@@ -206,7 +209,7 @@ import AVFoundation
                 CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
-                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
+                CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(deeplinkURL))")
             }
             return .dismiss
         }

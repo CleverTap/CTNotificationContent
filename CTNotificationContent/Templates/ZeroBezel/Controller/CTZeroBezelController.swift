@@ -159,7 +159,7 @@ import SDWebImage
                     self.activateImageViewContraints()
                     self.createFrameWithImage()
                 } else {
-                    CTContentLog.error("Gif load failed, falling back to still image, url=\(gif), error=\(error?.localizedDescription ?? "nil image, no error")")
+                    CTContentLog.error("Gif load failed, falling back to still image, url=\(CTContentLog.loggableURL(gif)), error=\(error?.localizedDescription ?? "nil image, no error")")
                     self.showImageView()
                 }
             })
@@ -227,7 +227,7 @@ import SDWebImage
                 CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
                 getParentViewController()?.open(url)
             } else {
-                CTContentLog.error("Deeplink parse failed, url=\(deeplinkURL)")
+                CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(deeplinkURL))")
             }
             return .dismiss
         }
@@ -242,23 +242,13 @@ import SDWebImage
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateInterfaceColors()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateInterfaceColors()
         }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
 
         self.titleLabel.setTextColor(UIColor(hex: isDarkMode ? captionColorDark : captionColor))
         self.subTitleLabel.setTextColor(UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor))
@@ -276,7 +266,7 @@ import SDWebImage
                     return
                 }
                 guard imageData != nil else {
-                    CTContentLog.error("Image load failed, rendering caption only, url=\(self.templateBigImage)")
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(CTContentLog.loggableURL(self.templateBigImage))")
                     return
                 }
                 CTContentLog.debug("Image rendered, url=\(self.templateBigImage)")

@@ -193,7 +193,7 @@ import UserNotificationsUI
                             return
                         }
                         guard imageData != nil else {
-                            CTContentLog.error("Skipping image \(index + 1), load failed, url=\(imageDetails.url)")
+                            CTContentLog.error("Skipping image \(index + 1), load failed, url=\(CTContentLog.loggableURL(imageDetails.url))")
                             return
                         }
                         let itemComponents = CaptionedImageViewComponents(caption: self.templateCaption, subcaption: self.templateSubcaption, imageUrl: imageDetails.url, actionUrl: imageDetails.deeplink, bgColor: self.bgColor, captionColor: self.captionColor, subcaptionColor: self.subcaptionColor, bgColorDark: self.bgColorDark, captionColorDark: self.captionColorDark, subcaptionColorDark: self.subcaptionColorDark, imageDescription: imageDetails.description ?? "\(CTAccessibility.kDefaultImageDescription) \(index + 1)", imgCornerRadius: imgCornerRadius, imgBorderWidth: imgBorderWidth, imgBorderClr: imgBorderClr, imageHeight: self.imageHeight, rootHeight: self.rootHeight)
@@ -217,23 +217,13 @@ import UserNotificationsUI
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateContentViewBackground()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateContentViewBackground()
         }
     }
     
     func updateContentViewBackground() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
         
         contentView.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
     }
@@ -387,13 +377,11 @@ import UserNotificationsUI
         let urlString = currentActionUrl
         if urlString.isEmpty {
             CTContentLog.info("Tap with no deeplink at index=\(currentItemIndex), performing notification default action")
-            if #available(iOS 12.0, *) {
-                self.extensionContext?.performNotificationDefaultAction()
-            }
+            self.extensionContext?.performNotificationDefaultAction()
             return
         }
         guard let url = URL(string: urlString) else {
-            CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(urlString)")
+            CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(CTContentLog.loggableURL(urlString))")
             return
         }
         CTContentLog.debug("Tap, opening deeplink, index=\(currentItemIndex), url=\(urlString)")
@@ -421,7 +409,7 @@ import UserNotificationsUI
                     CTContentLog.debug("Opening deeplink, index=\(currentItemIndex), url=\(urlString)")
                     getParentViewController()?.open(url)
                 } else {
-                    CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(urlString)")
+                    CTContentLog.error("Deeplink parse failed, index=\(currentItemIndex), url=\(CTContentLog.loggableURL(urlString))")
                 }
                 return .dismiss
             }
@@ -440,7 +428,10 @@ import UserNotificationsUI
     }
     
     func moveSlider(direction: Int) {
-        guard let _ = getParentViewController() else {
+        // Checks parent directly. getParentViewController logs a missing
+        // parent as a failed tap, but here it only means the notification
+        // closed and the autoplay timer fired once more.
+        guard parent != nil else {
             CTContentLog.debug("Controller detached, stopping autoplay timer")
             timer?.invalidate()
             timer = nil

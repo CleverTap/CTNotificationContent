@@ -62,24 +62,21 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (@available(iOS 12.0, *)) {
-        NSString *url = [self getDeeplinkUrl];
-        if (!url || url.length == 0) {
-            CTContentLogInfo(@"Tap with no deeplink, performing notification default action");
-            [[self extensionContext] performNotificationDefaultAction];
-            return;
-        }
-        NSURL *deeplink = [[NSURL alloc] initWithString:url];
-        if (deeplink == nil) {
-            CTContentLogError(@"Deeplink parse failed, performing notification default action, url=%@", url);
-            [[self extensionContext] performNotificationDefaultAction];
-            return;
-        }
-        CTContentLogDebug(@"Tap, opening deeplink, url=%@", url);
-        [[self getParentViewController] openUrl:deeplink];
-    } else {
-        CTContentLogError(@"Tap handling requires iOS 12 or later, ignoring");
+    NSString *url = [self getDeeplinkUrl];
+    if (!url || url.length == 0) {
+        CTContentLogInfo(@"Tap with no deeplink, performing notification default action");
+        [[self extensionContext] performNotificationDefaultAction];
+        return;
     }
+    NSURL *deeplink = [[NSURL alloc] initWithString:url];
+    if (deeplink == nil) {
+        CTContentLogError(@"Deeplink parse failed, performing notification default action, url=%@",
+                          [CTNotificationContentLogger loggableURL:url]);
+        [[self extensionContext] performNotificationDefaultAction];
+        return;
+    }
+    CTContentLogDebug(@"Tap, opening deeplink, url=%@", url);
+    [[self getParentViewController] openUrl:deeplink];
 }
 
 @end

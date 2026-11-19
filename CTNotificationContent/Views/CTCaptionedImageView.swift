@@ -82,7 +82,7 @@ class CTCaptionedImageView : UIView {
                         return
                     }
                     guard image != nil else {
-                        CTContentLog.error("Gif load failed, rendering caption only, url=\(self.components.imageUrl), error=\(error?.localizedDescription ?? "nil image, no error")")
+                        CTContentLog.error("Gif load failed, rendering caption only, url=\(CTContentLog.loggableURL(self.components.imageUrl)), error=\(error?.localizedDescription ?? "nil image, no error")")
                         return
                     }
                     CTContentLog.debug("Gif loaded, url=\(self.components.imageUrl)")
@@ -91,7 +91,7 @@ class CTCaptionedImageView : UIView {
                     self.activateImageViewContraints()
                 })
             } else {
-                CTContentLog.error("Gif url parse failed, rendering caption only, url=\(components.imageUrl)")
+                CTContentLog.error("Gif url parse failed, rendering caption only, url=\(CTContentLog.loggableURL(components.imageUrl))")
             }
         } else if !components.imageUrl.isEmpty {
             // An empty url is the text only view that templates fall back to.
@@ -103,7 +103,7 @@ class CTCaptionedImageView : UIView {
                         return
                     }
                     guard let imageData = imageData else {
-                        CTContentLog.error("Nil image data, rendering caption only, url=\(self.components.imageUrl)")
+                        CTContentLog.error("Nil image data, rendering caption only, url=\(CTContentLog.loggableURL(self.components.imageUrl))")
                         return
                     }
                     self.imageView.image = imageData
@@ -121,24 +121,13 @@ class CTCaptionedImageView : UIView {
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
             super.traitCollectionDidChange(previousTraitCollection)
             
-            // Check if iOS 12+ API is available before using it
-            if #available(iOS 12.0, *) {
-                if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                    updateInterfaceColors()
-                }
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                updateInterfaceColors()
             }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
         
         imageView.backgroundColor = UIColor(hex: isDarkMode ? components.bgColorDark : components.bgColor)
         captionLabel.textColor = UIColor(hex: isDarkMode ? components.captionColorDark : components.captionColor)

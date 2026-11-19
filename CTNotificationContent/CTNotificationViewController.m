@@ -290,7 +290,19 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
                              kSingleMediaType, kSingleMediaURL);
             self.contentType = CTNotificationContentTypeSingleMedia;
         } else {
-            CTContentLogInfo(@"No %@ in payload, falling back to basic template", kTemplateId);
+            if (content[kJSON] != nil) {
+                // pt_json is only read once pt_id names a template. Saying so
+                // explains why such a push shows only its title and message.
+                CTContentLogInfo(@"No %@ in payload, falling back to basic template, %@ is ignored without %@",
+                                 kTemplateId, kJSON, kTemplateId);
+            } else {
+                CTContentLogInfo(@"No %@ in payload, falling back to basic template", kTemplateId);
+            }
+            // The basic template reads its settings from json. An empty object
+            // gives it none, which renders the title and message just like a
+            // pt_basic push without an image. An empty string would render the
+            // same, but it logs two decode errors for a push that is valid.
+            self.jsonString = @"{}";
             self.contentType = CTNotificationContentTypeBasicTemplate;
         }
         return;
@@ -391,6 +403,16 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id<UIContentContainer>)container {
     self.preferredContentSize = self.contentViewController.preferredContentSize;
 
+    // A template that sets its size in viewDidLoad lands here while
+    // setupContentController: is still adding it, before contentViewController
+    // is set. The size read above is then zero, but didReceiveNotification sets
+    // the real size as soon as setup finishes. So this is not a failure.
+    if (self.contentViewController == nil) {
+        CTContentLogDebug(@"Child resized before setup finished, size=%@, didReceiveNotification sets the final size",
+                          NSStringFromCGSize(container.preferredContentSize));
+        return;
+    }
+
     // Images arrive after the first layout, so a template can resize itself
     // later. This is the last size the system is told about. The size checked
     // in didReceiveNotification is only the first one.
@@ -440,13 +462,12 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
 - (void)openUrl:(NSURL *)url {
     if (url == nil) {
         CTContentLogError(@"Nil url, performing notification default action");
-        if (@available(iOS 12.0, *)) {
-            [self.extensionContext performNotificationDefaultAction];
-        }
+        [self.extensionContext performNotificationDefaultAction];
         return;
     }
     if (self.extensionContext == nil) {
-        CTContentLogError(@"Nil extensionContext, cannot open url=%@", url.absoluteString);
+        CTContentLogError(@"Nil extensionContext, cannot open url=%@",
+                          [CTNotificationContentLogger loggableURL:url.absoluteString]);
         return;
     }
 
@@ -457,12 +478,9 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
         if (success) {
             CTContentLogDebug(@"Opened url=%@", url.absoluteString);
         } else {
-            CTContentLogError(@"openURL failed for url=%@, performing notification default action", url.absoluteString);
-            if (@available(iOS 12.0, *)) {
-                [self.extensionContext performNotificationDefaultAction];
-            } else {
-                // Fallback on earlier versions
-            }
+            CTContentLogError(@"openURL failed for url=%@, performing notification default action",
+                              [CTNotificationContentLogger loggableURL:url.absoluteString]);
+            [self.extensionContext performNotificationDefaultAction];
         }
 
         // This removes the clicked notification from Notification Center when clicked in expanded view.

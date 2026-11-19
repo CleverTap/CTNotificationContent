@@ -13,7 +13,7 @@
 [![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 
 
-### A Notification Content Extension class to display custom content interfaces for iOS push notifications
+### A Notification Content Extension class to display custom content interfaces for iOS 15 push notifications
 
 Starting with iOS 10 you can add custom content views to iOS push notifications.  This library provides a class to accomplish that.  It provides a default Image Slideshow view and is designed to be easily extensible to display additional view types. 
 
@@ -527,8 +527,8 @@ The SDK writes logs to the unified logging system. The log levels are the same a
 | Level | What you get |
 |---|---|
 | `-1` | Nothing. |
-| `0` (default) | A short trail for each push: which template was picked, what it fell back to and why, and every error. The trail leaves out payload contents and deeplink urls. An error line does include the value that failed, for example a deeplink that would not open. |
-| `1` | Everything from `0`, plus the whole payload, deeplink urls, each image download, and layout details. |
+| `0` (default) | A short trail for each push: which template was picked, what it fell back to and why, and every error. No line at this level holds payload values or notification text. A url shows only its scheme and host, for example `url=https://cdn.example.com [rest hidden]`. |
+| `1` | Everything from `0`, plus the whole payload, full urls including deeplinks, each image download, and layout details. |
 
 The default level is on in release builds too, so a problem that already happened on a device can still be read afterwards. The SDK does not switch levels by build configuration itself. Set the level in your Notification Content Extension, not in the app, because the extension runs in its own process and has its own copy of the setting. Call it before `super.viewDidLoad()`:
 
@@ -555,6 +555,8 @@ class NotificationViewController: CTNotificationViewController {
 ```
 
 To turn the logs off, for example in release builds, pass `-1` instead.
+
+Level `1` writes whole payloads and full urls into the device log, and those lines stay on disk just like the default ones. Keep it inside `#if DEBUG`, as above, so it does not reach a release build.
 
 A Notification Content Extension runs in its own process, so `print` output does not reach the Xcode console unless you attach to that process. The commands below do not need Xcode.
 
