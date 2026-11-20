@@ -31,7 +31,7 @@ public final class CTContentLog: NSObject {
     /// The level values are the same as `CleverTapLogLevel` in the CleverTap
     /// iOS SDK.
     ///
-    /// - `-1` turns every line off. This is the default. Versions before 1.7.0
+    /// - `-1` turns every line off. This is the default. Versions before 2.0.0
     ///   logged nothing, so an app that only updates the SDK keeps a quiet
     ///   device log.
     /// - `0` writes a short trail for each push, which template was picked,
