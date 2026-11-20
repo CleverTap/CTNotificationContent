@@ -522,15 +522,15 @@ pt_json | Optional  | Above keys in JSON format
 
 [(Back to top)](#table-of-contents)
 
-The SDK writes logs to the unified logging system. The log levels are the same as the CleverTap iOS SDK's `CleverTapLogLevel`:
+The SDK can write logs to the unified logging system. They are off by default, so updating the SDK adds nothing to your device logs until you turn them on. The level values are the same as the CleverTap iOS SDK's `CleverTapLogLevel`:
 
 | Level | What you get |
 |---|---|
-| `-1` | Nothing. |
-| `0` (default) | A short trail for each push: which template was picked, what it fell back to and why, and every error. No line at this level holds payload values or notification text. A url shows only its scheme and host, for example `url=https://cdn.example.com [rest hidden]`. |
+| `-1` (default) | Nothing. |
+| `0` | A short trail for each push: which template was picked, what it fell back to and why, and every error. No line at this level holds payload values or notification text. A url shows only its scheme and host, for example `url=https://cdn.example.com [rest hidden]`. |
 | `1` | Everything from `0`, plus the whole payload, full urls including deeplinks, each image download, and layout details. |
 
-The default level is on in release builds too, so a problem that already happened on a device can still be read afterwards. The SDK does not switch levels by build configuration itself. Set the level in your Notification Content Extension, not in the app, because the extension runs in its own process and has its own copy of the setting. Call it before `super.viewDidLoad()`:
+The SDK does not switch levels by build configuration itself. Set the level in your Notification Content Extension, not in the app, because the extension runs in its own process and has its own copy of the setting. Call it before `super.viewDidLoad()`:
 
 ```swift
 import CTNotificationContent
@@ -546,6 +546,8 @@ class NotificationViewController: CTNotificationViewController {
 ```
 
 ```objc
+#import <CTNotificationContent/CTNotificationContent-Swift.h>
+
 - (void)viewDidLoad {
 #ifdef DEBUG
     [CTNotificationContentLogger setDebugLevel:1];
@@ -554,9 +556,9 @@ class NotificationViewController: CTNotificationViewController {
 }
 ```
 
-To turn the logs off, for example in release builds, pass `-1` instead.
+To keep a short trail in release builds too, so a problem that already happened on a device can still be read afterwards, call `setDebugLevel(0)` outside the `#if DEBUG` block.
 
-Level `1` writes whole payloads and full urls into the device log, and those lines stay on disk just like the default ones. Keep it inside `#if DEBUG`, as above, so it does not reach a release build.
+Level `1` writes whole payloads and full urls into the device log, and those lines stay on disk just like the level `0` ones. Keep it inside `#if DEBUG`, as above, so it does not reach a release build.
 
 A Notification Content Extension runs in its own process, so `print` output does not reach the Xcode console unless you attach to that process. The commands below do not need Xcode.
 

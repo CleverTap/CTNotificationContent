@@ -28,13 +28,16 @@ public final class CTContentLog: NSObject {
 
     private static let log = OSLog(subsystem: subsystem, category: category)
 
-    /// The levels are the same as `CleverTapLogLevel` in the CleverTap iOS SDK.
+    /// The level values are the same as `CleverTapLogLevel` in the CleverTap
+    /// iOS SDK.
     ///
-    /// - `-1` turns every line off.
-    /// - `0` is the default. It writes a short trail for each push, which
-    ///   template was picked, what it fell back to and why, plus every error.
-    ///   No line at this level holds payload values or notification text. A
-    ///   url shows only its scheme and host, see `loggableURL(_:)`.
+    /// - `-1` turns every line off. This is the default. Versions before 1.7.0
+    ///   logged nothing, so an app that only updates the SDK keeps a quiet
+    ///   device log.
+    /// - `0` writes a short trail for each push, which template was picked,
+    ///   what it fell back to and why, plus every error. No line at this level
+    ///   holds payload values or notification text. A url shows only its
+    ///   scheme and host, see `loggableURL(_:)`.
     /// - `1` adds the `debug` lines. Those hold the whole payload, full urls,
     ///   each image download, and anything that repeats during a render.
     ///
@@ -42,9 +45,10 @@ public final class CTContentLog: NSObject {
     /// prebuilt binary, so a compile time flag inside the SDK would not follow
     /// the app's build configuration. The app decides, for example by calling
     /// `setDebugLevel(1)` inside `#if DEBUG`.
-    private static var debugLevel: Int32 = 0
+    private static var debugLevel: Int32 = -1
 
-    /// Sets the log level. Pass -1 for off, 0 for the default, 1 for verbose.
+    /// Sets the log level. Pass -1 for off (the default), 0 for the short
+    /// trail and errors, 1 for verbose.
     ///
     /// Call this inside the notification content extension, not in the
     /// `AppDelegate` of the app. The extension is a separate process with its
@@ -62,9 +66,9 @@ public final class CTContentLog: NSObject {
 
     /// A url as it may appear in a log line.
     ///
-    /// Default level lines are kept on disk, and image urls and deeplinks can
-    /// hold user ids, emails, tokens or coupon codes in the path or the query.
-    /// So at the default level only the scheme and host are written. That is
+    /// Level 0 lines are kept on disk, and image urls and deeplinks can hold
+    /// user ids, emails, tokens or coupon codes in the path or the query.
+    /// So at level 0 only the scheme and host are written. That is
     /// still enough to tell http from https, or to spot a CDN that is down.
     /// At level 1 the whole url is written.
     ///

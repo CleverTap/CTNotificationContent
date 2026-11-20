@@ -26,7 +26,7 @@ import SDWebImage
         return imageHeight + CTUtiltiy.getCaptionHeight()
     }
     var jsonContent: TimerTemplateProperties? = nil
-    var timer: Timer = Timer()
+    var timer: Timer? = nil
     var thresholdSeconds = 0
     var bigImage: String = ""
     var bigImageAltText: String? = nil
@@ -124,8 +124,30 @@ import SDWebImage
     
     @objc public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        startCountdown()
+    }
+
+    deinit {
+        // The notification closed and the controller is going away. Without
+        // this the timer would keep firing for a view nobody can see.
+        if let countdownTimer = timer, countdownTimer.isValid {
+            CTContentLog.debug("Controller deallocated, stopping countdown, secondsLeft=\(thresholdSeconds)")
+            countdownTimer.invalidate()
+        }
+    }
+
+    private func startCountdown() {
+        // At most one timer per controller. A second one would make the clock
+        // count down twice as fast. After expiry the invalidated timer stays
+        // set, so the expired state is not rendered a second time.
+        guard timer == nil else { return }
+        // A target and selector timer holds the controller strongly until it
+        // is invalidated, which only happened at expiry. So the controller
+        // outlived its notification and the countdown kept running. The block
+        // holds the controller weakly, so closing the notification frees it.
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateTimer()
+        }
     }
     
     func createView() {
@@ -316,7 +338,7 @@ import SDWebImage
             }
             thresholdSeconds -= 1
         } else {
-            timer.invalidate()
+            timer?.invalidate()
             hideTimerDisplay()
             updateViewForExpiredTime()
         }

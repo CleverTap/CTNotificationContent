@@ -114,10 +114,8 @@ fileprivate enum Constants {
             subView.superview?.removeFromSuperview()
         }
 
-        guard !itemViews.isEmpty else {
-            CTContentLog.debug("No item views, default view already shown")
-            return
-        }
+        // itemViews is never empty here. When no image loaded,
+        // createDefaultAlertView above added the text only view.
         // itemViews can shrink between two calls, so the index is brought back
         // into range before it is used.
         if currentItemIndex < 0 || currentItemIndex >= itemViews.count {

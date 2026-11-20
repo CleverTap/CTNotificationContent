@@ -7,7 +7,9 @@ Version 1.7.0 (3 November, 2026)
   - The minimum deployment target is now **iOS 15.0** (previously iOS 10.0). Xcode 27 does not build targets below that version.
   - CocoaPods users may also need a `post_install` hook that raises every pod target to iOS 15, because dependencies such as `SDWebImage` carry their own lower minimums. See the [README](./README.md#cocoapods).
   - Apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The three sample apps now use it. Notification content extensions are unaffected, since extensions do not need a scene manifest.
-- **Debug logs:** The SDK now writes logs to the unified logging system under the `com.clevertap.sdk` subsystem, prefixed with `[CleverTap][CTNotificationContent]`. Use `CTContentLog.setDebugLevel(_:)` (`CTNotificationContentLogger` in Objective-C) inside your Notification Content Extension to choose the level: `-1` off, `0` default, `1` verbose. The default level writes no payload values or notification text, and shows only the scheme and host of a url. See [Debug Logs](./README.md#debug-logs).
+- **Debug logs:** The SDK can now write logs to the unified logging system under the `com.clevertap.sdk` subsystem, prefixed with `[CleverTap][CTNotificationContent]`. Logs are off by default, so updating adds nothing to your device logs. Use `CTContentLog.setDebugLevel(_:)` (`CTNotificationContentLogger` in Objective-C) inside your Notification Content Extension to turn them on: `-1` off (default), `0` a short trail plus errors, `1` verbose. Level `0` writes no payload values or notification text, and shows only the scheme and host of a url. See [Debug Logs](./README.md#debug-logs).
+- **Bug Fixes:**
+  - Fixed the `pt_timer` template so its countdown stops when the notification closes. Before, it kept running in the background until it reached zero, then rendered the expired state and downloaded the expired image for a view that was no longer on screen.
 
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
