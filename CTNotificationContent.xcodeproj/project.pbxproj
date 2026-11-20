@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		078286181E36FDD71F5D89E4 /* CTZeroBezelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF421ADD8BB29FAE2C09FD /* CTZeroBezelControllerTests.swift */; };
 		0B0115BE2CAFFD8C00985815 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0115BD2CAFFD8900985815 /* Extensions.swift */; };
 		3270BFDA28E4D80E003528ED /* CTProductDisplayVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */; };
 		3270BFDB28E4D80E003528ED /* CTProductDisplayLinearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3270BFD428E4D80E003528ED /* CTProductDisplayLinearViewController.swift */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		0B0115BD2CAFFD8900985815 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0ECF421ADD8BB29FAE2C09FD /* CTZeroBezelControllerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CTZeroBezelControllerTests.swift; sourceTree = "<group>"; };
 		2678384EBED77CF558893143 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		2B8120196F31B35BA4773F34 /* CTNotificationContentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CTNotificationContentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3270BFD328E4D80E003528ED /* CTProductDisplayVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTProductDisplayVerticalViewController.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				EC4EEDCD4EFCE04CCBBB89C3 /* CTTimerTemplateControllerTests.swift */,
 				91B3501818AA7564961E3889 /* CTContentLogTests.swift */,
 				A15A7ADA6AD528046B2A01C1 /* CTCaptionedImageViewTests.swift */,
+				0ECF421ADD8BB29FAE2C09FD /* CTZeroBezelControllerTests.swift */,
 			);
 			name = CTNotificationContentTests;
 			path = CTNotificationContentTests;
@@ -685,6 +688,7 @@
 				9885293BB8B48AF3CA89199D /* CTTimerTemplateControllerTests.swift in Sources */,
 				44821F7B87768A77EB1EC838 /* CTContentLogTests.swift in Sources */,
 				53F5AF1B7CF969B9D413C13E /* CTCaptionedImageViewTests.swift in Sources */,
+				078286181E36FDD71F5D89E4 /* CTZeroBezelControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

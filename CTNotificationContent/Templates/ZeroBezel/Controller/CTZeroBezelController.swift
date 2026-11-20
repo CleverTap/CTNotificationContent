@@ -23,6 +23,10 @@ import SDWebImage
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexWhiteColor
 
+    private var payloadSetCaptionColor = false
+    private var payloadSetSubcaptionColor = false
+    private var isShowingImage = false
+
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var bigImageAltText:String? = nil
@@ -54,18 +58,17 @@ import SDWebImage
         bigImageView.translatesAutoresizingMaskIntoConstraints = false
         return bigImageView
     }()
-    private let scrimView: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.isUserInteractionEnabled = false
-        return v
-    }()
-    private let scrimLayer: CAGradientLayer = {
-        let g = CAGradientLayer()
-        g.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
-        g.startPoint = CGPoint(x: 0.5, y: 0)
-        g.endPoint = CGPoint(x: 0.5, y: 1)
-        return g
+    private let scrimView: ZeroBezelScrimView = {
+        let scrim = ZeroBezelScrimView()
+        scrim.translatesAutoresizingMaskIntoConstraints = false
+        scrim.isUserInteractionEnabled = false
+        scrim.isHidden = true
+        if let gradientLayer = scrim.layer as? CAGradientLayer {
+            gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        }
+        return scrim
     }()
     
     @objc public override func viewDidLoad() {
@@ -115,7 +118,6 @@ import SDWebImage
         createFrameWithoutImage()
         contentView.addSubview(bigImageView)
         contentView.addSubview(scrimView)
-        scrimView.layer.addSublayer(scrimLayer)
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(titleLabel)
         
@@ -158,6 +160,7 @@ import SDWebImage
                     self.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
                     self.activateImageViewContraints()
                     self.createFrameWithImage()
+                    self.showTextOverImage()
                 } else {
                     CTContentLog.error("Gif load failed, falling back to still image, url=\(CTContentLog.loggableURL(gif)), error=\(error?.localizedDescription ?? "nil image, no error")")
                     self.showImageView()
@@ -167,17 +170,19 @@ import SDWebImage
             self.showImageView()
         }
         
-        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty, UIColor(hex: titleColor) != nil {
             captionColor = titleColor
+            payloadSetCaptionColor = true
         }
-        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty, UIColor(hex: msgColor) != nil {
             subcaptionColor = msgColor
+            payloadSetSubcaptionColor = true
         }
 
-        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty, UIColor(hex: titleColorDark) != nil {
             captionColorDark = titleColorDark
         }
-        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty, UIColor(hex: msgColorDark) != nil {
             subcaptionColorDark = msgColorDark
         }
 
@@ -185,11 +190,6 @@ import SDWebImage
 
     }
     
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrimLayer.frame = scrimView.bounds
-    }
-
     func setupConstraints() {
         NSLayoutConstraint.activate([
             scrimView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -249,9 +249,26 @@ import SDWebImage
     
     func updateInterfaceColors() {
         let isDarkMode = traitCollection.userInterfaceStyle == .dark
+        var titleColorHex = isDarkMode ? captionColorDark : captionColor
+        var messageColorHex = isDarkMode ? subcaptionColorDark : subcaptionColor
 
-        self.titleLabel.setTextColor(UIColor(hex: isDarkMode ? captionColorDark : captionColor))
-        self.subTitleLabel.setTextColor(UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor))
+        if !isShowingImage && !isDarkMode {
+            if !payloadSetCaptionColor {
+                titleColorHex = ConstantKeys.kHexBlackColor
+            }
+            if !payloadSetSubcaptionColor {
+                messageColorHex = ConstantKeys.kHexLightGrayColor
+            }
+        }
+
+        self.titleLabel.setTextColor(UIColor(hex: titleColorHex))
+        self.subTitleLabel.setTextColor(UIColor(hex: messageColorHex))
+    }
+
+    private func showTextOverImage() {
+        isShowingImage = true
+        scrimView.isHidden = false
+        updateInterfaceColors()
     }
     
     func showImageView() {
@@ -274,6 +291,7 @@ import SDWebImage
                 self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
                 self.activateImageViewContraints()
                 self.createFrameWithImage()
+                self.showTextOverImage()
             }
         }
     }
@@ -289,3 +307,8 @@ import SDWebImage
     */
 }
 
+private final class ZeroBezelScrimView: UIView {
+    override class var layerClass: AnyClass {
+        return CAGradientLayer.self
+    }
+}
