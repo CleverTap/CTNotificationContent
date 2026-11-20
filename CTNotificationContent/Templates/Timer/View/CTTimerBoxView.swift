@@ -110,6 +110,9 @@ class CTTimerBoxView: UIView {
             gradientLayer = grad
             backgroundColor = .clear
         } else {
+            if isGradient {
+                CTContentLog.error("Invalid gradient colors for style=\(style), using plain background, clr1=\(properties.pt_chrono_grad_clr1 ?? "nil"), clr2=\(properties.pt_chrono_grad_clr2 ?? "nil")")
+            }
             gradientLayer?.removeFromSuperlayer()
             gradientLayer = nil
 

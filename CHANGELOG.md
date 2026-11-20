@@ -1,8 +1,18 @@
 Change Log
 ==========
-Unreleased
+Version 2.0.0 (3 November, 2026)
 -----------------------------------------------
-- **CocoaPods Sunset Notice:** CocoaPods trunk becomes read-only on December 2, 2026. Add `source 'https://github.com/CleverTap/podspecs.git'` and `source 'https://cdn.cocoapods.org/'` to the top of your Podfile to keep receiving updates. Existing installs are unaffected.
+- **CocoaPods sunset:** The podspec and README now carry a sunset notice. CocoaPods trunk becomes read-only on December 2, 2026, and CleverTap releases published after that date go to our own specs repo. Add `source 'https://github.com/CleverTap/podspecs.git'` and `source 'https://cdn.cocoapods.org/'` to the top of your Podfile to keep receiving updates. Existing installs are unaffected. The core SDK made the same change in [clevertap-ios-sdk 7.9.1](https://github.com/CleverTap/clevertap-ios-sdk/releases/tag/7.9.1).
+- **Xcode 27 and iOS 27 support:** CTNotificationContent builds with Xcode 27 and runs on iOS 27.
+  - The minimum deployment target is now **iOS 15.0** (previously iOS 10.0). Xcode 27 does not build targets below that version.
+  - CocoaPods users may also need a `post_install` hook that raises every pod target to iOS 15, because dependencies such as `SDWebImage` carry their own lower minimums. See the [README](./README.md#cocoapods).
+  - Apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The three sample apps now use it. Notification content extensions are unaffected, since extensions do not need a scene manifest.
+- **Debug logs:** The SDK can now write logs to the unified logging system under the `com.clevertap.sdk` subsystem, prefixed with `[CleverTap][CTNotificationContent]`. Logs are off by default, so updating adds nothing to your device logs. Use `CTContentLog.setDebugLevel(_:)` (`CTNotificationContentLogger` in Objective-C) inside your Notification Content Extension to turn them on: `-1` off (default), `0` a short trail plus errors, `1` verbose. Level `0` writes no payload values or notification text, and shows only the scheme and host of a url. See [Debug Logs](./README.md#debug-logs).
+- **Bug Fixes:**
+  - Fixed the `pt_timer` template so its countdown stops when the notification closes. Before, it kept running in the background until it reached zero, then rendered the expired state and downloaded the expired image for a view that was no longer on screen.
+  - Fixed the `pt_zero_bezel` template so its title and message stay readable when there is no image, or the image fails to load. Before, the default white text sat on the white notification background in light mode and could not be seen. Without an image, unset colours now fall back to the dark text the other templates use, and colours set in the payload are kept.
+  - Fixed the `pt_zero_bezel` template's dark fade behind the text. When a `pt_gif` loaded from the image cache, the fade was drawn as a thin band or not at all, so white text could be hard to read. It now always covers the bottom of the image.
+  - Fixed invalid colour values in the `pt_zero_bezel` template, such as `notacolor` or `#GGGGGG`. They turned the text black. They are now ignored and the template's own colours are used.
 
 Version 1.6.0 (30 September, 2026)
 -----------------------------------------------
