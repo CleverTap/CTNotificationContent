@@ -41,37 +41,7 @@ Xcode 27 refuses to build targets with a deployment target below iOS 15, which i
 
 # 🎉 Installation #
 [(Back to top)](#table-of-contents)
-## [CocoaPods](http://cocoapods.org)
-
-CocoaPods trunk becomes read-only on 2 December 2026, and CleverTap releases published after that date go to our own specs repo instead. Add both source lines below to keep receiving updates. The `cdn.cocoapods.org` line still has to be there, otherwise dependencies such as `SDWebImage` stop resolving. Installs that are already pinned to a released version keep working either way.
-
-Your Podfile should look something like this:
-
-    source 'https://github.com/CleverTap/podspecs.git'
-    source 'https://cdn.cocoapods.org/'
-    platform :ios, '15.0'
-
-    use_frameworks!
-
-    target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do  
-        pod 'CTNotificationContent'  
-    end     
-
-    post_install do |installer|
-      installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
-        end
-      end
-    end
-
-The `post_install` hook is needed because `platform :ios, '15.0'` only sets a floor for pods that do not declare one themselves. Dependencies such as `SDWebImage` still ship a lower minimum, and Xcode 27 treats that as an error.
-
-Then run `pod install`
-
-[See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
-
-## Swift Package Manager
+## Swift Package Manager (recommended)
 
 Swift Package Manager is an Xcode tool that installs project dependencies. To use it to install CTNotificationContent SDK, follow these steps:
 
@@ -79,6 +49,43 @@ Swift Package Manager is an Xcode tool that installs project dependencies. To us
 - Enter **https://github.com/CleverTap/CTNotificationContent.git** when choosing package repo and Click **Next.**
 - On the next screen, Select an SDK version (by default, Xcode selects the latest stable version). Click **Next.**
 - Click **Finish** and ensure that the **CTNotificationContent** has been added to the app target.
+
+## [CocoaPods](http://cocoapods.org)
+
+> **NOTICE: CocoaPods trunk becomes read-only on December 2, 2026.** After that date new
+> CleverTap versions are published to [our own specs repo](https://github.com/CleverTap/podspecs),
+> not to trunk. Add both source lines below to the top of your Podfile to keep receiving updates.
+> The `cdn.cocoapods.org` line is still needed so other pods (for example SDWebImage) resolve.
+> Existing installs are unaffected.
+
+Your Podfile should look something like this:
+
+```ruby
+source 'https://github.com/CleverTap/podspecs.git'
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '15.0'
+
+use_frameworks!
+
+target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do
+    pod 'CTNotificationContent'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
+end
+```
+
+The `post_install` hook is needed because `platform :ios, '15.0'` only sets a floor for pods that do not declare one themselves. Dependencies such as `SDWebImage` still ship a lower minimum, and Xcode 27 treats that as an error.
+
+Then run `pod install`
+
+[See example Podfile here](https://github.com/CleverTap/CTNotificationContent/blob/master/Example/Podfile).
 
 # 🚀 Setup #
 
