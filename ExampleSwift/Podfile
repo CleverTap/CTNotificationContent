@@ -1,8 +1,8 @@
-platform :ios, '10.0'
+platform :ios, '15.0'
 
 use_frameworks!
 
-pod "CleverTap-iOS-SDK"
+pod "CleverTap-iOS-SDK", '~> 7.9.1'
 
 target 'CTNotificationContentExampleSwift' do
 #  pod "CleverTap-iOS-SDK"
@@ -14,4 +14,13 @@ end
 
 target 'NotificationService' do
   pod "CTNotificationService"
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    # Xcode 27 errors on deployment targets below iOS 15; SDWebImage still declares 9.0.
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
 end

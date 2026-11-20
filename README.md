@@ -9,17 +9,18 @@
 [![Version](https://img.shields.io/cocoapods/v/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Platform](https://img.shields.io/cocoapods/p/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
-![iOS 10.0+](https://img.shields.io/badge/iOS-10.0%2B-blue.svg)
+![iOS 15.0+](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 [![License](https://img.shields.io/cocoapods/l/CTNotificationContent.svg?style=flat)](http://cocoapods.org/pods/CTNotificationContent)
 
 
-### A Notification Content Extension class to display custom content interfaces for iOS 10 push notifications
+### A Notification Content Extension class to display custom content interfaces for iOS 15 push notifications
 
 Starting with iOS 10 you can add custom content views to iOS push notifications.  This library provides a class to accomplish that.  It provides a default Image Slideshow view and is designed to be easily extensible to display additional view types. 
 
 [Custom push notification content interfaces](https://developer.apple.com/videos/play/wwdc2016/708/) are enabled in iOS 10 via a [Notification Content Extension](https://developer.apple.com/reference/usernotificationsui/unnotificationcontentextension), a separate and distinct binary embedded in your app bundle.
 
 # Table of contents
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Setup](#setup)
 - [Dashboard Usage](#dashboard-usage)
@@ -27,22 +28,44 @@ Starting with iOS 10 you can add custom content views to iOS push notifications.
 - [Template Types](#template-types)
 - [Template Keys](#template-keys)
 - [Sample App](#sample-app)
+- [Debug Logs](#debug-logs)
 - [Changelog](#changelog)
+
+# Requirements #
+[(Back to top)](#table-of-contents)
+
+- Xcode 27 or later
+- iOS 15.0 or later
+
+Xcode 27 refuses to build targets with a deployment target below iOS 15, which is why the minimum moved up from iOS 10. Note that this applies to your app target too: apps built against the iOS 26 or 27 SDK must adopt the UIScene lifecycle or iOS terminates them at launch. The sample apps in this repo show what that looks like. The content extension itself is unaffected, since extensions do not need a scene manifest.
 
 # 🎉 Installation #
 [(Back to top)](#table-of-contents)
 ## [CocoaPods](http://cocoapods.org)
 
+CocoaPods trunk becomes read-only on 2 December 2026, and CleverTap releases published after that date go to our own specs repo instead. Add both source lines below to keep receiving updates. The `cdn.cocoapods.org` line still has to be there, otherwise dependencies such as `SDWebImage` stop resolving. Installs that are already pinned to a released version keep working either way.
+
 Your Podfile should look something like this:
 
-    source 'https://github.com/CocoaPods/Specs.git'
-    platform :ios, '10.0'
+    source 'https://github.com/CleverTap/podspecs.git'
+    source 'https://cdn.cocoapods.org/'
+    platform :ios, '15.0'
 
     use_frameworks!
 
     target 'YOUR_NOTIFICATION_CONTENT_TARGET_NAME' do  
         pod 'CTNotificationContent'  
     end     
+
+    post_install do |installer|
+      installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
+      end
+    end
+
+The `post_install` hook is needed because `platform :ios, '15.0'` only sets a floor for pods that do not declare one themselves. Dependencies such as `SDWebImage` still ship a lower minimum, and Xcode 27 treats that as an error.
 
 Then run `pod install`
 
@@ -494,6 +517,80 @@ pt_json | Optional  | Above keys in JSON format
 - See [an example Objective-C project here](./Example).
 
 - See [an example SwiftPM project here](./ExampleSwiftPM).
+
+# Debug Logs #
+
+[(Back to top)](#table-of-contents)
+
+The SDK can write logs to the unified logging system. They are off by default, so updating the SDK adds nothing to your device logs until you turn them on. The level values are the same as the CleverTap iOS SDK's `CleverTapLogLevel`:
+
+| Level | What you get |
+|---|---|
+| `-1` (default) | Nothing. |
+| `0` | A short trail for each push: which template was picked, what it fell back to and why, and every error. No line at this level holds payload values or notification text. A url shows only its scheme and host, for example `url=https://cdn.example.com [rest hidden]`. |
+| `1` | Everything from `0`, plus the whole payload, full urls including deeplinks, each image download, and layout details. |
+
+The SDK does not switch levels by build configuration itself. Set the level in your Notification Content Extension, not in the app, because the extension runs in its own process and has its own copy of the setting. Call it before `super.viewDidLoad()`:
+
+```swift
+import CTNotificationContent
+
+class NotificationViewController: CTNotificationViewController {
+    override func viewDidLoad() {
+        #if DEBUG
+        CTContentLog.setDebugLevel(1)
+        #endif
+        super.viewDidLoad()
+    }
+}
+```
+
+```objc
+#import <CTNotificationContent/CTNotificationContent-Swift.h>
+
+- (void)viewDidLoad {
+#ifdef DEBUG
+    [CTNotificationContentLogger setDebugLevel:1];
+#endif
+    [super viewDidLoad];
+}
+```
+
+To keep a short trail in release builds too, so a problem that already happened on a device can still be read afterwards, call `setDebugLevel(0)` outside the `#if DEBUG` block.
+
+Level `1` writes whole payloads and full urls into the device log, and those lines stay on disk just like the level `0` ones. Keep it inside `#if DEBUG`, as above, so it does not reach a release build.
+
+A Notification Content Extension runs in its own process, so `print` output does not reach the Xcode console unless you attach to that process. The commands below do not need Xcode.
+
+Connect the device to a Mac and run:
+
+```sh
+log stream --predicate 'subsystem == "com.clevertap.sdk"'
+```
+
+To read logs the device already recorded, instead of watching new ones:
+
+```sh
+log show --predicate 'subsystem == "com.clevertap.sdk"' --last 30m
+```
+
+The subsystem is shared with the CleverTap iOS SDK, so both commands show logs from both SDKs. To see only this SDK, add the category:
+
+```sh
+log stream --predicate 'subsystem == "com.clevertap.sdk" AND category == "CTNotificationContent"'
+```
+
+Every line looks like this:
+
+```
+[CleverTap][CTNotificationContent] CTCarouselController.createView(): No image or gif in payload, rendering title and message
+```
+
+`[CleverTap]` is the prefix the CleverTap iOS SDK also uses. `[CTNotificationContent]` marks the lines that come from this SDK, and matches the category above. The part before the colon is the type and the function the line came from.
+
+You can also use Console.app instead of the commands above. Select the device in the sidebar, then put `subsystem:com.clevertap.sdk` in the search field. Choose **Action > All Messages**. The **Errors and Faults** view hides these logs.
+
+When you report a problem to CleverTap, please attach the output of the `log show` command above.
 
 # Changelog #
 

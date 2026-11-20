@@ -76,9 +76,12 @@ import UserNotificationsUI
     }
 
     @IBAction func buyAction(_ sender: UIButton) {
-        if let url = URL(string: deeplink){
-            getParentViewController().open(url)
+        guard let url = URL(string: deeplink) else {
+            CTContentLog.error("Buy button deeplink parse failed, url=\(CTContentLog.loggableURL(deeplink))")
+            return
         }
+        CTContentLog.debug("Buy button tapped, opening deeplink, url=\(deeplink)")
+        getParentViewController()?.open(url)
     }
     
     @objc func smallImageAction(_ sender: UITapGestureRecognizer) {
@@ -108,8 +111,10 @@ import UserNotificationsUI
 
     func createView() {
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, view left empty")
             return
         }
+        CTContentLog.info("Linear product display controller started")
         let viewWidth = view.frame.size.width
         let viewHeight = (viewWidth * (Constraints.kLandscapeMultiplier)) + buyBtnOutlet.frame.height + smallImageBtn1.frame.height + 50 //imageview + buynowbutton + smallimageview + padding
 
@@ -121,32 +126,39 @@ import UserNotificationsUI
         
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img1) { [weak self] (imageData) in
             DispatchQueue.main.async {
-                if imageData != nil {
-                    self?.smallImageBtn1.image = imageData
-                    self?.bigImageView.image = imageData
-                    self?.smallImageBtn1.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
-                    self?.bigImageView.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed for pt_img1, slot left empty, url=\(CTContentLog.loggableURL(jsonContent.pt_img1))")
+                    return
                 }
+                self?.smallImageBtn1.image = imageData
+                self?.bigImageView.image = imageData
+                self?.smallImageBtn1.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
+                self?.bigImageView.accessibilityLabel = jsonContent.pt_img1_alt_text ?? CTAccessibility.kDefaultSmallImage1Description
             }
         }
         CTUtiltiy.checkImageUrlValid(imageUrl: jsonContent.pt_img2) { [weak self] (imageData) in
             DispatchQueue.main.async {
-                if imageData != nil {
-                    self?.smallImageBtn2.image = imageData
-                    self?.smallImageBtn2.accessibilityLabel = jsonContent.pt_img2_alt_text ?? CTAccessibility.kDefaultSmallImage2Description
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed for pt_img2, slot left empty, url=\(CTContentLog.loggableURL(jsonContent.pt_img2))")
+                    return
                 }
+                self?.smallImageBtn2.image = imageData
+                self?.smallImageBtn2.accessibilityLabel = jsonContent.pt_img2_alt_text ?? CTAccessibility.kDefaultSmallImage2Description
             }
         }
         if let img3 = jsonContent.pt_img3, !img3.isEmpty ,(jsonContent.pt_bt3 != nil && jsonContent.pt_st3 != nil && jsonContent.pt_dl3 != nil){
             CTUtiltiy.checkImageUrlValid(imageUrl: img3) { [weak self] (imageData) in
                 DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.smallImageBtn3.image = imageData
-                        self?.smallImageBtn3.accessibilityLabel = jsonContent.pt_img3_alt_text ?? CTAccessibility.kDefaultSmallImage3Description
+                    guard imageData != nil else {
+                        CTContentLog.error("Image load failed for pt_img3, slot left empty, url=\(CTContentLog.loggableURL(img3))")
+                        return
                     }
+                    self?.smallImageBtn3.image = imageData
+                    self?.smallImageBtn3.accessibilityLabel = jsonContent.pt_img3_alt_text ?? CTAccessibility.kDefaultSmallImage3Description
                 }
             }
         }else{
+            CTContentLog.info("Skipping product 3, image or text missing")
             self.smallImageBtn3.isUserInteractionEnabled=false
         }
         
@@ -188,23 +200,13 @@ import UserNotificationsUI
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateInterfaceColors()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateInterfaceColors()
         }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0, using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
-        }
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
         
         view.backgroundColor = UIColor(hex: isDarkMode ? bgColorDark : bgColor)
         priceLabel.textColor = UIColor(hex: isDarkMode ? titleColorDark : titleColor)
@@ -215,8 +217,11 @@ import UserNotificationsUI
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if let url = URL(string: deeplink){
-                getParentViewController().open(url)
+            if let url = URL(string: deeplink) {
+                CTContentLog.debug("Opening product deeplink, url=\(deeplink)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Product deeplink parse failed, url=\(CTContentLog.loggableURL(deeplink))")
             }
             return .dismiss
         }
