@@ -20,72 +20,89 @@ struct FlexibleDouble: Decodable {
 }
 
 @objc public class CTUtiltiy: NSObject {
+
+    private static let imageRequestTimeout: TimeInterval = 10
+
     static func checkImageUrlValid(imageUrl: String, completionBlock: @escaping (UIImage?) -> Void) -> Void {
-        if let url = URL(string: imageUrl) {
-            let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                guard let data = data, error == nil else {
-                    // Invalid url or error in loading url.
-                    completionBlock(nil)
-                    return
-                }
-                guard let imageData = UIImage(data: data) else {
-                    // Image can't be loaded from url.
-                    completionBlock(nil)
-                    return
-                }
-                
-                // Image url is valid.
-                completionBlock(imageData)
-            }
-            dataTask.resume()
-        } else {
-            // Image url is empty.
+        guard !imageUrl.isEmpty else {
+            CTContentLog.debug("Empty image url, skipping download")
             completionBlock(nil)
+            return
         }
-    }
-    
-    static func webViewURLReachable(webViewURL: String, completion: @escaping (Bool) -> ()) {
-        if let url = URL(string: webViewURL){
-            var request = URLRequest(url: url)
-            request.httpMethod = "HEAD"
-            URLSession.shared.dataTask(with: request) { _, response, _ in
-                completion((response as? HTTPURLResponse)?.statusCode == 200)
-            }.resume()
+        guard let url = URL(string: imageUrl) else {
+            CTContentLog.error("Image url parse failed, skipping download, url=\(CTContentLog.loggableURL(imageUrl))")
+            completionBlock(nil)
+            return
         }
+
+        CTContentLog.debug("Downloading image, timeout=\(Int(imageRequestTimeout))s, url=\(imageUrl)")
+        let startedAt = Date()
+        var request = URLRequest(url: url)
+        request.timeoutInterval = imageRequestTimeout
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let elapsedMs = Int(Date().timeIntervalSince(startedAt) * 1000)
+            if let error = error {
+                CTContentLog.error("Image download failed, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs), error=\(error.localizedDescription)")
+                completionBlock(nil)
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
+                CTContentLog.error("Image download returned HTTP \(httpResponse.statusCode), url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs)")
+                completionBlock(nil)
+                return
+            }
+            guard let data = data, !data.isEmpty else {
+                CTContentLog.error("Image download returned empty body, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs)")
+                completionBlock(nil)
+                return
+            }
+            guard let imageData = UIImage(data: data) else {
+                CTContentLog.error("Image decode failed, url=\(CTContentLog.loggableURL(imageUrl)), elapsedMs=\(elapsedMs), bytes=\(data.count)")
+                completionBlock(nil)
+                return
+            }
+
+            CTContentLog.debug("Image downloaded, url=\(imageUrl), elapsedMs=\(elapsedMs), bytes=\(data.count), size=\(Int(imageData.size.width))x\(Int(imageData.size.height))")
+            completionBlock(imageData)
+        }
+        dataTask.resume()
     }
-    
+
     static func getCaptionHeight() -> CGFloat {
         return Constraints.kCaptionHeight + Constraints.kSubCaptionHeight + Constraints.kBottomPadding
     }
-    
+
     // Decoding data
     static func loadContentData<T>(data:String)->T? where T:Decodable{
-        var jsonContent: T? = nil
-        if let configData = data.data(using: .utf8) {
-            do {
-                jsonContent = try JSONDecoder().decode(T.self, from: configData)
-            } catch let error {
-                print("Failed to load: \(error.localizedDescription)")
-                jsonContent = nil
-            }
+        guard !data.isEmpty else {
+            CTContentLog.error("Empty payload, cannot decode \(T.self), template will render its no data layout")
+            return nil
         }
-        return jsonContent
+        guard let configData = data.data(using: .utf8) else {
+            CTContentLog.error("Payload is not valid UTF-8, cannot decode \(T.self)")
+            return nil
+        }
+        do {
+            let jsonContent = try JSONDecoder().decode(T.self, from: configData)
+            CTContentLog.debug("Decoded \(T.self)")
+            return jsonContent
+        } catch {
+            CTContentLog.error("Decode failed for \(T.self), template will render its no data layout, error=\(String(describing: error))")
+            CTContentLog.debug("Failed payload=\(data)")
+            return nil
+        }
     }
-    
+
     // Required keys check for product display template
     @objc public static func isRequiredKeysProvided(jsonString: String)->Bool{
-        if #available(iOS 12.0, *) {
-            let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)
-            if ( jsonContent?.pt_img1 == nil || jsonContent?.pt_img2 == nil || jsonContent?.pt_bt1 == nil || jsonContent?.pt_bt2 == nil || jsonContent?.pt_st1 == nil || jsonContent?.pt_st2 == nil || jsonContent?.pt_dl1 == nil || jsonContent?.pt_dl2 == nil || jsonContent?.pt_price1 == nil || jsonContent?.pt_price2 == nil || jsonContent?.pt_product_display_action == nil){
-                return false
-            }else{
-                return true
-            }
-        }else{
+        guard CTUtiltiy.loadContentData(data: jsonString) as ProductDisplayProperties? != nil else {
+            CTContentLog.error("Product display payload missing a required key, falling back to basic template")
             return false
-        }        
+        }
+        CTContentLog.debug("Product display payload has all required keys")
+        return true
     }
-    
+
     static func resolveCornerRadius(_ value: CGFloat, rootHeight: CGFloat) -> CGFloat {
         guard value > 0, rootHeight > 0 else { return 0 }
         return rootHeight * value / 100.0
@@ -124,25 +141,16 @@ struct FlexibleDouble: Decodable {
     //Get controller type between vertical and linear, for product display template
     @objc public static func getControllerType(jsonString: String) -> BaseCTNotificationContentViewController{
         let jsonContent: ProductDisplayProperties? = CTUtiltiy.loadContentData(data: jsonString)
-        if (jsonContent?.pt_product_display_linear != nil){
-                if
-                    ((jsonContent?.pt_product_display_linear?.localizedCaseInsensitiveContains("true"))!) {
-                let contentController: CTProductDisplayLinearViewController = CTProductDisplayLinearViewController()
-//                    contentController.data = jsonString
-                    contentController.jsonContent = jsonContent
-                    return contentController
-                }else{
-                    let contentController: CTProductDisplayVerticalViewController =
-                    CTProductDisplayVerticalViewController()
-//                    contentController.data = jsonString
-                    contentController.jsonContent = jsonContent
-                    return contentController
-                }
-        }else{
-            let contentController: CTProductDisplayVerticalViewController = CTProductDisplayVerticalViewController()
-//                contentController.data = jsonString
+        let isLinear = jsonContent?.pt_product_display_linear?.localizedCaseInsensitiveContains("true") ?? false
+        if isLinear {
+            CTContentLog.info("Resolved product display layout=linear")
+            let contentController = CTProductDisplayLinearViewController()
             contentController.jsonContent = jsonContent
             return contentController
         }
+        CTContentLog.info("Resolved product display layout=vertical, pt_product_display_linear=\(jsonContent?.pt_product_display_linear ?? "nil")")
+        let contentController = CTProductDisplayVerticalViewController()
+        contentController.jsonContent = jsonContent
+        return contentController
     }
 }

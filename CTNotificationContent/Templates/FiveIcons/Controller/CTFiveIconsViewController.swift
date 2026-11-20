@@ -72,11 +72,9 @@ import UIKit
     @objc public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 17.0, *) { return }
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                rebuildColorCache()
-                applyTheme()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            rebuildColorCache()
+            applyTheme()
         }
     }
 
@@ -95,6 +93,10 @@ import UIKit
         let altTexts = Array((model?.iconAltTexts ?? []).prefix(kMaxIcons))
         
         guard icons.count >= kMinIcons else {
+            // A nil model already logged why the payload could not be decoded.
+            if model != nil {
+                CTContentLog.info("Only \(icons.count) icon urls in payload, at least \(kMinIcons) needed, rendering text only")
+            }
             pendingTextOnlyRender = true
             return
         }
@@ -103,6 +105,8 @@ import UIKit
             if validated.count >= self.kMinIcons {
                 self.setupIconRow(validated: validated)
             } else {
+                // checkImageUrlValid already logged why each icon failed.
+                CTContentLog.error("Only \(validated.count) of \(icons.count) icons loaded, at least \(self.kMinIcons) needed, rendering text only")
                 self.renderTextOnly()
             }
         }
@@ -320,11 +324,18 @@ import UIKit
     // MARK: - Actions
 
     @objc private func handleIconTap(_ gesture: UITapGestureRecognizer) {
-        guard let tag = gesture.view?.tag,
-              tag < iconDeepLinks.count,
-              let urlString = iconDeepLinks[tag],
-              let url = URL(string: urlString) else { return }
-        getParentViewController().open(url)
+        guard let iconIndex = gesture.view?.tag,
+              iconIndex < iconDeepLinks.count,
+              let urlString = iconDeepLinks[iconIndex] else { return }
+        // Only icons with a deeplink get a tap recognizer, so a bad url is
+        // the one way a tap here does nothing. Without this line it leaves
+        // no trace in the log.
+        guard let url = URL(string: urlString) else {
+            CTContentLog.error("Deeplink parse failed for icon \(iconIndex + 1), url=\(CTContentLog.loggableURL(urlString))")
+            return
+        }
+        CTContentLog.debug("Tap on icon \(iconIndex + 1), opening deeplink, url=\(urlString)")
+        getParentViewController()?.open(url)
     }
 
     private func applyPayloadColors() {
@@ -337,10 +348,7 @@ import UIKit
     }
 
     private var isDarkMode: Bool {
-        if #available(iOS 12.0, *) {
-            return traitCollection.userInterfaceStyle == .dark
-        }
-        return false
+        return traitCollection.userInterfaceStyle == .dark
     }
 
     private func rebuildColorCache() {
@@ -359,11 +367,9 @@ import UIKit
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             if !deeplinkURL.isEmpty, let url = URL(string: deeplinkURL) {
-                getParentViewController().open(url)
+                getParentViewController()?.open(url)
             } else {
-                if #available(iOS 12.0, *) {
-                    extensionContext?.performNotificationDefaultAction()
-                }
+                extensionContext?.performNotificationDefaultAction()
             }
             return .dismiss
         }
