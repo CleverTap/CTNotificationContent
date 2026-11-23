@@ -1,6 +1,33 @@
 #import "BaseCTNotificationContentViewController.h"
 #import "CTNotificationViewController.h"
 
+#if __has_include(<CTNotificationContent/CTNotificationContent-Swift.h>)
+#import <CTNotificationContent/CTNotificationContent-Swift.h>
+#else
+#import "CTNotificationContent-Swift.h"
+#endif
+
+// Same macros as in CTNotificationViewController.m. A shared header would be
+// public under CocoaPods, which exposes every header the glob picks up.
+#define CTContentLogInfo(fmt, ...) \
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logInfo:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
+#define CTContentLogError(fmt, ...) \
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] >= 0) { \
+            [CTNotificationContentLogger logError:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
+#define CTContentLogDebug(fmt, ...) \
+    do { \
+        if ([CTNotificationContentLogger getDebugLevel] > 0) { \
+            [CTNotificationContentLogger logDebug:[NSString stringWithFormat:fmt, ##__VA_ARGS__] from:@(__PRETTY_FUNCTION__)]; \
+        } \
+    } while (0)
+
 @interface BaseCTNotificationContentViewController ()
 
 @end
@@ -20,21 +47,36 @@
 }
 
 - (CTNotificationViewController *)getParentViewController {
-    return (CTNotificationViewController*)self.parentViewController;
+    UIViewController *parent = self.parentViewController;
+    if (parent == nil) {
+        CTContentLogError(@"Nil parentViewController, cannot forward tap, controller=%@",
+                          NSStringFromClass([self class]));
+        return nil;
+    }
+    if (![parent isKindOfClass:[CTNotificationViewController class]]) {
+        CTContentLogError(@"Expected CTNotificationViewController parent, got %@, cannot forward tap",
+                          NSStringFromClass([parent class]));
+        return nil;
+    }
+    return (CTNotificationViewController *)parent;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    if (@available(iOS 12.0, *)) {
-        NSString *url = [self getDeeplinkUrl];
-        if (!url || url.length == 0) {
-            [[self extensionContext] performNotificationDefaultAction];
-        }else{
-            [[self getParentViewController] openUrl:([[NSURL alloc] initWithString:url])];
-        }
-    } else {
-        // Fallback on earlier versions
+    NSString *url = [self getDeeplinkUrl];
+    if (!url || url.length == 0) {
+        CTContentLogInfo(@"Tap with no deeplink, performing notification default action");
+        [[self extensionContext] performNotificationDefaultAction];
+        return;
     }
+    NSURL *deeplink = [[NSURL alloc] initWithString:url];
+    if (deeplink == nil) {
+        CTContentLogError(@"Deeplink parse failed, performing notification default action, url=%@",
+                          [CTNotificationContentLogger loggableURL:url]);
+        [[self extensionContext] performNotificationDefaultAction];
+        return;
+    }
+    CTContentLogDebug(@"Tap, opening deeplink, url=%@", url);
+    [[self getParentViewController] openUrl:deeplink];
 }
 
 @end

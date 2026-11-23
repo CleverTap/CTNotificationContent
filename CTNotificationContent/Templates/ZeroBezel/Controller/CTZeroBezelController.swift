@@ -23,6 +23,10 @@ import SDWebImage
     var captionColorDark: String = ConstantKeys.kHexWhiteColor
     var subcaptionColorDark: String = ConstantKeys.kHexWhiteColor
 
+    private var payloadSetCaptionColor = false
+    private var payloadSetSubcaptionColor = false
+    private var isShowingImage = false
+
     var jsonContent: ZeroBezelProperties? = nil
     var templateBigImage:String = ""
     var bigImageAltText:String? = nil
@@ -54,18 +58,17 @@ import SDWebImage
         bigImageView.translatesAutoresizingMaskIntoConstraints = false
         return bigImageView
     }()
-    private let scrimView: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.isUserInteractionEnabled = false
-        return v
-    }()
-    private let scrimLayer: CAGradientLayer = {
-        let g = CAGradientLayer()
-        g.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
-        g.startPoint = CGPoint(x: 0.5, y: 0)
-        g.endPoint = CGPoint(x: 0.5, y: 1)
-        return g
+    private let scrimView: ZeroBezelScrimView = {
+        let scrim = ZeroBezelScrimView()
+        scrim.translatesAutoresizingMaskIntoConstraints = false
+        scrim.isUserInteractionEnabled = false
+        scrim.isHidden = true
+        if let gradientLayer = scrim.layer as? CAGradientLayer {
+            gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        }
+        return scrim
     }()
     
     @objc public override func viewDidLoad() {
@@ -75,6 +78,7 @@ import SDWebImage
         contentView = UIView(frame: view.frame)
         view.addSubview(contentView)
         
+        CTContentLog.info("Zero bezel controller started")
         jsonContent = CTUtiltiy.loadContentData(data: data)
         createView()
         setupConstraints()
@@ -114,14 +118,14 @@ import SDWebImage
         createFrameWithoutImage()
         contentView.addSubview(bigImageView)
         contentView.addSubview(scrimView)
-        scrimView.layer.addSublayer(scrimLayer)
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(titleLabel)
         
         guard let jsonContent = jsonContent else {
+            CTContentLog.error("Nil payload data, rendering caption only")
             return
         }
-        
+
         if let title = jsonContent.pt_title, !title.isEmpty{
             templateCaption = title
         }
@@ -145,30 +149,40 @@ import SDWebImage
         self.subTitleLabel.setHTMLText(templateSubcaption)
     
         if let gif = jsonContent.pt_gif, !gif.isEmpty, let url = URL(string: gif) {
-            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, _, _, _) in
+            CTContentLog.debug("Loading gif, url=\(gif)")
+            self.bigImageView.sd_setImage(with: url, completed: { [weak self] (image, error, _, _) in
+                guard let self = self else {
+                    CTContentLog.debug("Controller deallocated before gif arrived")
+                    return
+                }
                 if image != nil {
-                    self?.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
-                    self?.activateImageViewContraints()
-                    self?.createFrameWithImage()
+                    CTContentLog.debug("Gif rendered, url=\(gif)")
+                    self.bigImageView.accessibilityLabel = jsonContent.pt_big_img_alt_text ?? CTAccessibility.kDefaultImageDescription
+                    self.activateImageViewContraints()
+                    self.createFrameWithImage()
+                    self.showTextOverImage()
                 } else {
-                    self?.showImageView()
+                    CTContentLog.error("Gif load failed, falling back to still image, url=\(CTContentLog.loggableURL(gif)), error=\(error?.localizedDescription ?? "nil image, no error")")
+                    self.showImageView()
                 }
             })
         } else {
             self.showImageView()
         }
         
-        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty {
+        if let titleColor = jsonContent.pt_title_clr, !titleColor.isEmpty, UIColor(hex: titleColor) != nil {
             captionColor = titleColor
+            payloadSetCaptionColor = true
         }
-        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty {
+        if let msgColor = jsonContent.pt_msg_clr, !msgColor.isEmpty, UIColor(hex: msgColor) != nil {
             subcaptionColor = msgColor
+            payloadSetSubcaptionColor = true
         }
 
-        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty {
+        if let titleColorDark = jsonContent.pt_title_clr_dark, !titleColorDark.isEmpty, UIColor(hex: titleColorDark) != nil {
             captionColorDark = titleColorDark
         }
-        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty {
+        if let msgColorDark = jsonContent.pt_msg_clr_dark, !msgColorDark.isEmpty, UIColor(hex: msgColorDark) != nil {
             subcaptionColorDark = msgColorDark
         }
 
@@ -176,11 +190,6 @@ import SDWebImage
 
     }
     
-    public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrimLayer.frame = scrimView.bounds
-    }
-
     func setupConstraints() {
         NSLayoutConstraint.activate([
             scrimView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -212,10 +221,13 @@ import SDWebImage
     @objc public override func handleAction(_ action: String) -> UNNotificationContentExtensionResponseOption {
         if action == ConstantKeys.kAction3 {
             // Maps to run the relevant deeplink
-            if !deeplinkURL.isEmpty {
-                if let url = URL(string: deeplinkURL) {
-                    getParentViewController().open(url)
-                }
+            if deeplinkURL.isEmpty {
+                CTContentLog.info("No deeplink, dismissing")
+            } else if let url = URL(string: deeplinkURL) {
+                CTContentLog.debug("Opening deeplink, url=\(deeplinkURL)")
+                getParentViewController()?.open(url)
+            } else {
+                CTContentLog.error("Deeplink parse failed, url=\(CTContentLog.loggableURL(deeplinkURL))")
             }
             return .dismiss
         }
@@ -230,39 +242,56 @@ import SDWebImage
         super.traitCollectionDidChange(previousTraitCollection)
         
         // Handle trait changes, for iOS 17+ it is handled by registerForTraitChanges.
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                updateInterfaceColors()
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateInterfaceColors()
         }
     }
     
     func updateInterfaceColors() {
-        // Check if device is in dark mode (iOS 12+)
-        let isDarkMode: Bool
-        
-        if #available(iOS 12.0, *) {
-            isDarkMode = traitCollection.userInterfaceStyle == .dark
-        } else {
-            // For iOS versions before 12.0,using light mode colors since dark mode wasn't officially supported
-            isDarkMode = false
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
+        var titleColorHex = isDarkMode ? captionColorDark : captionColor
+        var messageColorHex = isDarkMode ? subcaptionColorDark : subcaptionColor
+
+        if !isShowingImage && !isDarkMode {
+            if !payloadSetCaptionColor {
+                titleColorHex = ConstantKeys.kHexBlackColor
+            }
+            if !payloadSetSubcaptionColor {
+                messageColorHex = ConstantKeys.kHexLightGrayColor
+            }
         }
 
-        self.titleLabel.setTextColor(UIColor(hex: isDarkMode ? captionColorDark : captionColor))
-        self.subTitleLabel.setTextColor(UIColor(hex: isDarkMode ? subcaptionColorDark : subcaptionColor))
+        self.titleLabel.setTextColor(UIColor(hex: titleColorHex))
+        self.subTitleLabel.setTextColor(UIColor(hex: messageColorHex))
+    }
+
+    private func showTextOverImage() {
+        isShowingImage = true
+        scrimView.isHidden = false
+        updateInterfaceColors()
     }
     
     func showImageView() {
-        if templateBigImage != "" {
-            CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self?.bigImageView.image = imageData
-                        self?.bigImageView.accessibilityLabel = self?.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
-                        self?.activateImageViewContraints()
-                        self?.createFrameWithImage()
-                    }
+        guard templateBigImage != "" else {
+            CTContentLog.info("No pt_big_img in payload, rendering caption only")
+            return
+        }
+        CTUtiltiy.checkImageUrlValid(imageUrl: templateBigImage) { [weak self] (imageData) in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    CTContentLog.debug("Controller deallocated before image arrived")
+                    return
                 }
+                guard imageData != nil else {
+                    CTContentLog.error("Image load failed, rendering caption only, url=\(CTContentLog.loggableURL(self.templateBigImage))")
+                    return
+                }
+                CTContentLog.debug("Image rendered, url=\(self.templateBigImage)")
+                self.bigImageView.image = imageData
+                self.bigImageView.accessibilityLabel = self.bigImageAltText ?? CTAccessibility.kDefaultImageDescription
+                self.activateImageViewContraints()
+                self.createFrameWithImage()
+                self.showTextOverImage()
             }
         }
     }
@@ -278,3 +307,8 @@ import SDWebImage
     */
 }
 
+private final class ZeroBezelScrimView: UIView {
+    override class var layerClass: AnyClass {
+        return CAGradientLayer.self
+    }
+}

@@ -4,6 +4,12 @@ import CleverTapSDK
 class NotificationViewController: CTNotificationViewController {
     
     override func viewDidLoad() {
+        // SDK logs are off by default. Debug builds of the sample turn on every
+        // line, including whole payloads and full urls. This is set here, not
+        // in the AppDelegate, because the extension runs in its own process.
+        #if DEBUG
+        CTContentLog.setDebugLevel(1)
+        #endif
         super.viewDidLoad()
     }
     
