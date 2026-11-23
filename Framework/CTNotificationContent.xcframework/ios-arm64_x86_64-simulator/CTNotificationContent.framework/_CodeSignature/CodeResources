@@ -4,33 +4,25 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>CTProductDisplayLinearViewController.nib/objects-11.0+.nib</key>
+		<key>CTProductDisplayLinearViewController.nib</key>
 		<data>
-		NlZIvsL1S6hHOijTJUmAMqDdHbY=
+		J7Ng7s+SN5TZYMbGvqOvz6kS5Kw=
 		</data>
-		<key>CTProductDisplayLinearViewController.nib/runtime.nib</key>
+		<key>CTProductDisplayVerticalViewController.nib</key>
 		<data>
-		MtGgDgLipVVxtcIZx05W+4qqyLw=
-		</data>
-		<key>CTProductDisplayVerticalViewController.nib/objects-11.0+.nib</key>
-		<data>
-		EAKBLiSYqybdvEau5Xe+Rq8FAP0=
-		</data>
-		<key>CTProductDisplayVerticalViewController.nib/runtime.nib</key>
-		<data>
-		h4hUucicBR72P8+r6tn5wLKjAo4=
+		2qUsHhsC+QW4zYwzHnvx56fJ01k=
 		</data>
 		<key>Headers/BaseCTNotificationContentViewController.h</key>
 		<data>
-		iMFJu94LDQOonLwIly+fSO6GlR0=
+		Q9OVdlOIL4+msrUvgcrJ5v6sEeM=
 		</data>
 		<key>Headers/CTNotificationContent-Swift.h</key>
 		<data>
-		r6VqquwzStgfMP/2p/lrA3TFBl0=
+		JgjGZ2PhAJfcqKje+BFYFTYOPcE=
 		</data>
 		<key>Headers/CTNotificationContent.h</key>
 		<data>
-		8lEQxIs7wImaI3CqDeIs/9c/+xY=
+		SMEjdeECdK/GCsJGIj2bzh07f4M=
 		</data>
 		<key>Headers/CTNotificationViewController.h</key>
 		<data>
@@ -38,51 +30,51 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fpZyapSV5+a82hbVV7kiqcdagHQ=
+		82mHSU0byeVY7psoax+Q9sRv1PA=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		kRCB+S3mV8P3rz6ak9dPFSkxacU=
+		LAKiYRTPLDaq4sTdSD5WJ24iCoE=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		5Km4FDcMWxeJnI0/xUD1trpZawk=
+		prRcVHyHL1r+i0PX+uChZYWFIks=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		ue5fOQRIiTO7PG2qTZd8IPi1778=
+		xw2ZnlAV9jPwht/yi7vRObauvgE=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		5Km4FDcMWxeJnI0/xUD1trpZawk=
+		prRcVHyHL1r+i0PX+uChZYWFIks=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		fIX4wNbXQ/XcxeYFf09C8He7Hlc=
+		4BqBe6Uv35I7zdOk89NDrKxlStg=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		kRCB+S3mV8P3rz6ak9dPFSkxacU=
+		LAKiYRTPLDaq4sTdSD5WJ24iCoE=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		vqen5gF0m9QrqctcGC9354aFkfM=
+		wLgsbf85mYZY78JKojJwkMpjnr4=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		f0zhTEoAlVfXD0FTX6Ab8mlKnmQ=
+		R3OW02zUT+V1xVAiWM3REODvN+w=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		vqen5gF0m9QrqctcGC9354aFkfM=
+		wLgsbf85mYZY78JKojJwkMpjnr4=
 		</data>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		NFYNNhDpNgpT4vFB6sXCZAlF3lY=
+		cQiVthWg2pk6AWf6kNX+ahJl0q4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		6oQfz1tFjl3C9XSLZGEQyUxjVuY=
+		TbdbwELxVEkc5SUcTjcFxAIbuAQ=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -115,89 +107,43 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>CTProductDisplayLinearViewController.nib/objects-11.0+.nib</key>
+		<key>CTProductDisplayLinearViewController.nib</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			NlZIvsL1S6hHOijTJUmAMqDdHbY=
-			</data>
 			<key>hash2</key>
 			<data>
-			FOfVadTljocjvkHne1HczS2lqNLpvclcuKD0IpaNCDE=
+			9LRiKjKGzSzF1XAwNREfANOApDW23+EGcQuRZVO7EOE=
 			</data>
 		</dict>
-		<key>CTProductDisplayLinearViewController.nib/runtime.nib</key>
+		<key>CTProductDisplayVerticalViewController.nib</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MtGgDgLipVVxtcIZx05W+4qqyLw=
-			</data>
 			<key>hash2</key>
 			<data>
-			9Le51bMUrPkHKUyNyGARMN0NRnIEnXWk7prRAGqjcLM=
-			</data>
-		</dict>
-		<key>CTProductDisplayVerticalViewController.nib/objects-11.0+.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			EAKBLiSYqybdvEau5Xe+Rq8FAP0=
-			</data>
-			<key>hash2</key>
-			<data>
-			pKTVvbJl8f4cxZNdJh+uwcy0qdk0ivmGGG5Y9iCJyHc=
-			</data>
-		</dict>
-		<key>CTProductDisplayVerticalViewController.nib/runtime.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			h4hUucicBR72P8+r6tn5wLKjAo4=
-			</data>
-			<key>hash2</key>
-			<data>
-			N1XDIB/SEpulD/JDsWL+zy3BEw1RpyrzloTn+GHvwbs=
+			wMUszd6eRNQiHifKUXGWjFXDAM+fejLJZaeR2MhtFyQ=
 			</data>
 		</dict>
 		<key>Headers/BaseCTNotificationContentViewController.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			iMFJu94LDQOonLwIly+fSO6GlR0=
-			</data>
 			<key>hash2</key>
 			<data>
-			S89lWXyTWE22iXox2QWg3IAPUz8JUJkwhu5EQ6wNCgI=
+			rRZ4jMEzt9QL/akWAdeOVXbuy48O0TNgmiqNx2pL7eQ=
 			</data>
 		</dict>
 		<key>Headers/CTNotificationContent-Swift.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			r6VqquwzStgfMP/2p/lrA3TFBl0=
-			</data>
 			<key>hash2</key>
 			<data>
-			hQivF4ox1Eg0q/My1alZn+FG5MDlBem4e8h57RLvEb4=
+			pbrhJ/AZ9WFNW5A1eit7HCxrt7kl6QCLBqEynlF4dSs=
 			</data>
 		</dict>
 		<key>Headers/CTNotificationContent.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			8lEQxIs7wImaI3CqDeIs/9c/+xY=
-			</data>
 			<key>hash2</key>
 			<data>
-			cOHiGqM14lk8dOHcZypKD0U26WbtGO2BZMa33wCB3EA=
+			EoHuRuecCAWeLgVARv0FcHiR3gs7qF1gBmwo5Zcq0PE=
 			</data>
 		</dict>
 		<key>Headers/CTNotificationViewController.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			8vFEDg1f43wX/xGB7HX53OyVaJU=
-			</data>
 			<key>hash2</key>
 			<data>
 			TGpcvYqsNqlHzhKIqlnkWI4v4VKDP24hCy9KuNg2RDQ=
@@ -205,131 +151,83 @@
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			kRCB+S3mV8P3rz6ak9dPFSkxacU=
-			</data>
 			<key>hash2</key>
 			<data>
-			L5nV1p/LPDM66s0Jad+UJOFaQPBwdh+PvgfE43RJrB0=
+			ElBkGuXDwfIp6cuQqaqpN9Dw6lA1LdRbhlWM3GodXy4=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5Km4FDcMWxeJnI0/xUD1trpZawk=
-			</data>
 			<key>hash2</key>
 			<data>
-			Gpk4oT8Qnod1NMb1VYHeWjodp2kjNf2WpOIwOoFp8X0=
+			7P5KgX2E704OvnJxwMUE9eW/Cgayhr+jpXW9ch7AP1o=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ue5fOQRIiTO7PG2qTZd8IPi1778=
-			</data>
 			<key>hash2</key>
 			<data>
-			57nZRaOgEjBtAkXl4SS9MNzGx7mEuHsH1B4Htad8fmA=
+			+IQlxpBMHCkUYZbtFT6m0c4revEoNCCLv/PZag1DlQE=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5Km4FDcMWxeJnI0/xUD1trpZawk=
-			</data>
 			<key>hash2</key>
 			<data>
-			Gpk4oT8Qnod1NMb1VYHeWjodp2kjNf2WpOIwOoFp8X0=
+			7P5KgX2E704OvnJxwMUE9eW/Cgayhr+jpXW9ch7AP1o=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			fIX4wNbXQ/XcxeYFf09C8He7Hlc=
-			</data>
 			<key>hash2</key>
 			<data>
-			3waIFP/2yrpw/cfjUHVSJLtCj6CyihdEy6EGfrwtBo4=
+			orzwoIMJcCilX57MIs+Dgi5XediVKMdbAYA0jPnCOqc=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			kRCB+S3mV8P3rz6ak9dPFSkxacU=
-			</data>
 			<key>hash2</key>
 			<data>
-			L5nV1p/LPDM66s0Jad+UJOFaQPBwdh+PvgfE43RJrB0=
+			ElBkGuXDwfIp6cuQqaqpN9Dw6lA1LdRbhlWM3GodXy4=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			vqen5gF0m9QrqctcGC9354aFkfM=
-			</data>
 			<key>hash2</key>
 			<data>
-			F9N/4FrkRIwh4DCSj3dyiejehSSfRIWNO6HfNZAOxuw=
+			MAVvg7QGsCG8Ivhu/SAubSTxoxBL4l394k6M/BMcQOc=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			f0zhTEoAlVfXD0FTX6Ab8mlKnmQ=
-			</data>
 			<key>hash2</key>
 			<data>
-			RSi+f5qrWTS8DLFHACR2Fj5K5/jqO8M12mzSXA2BIB4=
+			s0574gENQSaMKSKNoa9F15QHybowfmJaeZApMO5XL4A=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			vqen5gF0m9QrqctcGC9354aFkfM=
-			</data>
 			<key>hash2</key>
 			<data>
-			F9N/4FrkRIwh4DCSj3dyiejehSSfRIWNO6HfNZAOxuw=
+			MAVvg7QGsCG8Ivhu/SAubSTxoxBL4l394k6M/BMcQOc=
 			</data>
 		</dict>
 		<key>Modules/CTNotificationContent.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			NFYNNhDpNgpT4vFB6sXCZAlF3lY=
-			</data>
 			<key>hash2</key>
 			<data>
-			aU6jF8VNAepYpHh68fRp/Mt9jqGBZUrbKDYpcdeaghs=
+			S8MPsOLiLKAUkq/yzHmui5IDHnIaGdK3sXZG3u6s+0s=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			6oQfz1tFjl3C9XSLZGEQyUxjVuY=
-			</data>
 			<key>hash2</key>
 			<data>
-			0VeNw6H9xe26KndxT3rXtYuxbMJh2tDhyL7qd8UQ/tw=
+			8F3BK6xCAgzyuhKW3k5O4WzEhCFIUxY1puh+B30AAmc=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			yhAAzwhx7p+/1V6hni5ANQdu5tU=
-			</data>
 			<key>hash2</key>
 			<data>
 			d2zDrjPR5ilgrJyFQyD/Srj5QlGcVnIUFopl5GfyJug=
@@ -337,10 +235,6 @@
 		</dict>
 		<key>ct_next_button.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			1Ut9SLULRfC1RWvT0qe6hROuW4M=
-			</data>
 			<key>hash2</key>
 			<data>
 			MRNFdBQW9LijCIcLSlvJ1LGLyNvnpLg9uG2oKzV9aBQ=
@@ -348,10 +242,6 @@
 		</dict>
 		<key>ct_pause_button.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			jExOVDlpyQ/0+YRZbaIHeIustws=
-			</data>
 			<key>hash2</key>
 			<data>
 			4Pv2UB07y5atUvk0NX2+PeHk8K7GwTcqm+X58PkhLQc=
@@ -359,10 +249,6 @@
 		</dict>
 		<key>ct_play_button.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Z+eWnpJ5x5nqYG7fvlTMVzZ42sI=
-			</data>
 			<key>hash2</key>
 			<data>
 			zGxpvUPdYU/1WcHiE7p9LRCPGH6fohrP2SUgEtsUGBQ=
@@ -370,10 +256,6 @@
 		</dict>
 		<key>ct_previous_button.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			jbUgJGcFe1Qq77hKE7BJM4nh+IQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			axHRYRsqfjo5Bju5PAA67vKvZiRnA+JSKc0Q237YRyM=
@@ -381,10 +263,6 @@
 		</dict>
 		<key>ct_star_filled.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			QxF6rkLC0SPT3icTyuBKcUMlAGQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			4wpFTgFXAvQZRqSuLRPrhoq6dz991pUp36uxSIcGrmI=
@@ -392,10 +270,6 @@
 		</dict>
 		<key>ct_star_outline.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			aEXKjat178TS5zKoLZnbjTMFxTw=
-			</data>
 			<key>hash2</key>
 			<data>
 			3m2g+WDUo94MtSK2jysD+g5R7U/Ow7blsTY4Wp/+F20=
