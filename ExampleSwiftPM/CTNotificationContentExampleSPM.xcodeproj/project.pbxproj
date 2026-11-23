@@ -700,24 +700,24 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/clevertap-ios-sdk.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.2.0;
+				kind = exactVersion;
+				version = 7.9.1;
 			};
 		};
 		496ED95227589CCC002174B7 /* XCRemoteSwiftPackageReference "CTNotificationService" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/CTNotificationService.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
+				branch = master;
+				kind = branch;
 			};
 		};
 		496ED95727589D39002174B7 /* XCRemoteSwiftPackageReference "CTNotificationContent" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CleverTap/CTNotificationContent.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
