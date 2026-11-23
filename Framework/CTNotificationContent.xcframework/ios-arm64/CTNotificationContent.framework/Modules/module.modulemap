@@ -7,5 +7,4 @@ framework module CTNotificationContent {
 
 module CTNotificationContent.Swift {
   header "CTNotificationContent-Swift.h"
-  requires objc
 }
