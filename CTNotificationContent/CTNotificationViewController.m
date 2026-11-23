@@ -2,7 +2,7 @@
 #import "BaseCTNotificationContentViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotificationsUI/UserNotificationsUI.h>
-#import <objc/message.h>
+#import <objc/runtime.h>
 
 #if __has_include(<CTNotificationContent/CTNotificationContent-Swift.h>)
 #import <CTNotificationContent/CTNotificationContent-Swift.h>
@@ -124,7 +124,6 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
     // UNNotificationExtensionCategory matches the category in the payload.
     CTContentLogInfo(@"Extension view loaded, frame=%@", NSStringFromCGRect(self.view.frame));
 
-    [CTNotificationViewController registerSdkVersionWithCleverTapCore];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
@@ -453,31 +452,25 @@ static NSString *CTContentStringValue(NSDictionary *content, NSString *key) {
     completion(actionResponseOption);
 }
 
-// Registers the library name and version with CleverTap Core if available.
-// Called in viewDidLoad to support subclasses overriding didReceiveNotification:.
-// Core handles registration once per process.
+// Runs once when the library loads, before any host code and before core
+// starts its queues, so the write cannot race core reading the versions.
++ (void)load {
+    [self registerSdkVersionWithCleverTapCore];
+}
+
+// Called with nil self to avoid sharedInstance, which locks in the Info.plist
+// account before setCredentialsWithAccountID:.
 + (void)registerSdkVersionWithCleverTapCore {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class cleverTapClass = NSClassFromString(@"CleverTap");
-        SEL sharedInstanceSelector = NSSelectorFromString(@"sharedInstance");
-        SEL setCustomSdkVersionSelector = NSSelectorFromString(@"setCustomSdkVersion:version:");
-        if (!cleverTapClass || ![cleverTapClass respondsToSelector:sharedInstanceSelector]) {
-            CTContentLogDebug(@"CleverTap Core SDK not found, skipping SDK version registration");
-            return;
-        }
-        id cleverTap = ((id (*)(id, SEL))objc_msgSend)(cleverTapClass, sharedInstanceSelector);
-        if (!cleverTap) {
-            CTContentLogInfo(@"CleverTap sharedInstance is nil, check CleverTapAccountID and CleverTapToken in the extension Info.plist");
-            return;
-        }
-        if (![cleverTap respondsToSelector:setCustomSdkVersionSelector]) {
-            CTContentLogDebug(@"CleverTap Core SDK does not support setCustomSdkVersion:version:, skipping SDK version registration");
-            return;
-        }
-        ((void (*)(id, SEL, NSString *, int))objc_msgSend)(cleverTap, setCustomSdkVersionSelector, kCTNotificationContentSdkName, kCTNotificationContentVersion);
-        CTContentLogInfo(@"Registered %@ %d with CleverTap Core SDK", kCTNotificationContentSdkName, kCTNotificationContentVersion);
-    });
+    Class cleverTapClass = NSClassFromString(@"CleverTap");
+    if (!cleverTapClass) {
+        return;
+    }
+    Method method = class_getInstanceMethod(cleverTapClass, NSSelectorFromString(@"setCustomSdkVersion:version:"));
+    if (!method) {
+        return;
+    }
+    void (*setCustomSdkVersion)(id, SEL, NSString *, int) = (void (*)(id, SEL, NSString *, int))method_getImplementation(method);
+    setCustomSdkVersion(nil, method_getName(method), kCTNotificationContentSdkName, kCTNotificationContentVersion);
 }
 
 - (void)userDidPerformAction:(NSString *)action withProperties:(NSDictionary *)properties {

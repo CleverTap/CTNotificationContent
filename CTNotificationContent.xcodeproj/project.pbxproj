@@ -30,6 +30,7 @@
 		32DFD85128BCCCBB00E72588 /* CTUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFD84528BCCCBB00E72588 /* CTUtility.swift */; };
 		32E55C0828D87FDD00F1395D /* ct_star_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0628D87FDD00F1395D /* ct_star_outline.png */; };
 		32E55C0928D87FDD00F1395D /* ct_star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55C0728D87FDD00F1395D /* ct_star_filled.png */; };
+		A1C0DE5E5D0000000000BF01 /* CTSdkVersionRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0DE5E5D0000000000FR01 /* CTSdkVersionRegistrationTests.swift */; };
 		44821F7B87768A77EB1EC838 /* CTContentLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B3501818AA7564961E3889 /* CTContentLogTests.swift */; };
 		488F31A72816FFF300AE3AC8 /* ct_next_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A22816FFF300AE3AC8 /* ct_next_button.png */; };
 		488F31A82816FFF300AE3AC8 /* ct_previous_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 488F31A32816FFF300AE3AC8 /* ct_previous_button.png */; };
@@ -117,6 +118,7 @@
 		58614E942F98B4BA000D1C8A /* CTTimerBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTTimerBoxView.swift; sourceTree = "<group>"; };
 		58614E972F9A3F7A000D1C8A /* CTFiveIconsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTFiveIconsViewController.swift; sourceTree = "<group>"; };
 		58614E992F9A3F7A000D1C8A /* CTFiveIconsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTFiveIconsModel.swift; sourceTree = "<group>"; };
+		A1C0DE5E5D0000000000FR01 /* CTSdkVersionRegistrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CTSdkVersionRegistrationTests.swift; sourceTree = "<group>"; };
 		91B3501818AA7564961E3889 /* CTContentLogTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CTContentLogTests.swift; sourceTree = "<group>"; };
 		A15A7ADA6AD528046B2A01C1 /* CTCaptionedImageViewTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CTCaptionedImageViewTests.swift; sourceTree = "<group>"; };
 		AC10AA0128BCCCBB00E72588 /* CTNotificationContentLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTNotificationContentLogger.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 			children = (
 				EC4EEDCD4EFCE04CCBBB89C3 /* CTTimerTemplateControllerTests.swift */,
 				91B3501818AA7564961E3889 /* CTContentLogTests.swift */,
+				A1C0DE5E5D0000000000FR01 /* CTSdkVersionRegistrationTests.swift */,
 				A15A7ADA6AD528046B2A01C1 /* CTCaptionedImageViewTests.swift */,
 				0ECF421ADD8BB29FAE2C09FD /* CTZeroBezelControllerTests.swift */,
 			);
@@ -687,6 +690,7 @@
 			files = (
 				9885293BB8B48AF3CA89199D /* CTTimerTemplateControllerTests.swift in Sources */,
 				44821F7B87768A77EB1EC838 /* CTContentLogTests.swift in Sources */,
+				A1C0DE5E5D0000000000BF01 /* CTSdkVersionRegistrationTests.swift in Sources */,
 				53F5AF1B7CF969B9D413C13E /* CTCaptionedImageViewTests.swift in Sources */,
 				078286181E36FDD71F5D89E4 /* CTZeroBezelControllerTests.swift in Sources */,
 			);
